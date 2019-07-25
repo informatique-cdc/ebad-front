@@ -1,0 +1,10 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">{{title}}</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <form class="form-inline">
+        <select [name]="select.id" *ngFor="let select of selects; let indexSelect = index" (change)="onSelect($event, indexSelect)" id="{{select.id}}" class="custom-select custom-select-sm ml-sm-2">
+          <option *ngFor="let option of select.options; let indexOption = index" [value]="indexOption">{{option.label}}</option><!-- use track index -->
+        </select>
+    </form>
+  </div>
+</div>

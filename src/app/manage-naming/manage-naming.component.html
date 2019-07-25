@@ -1,0 +1,6 @@
+<app-env-app-head-selector title="Gestion des  nommages" (applicationChanged)="applicationChanged($event)" [showEnvironment]="false" [isModarable]="true"></app-env-app-head-selector>
+<app-table *ngIf="applicationSelected"
+           [title]="applicationSelected.name" [table]="table"
+           (actionClicked)="onActionClicked($event)"
+           (globalActionClicked)="onClickAddNaming()">
+</app-table>

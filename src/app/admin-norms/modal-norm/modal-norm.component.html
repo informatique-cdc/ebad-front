@@ -1,0 +1,66 @@
+<form (ngSubmit)="normForm.form.valid && addNorm()" #normForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <div class="input-group">
+        <input required id="name" class="form-control" placeholder="Nom de la norme" #name="ngModel"
+               name="name"
+               id="name"
+               [(ngModel)]="norm.name"
+               [ngClass]="{ 'is-invalid': normForm.submitted && name.invalid }">
+        <div *ngIf="normForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required">Nom requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="commandLine">Interpréteur de commande</label>
+      <div class="input-group">
+        <input required id="commandLine" class="form-control" placeholder="Ligne de commande" #commandLine="ngModel"
+               name="commandLine"
+               id="interpreteur"
+               [(ngModel)]="norm.commandLine"
+               [ngClass]="{ 'is-invalid': commandLine.submitted && commandLine.invalid }">
+        <div *ngIf="normForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="commandLine.errors.required">Interpréteur requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="pathShell">Dossier shell</label>
+      <div class="input-group">
+        <input required id="pathShell" class="form-control" placeholder="Chemin du dossier contenant les shells" #pathShell="ngModel"
+               name="pathShell"
+               id="shellFolder"
+               [(ngModel)]="norm.pathShell"
+               [ngClass]="{ 'is-invalid': normForm.submitted && pathShell.invalid }">
+        <div *ngIf="normForm.submitted && pathShell.invalid" class="invalid-feedback">
+          <div *ngIf="pathShell.errors.required">Dossier shell requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="ctrlMDate">Chemin du fichier ctrlM.date</label>
+      <div class="input-group">
+        <input required id="ctrlMDate" class="form-control" placeholder="Chemin du fichier ctrlM.date" #ctrlMDate="ngModel"
+               name="ctrlMDate"
+               id="fileDate"
+               [(ngModel)]="norm.ctrlMDate"
+               [ngClass]="{ 'is-invalid': normForm.submitted && ctrlMDate.invalid }">
+        <div *ngIf="normForm.submitted && ctrlMDate.invalid" class="invalid-feedback">
+          <div *ngIf="ctrlMDate.errors.required">Chemin du fichier ctrlM.date requis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+    <button type="submit" class="btn btn-outline-dark">{{action}}</button>
+  </div>
+</form>

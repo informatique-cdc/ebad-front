@@ -1,0 +1,77 @@
+<form (ngSubmit)="userForm.form.valid && addUser()" #userForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="login">Login</label>
+      <div class="input-group">
+        <input required id="login" class="form-control" placeholder="Login de l'utilisateur" #login="ngModel"
+               name="login"
+               [(ngModel)]="user.login"
+               [ngClass]="{ 'is-invalid': userForm.submitted && login.invalid }">
+        <div *ngIf="userForm.submitted && login.invalid" class="invalid-feedback">
+          <div *ngIf="login.errors.required">Login requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="firstname">Prénom</label>
+      <div class="input-group">
+        <input required id="firstname" class="form-control" placeholder="Prénom de l'utilisateur" #firstname="ngModel"
+               name="firstname"
+               [(ngModel)]="user.firstName"
+               [ngClass]="{ 'is-invalid': userForm.submitted && firstname.invalid }">
+        <div *ngIf="userForm.submitted && firstname.invalid" class="invalid-feedback">
+          <div *ngIf="firstname.errors.required">Prénom requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname">Nom</label>
+      <div class="input-group">
+        <input required id="lastname" class="form-control" placeholder="Nom de l'utilisateur" #lastname="ngModel"
+               name="lastname"
+               [(ngModel)]="user.lastName"
+               [ngClass]="{ 'is-invalid': userForm.submitted && lastname.invalid }">
+        <div *ngIf="userForm.submitted && lastname.invalid" class="invalid-feedback">
+          <div *ngIf="lastname.errors.required">Nom requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <div class="input-group">
+        <input required email type="email" id="email" class="form-control" placeholder="E-mail de l'utilisateur" #email="ngModel"
+               name="email"
+               [(ngModel)]="user.email"
+               [ngClass]="{ 'is-invalid': userForm.submitted && email.invalid }">
+        <div *ngIf="userForm.submitted && email.invalid" class="invalid-feedback">
+          <div *ngIf="email.errors.required">E-mail requis</div>
+          <div *ngIf="email.errors.email">Doit être au format e-mail</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <div class="input-group">
+        <input required minlength="5" maxlength="100" type="password" id="password" class="form-control" placeholder="Mot de passe de l'utilisateur" #password="ngModel"
+               name="password"
+               [(ngModel)]="user.password"
+               [ngClass]="{ 'is-invalid': userForm.submitted && password.invalid }">
+        <div *ngIf="userForm.submitted && password.invalid" class="invalid-feedback">
+          <div *ngIf="password.errors.required">Mot de passe requis</div>
+          <div *ngIf="password.errors.minlength">Le mot de passe doit être composé d'au moins 5 caractères</div>
+          <div *ngIf="password.errors.maxlength">Le mot de passe ne doit pas contenir plus de 100 caratères</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+    <button type="submit" class="btn btn-outline-dark">{{action}}</button>
+  </div>
+</form>

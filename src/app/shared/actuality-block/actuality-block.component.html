@@ -1,0 +1,17 @@
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">Actualités</div>
+      <div class="card-body">
+        <ul class="list-unstyled">
+          <li class="media mb-4" *ngFor="let oneNew of news">
+            <div class="media-body">
+              <span class="float-right">{{oneNew.createdDate | date: 'dd/MM/yyyy - hh:mm:ss'}}</span><h5 class="mt-0 mb-1">{{oneNew.title}}</h5>
+              <div [innerHTML]="oneNew.content"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

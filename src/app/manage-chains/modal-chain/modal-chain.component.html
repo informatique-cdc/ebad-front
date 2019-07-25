@@ -1,0 +1,58 @@
+<form (ngSubmit)="chainForm.form.valid && addChain()" #chainForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <div class="input-group">
+        <input required id="name" class="form-control" placeholder="Nom de la chaine" #name="ngModel"
+               name="name"
+               [(ngModel)]="chain.name"
+               [ngClass]="{ 'is-invalid': chainForm.submitted && name.invalid }">
+        <div *ngIf="chainForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required">Nom de la chaine requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <div class="input-group">
+        <input required id="description" class="form-control" placeholder="Description de la chaine"
+               name="description"
+               #description="ngModel"
+               [ngClass]="{ 'is-invalid': chainForm.submitted && description.invalid }"
+               [(ngModel)]="chain.description">
+        <div *ngIf="chainForm.submitted && description.invalid" class="invalid-feedback">
+          <div *ngIf="description.errors.required">Description requise</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="batchs">Batchs</label>
+      <div class="input-group">
+        <select name="batchs" [(ngModel)]="tmpBatch" id="batchs"
+                #selectBatch="ngModel"
+                (ngModelChange)="onSelectBatch($event)"
+                class="form-control">
+          <option [ngValue]="null">Ajouter un batch</option>
+          <option *ngFor="let batch of batchs" [ngValue]="batch">{{batch.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div cdkDropList class="chains-list" (cdkDropListDropped)="drop($event)">
+      <div class="chain-box" *ngFor="let batch of tempBatchAssociation" cdkDrag>{{batch.name}}
+        <i-x (click)="removeBatch(batch)"></i-x>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+    <button type="submit" class="btn btn-outline-dark">{{action}}</button>
+  </div>
+</form>

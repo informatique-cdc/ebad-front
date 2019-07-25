@@ -1,0 +1,40 @@
+<app-head-selector title="{{title}}" (changed)="showChanged($event)" [selects]="selectHead"></app-head-selector>
+<div class="row mb-4" *ngIf="directorySelected && directorySelected.canWrite">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header py-1">
+        Echanges de fichiers
+      </div>
+      <div class="card-body p-0">
+        <div class="m-4">
+          <file-drop showBrowseBtn="true"
+                     customstyle="filedrop-custom-drop-zone"
+                     customContentStyle="filedrop-custom-content"
+                     browseBtnLabel="Parcourir"
+                     (onFileDrop)="dropped($event)">
+            <span class="mr-2">Glissez vos fichiers ici ou utilisez le bouton</span>
+          </file-drop>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6" *ngIf="directorySelected && directorySelected.canWrite">
+    <app-table [title]="'Fichiers locaux'" [table]="tableLocal"
+               (actionClicked)="onActionClickedLocal($event)">
+      <div footer>
+        <button type="button" class="btn btn-primary btn btn-block" (click)="upload()">
+          <i class="glyphicon glyphicon-open-file"></i>&nbsp;Envoyer sur le serveur distant
+        </button>
+      </div>
+    </app-table>
+  </div>
+  <div class="col">
+    <app-table *ngIf="directorySelected"
+               [title]="directorySelected.name" [table]="tableRemote"
+               (actionClicked)="onActionClickedRemote($event)">
+    </app-table>
+
+  </div>
+</div>

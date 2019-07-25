@@ -1,0 +1,6 @@
+<app-env-app-head-selector title="Batchs" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
+<app-table *ngIf="environmentSelected"
+           [title]="environmentSelected.name" [table]="table"
+           (actionClicked)="onActionClicked($event)">
+<app-date-traitement header [infoEnvironment]="environmentSelectedInfo"></app-date-traitement>
+</app-table>

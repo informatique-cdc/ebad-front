@@ -1,0 +1,7 @@
+<app-env-app-head-selector title="Gestion des environnements" (applicationChanged)="applicationChanged($event)" [showEnvironment]="false" [isModarable]="true"></app-env-app-head-selector>
+<app-table *ngIf="applicationSelected"
+           id="listEnvironnements"
+           [title]="applicationSelected.name" [table]="table"
+           (actionClicked)="onActionClicked($event)"
+           (globalActionClicked)="onClickAddEnvironment()">
+</app-table>

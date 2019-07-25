@@ -1,0 +1,126 @@
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="sidebar-sticky">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">
+          <i-bar-chart-2></i-bar-chart-2>
+          Tableau de bord
+        </a>
+      </li>
+    </ul>
+
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <span>Fonction</span>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/batchs" routerLinkActive="active">
+          <i-terminal></i-terminal>
+          Batchs
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  routerLink="/chains" routerLinkActive="active">
+          <i-link></i-link>
+          Chaines
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/files" routerLinkActive="active">
+          <i-folder></i-folder>
+          Fichiers
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/traces" routerLinkActive="active">
+          <i-activity></i-activity>
+          Traces
+        </a>
+      </li>
+    </ul>
+
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <span>Gestion</span>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/manage/batchs" routerLinkActive="active" id="batchManageMenu">
+          <i-terminal></i-terminal>
+          Gestion Batchs
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/manage/chains" routerLinkActive="active">
+          <i-link></i-link>
+          Gestion Chaines
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/manage/directories" routerLinkActive="active">
+          <i-folder></i-folder>
+          Gestion Répertoires
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/manage/naming" routerLinkActive="active">
+          <i-edit></i-edit>
+          Gestion Nommages
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/manage/environments" routerLinkActive="active" id="environnementMenu">
+          <i-server></i-server>
+          Gestion Environnements
+        </a>
+      </li>
+    </ul>
+
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <span>Administration</span>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">
+          <i-users></i-users>
+          Utilisateurs
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/applications" routerLinkActive="active" id="applicationMenu">
+          <i-layers></i-layers>
+          Applications
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/norms" routerLinkActive="active" id="normeMenu">
+          <i-flag></i-flag>
+          Normes
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/news" routerLinkActive="active">
+          <i-inbox></i-inbox>
+          Actualités
+        </a>
+      </li>
+    </ul>
+
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <span>Autres</span>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i-life-buoy></i-life-buoy>
+          Aide
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i-git-commit></i-git-commit>
+          Changelog
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,13 @@
+<div class="d-flex" >
+  <div class="">
+            <span class="align-middle">
+            Date traitement : {{ infoEnvironment?.dateTraitement | date: 'dd/MM/yyyy' }}
+              </span>
+  </div>
+  <div class="ml-auto">
+    <button type="button" class="btn btn-primary btn-sm float-right" [disabled]="!infoEnvironment" (click)="showModalCalendar()">
+      <i-calendar></i-calendar>
+      Changer date traitement
+    </button>
+  </div>
+</div>

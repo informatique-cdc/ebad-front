@@ -1,0 +1,5 @@
+<app-env-app-head-selector title="Traces" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
+<app-table *ngIf="environmentSelected"
+           [title]="environmentSelected.name" [table]="table">
+  <ngb-pagination footer class="d-flex justify-content-center" [maxSize]="5" [collectionSize]="collectionSize" [pageSize]="perPage" [(page)]="pageNumber" (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
+</app-table>

@@ -1,0 +1,6 @@
+<app-env-app-head-selector title="Gestion des chaines" (environmentChanged)="environmentChanged($event)" [showEnvironment]="true" [isModarable]="true"></app-env-app-head-selector>
+<app-table *ngIf="environmentSelected"
+           [title]="environmentSelected.name" [table]="table"
+           (actionClicked)="onActionClicked($event)"
+           (globalActionClicked)="onClickAddChain()">
+</app-table>

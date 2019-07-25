@@ -1,0 +1,6 @@
+<app-env-app-head-selector title="Gestion des répertoires" (environmentChanged)="environmentChanged($event)" [showEnvironment]="true" [isModarable]="true"></app-env-app-head-selector>
+<app-table *ngIf="environmentSelected"
+           [title]="environmentSelected.name" [table]="table"
+           (actionClicked)="onActionClicked($event)"
+           (globalActionClicked)="onClickAddDirectory()">
+</app-table>

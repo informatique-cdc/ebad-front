@@ -1,0 +1,174 @@
+/* You can add global styles to this file, and also import other style files */
+@import "sass/theme";
+@import "~bootstrap/scss/bootstrap";
+@import "~angular-notifier/styles";
+
+body {
+  font-size: .875rem;
+}
+
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #999;
+}
+
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+
+/*
+ * Content
+ */
+
+[role="main"] {
+  padding-top: 133px; /* Space for fixed navbar */
+}
+
+@media (min-width: 768px) {
+  [role="main"] {
+    padding-top: 48px; /* Space for fixed navbar */
+  }
+}
+
+/*
+ * Navbar
+ */
+
+.navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+  background-color: theme-color();
+  box-shadow: inset -1px 0 0 theme-color();
+}
+
+.navbar .form-control {
+  padding: .75rem 1rem;
+  border-width: 0;
+  border-radius: 0;
+}
+
+.form-control-dark {
+  color: #fff;
+  background-color: theme-color();
+  border-color: theme-color();
+  $color-placeholder: rgba(255, 255, 255, 0.5);
+
+  &::-webkit-input-placeholder {
+    color: $color-placeholder;
+  }
+
+  &:-moz-placeholder {
+    color: $color-placeholder;
+  }
+
+  &::-moz-placeholder {
+    color: $color-placeholder;
+  }
+
+  &:-ms-input-placeholder {
+    color: $color-placeholder;
+  }
+}
+
+.form-control-dark:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px theme-color();
+  $color-placeholder: #000;
+
+  &::-webkit-input-placeholder {
+    color: $color-placeholder;
+  }
+
+  &:-moz-placeholder {
+    color: $color-placeholder;
+  }
+
+  &::-moz-placeholder {
+    color: $color-placeholder;
+  }
+
+  &:-ms-input-placeholder {
+    color: $color-placeholder;
+  }
+}
+
+.filedrop-custom-drop-zone {
+  margin: auto;
+  height: 100px;
+  border: 2px dotted $primary;
+  border-radius: 0;
+}
+
+.filedrop-custom-content {
+  color: $primary;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filedrop-custom-button {
+
+}
+
+.multiselect-dropdown-custom {
+  width: 100%;
+}
+
+.dropdown-btn{
+  border: none !important;
+  padding: 0 !important;
+  vertical-align: inherit !important;
+}

@@ -1,0 +1,90 @@
+<form (ngSubmit)="environmentForm.form.valid && addEnvironment()" #environmentForm="ngForm" id="addEnvironmentForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <div class="input-group">
+        <input required id="name" class="form-control" placeholder="Nom de l'environnement" #name="ngModel"
+               name="name"
+               [(ngModel)]="environment.name"
+               [ngClass]="{ 'is-invalid': environmentForm.submitted && name.invalid }">
+        <div *ngIf="environmentForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required">Nom de l'environnement requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="host">Serveur</label>
+      <div class="input-group">
+        <input required id="host" class="form-control" placeholder="Nom du serveur"
+               name="host"
+               #host="ngModel"
+               [ngClass]="{ 'is-invalid': environmentForm.submitted && host.invalid }"
+               [(ngModel)]="environment.host">
+        <div *ngIf="environmentForm.submitted && host.invalid" class="invalid-feedback">
+          <div *ngIf="host.errors.required">Serveur requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="login">Login</label>
+      <div class="input-group">
+        <input required id="login" class="form-control" placeholder="Login"
+               name="login"
+               #login="ngModel"
+               [ngClass]="{ 'is-invalid': environmentForm.submitted && login.invalid }"
+               [(ngModel)]="environment.login">
+        <div *ngIf="environmentForm.submitted && host.invalid" class="invalid-feedback">
+          <div *ngIf="login.errors.required">Login requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="homePath">Répertoire Home</label>
+      <div class="input-group">
+        <input required id="homePath" class="form-control" placeholder="Chemin du répertoire Home"
+               name="homePath"
+               #homePath="ngModel"
+               [ngClass]="{ 'is-invalid': environmentForm.submitted && homePath.invalid }"
+               [(ngModel)]="environment.homePath">
+        <div *ngIf="environmentForm.submitted && homePath.invalid" class="invalid-feedback">
+          <div *ngIf="homePath.errors.required">Clé SSH requise</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="prefix">Préfix</label>
+      <div class="input-group">
+        <input required id="prefix" class="form-control" placeholder="Préfix"
+               name="prefix"
+               #prefix="ngModel"
+               [ngClass]="{ 'is-invalid': environmentForm.submitted && prefix.invalid }"
+               [(ngModel)]="environment.prefix">
+        <div *ngIf="environmentForm.submitted && prefix.invalid" class="invalid-feedback">
+          <div *ngIf="prefix.errors.required">Préfix requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="norme">Norme</label>
+      <div class="input-group">
+        <select #norme="ngModel" name="norme" required id="norme" class="form-control" [(ngModel)]="environment.norme"
+                [ngClass]="{ 'is-invalid': environmentForm.submitted && norme.invalid }">
+          <option *ngFor="let norme of normes" [ngValue]="norme">{{norme.name}}</option>
+        </select>
+        <div *ngIf="environmentForm.submitted && norme.invalid" class="invalid-feedback">
+          <div *ngIf="norme.errors.required">Norme requise</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+    <button type="submit" class="btn btn-outline-dark">{{action}}</button>
+  </div>
+</form>

@@ -1,0 +1,69 @@
+<form (ngSubmit)="batchForm.form.valid && addBatch()" #batchForm="ngForm" id="addBatchForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <div class="input-group">
+        <input required id="name" class="form-control" placeholder="Nom fonctionnel du batch" #name="ngModel"
+               name="name"
+               [(ngModel)]="batch.name"
+               [ngClass]="{ 'is-invalid': batchForm.submitted && name.invalid }">
+        <div *ngIf="batchForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required">Nom du batchs requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="shell">Shell</label>
+      <div class="input-group">
+        <input required id="shell" class="form-control" placeholder="Nom du shell (avec son extension)"
+               name="shell"
+               #shell="ngModel"
+               [ngClass]="{ 'is-invalid': batchForm.submitted && shell.invalid }"
+               [(ngModel)]="batch.path">
+        <div *ngIf="batchForm.submitted && shell.invalid" class="invalid-feedback">
+          <div *ngIf="shell.errors.required">Shell requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="parameters">Paramètres</label>
+      <div class="input-group">
+        <input id="parameters" class="form-control" placeholder="Paramètres par défaut"
+               name="parameters"
+               #parameters="ngModel"
+               [(ngModel)]="batch.defaultParam">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="environments">Environnements</label>
+      <div class="input-group">
+        <ng-multiselect-dropdown
+          required
+          [placeholder]="'Environnments'"
+          [data]="dropdownList"
+          [(ngModel)]="batch.environnements"
+          [settings]="dropdownSettings"
+          name="environments"
+          class="multiselect-dropdown-custom form-control"
+          id="environments"
+          [ngClass]="{ 'is-invalid': batchForm.submitted && batch.environnements.length === 0 }"
+        >
+        </ng-multiselect-dropdown>
+        <div *ngIf="batchForm.submitted && batch.environnements.length === 0" class="invalid-feedback">
+          <div>Environnements requis</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+    <button type="submit" class="btn btn-outline-dark">{{action}}</button>
+  </div>
+</form>

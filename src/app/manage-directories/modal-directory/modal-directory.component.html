@@ -1,0 +1,49 @@
+<form (ngSubmit)="directoryForm.form.valid && addDirectory()" #directoryForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <div class="input-group">
+        <input required id="name" class="form-control" placeholder="Nom fonctionnel du répertoire" #name="ngModel"
+               name="name"
+               [(ngModel)]="directory.name"
+               [ngClass]="{ 'is-invalid': directoryForm.submitted && name.invalid }">
+        <div *ngIf="directoryForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required">Nom du répertoire requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="path">Chemin</label>
+      <div class="input-group">
+        <input required id="path" class="form-control" placeholder="Chemin relatif du répertoire"
+               name="path"
+               #path="ngModel"
+               [ngClass]="{ 'is-invalid': directoryForm.submitted && path.invalid }"
+               [(ngModel)]="directory.path">
+        <div *ngIf="directoryForm.submitted && path.invalid" class="invalid-feedback">
+          <div *ngIf="path.errors.required">Chemin requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="canWrite">Droit en écriture?</label>
+      <div class="input-group">
+        <input id="canWrite" class="form-control" placeholder="Chemin relatif du répertoire"
+               name="canWrite" type="checkbox"
+               [(ngModel)]="directory.canWrite">
+      </div>
+    </div>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+    <button type="submit" class="btn btn-outline-dark">{{action}}</button>
+  </div>
+</form>

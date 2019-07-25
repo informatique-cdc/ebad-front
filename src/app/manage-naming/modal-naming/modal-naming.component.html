@@ -1,0 +1,39 @@
+<form (ngSubmit)="namingForm.form.valid && addNaming()" #namingForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <div class="input-group">
+        <input required id="name" class="form-control" placeholder="Nom fonctionnel du nommage" #name="ngModel"
+               name="name"
+               [(ngModel)]="fileKind.name"
+               [ngClass]="{ 'is-invalid': namingForm.submitted && name.invalid }">
+        <div *ngIf="namingForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required">Nom du nommage requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="pattern">Pattern</label>
+      <div class="input-group">
+        <input required id="pattern" class="form-control" placeholder="Pattern ($1 = date)"
+               name="pattern"
+               #pattern="ngModel"
+               [ngClass]="{ 'is-invalid': namingForm.submitted && pattern.invalid }"
+               [(ngModel)]="fileKind.pattern">
+        <div *ngIf="namingForm.submitted && pattern.invalid" class="invalid-feedback">
+          <div *ngIf="pattern.errors.required">Pattern requis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+    <button type="submit" class="btn btn-outline-dark">{{action}}</button>
+  </div>
+</form>

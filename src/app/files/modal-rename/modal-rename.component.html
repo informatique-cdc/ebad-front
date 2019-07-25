@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Renommer le fichier {{file.name}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="kindFile">Type de fichier</label>
+      <div class="input-group">
+        <select name="kindFile" id="kindFile"
+                class="custom-select custom-select-sm ml-sm-2" [(ngModel)]="fileKindSelected">
+          <option *ngFor="let fileKind of fileKinds" [ngValue]="fileKind">{{fileKind.name}}</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+  <button type="button" class="btn btn-outline-dark" (click)="changeName()">Renommer</button>
+</div>

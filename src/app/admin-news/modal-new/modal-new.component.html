@@ -1,0 +1,43 @@
+<form (ngSubmit)="newForm.form.valid && addNew()" #newForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{thisTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="title">Titre</label>
+      <div class="input-group">
+        <input required id="title" class="form-control" placeholder="Titre de l'actualité" #title="ngModel"
+               name="title"
+               [(ngModel)]="oneNew.title"
+               [ngClass]="{ 'is-invalid': newForm.submitted && title.invalid }">
+        <div *ngIf="newForm.submitted && title.invalid" class="invalid-feedback">
+          <div *ngIf="title.errors.required">Titre requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="content">Contenu</label>
+      <div class="input-group">
+        <ckeditor required [editor]="Editor" [(ngModel)]="oneNew.content" name="content" id="content" style="width: 100%" #content="ngModel"></ckeditor>
+        <div *ngIf="newForm.submitted && content.invalid" class="invalid-feedback">
+          <div *ngIf="content.errors.required">Contenu requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="draft">Brouillon ?</label>
+      <div class="input-group">
+        <input type="checkbox" id="draft" class="form-control"
+               name="draft"
+               [(ngModel)]="oneNew.draft">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+    <button type="submit" class="btn btn-outline-dark">{{action}}</button>
+  </div>
+</form>

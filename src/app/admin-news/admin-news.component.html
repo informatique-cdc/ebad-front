@@ -1,0 +1,8 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Administration des actualités</h1>
+</div>
+<app-table [title]="'Actualités'"
+           [table]="table"
+           (actionClicked)="onActionClicked($event)"
+           (globalActionClicked)="onClickAddNew()">
+</app-table>

@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{title}} - {{application.name}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label for="user">Utilisateur (login)</label>
+    <div class="input-group">
+      <input id="user" type="text" class="form-control" [(ngModel)]="user" [ngbTypeahead]="search"
+             [inputFormatter]="formatter" [resultFormatter]="formatter"/>
+      <div class="input-group-append" id="addUserBtn" (click)="addUser()">
+        <span class="input-group-text"><i-plus></i-plus></span>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped table-sm mb-0">
+    <tr>
+      <th>Login</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let user of this.usersApplication">
+      <td>{{user.login}}</td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td><button class="btn btn-primary btn-sm" (click)="deleteUser(user)">Supprimer</button></td>
+    </tr>
+  </table>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" id="closeBtn" (click)="activeModal.close()">{{action}}</button>
+</div>

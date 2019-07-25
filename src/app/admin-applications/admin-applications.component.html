@@ -1,0 +1,10 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Administration des applications</h1>
+</div>
+<app-table
+  id="listApplications"
+  [title]="'Applications'"
+  [table]="table"
+  (actionClicked)="onActionClicked($event)"
+  (globalActionClicked)="onClickAddApplication()">
+</app-table>

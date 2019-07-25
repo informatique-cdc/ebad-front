@@ -1,0 +1,62 @@
+<form (ngSubmit)="applicationForm.form.valid && addApplication()" #applicationForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="code">Code</label>
+      <div class="input-group">
+        <input required id="code" class="form-control" placeholder="Code de l'application" #code="ngModel"
+               name="code"
+               [(ngModel)]="application.code"
+               [ngClass]="{ 'is-invalid': applicationForm.submitted && code.invalid }">
+        <div *ngIf="applicationForm.submitted && code.invalid" class="invalid-feedback">
+          <div *ngIf="code.errors.required">Code requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="name">Libellé</label>
+      <div class="input-group">
+        <input required id="name" class="form-control" placeholder="Libellé de l'application" #name="ngModel"
+               name="name"
+               [(ngModel)]="application.name"
+               [ngClass]="{ 'is-invalid': applicationForm.submitted && name.invalid }">
+        <div *ngIf="applicationForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required">Libellé requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="dateParametrePattern">Pattern date paramètre</label>
+      <div class="input-group">
+        <input required id="dateParametrePattern" class="form-control" placeholder="yyyyMMdd" #dateParametrePattern="ngModel"
+               name="dateParametrePattern"
+               [(ngModel)]="application.dateParametrePattern"
+               [ngClass]="{ 'is-invalid': applicationForm.submitted && dateParametrePattern.invalid }">
+        <div *ngIf="applicationForm.submitted && dateParametrePattern.invalid" class="invalid-feedback">
+          <div *ngIf="dateParametrePattern.errors.required">Pattern paramète requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="dateFichierPattern">Pattern date fichier</label>
+      <div class="input-group">
+        <input required id="dateFichierPattern" class="form-control" placeholder="yyyyMMdd" #dateFichierPattern="ngModel"
+               name="dateFichierPattern"
+               [(ngModel)]="application.dateFichierPattern"
+               [ngClass]="{ 'is-invalid': applicationForm.submitted && dateFichierPattern.invalid }">
+        <div *ngIf="applicationForm.submitted && dateFichierPattern.invalid" class="invalid-feedback">
+          <div *ngIf="dateFichierPattern.errors.required">Pattern fichier requis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" id="cancelBtn" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+    <button type="submit" class="btn btn-outline-dark">{{action}}</button>
+  </div>
+</form>
