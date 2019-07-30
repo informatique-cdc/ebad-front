@@ -1,0 +1,7 @@
+{
+  "/ebad":
+  {
+    "target": "http://localhost:10300",
+    "secure": false
+  }
+}
