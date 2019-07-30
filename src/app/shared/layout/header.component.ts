@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User, UserService } from '../../core';
+import {Notification, NotificationsService, User, UserService} from '../../core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,9 +8,12 @@ import {Router} from '@angular/router';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
+  notifications: Notification[];
+
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private notificationsService: NotificationsService
   ) {}
 
   currentUser: User;
@@ -21,10 +24,21 @@ export class HeaderComponent implements OnInit {
         this.currentUser = userData;
       }
     );
+
+    setInterval(()=> { this.showNotification() }, 10 * 1000);
+
   }
 
   logout() {
     this.userService.purgeAuth();
     this.router.navigateByUrl('/login');
+  }
+
+  showNotification(){
+    this.notificationsService.getAll().subscribe(
+      notifications => {
+        this.notifications = notifications;
+      }
+    )
   }
 }

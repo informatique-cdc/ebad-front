@@ -3,14 +3,25 @@
   </a>
   <!--<input class="form-control form-control-dark w-100" type="text" placeholder="" aria-label="" disabled>-->
   <span class="w-100"></span>
-    <ul class="navbar-nav px-3">
-      <li class="nav-item text-nowrap">
-        <a class="nav-link" >
-          <i-bell></i-bell>
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <div ngbDropdown class="d-inline-block">
+        <a class="nav-link">
+          <i-bell id="dropdownBasic1" ngbDropdownToggle></i-bell>
+          <span class="badge badge-pill badge-primary">4</span>
+          <ul class="grid dropdown-menu p-4 text-muted" style="max-width: 400px;" aria-labelledby="dropdownBasic1"
+              ngbDropdownMenu>
+            <li>
+              <div class="col-12 pd-l0">
+                <p>[er2] Le batch batch sur l'environnement Test vient de se terminer avec le code retour 127</p>
+              </div>
+            </li>
+          </ul>
         </a>
-      </li>
-      <li class="nav-item text-nowrap">
-        <a class="nav-link" id="logout" (click)="logout()">Déconnexion</a>
-      </li>
-    </ul>
+      </div>
+    </li>
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" id="logout" (click)="logout()">Déconnexion</a>
+    </li>
+  </ul>
 </nav>
