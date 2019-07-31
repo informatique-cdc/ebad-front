@@ -8,15 +8,45 @@
       <div ngbDropdown class="d-inline-block">
         <a class="nav-link">
           <i-bell id="dropdownBasic1" ngbDropdownToggle></i-bell>
-          <span class="badge badge-pill badge-primary">4</span>
-          <ul class="grid dropdown-menu p-4 text-muted" style="max-width: 400px;" aria-labelledby="dropdownBasic1"
-              ngbDropdownMenu>
-            <li>
-              <div class="col-12 pd-l0">
-                <p>[er2] Le batch batch sur l'environnement Test vient de se terminer avec le code retour 127</p>
+          <span class="badge badge-pill badge-primary">{{notifications.length}}</span>
+          <div id="notifications" class="dropdown-menu w-xl bg-light" aria-labelledby="dropdownBasic1" ngbDropdownMenu>
+            <div *ngIf="notifications.length ==0">
+              <div class="panel bg-white">
+                <div class="list-group">
+                  <span class="list-group-item">
+                    <span class="clear block m-b-none">
+                      Vous n'avez pas de notification.
+                    </span>
+                  </span>
+                </div>
               </div>
-            </li>
-          </ul>
+            </div>
+            <div *ngIf="notifications.length > 0">
+              <div class="panel bg-white">
+                <div class="panel-heading b-light bg-light">
+                  <strong>Vous avez
+                    <span>{{notifications.length}}</span>
+                    notification(s)
+                  </strong>
+                </div>
+                <div class="list-group">
+                  <span  class="list-group-item" *ngFor="let notification of notifications">
+                    <span class="clear block m-b-none" id="notification{{notification.id}}">
+                      {{notification.content}}
+                      <br>
+<!--                      <small class="text-muted">{{notification.createdDate | date: 'dd/MM/yyyy' }}</small>-->
+                    </span>
+                  </span>
+                </div>
+                <div class="panel-footer text-sm bg-light">
+                  <a (click)="markAsRead()" class="pull-right">
+                    <i-bell-off></i-bell-off>
+                    <span  data-toggle="class:show animated fadeInRight">Marquer comme lue(s)</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </a>
       </div>
     </li>

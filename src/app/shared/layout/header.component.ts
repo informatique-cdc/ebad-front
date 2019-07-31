@@ -5,10 +5,11 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-layout-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.scss']
 })
 export class HeaderComponent implements OnInit {
-  notifications: Notification[];
+  notifications: Notification[] = [];
 
   constructor(
     private userService: UserService,
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit {
       }
     );
 
+    this.showNotification();
     setInterval(()=> { this.showNotification() }, 10 * 1000);
 
   }
@@ -40,5 +42,10 @@ export class HeaderComponent implements OnInit {
         this.notifications = notifications;
       }
     )
+  }
+
+  markAsRead(){
+    this.notificationsService.markAsRead().subscribe();
+    this.showNotification();
   }
 }
