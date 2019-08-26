@@ -40,7 +40,6 @@ export class AuthComponent implements OnInit {
         this.authForm.addControl('usernname', new FormControl());
       }
     });
-    console.log('csrf');
     this.apiService.get('/csrf').subscribe((result) => {
       console.log('ok ' + result);
     });
