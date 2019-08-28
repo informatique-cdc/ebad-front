@@ -41,7 +41,7 @@ export class CustomValidationHandler implements ValidationHandler {
   }
 
   validateAtHash(params: ValidationParams): Promise<boolean> {
-    if (!params.accessToken || !params.idTokenClaims || !params.idTokenClaims['at_hash_icdc']) {
+    if (!params.accessToken || !params.idTokenClaims || !params.idTokenClaims[environment.atHash]) {
       return Promise.resolve(false);
     }
 
