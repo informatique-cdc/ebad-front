@@ -16,6 +16,7 @@ import {ModalDateTraitementComponent} from './date-traitement/modal-date-traitem
 import {NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateFRParserFormatter} from './ngb-date-fr-parser-formatter';
 import {Constants} from './Constants';
+import {HasRoleDirective} from "./has-role/has-role.directive";
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import {Constants} from './Constants';
     ActualityBlockComponent,
     EnvAppHeadSelectorComponent,
     DateTraitementComponent,
-    ModalDateTraitementComponent
+    ModalDateTraitementComponent,
+    HasRoleDirective
   ],
   exports: [
     CommonModule,
@@ -53,7 +55,8 @@ import {Constants} from './Constants';
     HeadSelectorComponent,
     ActualityBlockComponent,
     EnvAppHeadSelectorComponent,
-    DateTraitementComponent
+    DateTraitementComponent,
+    HasRoleDirective
   ],
   entryComponents: [
     ModalDateTraitementComponent

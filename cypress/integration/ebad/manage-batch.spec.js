@@ -12,6 +12,8 @@ context('Gestion Batch', () => {
     cy.login({login: 'dtrouillet', password: 'admin'})
       .addApplication({codeAppli: 'AE1', name: 'ApplicationBatch1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'})
       .addManagerToApplication({codeAppli: 'AE1', login: 'dtrouillet'})
+      .logout()
+      .login({login: 'dtrouillet', password: 'admin'})
       .addNorme({name: 'Linux', interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.in'})
       .addEnvironnement({
         applicationName: 'ApplicationBatch1',
