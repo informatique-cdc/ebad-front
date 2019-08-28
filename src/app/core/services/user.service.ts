@@ -6,6 +6,8 @@ import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models';
 import {distinctUntilChanged, map} from 'rxjs/operators';
+import {environment} from "../../../environments/environment";
+import {OauthService} from "../../security/oauth.service";
 
 
 @Injectable()
@@ -14,13 +16,19 @@ export class UserService {
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
-  public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+  public isAuthenticated;
 
   constructor(
     private apiService: ApiService,
     private http: HttpClient,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private oauthService: OauthService
   ) {
+    if(environment.jwt){
+      this.isAuthenticated = this.isAuthenticatedSubject.asObservable();
+    }else{
+      this.isAuthenticated = this.oauthService.isAuthenticated$;
+    }
   }
 
   // Verify JWT in localstorage with server & load user's info.

@@ -78,7 +78,8 @@ const routes: Routes = [
     // implement a custom preloading strategy for just some
     // of the modules (PRs welcome 😉)
     preloadingStrategy: PreloadAllModules,
-    useHash: true
+    useHash: true,
+    initialNavigation: false
   })],
   exports: [RouterModule]
 })

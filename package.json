@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve --proxy-config proxy.conf.json --port 3000",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -27,6 +27,7 @@
     "@types/file-saver": "^2.0.0",
     "angular-feather": "^5.3.1",
     "angular-notifier": "^4.1.1",
+    "angular-oauth2-oidc": "^8.0.4",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
     "file-saver": "^2.0.1",

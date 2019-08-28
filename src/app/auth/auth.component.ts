@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {ApiService, Errors, UserService} from '../core';
+import {OauthService} from "../security/oauth.service";
 
 @Component({
   selector: 'app-auth-page',
@@ -20,7 +21,8 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private fb: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private oauthService: OauthService
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
@@ -30,6 +32,7 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.oauthService.login("/batchs");
     this.route.url.subscribe(data => {
       // Get the last piece of the URL (it's either 'login' or 'register')
       this.authType = data[data.length - 1].path;
@@ -41,7 +44,7 @@ export class AuthComponent implements OnInit {
       }
     });
     this.apiService.get('/csrf').subscribe((result) => {
-      console.log('ok ' + result);
+      console.log('csrf');
     });
 
   }
