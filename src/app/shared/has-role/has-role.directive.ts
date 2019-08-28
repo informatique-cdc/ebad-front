@@ -1,6 +1,6 @@
-import {Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from "@angular/core";
-import {Subject} from "rxjs";
+import {Directive, Input, OnInit, TemplateRef, ViewContainerRef} from "@angular/core";
 import {UserService} from "../../core/services";
+import {User} from "../../core/models";
 
 @Directive({
   selector: '[hasRole]'
@@ -9,9 +9,8 @@ export class HasRoleDirective implements OnInit {
   // the role the user must have
   @Input() hasRole: string;
 
-  stop$ = new Subject();
-
   isVisible = false;
+  private user: User;
 
   /**
    * @param {ViewContainerRef} viewContainerRef
@@ -29,18 +28,9 @@ export class HasRoleDirective implements OnInit {
   }
 
   ngOnInit() {
-    const roles = this.userService.getCurrentUser().authorities;
-    console.log('user = ', this.userService.getCurrentUser());
-    console.log('roles = ', roles);
-    console.log('hasrole = ', this.hasRole);
+    this.user = this.userService.getCurrentUser();
 
-    if (!roles) {
-      this.viewContainerRef.clear();
-    }
-    const hasThisRole = this.hasRole;
-    if (roles.find(function (obj: any) {
-      return obj.name === hasThisRole;
-    })) {
+    if (this.hasThisRole(this.hasRole)) {
       if (!this.isVisible) {
         this.isVisible = true;
         this.viewContainerRef.createEmbeddedView(this.templateRef);
@@ -49,5 +39,36 @@ export class HasRoleDirective implements OnInit {
       this.isVisible = false;
       this.viewContainerRef.clear();
     }
+  }
+
+  isModo(): boolean {
+    for (const usageApp of this.user.usageApplications) {
+      if (usageApp.canManage) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isUser(): boolean {
+    for (const usageApp of this.user.usageApplications) {
+      if (usageApp.canUse) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  hasThisRole(role: String): boolean {
+    const roles = this.user.authorities;
+    if (role === "ROLE_MODO") {
+      return this.isModo();
+    }
+
+    const result = roles.find(function (obj: any) {
+      return obj.name === role;
+    });
+
+    return result !== undefined;
   }
 }
