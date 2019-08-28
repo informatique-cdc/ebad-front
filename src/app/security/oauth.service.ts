@@ -15,16 +15,6 @@ export class OauthService {
   private isDoneLoadingSubject$ = new ReplaySubject<boolean>();
   public isDoneLoading$ = this.isDoneLoadingSubject$.asObservable();
 
-  /**
-   * Publishes `true` if and only if (a) all the asynchronous initial
-   * login calls have completed or errorred, and (b) the user ended up
-   * being authenticated.
-   *
-   * In essence, it combines:
-   *
-   * - the latest known state of whether the user is authorized
-   * - whether the ajax calls for initial log in have all been done
-   */
   public canActivateProtectedRoutes$: Observable<boolean> = combineLatest(
     this.isAuthenticated$,
     this.isDoneLoading$
@@ -57,7 +47,6 @@ export class OauthService {
     // TODO: Improve this setup.
     window.addEventListener('storage', (event) => {
       // The `key` is `null` if the event was caused by `.clear()`
-      console.log('test');
       if (event.key !== 'access_token' && event.key !== null) {
         return;
       }
@@ -72,7 +61,6 @@ export class OauthService {
 
     this.oauthService.events
       .subscribe(_ => {
-        console.log('test2');
         this.isAuthenticatedSubject$.next(this.oauthService.hasValidAccessToken());
       });
 

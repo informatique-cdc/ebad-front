@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
 import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models';
-import {distinctUntilChanged, map} from 'rxjs/operators';
+import {distinctUntilChanged, map, take} from 'rxjs/operators';
 import {environment} from "../../../environments/environment";
 import {OauthService} from "../../security/oauth.service";
 
@@ -52,6 +52,7 @@ export class UserService {
   }
 
   setAuth(user: User) {
+    console.log("user : "+user);
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);
     // Set current user data into observable

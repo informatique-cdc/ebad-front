@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import {ApiService, Errors, UserService} from '../core';
 import {OauthService} from "../security/oauth.service";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-auth-page',
@@ -32,7 +33,9 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.oauthService.login("/batchs");
+    if(!environment.jwt) {
+      this.oauthService.login("/batchs");
+    }
     this.route.url.subscribe(data => {
       // Get the last piece of the URL (it's either 'login' or 'register')
       this.authType = data[data.length - 1].path;

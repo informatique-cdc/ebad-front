@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 
-import {ApiService, UserService} from './core';
-import {environment} from "../environments/environment";
+import {UserService} from './core';
 import {OauthService} from "./security/oauth.service";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -13,13 +13,12 @@ export class AppComponent implements OnInit {
     private userService: UserService,
     private oauthService: OauthService
   ) {
-    this.oauthService.runInitialLoginSequence();
+    if(!environment.jwt) {
+      this.oauthService.runInitialLoginSequence();
+    }
   }
 
   ngOnInit() {
-    if (! environment.jwt ) {
-      console.log("OAUTH ENABLE");
-    }
     this.userService.populate();
   }
 }
