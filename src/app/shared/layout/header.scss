@@ -1,0 +1,50 @@
+$borderRadius: 0.25rem;
+
+#notifications {
+  .list-group-item {
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+
+  &.dropdown-menu {
+    margin: 0;
+    padding: 0;
+    border-radius: $borderRadius;
+  }
+
+  .list-group {
+    border-radius: $borderRadius;
+  }
+
+  .panel {
+    border-radius: $borderRadius;
+  }
+
+  .panel-heading {
+    border-top-left-radius: $borderRadius;
+    border-top-right-radius: $borderRadius;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .panel-footer {
+    border-bottom-left-radius: $borderRadius;
+    border-bottom-right-radius: $borderRadius;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    a {
+      cursor: pointer;
+    }
+  }
+
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+

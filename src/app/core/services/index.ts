@@ -16,3 +16,4 @@ export * from './files.service';
 export * from './norms.service';
 export * from './users.service';
 export * from './news.service';
+export * from './notifications.service'
