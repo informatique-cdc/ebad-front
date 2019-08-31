@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private fb: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({

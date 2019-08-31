@@ -1,5 +1,40 @@
 {
   "LOGIN": {
-    "TITLE": "Connexion"
+    "TITLE": "Connexion",
+    "LABEL": {
+      "PASSWORD": "Mot de passe",
+      "USERNAME": "Nom d'utilisateur"
+    }
+  },
+
+  "MENU": {
+    "DASHBOARD": "Tableau de bord",
+    "FUNCTION": {
+      "TITLE": "FUNCTION",
+      "BATCHS": "Batchs",
+      "CHAINS": "Chains",
+      "FILES": "Files",
+      "TRACES": "Traces"
+    },
+    "MANAGEMENT": {
+      "TITLE": "Gestion",
+      "BATCHS": "Gestion Batchs",
+      "CHAINS": "Gestion Chaines",
+      "FOLDERS": "Gestion Répertoires",
+      "NAMING": "Gestion Nommages",
+      "ENVIRONMENTS": "Gestion Environnements"
+    },
+    "ADMINISTRATION": {
+      "TITLE": "Administration",
+      "USERS": "Utilisateurs",
+      "APPLICATIONS": "Applications",
+      "NORMS": "Normes",
+      "ACTUALITIES": "Actualités"
+    },
+    "OTHERS": {
+      "TITLE": "Autres",
+      "HELP": "Aide",
+      "CHANGELOG": "Changelog"
+    }
   }
 }

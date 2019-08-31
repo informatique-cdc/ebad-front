@@ -57,7 +57,8 @@ import {TranslateModule} from "@ngx-translate/core";
     ActualityBlockComponent,
     EnvAppHeadSelectorComponent,
     DateTraitementComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    TranslateModule
   ],
   entryComponents: [
     ModalDateTraitementComponent

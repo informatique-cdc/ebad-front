@@ -1,5 +1,39 @@
 {
   "LOGIN": {
-    "TITLE": "Login"
+    "TITLE": "Login",
+    "LABEL": {
+      "PASSWORD": "Password",
+      "USERNAME": "Username"
+    }
+  },
+  "MENU": {
+    "DASHBOARD": "Dashboard",
+    "FUNCTION": {
+      "TITLE": "FUNCTION",
+      "BATCHS": "Batchs",
+      "CHAINS": "Chains",
+      "FILES": "Files",
+      "TRACES": "Traces"
+    },
+    "MANAGEMENT": {
+      "TITLE": "Management",
+      "BATCHS": "Manage Batchs",
+      "CHAINS": "Manage Chains",
+      "FOLDERS": "Manage Folders",
+      "NAMING": "Manage Naming",
+      "ENVIRONMENTS": "Manage Environments"
+    },
+    "ADMINISTRATION": {
+      "TITLE": "Administration",
+      "USERS": "Users",
+      "APPLICATIONS": "Applications",
+      "NORMS": "Norms",
+      "ACTUALITIES": "Actualities"
+    },
+    "OTHERS": {
+      "TITLE": "Others",
+      "HELP": "Help",
+      "CHANGELOG": "Changelog"
+    }
   }
 }
