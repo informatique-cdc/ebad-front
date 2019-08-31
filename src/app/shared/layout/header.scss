@@ -1,6 +1,6 @@
 $borderRadius: 0.25rem;
 
-#notifications {
+#notifications, #flags{
   .list-group-item {
     border-top: 1px solid rgba(0, 0, 0, 0.125);
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);

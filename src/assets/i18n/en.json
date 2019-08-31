@@ -35,5 +35,10 @@
       "HELP": "Help",
       "CHANGELOG": "Changelog"
     }
+  },
+  "HEADER": {
+    "LOGOUT": "Logout",
+    "TRANSLATE.FR": "Français",
+    "TRANSLATE.EN": "English"
   }
 }

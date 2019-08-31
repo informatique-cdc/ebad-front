@@ -36,5 +36,10 @@
       "HELP": "Aide",
       "CHANGELOG": "Changelog"
     }
+  },
+  "HEADER": {
+    "LOGOUT": "Déconnexion",
+    "TRANSLATE.FR": "Français",
+    "TRANSLATE.EN": "English"
   }
 }
