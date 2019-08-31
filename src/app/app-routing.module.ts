@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home/home.component';
+import {HomeComponent} from "./home/home.component";
 
 
 const routes: Routes = [
@@ -43,7 +43,7 @@ const routes: Routes = [
         path: 'environments',
         loadChildren: './manage-environments/manage-environments.module#ManageEnvironmentsModule'
       }
-      ]
+    ]
   },
   {
     path: 'admin',
@@ -68,8 +68,10 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: './home/home.module#HomeModule'
+    component: HomeComponent
+    //loadChildren: './home/home.module#HomeModule'
   }
+
 ];
 
 @NgModule({
@@ -78,7 +80,7 @@ const routes: Routes = [
     // implement a custom preloading strategy for just some
     // of the modules (PRs welcome 😉)
     preloadingStrategy: PreloadAllModules,
-    useHash: true
+    useHash: true,
   })],
   exports: [RouterModule]
 })
