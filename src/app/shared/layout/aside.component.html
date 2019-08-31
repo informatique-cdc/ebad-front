@@ -9,10 +9,10 @@
       </li>
     </ul>
 
-    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+    <h6 *hasRole="'ROLE_USER'" class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
       <span>Fonction</span>
     </h6>
-    <ul class="nav flex-column mb-2">
+    <ul *hasRole="'ROLE_USER'" class="nav flex-column mb-2">
       <li class="nav-item">
         <a class="nav-link" routerLink="/batchs" routerLinkActive="active">
           <i-terminal></i-terminal>
@@ -39,10 +39,10 @@
       </li>
     </ul>
 
-    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+    <h6 *hasRole="'ROLE_MODO'" class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
       <span>Gestion</span>
     </h6>
-    <ul class="nav flex-column mb-2">
+    <ul *hasRole="'ROLE_MODO'" class="nav flex-column mb-2">
       <li class="nav-item">
         <a class="nav-link" routerLink="/manage/batchs" routerLinkActive="active" id="batchManageMenu">
           <i-terminal></i-terminal>
@@ -75,10 +75,10 @@
       </li>
     </ul>
 
-    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+    <h6 *hasRole="'ROLE_ADMIN'" class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
       <span>Administration</span>
     </h6>
-    <ul class="nav flex-column mb-2">
+    <ul *hasRole="'ROLE_ADMIN'" class="nav flex-column mb-2">
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">
           <i-users></i-users>

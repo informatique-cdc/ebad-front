@@ -18,4 +18,5 @@ export * from './errors.model';
 export * from './profile.model';
 export * from './directory.model';
 export * from './file.model';
+export * from  './usage-application.model'
 export * from './notification.model'

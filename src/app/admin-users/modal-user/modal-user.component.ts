@@ -27,7 +27,8 @@ export class ModalUserComponent implements OnInit {
     createdBy: undefined,
     createdDate: undefined,
     lastModifiedBy: undefined,
-    lastModifiedDate: undefined
+    lastModifiedDate: undefined,
+    usageApplications: []
   };
 
   constructor(public activeModal: NgbActiveModal,

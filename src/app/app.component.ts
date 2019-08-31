@@ -7,6 +7,7 @@ import {ApiService, UserService} from './core';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
+  isAuthenticated: boolean;
   constructor(
     private userService: UserService,
   ) {
@@ -14,5 +15,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.userService.populate();
+    this.userService.isAuthenticated.subscribe((result) => this.isAuthenticated = result);
   }
 }
