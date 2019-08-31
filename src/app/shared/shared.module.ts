@@ -17,6 +17,7 @@ import {NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateFRParserFormatter} from './ngb-date-fr-parser-formatter';
 import {Constants} from './Constants';
 import {HasRoleDirective} from "./has-role/has-role.directive";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   imports: [
