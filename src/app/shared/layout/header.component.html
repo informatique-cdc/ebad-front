@@ -3,15 +3,50 @@
   </a>
   <!--<input class="form-control form-control-dark w-100" type="text" placeholder="" aria-label="" disabled>-->
   <span class="w-100"></span>
-    <ul class="navbar-nav px-3">
-      <li class="nav-item text-nowrap">
-        <a class="nav-link" >
-          <i-bell></i-bell>
-        </a>
-      </li>
-      <li class="nav-item text-nowrap">
-        <a class="nav-link" >
-          <i-flag></i-flag>
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <div ngbDropdown class="d-inline-block">
+        <a class="nav-link">
+          <i-bell id="dropdownBasic1" ngbDropdownToggle></i-bell>
+          <span class="badge badge-pill badge-primary">{{notifications.length}}</span>
+          <div id="notifications" class="dropdown-menu w-xl bg-light" aria-labelledby="dropdownBasic1" ngbDropdownMenu>
+            <div *ngIf="notifications.length ==0">
+              <div class="panel bg-white">
+                <div class="list-group">
+                  <span class="list-group-item">
+                    <span class="clear block m-b-none">
+                      Vous n'avez pas de notification.
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="notifications.length > 0">
+              <div class="panel bg-white">
+                <div class="panel-heading b-light bg-light">
+                  <strong>Vous avez
+                    <span>{{notifications.length}}</span>
+                    notification(s)
+                  </strong>
+                </div>
+                <div class="list-group">
+                  <span  class="list-group-item" *ngFor="let notification of notifications">
+                    <span class="clear block m-b-none" id="notification{{notification.id}}">
+                      {{notification.content}}
+                      <br>
+<!--                      <small class="text-muted">{{notification.createdDate | date: 'dd/MM/yyyy' }}</small>-->
+                    </span>
+                  </span>
+                </div>
+                <div class="panel-footer text-sm bg-light">
+                  <a (click)="markAsRead()" class="pull-right">
+                    <i-bell-off></i-bell-off>
+                    <span  data-toggle="class:show animated fadeInRight">Marquer comme lue(s)</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </a>
       </li>
       <li class="nav-item text-nowrap">
