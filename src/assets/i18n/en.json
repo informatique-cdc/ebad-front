@@ -6,6 +6,12 @@
       "USERNAME": "Username"
     }
   },
+  "HOME": {
+    "TITLE": "Home"
+  },
+  "ACTUALITY": {
+    "TITLE": "Actualities"
+  },
   "MENU": {
     "DASHBOARD": "Dashboard",
     "FUNCTION": {

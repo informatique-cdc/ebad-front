@@ -31,7 +31,8 @@ import {TranslateModule} from "@ngx-translate/core";
     }),
     RouterModule,
     IconsModule,
-    NgbModule
+    NgbModule,
+    TranslateModule
   ],
   declarations: [
     ListErrorsComponent,

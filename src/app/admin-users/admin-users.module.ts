@@ -5,16 +5,18 @@ import {SharedModule} from '../shared';
 import {AdminUsersComponent} from './admin-users.component';
 import {ModalUserComponent} from './modal-user/modal-user.component';
 import {IconsModule} from '../icons';
+import {ModalRolesComponent} from "./modal-roles/modal-roles.component";
 
 @NgModule({
-  declarations: [AdminUsersComponent, ModalUserComponent],
+  declarations: [AdminUsersComponent, ModalUserComponent, ModalRolesComponent],
   imports: [
     AdminUsersRoutingModule,
     SharedModule,
     IconsModule
   ],
   entryComponents: [
-    ModalUserComponent
+    ModalUserComponent,
+    ModalRolesComponent
   ]
 })
 export class AdminUsersModule { }

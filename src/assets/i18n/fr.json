@@ -6,7 +6,12 @@
       "USERNAME": "Nom d'utilisateur"
     }
   },
-
+  "HOME": {
+    "TITLE": "Accueil"
+  },
+  "ACTUALITY": {
+    "TITLE": "Actualités"
+  },
   "MENU": {
     "DASHBOARD": "Tableau de bord",
     "FUNCTION": {
