@@ -40,7 +40,7 @@ export class AuthComponent implements OnInit {
       // Get the last piece of the URL (it's either 'login' or 'register')
       this.authType = data[data.length - 1].path;
       // Set a title for the page accordingly
-      this.title = (this.authType === 'login') ? 'Connexion' : 'Inscription';
+      this.title = (this.authType === 'login') ? 'LOGIN.TITLE' : 'Inscription';
       // add form control for login if this is the register page
       if (this.authType === 'register') {
         this.authForm.addControl('usernname', new FormControl());

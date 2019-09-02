@@ -5,6 +5,7 @@ import {NotifierService} from 'angular-notifier';
 import {UsersService} from '../core/services';
 import {ModalUserComponent} from './modal-user/modal-user.component';
 import {User} from '../core/models';
+import {ModalRolesComponent} from "./modal-roles/modal-roles.component";
 
 @Component({
   selector: 'app-admin-users',
@@ -48,6 +49,25 @@ export class AdminUsersComponent implements OnInit {
       }
     });
     modalRef.componentInstance.isUpdate = false;
+  }
+
+  onClickChangeRole(user: User) {
+    const modalRef = this.modalService.open(ModalRolesComponent);
+    modalRef.result.then((result) => {
+      this.notifierService.notify('success', `L'utilisateur ${result.login} a bien été modifié`);
+      this.refreshUsers();
+    }, (reason) => {
+      if (reason.message !== undefined) {
+        this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
+      }
+    });
+    modalRef.componentInstance.roles.loginUser = user.login;
+    modalRef.componentInstance.roles.roleAdmin = user.authorities.find(function (obj: any) {
+      return obj.name === "ROLE_ADMIN";
+    }) != undefined;
+    modalRef.componentInstance.roles.roleUser = user.authorities.find(function (obj: any) {
+      return obj.name === "ROLE_USER";
+    }) != undefined;
   }
 
   onClickModifyUser(user: User) {

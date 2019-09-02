@@ -14,6 +14,13 @@ import localeFr from '@angular/common/locales/fr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HomeModule} from './home/home.module';
 import {SecurityModule} from "./security/security.module";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpClient} from "@angular/common/http";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
 
 registerLocaleData(localeFr);
 
@@ -31,6 +38,13 @@ registerLocaleData(localeFr);
     NotifierModule,
     HomeModule,
     SecurityModule.forRoot()
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [{provide: LOCALE_ID, useValue: 'fr-FR'}],
   bootstrap: [AppComponent]
