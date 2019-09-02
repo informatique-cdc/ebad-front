@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {Notification, NotificationsService, User, UserService} from '../../core';
 import {Router} from '@angular/router';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-layout-header',
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    private translateService: TranslateService
   ) {}
 
   currentUser: User;
@@ -47,5 +49,9 @@ export class HeaderComponent implements OnInit {
   markAsRead(){
     this.notificationsService.markAsRead().subscribe();
     this.showNotification();
+  }
+
+  changeLang(lang: string){
+    this.translateService.use(lang);
   }
 }

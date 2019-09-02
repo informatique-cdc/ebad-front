@@ -1,0 +1,50 @@
+{
+  "LOGIN": {
+    "TITLE": "Connexion",
+    "LABEL": {
+      "PASSWORD": "Mot de passe",
+      "USERNAME": "Nom d'utilisateur"
+    }
+  },
+  "HOME": {
+    "TITLE": "Accueil"
+  },
+  "ACTUALITY": {
+    "TITLE": "Actualités"
+  },
+  "MENU": {
+    "DASHBOARD": "Tableau de bord",
+    "FUNCTION": {
+      "TITLE": "FUNCTION",
+      "BATCHS": "Batchs",
+      "CHAINS": "Chains",
+      "FILES": "Files",
+      "TRACES": "Traces"
+    },
+    "MANAGEMENT": {
+      "TITLE": "Gestion",
+      "BATCHS": "Gestion Batchs",
+      "CHAINS": "Gestion Chaines",
+      "FOLDERS": "Gestion Répertoires",
+      "NAMING": "Gestion Nommages",
+      "ENVIRONMENTS": "Gestion Environnements"
+    },
+    "ADMINISTRATION": {
+      "TITLE": "Administration",
+      "USERS": "Utilisateurs",
+      "APPLICATIONS": "Applications",
+      "NORMS": "Normes",
+      "ACTUALITIES": "Actualités"
+    },
+    "OTHERS": {
+      "TITLE": "Autres",
+      "HELP": "Aide",
+      "CHANGELOG": "Changelog"
+    }
+  },
+  "HEADER": {
+    "LOGOUT": "Déconnexion",
+    "TRANSLATE.FR": "Français",
+    "TRANSLATE.EN": "English"
+  }
+}

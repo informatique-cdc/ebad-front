@@ -3,7 +3,7 @@
     <div class="row">
 
       <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">{{ title }}</h1>
+        <h1 class="text-xs-center">{{ title | translate}}</h1>
         <p class="text-xs-center">
           <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
           <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
@@ -14,7 +14,7 @@
             <fieldset class="form-group">
               <input
                 formControlName="username"
-                placeholder="Username"
+                placeholder="{{'LOGIN.LABEL.USERNAME' | translate}}"
                 class="form-control form-control-lg"
                 type="text"
               id="username"/>
@@ -22,13 +22,13 @@
             <fieldset class="form-group">
               <input
                 formControlName="password"
-                placeholder="Password"
+                placeholder="{{'LOGIN.LABEL.PASSWORD' | translate}}"
                 class="form-control form-control-lg"
                 type="password"
               id="password"/>
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
-              {{ title }}
+              {{ title | translate}}
             </button>
           </fieldset>
         </form>

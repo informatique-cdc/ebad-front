@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
-import {User} from '../models';
+import {Roles, User} from '../models';
 import {UserApplication} from '../models/user-application.model';
 
 @Injectable()
@@ -34,5 +34,9 @@ export class UsersService {
 
   updateAccessApplication(userApplication: UserApplication): Observable<User> {
     return this.apiService.patch(`/users/application`, userApplication);
+  }
+
+  updateRoles(roles: Roles): Observable<User> {
+    return this.apiService.patch(`/users/roles`, roles);
   }
 }

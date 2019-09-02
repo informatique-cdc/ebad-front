@@ -17,6 +17,7 @@ import {NgbDateParserFormatter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateFRParserFormatter} from './ngb-date-fr-parser-formatter';
 import {Constants} from './Constants';
 import {HasRoleDirective} from "./has-role/has-role.directive";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import {HasRoleDirective} from "./has-role/has-role.directive";
     }),
     RouterModule,
     IconsModule,
-    NgbModule
+    NgbModule,
+    TranslateModule
   ],
   declarations: [
     ListErrorsComponent,
@@ -56,7 +58,8 @@ import {HasRoleDirective} from "./has-role/has-role.directive";
     ActualityBlockComponent,
     EnvAppHeadSelectorComponent,
     DateTraitementComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    TranslateModule
   ],
   entryComponents: [
     ModalDateTraitementComponent

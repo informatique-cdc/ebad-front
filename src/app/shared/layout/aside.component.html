@@ -4,121 +4,121 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/">
           <i-bar-chart-2></i-bar-chart-2>
-          Tableau de bord
+          {{ 'MENU.DASHBOARD' | translate}}
         </a>
       </li>
     </ul>
 
     <h6 *hasRole="'ROLE_USER'" class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-      <span>Fonction</span>
+      <span>{{'MENU.FUNCTION.TITLE' | translate}}</span>
     </h6>
     <ul *hasRole="'ROLE_USER'" class="nav flex-column mb-2">
       <li class="nav-item">
         <a class="nav-link" routerLink="/batchs" routerLinkActive="active">
           <i-terminal></i-terminal>
-          Batchs
+          {{'MENU.FUNCTION.BATCHS' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link"  routerLink="/chains" routerLinkActive="active">
           <i-link></i-link>
-          Chaines
+          {{'MENU.FUNCTION.CHAINS' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/files" routerLinkActive="active">
           <i-folder></i-folder>
-          Fichiers
+          {{'MENU.FUNCTION.FILES' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/traces" routerLinkActive="active">
           <i-activity></i-activity>
-          Traces
+          {{'MENU.FUNCTION.TRACES' | translate}}
         </a>
       </li>
     </ul>
 
     <h6 *hasRole="'ROLE_MODO'" class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-      <span>Gestion</span>
+      <span> {{'MENU.MANAGEMENT.TITLE' | translate}}</span>
     </h6>
     <ul *hasRole="'ROLE_MODO'" class="nav flex-column mb-2">
       <li class="nav-item">
         <a class="nav-link" routerLink="/manage/batchs" routerLinkActive="active" id="batchManageMenu">
           <i-terminal></i-terminal>
-          Gestion Batchs
+          {{'MENU.MANAGEMENT.BATCHS' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/manage/chains" routerLinkActive="active">
           <i-link></i-link>
-          Gestion Chaines
+          {{'MENU.MANAGEMENT.CHAINS' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/manage/directories" routerLinkActive="active">
           <i-folder></i-folder>
-          Gestion Répertoires
+          {{'MENU.MANAGEMENT.FOLDERS' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/manage/naming" routerLinkActive="active">
           <i-edit></i-edit>
-          Gestion Nommages
+          {{'MENU.MANAGEMENT.NAMING' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/manage/environments" routerLinkActive="active" id="environnementMenu">
           <i-server></i-server>
-          Gestion Environnements
+          {{'MENU.MANAGEMENT.ENVIRONMENTS' | translate}}
         </a>
       </li>
     </ul>
 
     <h6 *hasRole="'ROLE_ADMIN'" class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-      <span>Administration</span>
+      <span>{{'MENU.ADMINISTRATION.TITLE' | translate}}</span>
     </h6>
     <ul *hasRole="'ROLE_ADMIN'" class="nav flex-column mb-2">
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">
           <i-users></i-users>
-          Utilisateurs
+          {{'MENU.ADMINISTRATION.USERS' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin/applications" routerLinkActive="active" id="applicationMenu">
           <i-layers></i-layers>
-          Applications
+          {{'MENU.ADMINISTRATION.APPLICATIONS' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin/norms" routerLinkActive="active" id="normeMenu">
           <i-flag></i-flag>
-          Normes
+          {{'MENU.ADMINISTRATION.NORMS' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin/news" routerLinkActive="active">
           <i-inbox></i-inbox>
-          Actualités
+          {{'MENU.ADMINISTRATION.ACTUALITIES' | translate}}
         </a>
       </li>
     </ul>
 
     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-      <span>Autres</span>
+      <span>{{'MENU.OTHERS.TITLE' | translate}}</span>
     </h6>
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
         <a class="nav-link" href="#">
           <i-life-buoy></i-life-buoy>
-          Aide
+          {{'MENU.OTHERS.HELP' | translate}}
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">
           <i-git-commit></i-git-commit>
-          Changelog
+          {{'MENU.OTHERS.CHANGELOG' | translate}}
         </a>
       </li>
     </ul>
