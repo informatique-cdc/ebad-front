@@ -62,6 +62,11 @@ export class UserService {
   }
 
   purgeAuth() {
+    this.currentUser.subscribe((user) => {
+      if(user !== undefined && user.login !== undefined){
+        this.oauthService.logout();
+      }
+    });
     // Remove JWT from localstorage
     this.jwtService.destroyToken();
     // Set current user to an empty object

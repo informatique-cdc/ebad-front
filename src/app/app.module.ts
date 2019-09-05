@@ -37,7 +37,7 @@ registerLocaleData(localeFr);
     AppRoutingModule,
     NotifierModule,
     HomeModule,
-    SecurityModule.forRoot()
+    SecurityModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

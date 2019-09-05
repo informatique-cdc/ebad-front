@@ -35,7 +35,8 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.userService.purgeAuth();
-    this.router.navigateByUrl('/login');
+    console.log("purged");
+    this.router.navigate(['/login']);
   }
 
   showNotification(){

@@ -13,10 +13,11 @@ export const oauthConfig: AuthConfig = {
   sessionChecksEnabled: true,
   showDebugInformation: true,
   clearHashAfterLogin: true,
-  logoutUrl: environment.loginUrl,
+  logoutUrl: environment.logoutUrl,
   userinfoEndpoint: environment.userinfoEndpoint,
   strictDiscoveryDocumentValidation: false,
   requireHttps: false,
   disableAtHashCheck: true,
+  // postLogoutRedirectUri: window.location.origin + '/'
   postLogoutRedirectUri: window.location.origin + '/'
 };
