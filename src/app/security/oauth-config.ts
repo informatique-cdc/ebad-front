@@ -18,6 +18,5 @@ export const oauthConfig: AuthConfig = {
   strictDiscoveryDocumentValidation: false,
   requireHttps: false,
   disableAtHashCheck: true,
-  // postLogoutRedirectUri: window.location.origin + '/'
   postLogoutRedirectUri: window.location.origin + '/'
 };

@@ -55,7 +55,7 @@ export class OauthService {
       this.isAuthenticatedSubject$.next(this.oauthService.hasValidAccessToken());
 
       if (!this.oauthService.hasValidAccessToken()) {
-        this.navigateToLoginPage();
+        // this.navigateToLoginPage();
       }
     });
 
