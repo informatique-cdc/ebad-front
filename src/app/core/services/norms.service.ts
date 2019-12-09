@@ -12,18 +12,18 @@ export class NormsService {
   }
 
   getAll(): Observable<Norme[]> {
-    return this.apiService.get(`/normes`);
+    return this.apiService.get(`/norms`);
   }
 
   addNorm(norm: Norme): Observable<Norme> {
-    return this.apiService.put('/normes', norm);
+    return this.apiService.put('/norms', norm);
   }
 
   updateNorm(norm: Norme): Observable<Norme> {
-    return this.apiService.patch('/normes', norm);
+    return this.apiService.patch('/norms', norm);
   }
 
   deleteNorm(normId: number): Observable<void> {
-    return this.apiService.delete(`/normes/${normId}`);
+    return this.apiService.delete(`/norms/${normId}`);
   }
 }
