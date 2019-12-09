@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
 import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models';
-import {distinctUntilChanged, map, take} from 'rxjs/operators';
+import {distinctUntilChanged, map} from 'rxjs/operators';
 import {environment} from "../../../environments/environment";
 import {OauthService} from "../../security/oauth.service";
 
@@ -24,9 +24,9 @@ export class UserService {
     private jwtService: JwtService,
     private oauthService: OauthService
   ) {
-    if(environment.jwt){
+    if (environment.jwt) {
       this.isAuthenticated = this.isAuthenticatedSubject.asObservable();
-    }else{
+    } else {
       this.isAuthenticated = this.oauthService.isAuthenticated$;
     }
   }
@@ -37,7 +37,7 @@ export class UserService {
     // If JWT detected, attempt to get & store user's info
 
     if (this.jwtService.getToken()) {
-      this.apiService.get('/user')
+      this.apiService.get('/users/current')
         .subscribe(
           data => {
             data.token = this.jwtService.getToken();
@@ -52,7 +52,8 @@ export class UserService {
   }
 
   setAuth(user: User) {
-    console.log("user : "+user);
+    console.log("user : " + user);
+    console.log(user);
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);
     // Set current user data into observable
@@ -62,17 +63,22 @@ export class UserService {
   }
 
   purgeAuth() {
-    this.currentUser.subscribe((user) => {
-      if(user !== undefined && user.login !== undefined){
-        this.oauthService.logout();
-      }
-    });
+    if(!environment.jwt) {
+      this.currentUser.subscribe((user) => {
+        console.log("purge:" + user);
+        console.log(user);
+        if (user !== undefined && user.login !== undefined) {
+          this.oauthService.logout();
+        }
+      });
+    }
     // Remove JWT from localstorage
     this.jwtService.destroyToken();
     // Set current user to an empty object
     this.currentUserSubject.next({} as User);
     // Set auth status to false
     this.isAuthenticatedSubject.next(false);
+
   }
 
   attemptAuth(type, credentials): Observable<User> {
