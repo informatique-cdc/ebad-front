@@ -6,37 +6,38 @@ import {Environment, InfoEnvironment} from '../models';
 
 @Injectable()
 export class EnvironmentsService {
+  private apiName = '/environments';
   constructor(
     private apiService: ApiService
   ) {
   }
 
   getAll(): Observable<Environment[]> {
-    return this.apiService.get(`/environnement/`);
+    return this.apiService.get(`${this.apiName}/`);
   }
 
   get(slug): Observable<Environment> {
-    return this.apiService.get('/environnement/' + slug);
+    return this.apiService.get(`${this.apiName}/${slug}`);
   }
 
   getInfo(slug): Observable<InfoEnvironment> {
-    return this.apiService.get('/environnement/info/' + slug);
+    return this.apiService.get(`${this.apiName}/info/${slug}`);
   }
 
   deleteEnvironemnt(slug) {
-    return this.apiService.delete('/environnement?idEnv=' + slug);
+    return this.apiService.delete(`${this.apiName}?idEnv=${slug}`);
   }
 
   addEnvironment(environment: Environment): Observable<Environment> {
-    return this.apiService.put(`/environnement`, environment);
+    return this.apiService.put(`${this.apiName}`, environment);
   }
 
   updateEnvironment(environment: Environment): Observable<Environment> {
-    return this.apiService.patch(`/environnement`, environment);
+    return this.apiService.patch(`${this.apiName}`, environment);
   }
 
   // FIXME Le verbe GET n'est pas pertinent pour faire une mise à jour
   changeDateTraitement(slug, params) {
-    return this.apiService.get('/environnement/dateTraitement/' + slug, params);
+    return this.apiService.get(`${this.apiName}/dateTraitement/${slug}`, params);
   }
 }
