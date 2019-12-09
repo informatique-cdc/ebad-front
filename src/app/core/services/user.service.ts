@@ -29,7 +29,7 @@ export class UserService {
     // If JWT detected, attempt to get & store user's info
 
     if (this.jwtService.getToken()) {
-      this.apiService.get('/user')
+      this.apiService.get('/users/current')
         .subscribe(
           data => {
             data.token = this.jwtService.getToken();
