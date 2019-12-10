@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: '/ebad/api'
+  jwt: true,
+  apiUrl: '/ebad'
 };
