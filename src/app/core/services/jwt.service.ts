@@ -1,19 +1,27 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../environments/environment';
 
 
 @Injectable()
 export class JwtService {
+  private tokenName = 'access_token';
+
+  constructor() {
+    if (environment.jwt) {
+      this.tokenName = 'jwtToken';
+    }
+  }
 
   getToken(): string {
-    return window.localStorage.getItem('jwtToken');
+    return window.localStorage.getItem(this.tokenName);
   }
 
   saveToken(token: string) {
-    window.localStorage.setItem('jwtToken', token);
+    window.localStorage.setItem(this.tokenName, token);
   }
 
   destroyToken() {
-    window.localStorage.removeItem('jwtToken');
+    window.localStorage.removeItem(this.tokenName);
   }
 
 }

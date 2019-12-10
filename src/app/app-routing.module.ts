@@ -1,6 +1,9 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./home/home.component";
+import {AuthGuard} from "./core/services";
+import {AnonymousComponent} from "./anonymous/anonymous.component";
+import {NoAuthGuard} from "./auth/no-auth-guard.service";
 
 
 const routes: Routes = [
@@ -43,7 +46,7 @@ const routes: Routes = [
         path: 'environments',
         loadChildren: './manage-environments/manage-environments.module#ManageEnvironmentsModule'
       }
-    ]
+      ]
   },
   {
     path: 'admin',
@@ -67,9 +70,14 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: '',
-    component: HomeComponent
-    //loadChildren: './home/home.module#HomeModule'
+    component: AnonymousComponent,
+    canActivate: [NoAuthGuard]
   }
 
 ];
@@ -81,6 +89,7 @@ const routes: Routes = [
     // of the modules (PRs welcome 😉)
     preloadingStrategy: PreloadAllModules,
     useHash: true,
+    initialNavigation: true
   })],
   exports: [RouterModule]
 })

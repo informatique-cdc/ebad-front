@@ -1,6 +1,7 @@
 import {Directive, Input, OnInit, TemplateRef, ViewContainerRef} from "@angular/core";
 import {UserService} from "../../core/services";
 import {User} from "../../core/models";
+import {take} from "rxjs/operators";
 
 @Directive({
   selector: '[hasRole]'
@@ -28,8 +29,11 @@ export class HasRoleDirective implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.userService.getCurrentUser();
+    this.userService.currentUser.subscribe((us) => this.hasRoleSearch(us));
+  }
 
+  hasRoleSearch(user){
+    this.user = user;
     if (this.hasThisRole(this.hasRole)) {
       if (!this.isVisible) {
         this.isVisible = true;
@@ -42,6 +46,9 @@ export class HasRoleDirective implements OnInit {
   }
 
   isModo(): boolean {
+    if(this.user.usageApplications === undefined){
+      return false;
+    }
     for (const usageApp of this.user.usageApplications) {
       if (usageApp.canManage) {
         return true;
@@ -50,19 +57,26 @@ export class HasRoleDirective implements OnInit {
     return false;
   }
 
-  isUser(): boolean {
-    for (const usageApp of this.user.usageApplications) {
-      if (usageApp.canUse) {
-        return true;
-      }
-    }
-    return false;
-  }
+  // isUser(): boolean {
+  //   if(this.user.usageApplications === undefined){
+  //     return false;
+  //   }
+  //   for (const usageApp of this.user.usageApplications) {
+  //     if (usageApp.canUse) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }
 
   hasThisRole(role: String): boolean {
     const roles = this.user.authorities;
     if (role === "ROLE_MODO") {
       return this.isModo();
+    }
+
+    if(roles === undefined){
+      return false;
     }
 
     const result = roles.find(function (obj: any) {
