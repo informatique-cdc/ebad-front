@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EventSelectChangeModel, Option, Select} from '../head-selector';
 import {Application, Environment} from '../../core/models';
 import {ApplicationsService} from '../../core/services';
+import {Pageable} from "../../core/models/pageable.model";
 
 @Component({
   selector: 'app-env-app-head-selector',
@@ -30,16 +31,16 @@ export class EnvAppHeadSelectorComponent implements OnInit {
   ngOnInit() {
     this.customTitle = this.title;
     if (!this.isModarable) {
-      this.applicationsService.getAll().subscribe(
+      this.applicationsService.getAll(new Pageable(0,100)).subscribe(
         applications => {
-          this.applications = applications;
+          this.applications = applications.content;
           this.constructSelect();
         }
       );
     } else {
-      this.applicationsService.getAllModerable().subscribe(
+      this.applicationsService.getAllModerable(new Pageable(0,100)).subscribe(
         applications => {
-          this.applications = applications;
+          this.applications = applications.content;
           this.constructSelect();
         }
       );

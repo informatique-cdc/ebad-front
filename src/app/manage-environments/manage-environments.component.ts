@@ -33,7 +33,7 @@ export class ManageEnvironmentsComponent implements OnInit {
     this.applicationSelected = application;
     this.applicationsService.getAllModerable().subscribe(
       apps => {
-        for (const app of apps) {
+        for (const app of apps.content) {
           if (app.id === this.applicationSelected.id) {
             this.table.items = app.environnements;
           }

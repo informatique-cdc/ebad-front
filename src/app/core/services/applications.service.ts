@@ -3,25 +3,27 @@ import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
 import {Application, User} from '../models';
+import {Page} from "../models/page.model";
+import {Pageable} from "../models/pageable.model";
 
 @Injectable()
 export class ApplicationsService {
-  private apiName = '/applications'
+  private apiName = '/applications';
   constructor(
     private apiService: ApiService
   ) {
   }
 
-  getAll(): Observable<Application[]> {
-    return this.apiService.get(`${this.apiName}/`);
+  getAll(pageable: Pageable = new Pageable(0,20)): Observable<Page<Application>> {
+    return this.apiService.get(`${this.apiName}`,  pageable);
   }
 
-  getAllModerable(): Observable<Application[]> {
-    return this.apiService.get(`${this.apiName}/write`);
+  getAllModerable(pageable: Pageable = new Pageable(0,20)): Observable<Page<Application>> {
+    return this.apiService.get(`${this.apiName}/write`, pageable);
   }
 
-  getAllManage(): Observable<Application[]> {
-    return this.apiService.get(`${this.apiName}/gestion`);
+  getAllManage(pageable: Pageable = new Pageable(0,20)): Observable<Page<Application>> {
+    return this.apiService.get(`${this.apiName}/gestion`, pageable);
   }
 
   addApplication(application: Application): Observable<Application> {

@@ -9,6 +9,7 @@ import {NotifierService} from 'angular-notifier';
 import * as FileSaver from 'file-saver';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
+import {Pageable} from "../core/models/pageable.model";
 
 @Component({
   selector: 'app-files',
@@ -41,9 +42,9 @@ export class FilesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.applicationsService.getAll().subscribe(
+    this.applicationsService.getAll(new Pageable(0,100)).subscribe(
       applications => {
-        this.applications = applications;
+        this.applications = applications.content;
         this.constructSelect();
       }
     );
