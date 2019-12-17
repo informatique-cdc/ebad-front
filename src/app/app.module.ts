@@ -17,6 +17,7 @@ import {SecurityModule} from "./security/security.module";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {HttpClient} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import { AnonymousComponent } from './anonymous/anonymous.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -25,7 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 registerLocaleData(localeFr);
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent, HeaderComponent, AsideComponent],
+  declarations: [AppComponent, FooterComponent, HeaderComponent, AsideComponent, AnonymousComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
