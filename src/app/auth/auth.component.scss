@@ -111,3 +111,7 @@ body {
     color: #777;
   }
 }
+
+fieldset > legend {
+  display: none;
+}
