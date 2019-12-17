@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {AuthGuard} from "./core/services";
-import {AnonymousComponent} from "./anonymous/anonymous.component";
 import {NoAuthGuard} from "./auth/no-auth-guard.service";
+import {AuthComponent} from "./auth/auth.component";
 
 
 const routes: Routes = [
@@ -76,7 +76,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: AnonymousComponent,
+    component: AuthComponent,
+    canActivate: [NoAuthGuard]
+  },
+  {
+    path: 'oauth',
+    component: AuthComponent,
     canActivate: [NoAuthGuard]
   }
 

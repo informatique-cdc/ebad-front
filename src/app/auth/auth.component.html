@@ -1,39 +1,78 @@
-<div class="auth-page">
-  <div class="container page">
-    <div class="row">
-
-      <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">{{ title | translate}}</h1>
-        <p class="text-xs-center">
-          <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
-          <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
-        </p>
-        <app-list-errors [errors]="errors"></app-list-errors>
-        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
-          <fieldset [disabled]="isSubmitting">
-            <fieldset class="form-group">
-              <input
-                formControlName="username"
-                placeholder="{{'LOGIN.LABEL.USERNAME' | translate}}"
-                class="form-control form-control-lg"
-                type="text"
-              id="username"/>
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                formControlName="password"
-                placeholder="{{'LOGIN.LABEL.PASSWORD' | translate}}"
-                class="form-control form-control-lg"
-                type="password"
-              id="password"/>
-            </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
-              {{ title | translate}}
-            </button>
-          </fieldset>
-        </form>
-      </div>
-
-    </div>
+<form [formGroup]="authForm" (ngSubmit)="submitForm()" class="form-signin">
+  <div class="text-center mb-4">
+    <img class="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">{{'APP.NAME' | translate}}</h1>
+    <p>{{'LOGIN.WELCOME' | translate}}</p>
+    <p>{{'LOGIN.INFO.LOGIN' | translate}}</p>
+    <p *ngIf="error" class="text-danger">{{'LOGIN.ERROR.LOGIN' | translate}}</p>
   </div>
-</div>
+
+  <fieldset [disabled]="isSubmitting" *ngIf="jwt">
+    <fieldset class="form-group">
+      <div class="form-label-group">
+        <input formControlName="username" type="test" id="username" class="form-control"
+               placeholder="{{'LOGIN.LABEL.USERNAME' | translate}}" required="" autofocus="">
+        <label for="username">{{'LOGIN.LABEL.USERNAME' | translate}}</label>
+      </div>
+    </fieldset>
+    <fieldset class="form-group">
+      <div class="form-label-group">
+        <input formControlName="password" type="password" id="password" class="form-control"
+               placeholder="{{'LOGIN.LABEL.PASSWORD' | translate}}" required="">
+        <label for="password">{{'LOGIN.LABEL.PASSWORD' | translate}}</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> {{'LOGIN.LABEL.REMEMBERME' | translate}}
+        </label>
+      </div>
+    </fieldset>
+  </fieldset>
+  <button class="btn btn-lg btn-primary btn-block" type="submit"
+          [disabled]="!authForm.valid && jwt">{{'LOGIN.TITLE' | translate}}</button>
+  <p class="mt-5 mb-3 text-muted text-center">© 2016-2019</p>
+</form>
+
+
+<!--<div class="auth-page">-->
+<!--  <div class="container page">-->
+<!--    <div class="row">-->
+
+<!--      <div class="col-md-6 offset-md-3 col-xs-12">-->
+<!--        <h1 class="text-xs-center">{{ title | translate}}</h1>-->
+<!--        <p class="text-xs-center">-->
+<!--          <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>-->
+<!--          <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>-->
+<!--        </p>-->
+<!--        <app-list-errors [errors]="errors"></app-list-errors>-->
+<!--        <form [formGroup]="authForm" (ngSubmit)="submitForm()">-->
+<!--          <fieldset [disabled]="isSubmitting">-->
+<!--            <fieldset class="form-group">-->
+<!--              <input-->
+<!--                formControlName="username"-->
+<!--                placeholder="{{'LOGIN.LABEL.USERNAME' | translate}}"-->
+<!--                class="form-control form-control-lg"-->
+<!--                type="text"-->
+<!--              id="username"/>-->
+<!--            </fieldset>-->
+<!--            <fieldset class="form-group">-->
+<!--              <input-->
+<!--                formControlName="password"-->
+<!--                placeholder="{{'LOGIN.LABEL.PASSWORD' | translate}}"-->
+<!--                class="form-control form-control-lg"-->
+<!--                type="password"-->
+<!--              id="password"/>-->
+<!--            </fieldset>-->
+<!--            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">-->
+<!--              {{ title | translate}}-->
+<!--            </button>-->
+<!--          </fieldset>-->
+<!--        </form>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

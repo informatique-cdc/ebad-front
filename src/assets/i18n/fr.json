@@ -1,9 +1,20 @@
 {
+  "APP": {
+    "NAME": "EBAD"
+  },
   "LOGIN": {
+    "WELCOME": "Bienvenue sur EBAD : Exécution des Batchs A Distance",
     "TITLE": "Connexion",
     "LABEL": {
       "PASSWORD": "Mot de passe",
-      "USERNAME": "Nom d'utilisateur"
+      "USERNAME": "Nom d'utilisateur",
+      "REMEMBERME": "Se rappeler de moi"
+    },
+    "ERROR" : {
+      "LOGIN": "Merci de vérifier vos identifiants"
+    },
+    "INFO": {
+      "LOGIN" : "Identifiez vous pour accéder à l'application"
     }
   },
   "HOME": {
