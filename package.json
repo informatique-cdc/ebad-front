@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -35,7 +35,7 @@
     "file-saver": "^2.0.1",
     "live-server": "^1.2.1",
     "marked": "^0.7.0",
-    "ng-multiselect-dropdown": "^0.2.3",
+    "ng-multiselect-dropdown": "0.2.3",
     "ngx-file-drop": "^5.0.6",
     "rxjs": "^6.4.0",
     "tslib": "^1.9.0",

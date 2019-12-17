@@ -16,7 +16,7 @@ export class EnvAppHeadSelectorComponent implements OnInit {
   private applications: Application[] = [];
 
   private environmentSelected: Environment;
-  private customTitle;
+  customTitle;
 
   @Input() title;
   @Input() showEnvironment = true;
