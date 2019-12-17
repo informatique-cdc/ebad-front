@@ -4,6 +4,8 @@ import {UserService} from './core';
 import {TranslateService} from "@ngx-translate/core";
 import {OauthService} from "./security/oauth.service";
 import {environment} from "../environments/environment";
+import {Router} from "@angular/router";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-root',
@@ -15,11 +17,10 @@ export class AppComponent implements OnInit {
   constructor(
     private userService: UserService,
     private translate: TranslateService,
-    private oauthService: OauthService
+    private oauthService: OauthService,
+    private router: Router,
+    private location: Location
   ) {
-    if (!environment.jwt) {
-      this.oauthService.runInitialLoginSequence();
-    }
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
     const browserLang = translate.getBrowserLang();
@@ -27,6 +28,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.location.path());
+    if (!environment.jwt) {
+      this.oauthService.runInitialLoginSequence();
+    }
     this.userService.populate();
     this.userService.isAuthenticated.subscribe((result) => this.isAuthenticated = result);
   }

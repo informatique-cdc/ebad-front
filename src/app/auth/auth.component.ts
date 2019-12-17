@@ -8,14 +8,15 @@ import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-auth-page',
-  templateUrl: './auth.component.html'
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  authType = '';
   title = '';
-  errors: Errors = {errors: {}};
+  error = false;
   isSubmitting = false;
   authForm: FormGroup;
+  jwt = environment.jwt;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,19 +34,6 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(!environment.jwt) {
-      this.oauthService.login("/batchs");
-    }
-    this.route.url.subscribe(data => {
-      // Get the last piece of the URL (it's either 'login' or 'register')
-      this.authType = data[data.length - 1].path;
-      // Set a title for the page accordingly
-      this.title = (this.authType === 'login') ? 'LOGIN.TITLE' : 'Inscription';
-      // add form control for login if this is the register page
-      if (this.authType === 'register') {
-        this.authForm.addControl('usernname', new FormControl());
-      }
-    });
     this.apiService.get('/csrf').subscribe((result) => {
       console.log('csrf');
     });
@@ -53,18 +41,25 @@ export class AuthComponent implements OnInit {
   }
 
   submitForm() {
-    this.isSubmitting = true;
-    this.errors = {errors: {}};
+    if(!this.jwt) {
+      // this.oauthService.runInitialLoginSequence();
+      this.oauthService.login("/home");
+      //return;
+    }else {
 
-    const credentials = this.authForm.value;
-    this.userService
-    .attemptAuth(this.authType, credentials)
-    .subscribe(
-      data => this.router.navigateByUrl('/'),
-      err => {
-        this.errors = err;
-        this.isSubmitting = false;
-      }
-    );
+      this.isSubmitting = true;
+      this.error = false;
+
+      const credentials = this.authForm.value;
+      this.userService
+        .attemptAuth(credentials)
+        .subscribe(
+          data => this.router.navigateByUrl('/home'),
+          err => {
+            this.error = true;
+            this.isSubmitting = false;
+          }
+        );
+    }
   }
 }

@@ -76,6 +76,7 @@ export class OauthService {
   }
 
   public runInitialLoginSequence(): Promise<void> {
+    console.log("runInitialLoginSequence");
     this.oauthService.tokenValidationHandler = new CustomValidationHandler();
     if (location.hash) {
       console.log('Encountered hash fragment, plotting as table...');

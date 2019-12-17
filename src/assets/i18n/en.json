@@ -1,9 +1,20 @@
 {
+  "APP": {
+    "NAME": "EBAD"
+  },
   "LOGIN": {
+    "WELCOME": "Welcome to EBAD : Execute all your batch on single place",
     "TITLE": "Login",
     "LABEL": {
       "PASSWORD": "Password",
-      "USERNAME": "Username"
+      "USERNAME": "Username",
+      "REMEMBERME": "Remember me"
+    },
+    "ERROR" : {
+      "LOGIN": "Please, check your credential"
+    },
+    "INFO": {
+      "LOGIN" : "Sign-in to use EBAD"
     }
   },
   "HOME": {
