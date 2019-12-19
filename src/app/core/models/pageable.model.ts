@@ -5,7 +5,7 @@ export class Pageable {
   page: number;
   size: number;
   paged: boolean;
-  sort: Sort;
+  sort: string;
   unpaged: boolean;
 
   constructor(pageNumber?: number, pageSize?: number){

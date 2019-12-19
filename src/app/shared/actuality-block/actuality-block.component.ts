@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NewsService} from '../../core/services';
 import {New} from '../../core/models';
+import {Pageable} from "../../core/models/pageable.model";
+import {Page} from "../../core/models/page.model";
 
 @Component({
   selector: 'app-actuality-block',
@@ -14,7 +16,9 @@ export class ActualityBlockComponent implements OnInit {
   constructor(private newsService: NewsService) { }
 
   ngOnInit() {
-    this.newsService.getAllPublic().subscribe(news => this.news = news);
+    const pageable = new Pageable(0,10);
+    pageable.sort = "id,desc";
+    this.newsService.getAllPublic(pageable).subscribe(news => this.news = news.content);
   }
 
 }

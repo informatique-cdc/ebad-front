@@ -5,6 +5,7 @@ import {SharedModule} from '../shared';
 import {ModalNewComponent} from './modal-new/modal-new.component';
 import {ModalNewDeletionComponent} from './modal-new-deletion/modal-new-deletion.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
   imports: [
     AdminNewsRoutingModule,
     SharedModule,
-    CKEditorModule
+    CKEditorModule,
+    NgbPaginationModule
   ],
   entryComponents: [
     ModalNewDeletionComponent,
