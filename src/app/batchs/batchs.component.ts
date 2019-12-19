@@ -74,7 +74,7 @@ export class BatchsComponent implements OnInit {
     this.table.settings.actionsDefinition.title = 'Action';
     this.table.settings.actionsDefinition.actions.push(new Action('Lancer', this.idActionRun));
     this.table.settings.actionsDefinition.actions.push(new Action('Lancer avec paramètre', this.idActionRunWithParameter));
-    this.refreshBatchs();
+    this.refreshBatchs(new Pageable(this.page-1, this.size))
   }
 
   onActionClicked(event: ActionClickEvent) {

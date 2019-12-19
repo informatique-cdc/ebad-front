@@ -39,7 +39,8 @@ export class ManageBatchsComponent implements OnInit {
   applicationChanged(application: Application) {
     this.showBatch();
     this.applicationSelected = application;
-    this.refreshBatchs();
+    this.page = 1;
+    this.refreshBatchs(new Pageable(this.page-1, this.size))
   }
 
 

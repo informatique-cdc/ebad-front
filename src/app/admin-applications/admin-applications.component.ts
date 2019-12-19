@@ -61,10 +61,11 @@ export class AdminApplicationsComponent implements OnInit {
     this.table.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionDelete));
     this.table.settings.actionsDefinition.actions.push(new Action('Utilisateurs', this.idActionUtilisateurs));
     this.table.settings.actionsDefinition.actions.push(new Action('Gestionnaires', this.idActionGestionnaires));
-    this.refreshApplication();
+    this.refreshApplication(new Pageable(this.page-1, this.size))
   }
 
   refreshApplication(pageable?: Pageable) {
+    console.log(pageable);
     this.applicationsService.getAllManage(pageable).subscribe(
       (applications) => {
         this.table.items = applications.content;

@@ -37,7 +37,7 @@ export class AdminNewsComponent implements OnInit {
   showNews() {
     this.table = new Table();
     this.table.showHeader = false;
-    this.table.showFooter = false;
+    this.table.showFooter = true;
 
     this.table.settings.globalAction = new Action('Ajouter une actualité', '');
 
@@ -55,16 +55,17 @@ export class AdminNewsComponent implements OnInit {
     this.table.settings.actionsDefinition.actions.push(new Action('Modifier', this.idActionModify));
     this.table.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionDelete));
 
-    this.refreshNews();
+    this.refreshNews(new Pageable(this.page - 1, this.size))
   }
 
   refreshNews(pageable: Pageable = new Pageable()) {
-    if(pageable.sort === undefined){
+    if (pageable.sort === undefined) {
       pageable.sort = "id,desc";
     }
     this.newsService.getAll(pageable).subscribe(
-      (norms) => {
-        this.table.items = norms.content;
+      (news) => {
+        this.table.items = news.content;
+        this.totalSize = news.totalElements;
       }
     );
   }
@@ -73,7 +74,7 @@ export class AdminNewsComponent implements OnInit {
     const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
     modalRef.result.then(() => {
       this.notifierService.notify('success', `L'actualité a bien été ajoutée`);
-      this.refreshNews();
+      this.page = 1;
     }, (reason) => {
       if (reason.message !== undefined) {
         this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de l'actualité : ${reason.message}`);
@@ -87,7 +88,7 @@ export class AdminNewsComponent implements OnInit {
       const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
       modalRef.result.then((result) => {
         this.notifierService.notify('success', `L'actualité a bien été modifiée`);
-        this.refreshNews();
+        this.page = 1;
       }, (reason) => {
         if (reason.message !== undefined) {
           this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'actualité : ${reason.message}`);
@@ -103,7 +104,7 @@ export class AdminNewsComponent implements OnInit {
         this.newsService.deleteNew(event.item.id).subscribe(
           () => {
             this.notifierService.notify('success', `L'actualité a été supprimée`);
-            this.refreshNews();
+            this.page = 1;
           },
           reason => {
             this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'actualité : ${reason}`);
@@ -117,6 +118,6 @@ export class AdminNewsComponent implements OnInit {
   }
 
   onPageChange(event) {
-    this.refreshNews(new Pageable(this.page-1, this.size))
+    this.refreshNews(new Pageable(this.page - 1, this.size))
   }
 }

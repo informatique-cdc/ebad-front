@@ -43,7 +43,8 @@ export class ManageEnvironmentsComponent implements OnInit {
       apps => {
         for (const app of apps.content) {
           if (app.id === this.applicationSelected.id) {
-            this.refreshEnvironments();
+            this.page = 1;
+            this.refreshEnvironments(new Pageable(this.page - 1, this.size))
           }
         }
       }
