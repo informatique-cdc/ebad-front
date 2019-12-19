@@ -7,6 +7,8 @@ import {ModalBatchComponent} from './modal-batch/modal-batch.component';
 import {ActionClickEvent} from '../shared/table/action-click-event.model';
 import {NotifierService} from 'angular-notifier';
 import {ModalBatchDeletionComponent} from './modal-batch-deletion/modal-batch-deletion.component';
+import {Constants} from "../shared/Constants";
+import {Pageable} from "../core/models/pageable.model";
 
 @Component({
   selector: 'app-manage-batchs',
@@ -17,11 +19,17 @@ export class ManageBatchsComponent implements OnInit {
 
   table: Table;
   applicationSelected: Application;
+
+  size = this.constants.numberByPage;
+  page = 0;
+  totalSize = 0;
+
   private idActionModify = 'actionModify';
   private idActionDelete = 'actionDelete';
 
   constructor(private batchsService: BatchsService,
               private modalService: NgbModal,
+              private constants: Constants,
               private notifierService: NotifierService) {
   }
 
@@ -31,9 +39,16 @@ export class ManageBatchsComponent implements OnInit {
   applicationChanged(application: Application) {
     this.showBatch();
     this.applicationSelected = application;
-    this.batchsService.getAllFromApplication(application.id).subscribe(
+    this.refreshBatchs();
+  }
+
+
+  refreshBatchs(pageable?: Pageable) {
+    this.batchsService.getAllFromApplication(this.applicationSelected.id, pageable).subscribe(
       batchs => {
-        this.table.items = batchs;
+        this.table.items = batchs.content;
+        this.totalSize = batchs.totalElements;
+
         for (const batch of this.table.items) {
           batch.env = '';
           for (const environnement of batch.environnements) {
@@ -47,7 +62,7 @@ export class ManageBatchsComponent implements OnInit {
   showBatch() {
     this.table = new Table();
     this.table.showHeader = false;
-    this.table.showFooter = false;
+    this.table.showFooter = true;
 
     this.table.settings.globalAction = new Action('Ajouter un batch', '');
 
@@ -117,5 +132,9 @@ export class ManageBatchsComponent implements OnInit {
       modalRef.componentInstance.batch = event.item;
       modalRef.componentInstance.isUpdate = true;
     }
+  }
+
+  onPageChange(event) {
+    this.refreshBatchs(new Pageable(this.page-1, this.size))
   }
 }

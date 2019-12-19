@@ -6,6 +6,8 @@ import {ActionClickEvent} from '../shared/table/action-click-event.model';
 import {NotifierService} from 'angular-notifier';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
+import {Constants} from "../shared/Constants";
+import {Pageable} from "../core/models/pageable.model";
 
 @Component({
   selector: 'app-batchs-page',
@@ -18,6 +20,9 @@ export class BatchsComponent implements OnInit {
   private idActionRun = 'run';
   private idActionRunWithParameter = 'runWithParameter';
   environmentSelected: Environment;
+  size = this.constants.numberByPage;
+  page = 0;
+  totalSize = 0;
 
   environmentSelectedInfo: InfoEnvironment;
   table: Table;
@@ -26,6 +31,7 @@ export class BatchsComponent implements OnInit {
     private batchsService: BatchsService,
     private notifierService: NotifierService,
     private environmentsService: EnvironmentsService,
+    private constants: Constants,
     private modalService: NgbModal) {
   }
 
@@ -44,11 +50,19 @@ export class BatchsComponent implements OnInit {
     );
     this.showBatch();
   }
-
+  refreshBatchs(pageable?: Pageable) {
+    this.batchsService.getAllFromEnvironment(this.environmentSelected.id).subscribe(
+      batchs => {
+        this.table.items = batchs.content;
+        this.totalSize = batchs.totalElements;
+      }
+    );
+  }
 
   showBatch() {
     this.table = new Table();
     this.table.showHeader = true;
+    this.table.showFooter = true;
 
     this.table.settings.columnsDefinition.name = new ColumnsDefinition();
     this.table.settings.columnsDefinition.name.title = 'Nom';
@@ -60,11 +74,7 @@ export class BatchsComponent implements OnInit {
     this.table.settings.actionsDefinition.title = 'Action';
     this.table.settings.actionsDefinition.actions.push(new Action('Lancer', this.idActionRun));
     this.table.settings.actionsDefinition.actions.push(new Action('Lancer avec paramètre', this.idActionRunWithParameter));
-    this.batchsService.getAllFromEnvironment(this.environmentSelected.id).subscribe(
-      batchs => {
-        this.table.items = batchs;
-      }
-    );
+    this.refreshBatchs();
   }
 
   onActionClicked(event: ActionClickEvent) {
@@ -104,6 +114,10 @@ export class BatchsComponent implements OnInit {
 
       }
     );
+  }
+
+  onPageChange(event) {
+    this.refreshBatchs(new Pageable(this.page-1, this.size))
   }
 }
 
