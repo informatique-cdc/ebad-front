@@ -58,7 +58,7 @@ export class AdminNewsComponent implements OnInit {
     this.refreshNews();
   }
 
-  refreshNews(pageable?: Pageable) {
+  refreshNews(pageable: Pageable = new Pageable()) {
     if(pageable.sort === undefined){
       pageable.sort = "id,desc";
     }
