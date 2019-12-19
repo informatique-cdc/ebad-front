@@ -7,6 +7,8 @@ import {ActionClickEvent} from '../shared/table/action-click-event.model';
 import {ApplicationsService, EnvironmentsService} from '../core/services';
 import {ModalEnvironmentComponent} from './modal-environment/modal-environment.component';
 import {ModalEnvironmentDeletionComponent} from './modal-environment-deletion/modal-environment-deletion.component';
+import {Pageable} from "../core/models/pageable.model";
+import {Constants} from "../shared/Constants";
 
 @Component({
   selector: 'app-manage-environments',
@@ -16,12 +18,18 @@ import {ModalEnvironmentDeletionComponent} from './modal-environment-deletion/mo
 export class ManageEnvironmentsComponent implements OnInit {
   table: Table;
   applicationSelected: Application;
+
+  size = this.constants.numberByPage;
+  page = 0;
+  totalSize = 0;
+
   private idActionModify = 'actionModify';
   private idActionDelete = 'actionDelete';
 
   constructor(private environmentsService: EnvironmentsService,
               private modalService: NgbModal,
               private applicationsService: ApplicationsService,
+              private constants: Constants,
               private notifierService: NotifierService) {
   }
 
@@ -33,11 +41,20 @@ export class ManageEnvironmentsComponent implements OnInit {
     this.applicationSelected = application;
     this.applicationsService.getAllModerable().subscribe(
       apps => {
-        for (const app of apps) {
+        for (const app of apps.content) {
           if (app.id === this.applicationSelected.id) {
-            this.table.items = app.environnements;
+            this.refreshEnvironments();
           }
         }
+      }
+    );
+  }
+
+  refreshEnvironments(pageable?: Pageable) {
+    this.environmentsService.getEnvironmentFromApp(this.applicationSelected.id,pageable).subscribe(
+      (environmentsPage) => {
+        this.table.items = environmentsPage.content;
+        this.totalSize = environmentsPage.totalElements;
       }
     );
   }
@@ -45,7 +62,7 @@ export class ManageEnvironmentsComponent implements OnInit {
   showEnvironments() {
     this.table = new Table();
     this.table.showHeader = false;
-    this.table.showFooter = false;
+    this.table.showFooter = true;
 
     this.table.settings.globalAction = new Action('Ajouter un environnement', '');
 
@@ -121,5 +138,9 @@ export class ManageEnvironmentsComponent implements OnInit {
       modalRef.componentInstance.environment = event.item;
       modalRef.componentInstance.isUpdate = true;
     }
+  }
+
+  onPageChange(event) {
+    this.refreshEnvironments(new Pageable(this.page - 1, this.size))
   }
 }

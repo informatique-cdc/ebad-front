@@ -3,6 +3,8 @@ import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
 import {Batch, Trace} from '../models';
+import {Page} from "../models/page.model";
+import {Pageable} from "../models/pageable.model";
 
 @Injectable()
 export class BatchsService {
@@ -11,13 +13,13 @@ export class BatchsService {
   ) {
   }
 
-  getAllFromEnvironment(slug): Observable<Batch[]> {
-    return this.apiService.get(`/batchs/env/` + slug);
+  getAllFromEnvironment(idEnvironment: number, pageable: Pageable = new Pageable(0,20)): Observable<Page<Batch>> {
+    return this.apiService.get(`/batchs?environnements.id=${idEnvironment}`, pageable);
   }
 
-  getAllFromApplication(idApplication): Observable<Batch[]> {
-    return this.apiService.get(`/batchs?environnements.application.id=${idApplication}`);
-  }
+  getAllFromApplication(idApplication: number, pageable: Pageable = new Pageable(0,20)): Observable<Page<Batch>> {
+    return this.apiService.get(`/batchs?environnements.application.id=${idApplication}`, pageable);
+}
 
   get(slug): Observable<Batch> {
     return this.apiService.get('/batchs/' + slug);

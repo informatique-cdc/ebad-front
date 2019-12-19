@@ -57,18 +57,6 @@ export class HasRoleDirective implements OnInit {
     return false;
   }
 
-  // isUser(): boolean {
-  //   if(this.user.usageApplications === undefined){
-  //     return false;
-  //   }
-  //   for (const usageApp of this.user.usageApplications) {
-  //     if (usageApp.canUse) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
-
   hasThisRole(role: String): boolean {
     const roles = this.user.authorities;
     if (role === "ROLE_MODO") {

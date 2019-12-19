@@ -4,12 +4,14 @@ import {AdminNormsRoutingModule} from './admin-norms-routing.module';
 import {SharedModule} from '../shared';
 import {ModalNormComponent} from './modal-norm/modal-norm.component';
 import {ModalNormDeletionComponent} from './modal-norm-deletion/modal-norm-deletion.component';
+import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [AdminNormsComponent, ModalNormComponent, ModalNormDeletionComponent],
   imports: [
     AdminNormsRoutingModule,
-    SharedModule
+    SharedModule,
+    NgbPaginationModule
   ],
   entryComponents: [
     ModalNormDeletionComponent,

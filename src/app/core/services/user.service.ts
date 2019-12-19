@@ -35,7 +35,6 @@ export class UserService {
   // This runs once on application startup.
   populate() {
     // If JWT detected, attempt to get & store user's info
-
     if (this.jwtService.getToken()) {
       this.apiService.get('/users/current')
         .subscribe(
@@ -45,15 +44,13 @@ export class UserService {
           },
           err => this.purgeAuth()
         );
-    } else {
+    } else if(environment.jwt) {
       // Remove any potential remnants of previous auth states
       this.purgeAuth();
     }
   }
 
   setAuth(user: User) {
-    console.log("user : " + user);
-    console.log(user);
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);
     // Set current user data into observable
@@ -64,13 +61,7 @@ export class UserService {
 
   purgeAuth() {
     if(!environment.jwt) {
-      this.currentUser.subscribe((user) => {
-        console.log("purge:" + user);
-        console.log(user);
-        if (user !== undefined && user.login !== undefined) {
-          this.oauthService.logout();
-        }
-      });
+      this.oauthService.logout();
     }
     // Remove JWT from localstorage
     this.jwtService.destroyToken();

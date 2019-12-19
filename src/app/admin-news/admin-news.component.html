@@ -5,4 +5,5 @@
            [table]="table"
            (actionClicked)="onActionClicked($event)"
            (globalActionClicked)="onClickAddNew()">
+  <ngb-pagination footer class="d-flex justify-content-center" [maxSize]="5" [collectionSize]="totalSize" [pageSize]="size" [(page)]="page" (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
 </app-table>

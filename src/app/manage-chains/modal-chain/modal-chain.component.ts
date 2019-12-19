@@ -4,6 +4,7 @@ import {BatchsService, ChainsService} from '../../core/services';
 import {Batch, Chain, ChainAssociation, Environment} from '../../core/models';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {NgModel} from '@angular/forms';
+import {Pageable} from "../../core/models/pageable.model";
 
 @Component({
   selector: 'app-modal-chain',
@@ -59,9 +60,9 @@ export class ModalChainComponent implements OnInit {
       }
     }
 
-    this.batchsService.getAllFromEnvironment(this.environment.id).subscribe(
+    this.batchsService.getAllFromEnvironment(this.environment.id,new Pageable(0,1000)).subscribe(
       batchs => {
-        this.batchs = batchs;
+        this.batchs = batchs.content;
       }
     );
   }

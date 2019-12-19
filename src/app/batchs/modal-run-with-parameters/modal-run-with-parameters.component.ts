@@ -8,6 +8,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 export class ModalRunWithParametersComponent implements OnInit {
 
   parameters: string;
+  batchName: string
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {

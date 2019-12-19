@@ -1,5 +1,12 @@
 export const environment = {
-  production: true,
+  production: false,
+  apiUrl: '/ebad',
   jwt: true,
-  apiUrl: '/ebad'
+  atHash: 'at_hash',
+  issuer: '',
+  clientId: 'ebad',
+  loginUrl: '',
+  scope: 'openid profile',
+  logoutUrl: '',
+  userinfoEndpoint: '',
 };

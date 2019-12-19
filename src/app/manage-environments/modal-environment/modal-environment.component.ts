@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Application, Environment, Norme} from '../../core/models';
 import {EnvironmentsService, NormsService} from '../../core/services';
+import {Pageable} from "../../core/models/pageable.model";
 
 @Component({
   selector: 'app-modal-environment',
@@ -39,11 +40,11 @@ export class ModalEnvironmentComponent implements OnInit {
       this.action = `Modifier`;
     }
 
-    this.normesService.getAll().subscribe(
+    this.normesService.getAll(new Pageable(0,1000)).subscribe(
       normes => {
-        this.normes = normes;
+        this.normes = normes.content;
         if (this.isUpdate) {
-          for (const norme of normes) {
+          for (const norme of this.normes) {
             if (norme.id === this.environment.norme.id) {
               this.environment.norme = norme;
             }

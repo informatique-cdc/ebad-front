@@ -2,7 +2,9 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
-import {Environment, InfoEnvironment} from '../models';
+import { Environment, InfoEnvironment} from '../models';
+import {Pageable} from "../models/pageable.model";
+import {Page} from "../models/page.model";
 
 @Injectable()
 export class EnvironmentsService {
@@ -12,12 +14,12 @@ export class EnvironmentsService {
   ) {
   }
 
-  getAll(): Observable<Environment[]> {
-    return this.apiService.get(`${this.apiName}/`);
-  }
-
   get(slug): Observable<Environment> {
     return this.apiService.get(`${this.apiName}/${slug}`);
+  }
+
+  getEnvironmentFromApp(appId: number, pageable: Pageable = new Pageable(0,20)): Observable<Page<Environment>> {
+      return this.apiService.get(`${this.apiName}?applicationId=${appId}`,pageable);
   }
 
   getInfo(slug): Observable<InfoEnvironment> {

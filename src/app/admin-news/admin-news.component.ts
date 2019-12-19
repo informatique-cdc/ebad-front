@@ -6,6 +6,8 @@ import {NewsService} from '../core/services';
 import {ActionClickEvent} from '../shared/table/action-click-event.model';
 import {ModalNewComponent} from './modal-new/modal-new.component';
 import {ModalNewDeletionComponent} from './modal-new-deletion/modal-new-deletion.component';
+import {Pageable} from "../core/models/pageable.model";
+import {Constants} from "../shared/Constants";
 
 @Component({
   selector: 'app-admin-news',
@@ -18,9 +20,13 @@ export class AdminNewsComponent implements OnInit {
 
   private idActionModify = 'actionModify';
   private idActionDelete = 'actionDelete';
+  size = this.constants.numberByPage;
+  page = 0;
+  totalSize = 0;
 
   constructor(private modalService: NgbModal,
               private notifierService: NotifierService,
+              private constants: Constants,
               private newsService: NewsService) {
   }
 
@@ -49,13 +55,16 @@ export class AdminNewsComponent implements OnInit {
     this.table.settings.actionsDefinition.actions.push(new Action('Modifier', this.idActionModify));
     this.table.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionDelete));
 
-    this.refreshNorms();
+    this.refreshNews();
   }
 
-  refreshNorms() {
-    this.newsService.getAll().subscribe(
+  refreshNews(pageable?: Pageable) {
+    if(pageable.sort === undefined){
+      pageable.sort = "id,desc";
+    }
+    this.newsService.getAll(pageable).subscribe(
       (norms) => {
-        this.table.items = norms;
+        this.table.items = norms.content;
       }
     );
   }
@@ -64,7 +73,7 @@ export class AdminNewsComponent implements OnInit {
     const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
     modalRef.result.then(() => {
       this.notifierService.notify('success', `L'actualité a bien été ajoutée`);
-      this.refreshNorms();
+      this.refreshNews();
     }, (reason) => {
       if (reason.message !== undefined) {
         this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de l'actualité : ${reason.message}`);
@@ -78,7 +87,7 @@ export class AdminNewsComponent implements OnInit {
       const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
       modalRef.result.then((result) => {
         this.notifierService.notify('success', `L'actualité a bien été modifiée`);
-        this.refreshNorms();
+        this.refreshNews();
       }, (reason) => {
         if (reason.message !== undefined) {
           this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'actualité : ${reason.message}`);
@@ -94,7 +103,7 @@ export class AdminNewsComponent implements OnInit {
         this.newsService.deleteNew(event.item.id).subscribe(
           () => {
             this.notifierService.notify('success', `L'actualité a été supprimée`);
-            this.refreshNorms();
+            this.refreshNews();
           },
           reason => {
             this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'actualité : ${reason}`);
@@ -107,4 +116,7 @@ export class AdminNewsComponent implements OnInit {
 
   }
 
+  onPageChange(event) {
+    this.refreshNews(new Pageable(this.page-1, this.size))
+  }
 }

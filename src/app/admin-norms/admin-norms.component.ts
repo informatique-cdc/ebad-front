@@ -6,6 +6,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NotifierService} from 'angular-notifier';
 import {ModalNormComponent} from './modal-norm/modal-norm.component';
 import {ModalNormDeletionComponent} from './modal-norm-deletion/modal-norm-deletion.component';
+import {Constants} from "../shared/Constants";
+import {Pageable} from "../core/models/pageable.model";
 
 @Component({
   selector: 'app-admin-norms',
@@ -15,12 +17,16 @@ import {ModalNormDeletionComponent} from './modal-norm-deletion/modal-norm-delet
 export class AdminNormsComponent implements OnInit {
 
   table: Table;
+  size = this.constants.numberByPage;
+  page = 0;
+  totalSize = 0;
 
   private idActionModify = 'actionModify';
   private idActionDelete = 'actionDelete';
 
   constructor(private modalService: NgbModal,
               private notifierService: NotifierService,
+              private constants: Constants,
               private normsService: NormsService) {
   }
 
@@ -31,7 +37,7 @@ export class AdminNormsComponent implements OnInit {
   showNorms() {
     this.table = new Table();
     this.table.showHeader = false;
-    this.table.showFooter = false;
+    this.table.showFooter = true;
 
     this.table.settings.globalAction = new Action('Ajouter une norme', '');
 
@@ -58,10 +64,11 @@ export class AdminNormsComponent implements OnInit {
     this.refreshNorms();
   }
 
-  refreshNorms() {
-    this.normsService.getAll().subscribe(
+  refreshNorms(pageable?: Pageable) {
+    this.normsService.getAll(pageable).subscribe(
       (norms) => {
-        this.table.items = norms;
+        this.table.items = norms.content;
+        this.totalSize = norms.totalElements;
       }
     );
   }
@@ -111,5 +118,9 @@ export class AdminNormsComponent implements OnInit {
       modalRef.componentInstance.norm = event.item;
     }
 
+  }
+
+  onPageChange(event) {
+    this.refreshNorms(new Pageable(this.page-1, this.size))
   }
 }
