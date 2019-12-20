@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {UserService} from './core';
+import {GlobalSettingsService, UserService} from './core';
 import {TranslateService} from "@ngx-translate/core";
 import {OauthService} from "./security/oauth.service";
 import {environment} from "../environments/environment";
@@ -15,7 +15,8 @@ export class AppComponent implements OnInit {
   constructor(
     private userService: UserService,
     private translate: TranslateService,
-    private oauthService: OauthService
+    private oauthService: OauthService,
+    private globalSettingsService: GlobalSettingsService
   ) {
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
@@ -31,5 +32,6 @@ export class AppComponent implements OnInit {
     }
     this.userService.populate();
     this.userService.isAuthenticated.subscribe((result) => this.isAuthenticated = result);
+    this.globalSettingsService.populateGlobalSetting();
   }
 }

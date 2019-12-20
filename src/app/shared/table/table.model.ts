@@ -13,6 +13,7 @@ export class Setting {
   columnsDefinition: ColumnsDefinitionObj = new ColumnsDefinitionObj();
   actionsDefinition: ActionDefinition = new ActionDefinition();
   globalAction: Action;
+  secondGlobalAction: Action;
 }
 
 export class ColumnsDefinitionObj {

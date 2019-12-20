@@ -8,6 +8,11 @@
             {{table.settings.globalAction.label}}
           </button>
         </div>
+        <div class="ml-1" *ngIf="table.settings.secondGlobalAction">
+          <button type="button" class="btn btn-primary btn-sm float-right" (click)="onSecondGlobalActionClicked()" id="secondGlobalAction">
+            {{table.settings.secondGlobalAction.label}}
+          </button>
+        </div>
       </div>
       <div class="card-header" *ngIf="table.showHeader">
         <ng-content select="[header]"></ng-content>

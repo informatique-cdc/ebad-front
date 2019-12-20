@@ -4,7 +4,7 @@ import {Application} from '../core/models';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NotifierService} from 'angular-notifier';
 import {ActionClickEvent} from '../shared/table/action-click-event.model';
-import {ApplicationsService, EnvironmentsService} from '../core/services';
+import {ApplicationsService, EnvironmentsService, GlobalSettingsService} from '../core/services';
 import {ModalEnvironmentComponent} from './modal-environment/modal-environment.component';
 import {ModalEnvironmentDeletionComponent} from './modal-environment-deletion/modal-environment-deletion.component';
 import {Pageable} from "../core/models/pageable.model";
@@ -30,7 +30,8 @@ export class ManageEnvironmentsComponent implements OnInit {
               private modalService: NgbModal,
               private applicationsService: ApplicationsService,
               private constants: Constants,
-              private notifierService: NotifierService) {
+              private notifierService: NotifierService,
+              private globalSettingsService: GlobalSettingsService) {
   }
 
   ngOnInit() {
@@ -66,6 +67,10 @@ export class ManageEnvironmentsComponent implements OnInit {
     this.table.showFooter = true;
 
     this.table.settings.globalAction = new Action('Ajouter un environnement', '');
+
+    if(this.globalSettingsService.importEnvironmentIsEnable()) {
+      this.table.settings.secondGlobalAction = new Action('Importer les environnements', '');
+    }
 
     this.table.settings.columnsDefinition.id = new ColumnsDefinition();
     this.table.settings.columnsDefinition.id.title = 'Id';
@@ -103,6 +108,17 @@ export class ManageEnvironmentsComponent implements OnInit {
     });
     modalRef.componentInstance.application = this.applicationSelected;
     modalRef.componentInstance.isUpdate = false;
+  }
+
+  onClickImportEnvironments(){
+    this.environmentsService.importEnvironmentToApp(this.applicationSelected.id).subscribe(
+      (result) => {
+        this.notifierService.notify('success', `Les environnements ont bien étaient importés`);
+        this.page = 1;
+        this.refreshEnvironments(new Pageable(this.page-1, this.size))
+      },
+      (error) => this.notifierService.notify('error', `Une erreur est survenue lors de l'import des environnments : ${error.message}`)
+    )
   }
 
   onActionClicked(event: ActionClickEvent) {

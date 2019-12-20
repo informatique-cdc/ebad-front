@@ -21,3 +21,4 @@ export * from './file.model';
 export * from './usage-application.model'
 export * from './notification.model'
 export * from './roles.model'
+export * from './global-setting.model'
