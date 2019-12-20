@@ -66,7 +66,9 @@ export class ManageEnvironmentsComponent implements OnInit {
     this.table.showHeader = false;
     this.table.showFooter = true;
 
-    this.table.settings.globalAction = new Action('Ajouter un environnement', '');
+    if(this.globalSettingsService.createEnvironmentIsEnable()) {
+      this.table.settings.globalAction = new Action('Ajouter un environnement', '');
+    }
 
     if(this.globalSettingsService.importEnvironmentIsEnable()) {
       this.table.settings.secondGlobalAction = new Action('Importer les environnements', '');

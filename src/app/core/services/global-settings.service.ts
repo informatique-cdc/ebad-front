@@ -35,4 +35,12 @@ export class GlobalSettingsService {
   importApplicationIsEnable(): boolean{
     return JSON.parse(this.mapSettings.get("APPLICATION_IMPORT_ENABLED"));
   }
+
+  createApplicationIsEnable(): boolean{
+    return JSON.parse(this.mapSettings.get("APPLICATION_CREATE_ENABLED"));
+  }
+
+  createEnvironmentIsEnable(): boolean{
+    return JSON.parse(this.mapSettings.get("ENVIRONMENT_CREATE_ENABLED"));
+  }
 }
