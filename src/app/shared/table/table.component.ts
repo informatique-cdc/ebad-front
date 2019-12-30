@@ -15,6 +15,7 @@ export class TableComponent implements OnInit {
 
   @Output() actionClicked = new EventEmitter<ActionClickEvent>();
   @Output() globalActionClicked = new EventEmitter<void>();
+  @Output() secondGlobalActionClicked = new EventEmitter<void>();
 
   constructor() {
   }
@@ -35,5 +36,9 @@ export class TableComponent implements OnInit {
 
   onGlobalActionClicked() {
     this.globalActionClicked.emit();
+  }
+
+  onSecondGlobalActionClicked() {
+    this.secondGlobalActionClicked.emit();
   }
 }

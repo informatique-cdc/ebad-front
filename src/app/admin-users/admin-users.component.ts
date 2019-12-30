@@ -6,6 +6,7 @@ import {UsersService} from '../core/services';
 import {ModalUserComponent} from './modal-user/modal-user.component';
 import {User} from '../core/models';
 import {ModalRolesComponent} from "./modal-roles/modal-roles.component";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-admin-users',
@@ -14,7 +15,7 @@ import {ModalRolesComponent} from "./modal-roles/modal-roles.component";
 })
 export class AdminUsersComponent implements OnInit {
   table: Table;
-
+  jwt = environment.jwt;
   private idActionModify = 'actionModify';
   private idActionActivate = 'ActionActivate';
   private idActionInctivate = 'ActionInctivate';

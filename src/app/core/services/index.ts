@@ -17,3 +17,4 @@ export * from './norms.service';
 export * from './users.service';
 export * from './news.service';
 export * from './notifications.service'
+export * from './global-settings.service'

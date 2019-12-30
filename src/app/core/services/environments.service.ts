@@ -42,4 +42,8 @@ export class EnvironmentsService {
   changeDateTraitement(slug, params) {
     return this.apiService.get(`${this.apiName}/dateTraitement/${slug}`, params);
   }
+
+  importEnvironmentToApp(appId: number){
+    return this.apiService.post(`${this.apiName}/import/application/${appId}`);
+  }
 }

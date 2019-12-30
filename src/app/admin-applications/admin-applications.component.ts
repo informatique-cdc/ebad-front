@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
-import {ApplicationsService} from '../core/services';
+import {ApplicationsService, GlobalSettingsService} from '../core/services';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NotifierService} from 'angular-notifier';
 import {ActionClickEvent} from '../shared/table/action-click-event.model';
@@ -20,6 +20,7 @@ export class AdminApplicationsComponent implements OnInit {
   size = this.constants.numberByPage;
   page = 0;
   totalSize = 0;
+  sort = "code,asc";
 
   private idActionModify = 'actionModify';
   private idActionDelete = 'actionDelete';
@@ -29,6 +30,7 @@ export class AdminApplicationsComponent implements OnInit {
   constructor(private modalService: NgbModal,
               private applicationsService: ApplicationsService,
               private constants: Constants,
+              private globalSettingsService : GlobalSettingsService,
               private notifierService: NotifierService) {
   }
 
@@ -41,7 +43,13 @@ export class AdminApplicationsComponent implements OnInit {
     this.table.showHeader = false;
     this.table.showFooter = true;
 
-    this.table.settings.globalAction = new Action('Ajouter une application', '');
+    if(this.globalSettingsService.createApplicationIsEnable()) {
+      this.table.settings.globalAction = new Action('Ajouter une application', '');
+    }
+
+    if(this.globalSettingsService.importApplicationIsEnable()) {
+      this.table.settings.secondGlobalAction = new Action('Importer des applications', '');
+    }
 
     this.table.settings.columnsDefinition.code = new ColumnsDefinition();
     this.table.settings.columnsDefinition.code.title = 'Code';
@@ -61,10 +69,10 @@ export class AdminApplicationsComponent implements OnInit {
     this.table.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionDelete));
     this.table.settings.actionsDefinition.actions.push(new Action('Utilisateurs', this.idActionUtilisateurs));
     this.table.settings.actionsDefinition.actions.push(new Action('Gestionnaires', this.idActionGestionnaires));
-    this.refreshApplication(new Pageable(this.page-1, this.size))
+    this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
   }
 
-  refreshApplication(pageable?: Pageable) {
+  refreshApplication(pageable: Pageable = new Pageable(0,this.size, this.sort)) {
     console.log(pageable);
     this.applicationsService.getAllManage(pageable).subscribe(
       (applications) => {
@@ -79,6 +87,7 @@ export class AdminApplicationsComponent implements OnInit {
     modalRef.result.then((result) => {
       this.notifierService.notify('success', `L'application ${result.name} a bien été ajoutée`);
       this.page = 1;
+      this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
     }, (reason) => {
       if (reason.message !== undefined) {
         this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
@@ -87,12 +96,24 @@ export class AdminApplicationsComponent implements OnInit {
     modalRef.componentInstance.isUpdate = false;
   }
 
+  onClickImportApplications(){
+    this.applicationsService.importApplications().subscribe(
+      (result) => {
+        this.notifierService.notify('success', `Les applications ont bien étaient importées`);
+        this.page = 1;
+        this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
+      },
+      (error) => this.notifierService.notify('error', `Une erreur est survenue lors de l'import des applications : ${error.message}`)
+    )
+  }
+
   onActionClicked(event: ActionClickEvent) {
     if (event.id === this.idActionModify) {
       const modalRef = this.modalService.open(ModalApplicationComponent);
       modalRef.result.then((result) => {
         this.notifierService.notify('success', `L'application ${result.name} a bien été modifiée`);
         this.page = 1;
+        this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
       }, (reason) => {
         if (reason.message !== undefined) {
           this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
@@ -109,6 +130,7 @@ export class AdminApplicationsComponent implements OnInit {
           () => {
             this.notifierService.notify('success', `L'application a été supprimée`);
             this.page = 1;
+            this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
           },
           reason => {
             this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'application : ${reason}`);
@@ -136,6 +158,6 @@ export class AdminApplicationsComponent implements OnInit {
   }
 
   onPageChange(event) {
-    this.refreshApplication(new Pageable(this.page-1, this.size))
+    this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
   }
 }

@@ -4,8 +4,7 @@
 <div class="row mb-4">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header py-1 d-flex">
-<!--        <h5>{{ title }}</h5>-->
+      <div class="card-header py-1 d-flex" *ngIf="jwt">
         <div class="ml-auto">
           <button type="button" class="btn btn-primary btn-sm float-right" (click)="onClickAddUser()">
             Ajouter un utilisateur
@@ -58,7 +57,7 @@
               <span *ngFor="let authority of user.authorities" class="badge badge-primary mr-2">{{authority.name}}</span>
             </td>
             <td class="text-center">
-              <div class="btn-group btn-group-sm" role="group">
+              <div class="btn-group btn-group-sm" role="group" *ngIf="jwt">
                 <button type="button" class="btn btn-primary" id="modify-{{user.id}}" (click)="onClickModifyUser(user)">
                   Modifier
                 </button>

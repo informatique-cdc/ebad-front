@@ -7,7 +7,7 @@ import {
   ApiService,
   ApplicationsService,
   AuthGuard, BatchsService, ChainsService,
-  CommentsService, EnvironmentsService, FilesService,
+  CommentsService, EnvironmentsService, FilesService, GlobalSettingsService,
   JwtService, NewsService, NormsService, NotificationsService,
   ProfilesService,
   TagsService,
@@ -39,7 +39,8 @@ import {FileKindsService} from './services/file-kinds.service';
     NormsService,
     UsersService,
     NewsService,
-    NotificationsService
+    NotificationsService,
+    GlobalSettingsService
   ],
   declarations: []
 })

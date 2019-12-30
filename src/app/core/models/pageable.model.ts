@@ -8,9 +8,13 @@ export class Pageable {
   sort: string;
   unpaged: boolean;
 
-  constructor(pageNumber?: number, pageSize?: number){
+  constructor(pageNumber?: number, pageSize?: number, sort?: string){
     this.page = pageNumber;
     this.size = pageSize;
+    if(sort) {
+      this.sort = sort;
+    }
   }
+
 
 }

@@ -14,6 +14,10 @@ export class ApplicationsService {
   ) {
   }
 
+  importApplications(): Observable<string> {
+    return this.apiService.post(`${this.apiName}/import-all`);
+  }
+
   getAll(pageable: Pageable = new Pageable(0,20)): Observable<Page<Application>> {
     return this.apiService.get(`${this.apiName}`,  pageable);
   }
