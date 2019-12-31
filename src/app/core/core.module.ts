@@ -4,6 +4,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from './interceptors';
 
 import {
+  AccreditationRequestsService,
   ApiService,
   ApplicationsService,
   AuthGuard, BatchsService, ChainsService,
@@ -40,7 +41,8 @@ import {FileKindsService} from './services/file-kinds.service';
     UsersService,
     NewsService,
     NotificationsService,
-    GlobalSettingsService
+    GlobalSettingsService,
+    AccreditationRequestsService
   ],
   declarations: []
 })

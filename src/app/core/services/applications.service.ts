@@ -22,6 +22,10 @@ export class ApplicationsService {
     return this.apiService.get(`${this.apiName}`,  pageable);
   }
 
+  search(pageable: Pageable = new Pageable(0,20), name: string): Observable<Page<Application>> {
+    return this.apiService.get(`${this.apiName}/search?name=${name}`,  pageable);
+  }
+
   getAllModerable(pageable: Pageable = new Pageable(0,20)): Observable<Page<Application>> {
     return this.apiService.get(`${this.apiName}/write`, pageable);
   }

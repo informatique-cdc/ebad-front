@@ -1,0 +1,23 @@
+<form (ngSubmit)="newForm.form.valid && sendRequest()" #newForm="ngForm">
+  <div class="form-group">
+    <label for="application">Nom de l'application</label>
+    <input id="application"  name="application" type="text" class="form-control" [class.is-invalid]="searchFailed"
+           [resultFormatter]="formatter" [inputFormatter]="formatter" [(ngModel)]="model" [ngbTypeahead]="search"
+           placeholder="nom de l'application"/>
+    <span *ngIf="searching">recherche en cours...</span>
+    <div class="invalid-feedback" *ngIf="searchFailed">Désolé, les suggestions ne peuvent être chargées.</div>
+  </div>
+  <div class="form-group">
+    <label for="wantManage">Droit de gestion</label>
+    <div class="input-group">
+      <input type="checkbox" id="wantManage" class="form-control" name="wantManage" [(ngModel)]="request.wantManage">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="wantUse">Droit lancement</label>
+    <div class="input-group">
+      <input type="checkbox" id="wantUse" class="form-control" name="wantUse" [(ngModel)]="request.wantUse">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-outline-dark">Envoyer</button>
+</form>
