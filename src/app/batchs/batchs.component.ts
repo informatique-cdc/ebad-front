@@ -15,8 +15,6 @@ import {Pageable} from "../core/models/pageable.model";
   styleUrls: ['./batchs.component.scss']
 })
 export class BatchsComponent implements OnInit {
-
-
   private idActionRun = 'run';
   private idActionRunWithParameter = 'runWithParameter';
   environmentSelected: Environment;
@@ -51,7 +49,7 @@ export class BatchsComponent implements OnInit {
     this.showBatch();
   }
   refreshBatchs(pageable?: Pageable) {
-    this.batchsService.getAllFromEnvironment(this.environmentSelected.id).subscribe(
+    this.batchsService.getAllFromEnvironment(this.environmentSelected.id, pageable).subscribe(
       batchs => {
         this.table.items = batchs.content;
         this.totalSize = batchs.totalElements;

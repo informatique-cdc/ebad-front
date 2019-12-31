@@ -18,6 +18,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {HttpClient} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { AnonymousComponent } from './anonymous/anonymous.component';
+import {AccreditationRequestModule} from "./accreditation-requests/accreditation-request.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -32,6 +33,7 @@ registerLocaleData(localeFr);
     BrowserAnimationsModule,
     CoreModule,
     SharedModule,
+    AccreditationRequestModule,
     AuthModule,
     IconsModule,
     NgbModule,

@@ -40,7 +40,7 @@ export class ModalEnvironmentComponent implements OnInit {
       this.action = `Modifier`;
     }
 
-    this.normesService.getAll(new Pageable(0,1000)).subscribe(
+    this.normesService.getAllName(new Pageable(0,1000)).subscribe(
       normes => {
         this.normes = normes.content;
         if (this.isUpdate) {

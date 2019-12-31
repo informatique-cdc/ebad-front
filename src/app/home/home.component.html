@@ -1,2 +1,20 @@
 <app-head-selector title="{{'HOME.TITLE' | translate}}"></app-head-selector>
 <app-actuality-block></app-actuality-block>
+<div class="row mb-4">
+  <div class="col-md-12">
+    <app-list-accreditation-request [userOnly]="false"></app-list-accreditation-request>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Demande d'accréditation</div>
+      <div class="card-body">
+        <app-accreditation-request></app-accreditation-request>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+        <app-list-accreditation-request [userOnly]="true"></app-list-accreditation-request>
+  </div>
+</div>

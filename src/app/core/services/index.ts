@@ -18,3 +18,4 @@ export * from './users.service';
 export * from './news.service';
 export * from './notifications.service'
 export * from './global-settings.service'
+export * from './accreditation-requests.service'
