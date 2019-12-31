@@ -1,20 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AccreditationRequestsService} from '../core/services';
 import {Pageable} from "../core/models/pageable.model";
 import {Action, ColumnsDefinition, Table} from "../shared/table/table.model";
 import {Constants} from "../shared/Constants";
+import {Observable} from "rxjs";
+import {AccreditationRequest} from "../core/models";
+import {Page} from "../core/models/page.model";
 import {ActionClickEvent} from "../shared/table/action-click-event.model";
-import {Batch, ResponseAccreditationRequest} from "../core/models";
-import {ModalRunWithParametersComponent} from "../batchs/modal-run-with-parameters/modal-run-with-parameters.component";
 import {NotifierService} from "angular-notifier";
 
 @Component({
-  selector: 'app-response-accreditation-request',
-  templateUrl: './response-accreditation-request.component.html'
+  selector: 'app-list-accreditation-request',
+  templateUrl: './list-accreditation-request.component.html'
 })
-export class ResponseAccreditationRequestComponent implements OnInit {
+export class ListAccreditationRequestComponent implements OnInit {
+  @Input() userOnly: boolean;
+  title = 'Liste des demandes d\'accréditation à traiter';
+
   private idActionAccept = 'accept';
   private idActionReject = 'reject';
+
   size = this.constants.numberByPage;
   page = 0;
   totalSize = 0;
@@ -27,11 +32,21 @@ export class ResponseAccreditationRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.userOnly){
+      this.title = 'Liste des demandes d\'accréditation';
+    }
     this.showAccreditationRequest();
   }
 
+  listRequest(pageable: Pageable) : Observable<Page<AccreditationRequest>> {
+    if(this.userOnly) {
+      return this.accreditationRequestsService.getAllMyRequests(pageable);
+    }
+    return this.accreditationRequestsService.getAllNeedAnswer(pageable);
+  }
+
   refreshAccreditationRequests(pageable: Pageable = new Pageable(0, this.constants.numberByPage, 'id,desc')) {
-    this.accreditationRequestsService.getAllNeedAnswer(pageable).subscribe(
+    this.listRequest(pageable).subscribe(
       accreditationRequests => {
         this.table.items = accreditationRequests.content;
         for (let request of this.table.items) {
@@ -62,9 +77,11 @@ export class ResponseAccreditationRequestComponent implements OnInit {
     this.table.settings.columnsDefinition.state = new ColumnsDefinition();
     this.table.settings.columnsDefinition.state.title = 'Etat';
     this.table.settings.columnsDefinition.state.order = 5;
-    this.table.settings.actionsDefinition.title = 'Action';
-    this.table.settings.actionsDefinition.actions.push(new Action('Accepter', this.idActionAccept));
-    this.table.settings.actionsDefinition.actions.push(new Action('Refuser', this.idActionReject));
+    if(!this.userOnly){
+      this.table.settings.actionsDefinition.title = 'Action';
+      this.table.settings.actionsDefinition.actions.push(new Action('Accepter', this.idActionAccept));
+      this.table.settings.actionsDefinition.actions.push(new Action('Refuser', this.idActionReject));
+    }
     this.refreshAccreditationRequests();
   }
 

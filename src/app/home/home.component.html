@@ -2,7 +2,7 @@
 <app-actuality-block></app-actuality-block>
 <div class="row mb-4">
   <div class="col-md-12">
-    <app-response-accreditation-request></app-response-accreditation-request>
+    <app-list-accreditation-request [userOnly]="false"></app-list-accreditation-request>
   </div>
 </div>
 <div class="row mb-4">
@@ -15,6 +15,6 @@
     </div>
   </div>
   <div class="col-md-6">
-        <app-user-list-accreditation-request></app-user-list-accreditation-request>
+        <app-list-accreditation-request [userOnly]="true"></app-list-accreditation-request>
   </div>
 </div>
