@@ -31,7 +31,11 @@ export class AppComponent implements OnInit {
       );
     }
     this.userService.populate();
-    this.userService.isAuthenticated.subscribe((result) => this.isAuthenticated = result);
-    this.globalSettingsService.populateGlobalSetting();
+    this.userService.isAuthenticated.subscribe((result) => {
+      this.isAuthenticated = result;
+      if(result){
+        this.globalSettingsService.populateGlobalSetting();
+      }
+    });
   }
 }
