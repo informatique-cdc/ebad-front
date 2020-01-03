@@ -1,0 +1,37 @@
+.navbar {
+  //padding-top: 0;
+  //padding-bottom: 0;
+}
+
+/**
+Navbar logo
+ */
+.navbar-brand-logo {
+  height: 2rem;
+}
+
+.navbar-nav {
+  flex-direction: row;
+  margin-right: -($navbar-padding-x);
+  margin-left: -($navbar-padding-x);
+
+  .nav-link {
+    padding-left: $navbar-nav-link-padding-x;
+    padding-right: $navbar-nav-link-padding-x;
+  }
+
+  .nav-item {
+
+    &:hover {
+      .dropdown-menu {
+        display: block;
+      }
+    }
+  }
+}
+
+.navbar-brand {
+  padding: 0;
+  line-height: 1;
+}
+
