@@ -16,8 +16,8 @@ export class OauthService {
   public isDoneLoading$ = this.isDoneLoadingSubject$.asObservable();
 
   public canActivateProtectedRoutes$: Observable<boolean> = combineLatest(
-    this.isAuthenticated$,
-    this.isDoneLoading$
+    [this.isAuthenticated$,
+    this.isDoneLoading$]
   ).pipe(map(values => values.every(b => b)));
 
 
