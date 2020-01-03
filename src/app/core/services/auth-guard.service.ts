@@ -39,7 +39,12 @@ export class AuthGuard implements CanActivate {
     }else {
       console.log("canActivate oauth");
       return this.oauthService.canActivateProtectedRoutes$
-        .pipe(tap(x => console.log('You tried to go to ' + state.url + ' and this guard said ' + x)));
+        .pipe(tap(x => {
+          console.log('You tried to go to ' + state.url + ' and this guard said ' + x);
+          if(!x){
+            this.router.navigate(['login']);
+          }
+        }));
     }
   }
 }

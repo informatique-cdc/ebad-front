@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {NoPreloading, PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {AuthGuard} from "./core/services";
 import {NoAuthGuard} from "./auth/no-auth-guard.service";
@@ -76,8 +76,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: AuthComponent,
-    canActivate: [NoAuthGuard]
+    component: HomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'oauth',
@@ -92,7 +92,7 @@ const routes: Routes = [
     // preload all modules; optionally we could
     // implement a custom preloading strategy for just some
     // of the modules (PRs welcome 😉)
-    preloadingStrategy: PreloadAllModules,
+    preloadingStrategy: NoPreloading,
     useHash: true,
     initialNavigation: true
   })],

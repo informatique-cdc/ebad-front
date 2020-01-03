@@ -29,6 +29,7 @@ registerLocaleData(localeFr);
 @NgModule({
   declarations: [AppComponent, FooterComponent, HeaderComponent, AsideComponent, AnonymousComponent],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
@@ -37,7 +38,6 @@ registerLocaleData(localeFr);
     AuthModule,
     IconsModule,
     NgbModule,
-    AppRoutingModule,
     NotifierModule,
     HomeModule,
     SecurityModule.forRoot(),
@@ -47,7 +47,8 @@ registerLocaleData(localeFr);
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+
   ],
   providers: [{provide: LOCALE_ID, useValue: 'fr-FR'}],
   bootstrap: [AppComponent]
