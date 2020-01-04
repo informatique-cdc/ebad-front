@@ -18,6 +18,8 @@ import {NgbDateFRParserFormatter} from './ngb-date-fr-parser-formatter';
 import {Constants} from './Constants';
 import {HasRoleDirective} from "./has-role/has-role.directive";
 import {TranslateModule} from "@ngx-translate/core";
+import {MenuItemComponent} from "./layout";
+import {AngularSvgIconModule} from "angular-svg-icon";
 
 @NgModule({
   imports: [
@@ -32,7 +34,8 @@ import {TranslateModule} from "@ngx-translate/core";
     RouterModule,
     IconsModule,
     NgbModule,
-    TranslateModule
+    TranslateModule,
+    AngularSvgIconModule
   ],
   declarations: [
     ListErrorsComponent,
@@ -43,7 +46,8 @@ import {TranslateModule} from "@ngx-translate/core";
     EnvAppHeadSelectorComponent,
     DateTraitementComponent,
     ModalDateTraitementComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    MenuItemComponent
   ],
   exports: [
     CommonModule,
@@ -59,7 +63,8 @@ import {TranslateModule} from "@ngx-translate/core";
     EnvAppHeadSelectorComponent,
     DateTraitementComponent,
     HasRoleDirective,
-    TranslateModule
+    TranslateModule,
+    MenuItemComponent
   ],
   entryComponents: [
     ModalDateTraitementComponent

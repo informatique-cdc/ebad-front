@@ -39,11 +39,11 @@
   }
 }
 
-.nav-icon {
+.nav-icon, .nav-icon-svg > svg {
   line-height: 1;
   margin-right: .25rem;
 
-  .icon {
+  .icon, .icon-svg > svg {
     display: block;
     stroke-width: 1.5;
   }

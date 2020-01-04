@@ -19,6 +19,7 @@ import {HttpClient} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { AnonymousComponent } from './anonymous/anonymous.component';
 import {AccreditationRequestModule} from "./accreditation-requests/accreditation-request.module";
+import {AngularSvgIconModule} from "angular-svg-icon";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -40,6 +41,7 @@ registerLocaleData(localeFr);
     NgbModule,
     NotifierModule,
     HomeModule,
+    AngularSvgIconModule,
     SecurityModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
