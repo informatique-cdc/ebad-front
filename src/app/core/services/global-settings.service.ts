@@ -29,18 +29,18 @@ export class GlobalSettingsService {
   }
 
   importEnvironmentIsEnable(): boolean{
-    return JSON.parse(this.mapSettings.get("ENVIRONMENT_IMPORT_ENABLED"));
+    return JSON.parse(this.mapSettings.get("ENVIRONMENT_IMPORT_ENABLED").toLowerCase());
   }
 
   importApplicationIsEnable(): boolean{
-    return JSON.parse(this.mapSettings.get("APPLICATION_IMPORT_ENABLED"));
+    return JSON.parse(this.mapSettings.get("APPLICATION_IMPORT_ENABLED").toLowerCase());
   }
 
   createApplicationIsEnable(): boolean{
-    return JSON.parse(this.mapSettings.get("APPLICATION_CREATE_ENABLED"));
+    return JSON.parse(this.mapSettings.get("APPLICATION_CREATE_ENABLED").toLowerCase());
   }
 
   createEnvironmentIsEnable(): boolean{
-    return JSON.parse(this.mapSettings.get("ENVIRONMENT_CREATE_ENABLED"));
+    return JSON.parse(this.mapSettings.get("ENVIRONMENT_CREATE_ENABLED").toLowerCase());
   }
 }
