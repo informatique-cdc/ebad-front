@@ -20,6 +20,7 @@ import {HasRoleDirective} from "./has-role/has-role.directive";
 import {TranslateModule} from "@ngx-translate/core";
 import {MenuItemComponent} from "./layout";
 import {AngularSvgIconModule} from "angular-svg-icon";
+import {IconComponent} from "./icon";
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import {AngularSvgIconModule} from "angular-svg-icon";
     DateTraitementComponent,
     ModalDateTraitementComponent,
     HasRoleDirective,
-    MenuItemComponent
+    MenuItemComponent,
+    IconComponent
   ],
   exports: [
     CommonModule,
@@ -64,7 +66,8 @@ import {AngularSvgIconModule} from "angular-svg-icon";
     DateTraitementComponent,
     HasRoleDirective,
     TranslateModule,
-    MenuItemComponent
+    MenuItemComponent,
+    IconComponent
   ],
   entryComponents: [
     ModalDateTraitementComponent

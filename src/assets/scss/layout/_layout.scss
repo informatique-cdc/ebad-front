@@ -371,7 +371,7 @@ Sidebar menu
     transition: .3s transform;
   }
 
-  .sidebar-nav-link[aria-expanded="true"] &:after {
+  .sidebar-nav-link.open &:after {
     transform: rotate(-45deg);
   }
 }

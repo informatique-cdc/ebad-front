@@ -1,5 +1,6 @@
-<a [routerLink]="link" class="sidebar-nav-link active" routerLinkActive="active" >
-  <svg-icon src="./assets/img/icons/home.svg" applyCss="true" class="icon-svg nav-icon-svg"></svg-icon>
+<a [routerLink]="link" class="sidebar-nav-link" [ngClass]="{'open': isOpen}" routerLinkActive="active" >
+  <ebad-icon *ngIf="icon" [name]="icon" classname="icon-svg nav-icon-svg"></ebad-icon>
   <span class="nav-text">{{label}}</span>
-  <span class="badge bg-blue"></span>
+ <!-- <span class="badge bg-blue">test</span> BADGE-->
+  <span *ngIf="isParent" class="sidebar-nav-arrow"></span>
 </a>

@@ -7,4 +7,7 @@ import {Component, Input} from '@angular/core';
 export class MenuItemComponent {
   @Input() link: string;
   @Input() label: string;
+  @Input() icon: string;
+  @Input() isParent: boolean;
+  @Input() isOpen: boolean;
 }

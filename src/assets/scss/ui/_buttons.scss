@@ -17,7 +17,7 @@
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .05), inset 0 2px 0 -1px rgba(255, 255, 255, .1);
     }
 
-    svg.icon {
+    svg.icon, .icon-svg > svg {
       filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, .05));
     }
   }
@@ -27,7 +27,7 @@
     cursor: not-allowed;
   }
 
-  .icon {
+  .icon, .icon-svg > svg {
     margin: 0 .25em 0 -.25em;
     font-size: 1.2em;
     vertical-align: sub;
@@ -44,7 +44,7 @@
     margin: 0 -.25em 0 .5em;
   }
 
-  svg.icon {
+  svg.icon, .icon-svg > svg {
     width: 1em;
     height: 1em;
     stroke-width: 1.5;
@@ -52,7 +52,7 @@
 }
 
 .btn-lg {
-  svg.icon {
+  svg.icon, .icon-svg > svg {
     stroke-width: 2;
   }
 }
@@ -66,7 +66,7 @@
 .btn-icon {
   min-width: add($btn-line-height * $btn-font-size + $btn-padding-y * 2, $btn-border-width * 2);
 
-  .icon {
+  .icon, .icon-svg > svg {
     margin: 0 -1em;
   }
 }

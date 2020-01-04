@@ -5,4 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './aside.component.html'
 })
 export class AsideComponent {
+  navbarUsageOpen = false;
+
+  toggleUsage() {
+    this.navbarUsageOpen = !this.navbarUsageOpen;
+  }
 }
