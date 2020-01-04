@@ -26,7 +26,7 @@
   "MENU": {
     "DASHBOARD": "Dashboard",
     "FUNCTION": {
-      "TITLE": "FUNCTION",
+      "TITLE": "Function",
       "BATCHS": "Batchs",
       "CHAINS": "Chains",
       "FILES": "Files",
@@ -34,10 +34,10 @@
     },
     "MANAGEMENT": {
       "TITLE": "Management",
-      "BATCHS": "Manage Batchs",
-      "CHAINS": "Manage Chains",
-      "FOLDERS": "Manage Folders",
-      "NAMING": "Manage Naming",
+      "BATCHS": "Batchs",
+      "CHAINS": "Chains",
+      "FOLDERS": "Folders",
+      "NAMING": "Naming",
       "ENVIRONMENTS": "Manage Environments"
     },
     "ADMINISTRATION": {
@@ -45,7 +45,7 @@
       "USERS": "Users",
       "APPLICATIONS": "Applications",
       "NORMS": "Norms",
-      "ACTUALITIES": "Actualities"
+      "NEWS": "Actualities"
     },
     "OTHERS": {
       "TITLE": "Others",

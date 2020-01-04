@@ -26,7 +26,7 @@
   "MENU": {
     "DASHBOARD": "Tableau de bord",
     "FUNCTION": {
-      "TITLE": "FUNCTION",
+      "TITLE": "Fonction",
       "BATCHS": "Batchs",
       "CHAINS": "Chains",
       "FILES": "Files",
@@ -34,18 +34,18 @@
     },
     "MANAGEMENT": {
       "TITLE": "Gestion",
-      "BATCHS": "Gestion Batchs",
-      "CHAINS": "Gestion Chaines",
-      "FOLDERS": "Gestion Répertoires",
-      "NAMING": "Gestion Nommages",
-      "ENVIRONMENTS": "Gestion Environnements"
+      "BATCHS": "Batchs",
+      "CHAINS": "Chaines",
+      "FOLDERS": "Répertoires",
+      "NAMING": "Nommages",
+      "ENVIRONMENTS": "Environnements"
     },
     "ADMINISTRATION": {
       "TITLE": "Administration",
       "USERS": "Utilisateurs",
       "APPLICATIONS": "Applications",
       "NORMS": "Normes",
-      "ACTUALITIES": "Actualités"
+      "NEWS": "Actualités"
     },
     "OTHERS": {
       "TITLE": "Autres",

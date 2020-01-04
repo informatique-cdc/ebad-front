@@ -1,13 +1,25 @@
-<app-layout-header *appShowAuthed="true"></app-layout-header>
+<div class="wrapper">
+  <aside class="sidebar sidebar-dark" ebad-aside *appShowAuthed="true"></aside>
+  <div class="content">
+    <header ebad-header *appShowAuthed="true" class="topnav topbar"></header>
+    <div class="content-page">
+      <main class="container my-4 flex-fill">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>
+</div>
+<!--<app-layout-header *appShowAuthed="true"></app-layout-header>
 <div class="container-fluid">
   <div class="row">
     <app-layout-aside *appShowAuthed="true"></app-layout-aside>
-    <main role="main" class="ml-sm-auto" [ngClass]="{'col-md-9 col-lg-10 px-4': isAuthenticated, 'col-md-12 col-lg-12': !isAuthenticated}">
+    <main role="main" class="ml-sm-auto"
+          [ngClass]="{'col-md-9 col-lg-10 px-4': isAuthenticated, 'col-md-12 col-lg-12': !isAuthenticated}">
       <router-outlet></router-outlet>
-    </main>
+    </main>-->
     <!--<app-layout-footer></app-layout-footer>-->
-  </div>
-</div>
+<!--  </div>
+</div>-->
 <!--<div class="container-fluid" *appShowAuthed="false" style="background-image: url('assets/img/cover.jpg')">-->
 <!--      <router-outlet></router-outlet>-->
 <!--</div>-->

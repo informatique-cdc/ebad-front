@@ -1,8 +1,8 @@
-<aside class="sidebar sidebar-dark">
+
   <!-- Sidebar logo -->
   <a routerLink="home" class="sidebar-brand">
-    <img src="./assets/img/logo.svg" alt="Tabler" class="sidebar-brand-logo sidebar-brand-logo-lg">
-    <img src="./assets/img/logo-small.svg" alt="Tabler" class="sidebar-brand-logo sidebar-brand-logo-sm">
+    <img src="./assets/img/logo.svg" alt="EBAD" class="sidebar-brand-logo sidebar-brand-logo-lg">
+    <img src="./assets/img/logo-small.svg" alt="EBAD" class="sidebar-brand-logo sidebar-brand-logo-sm">
   </a>
   <div class="sidebar-content">
     <div>
@@ -10,20 +10,76 @@
       <ul class="sidebar-nav">
         <li class="sidebar-nav-title">Navigation</li>
         <li class="sidebar-nav-item">
-          <ebad-menu-item label="Dashboard" link="home" icon="home"></ebad-menu-item>
+          <ebad-menu-item [label]="'MENU.DASHBOARD' | translate" link="home" icon="/home"></ebad-menu-item>
         </li>
         <li class="sidebar-nav-item">
-          <ebad-menu-item label="Form elements" icon="check-square" link="batchs"></ebad-menu-item>
+          <ebad-menu-item label="Accreditations" icon="check-square" link="/accreditations"></ebad-menu-item>
         </li>
-        <li class="sidebar-nav-item">
-          <ebad-menu-item label="Form elements" icon="paperclip"
-                          isParent="true" [isOpen]="navbarUsageOpen" link=""
+        <li class="sidebar-nav-item" *hasRole="'ROLE_USER'">
+          <ebad-menu-item [label]="'MENU.FUNCTION.TITLE' | translate" icon="paperclip"
+                          isParent="true" [isOpen]="navbarUsageOpen"
                           (click)="toggleUsage()"></ebad-menu-item>
           <ul class="sidebar-subnav collapse" [ngClass]="{ 'show': navbarUsageOpen }" id="sidebar-menu-error">
             <li class="sidebar-nav-item">
-              <ebad-menu-item label="400 page" link="test"></ebad-menu-item>
+              <ebad-menu-item [label]="'MENU.FUNCTION.BATCHS' | translate" icon="terminal" link="/batchs"></ebad-menu-item>
+            </li>
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.FUNCTION.CHAINS' | translate" icon="link" link="/chains"></ebad-menu-item>
+            </li>
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.FUNCTION.FILES' | translate" icon="folder" link="/files"></ebad-menu-item>
+            </li>
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.FUNCTION.TRACES' | translate" icon="activity" link="/traces"></ebad-menu-item>
             </li>
           </ul>
+        </li>
+        <li class="sidebar-nav-item" *hasRole="'ROLE_MODO'" >
+          <ebad-menu-item [label]="'MENU.MANAGEMENT.TITLE' | translate" icon="paperclip"
+                          isParent="true" [isOpen]="navbarManageOpen"
+                          (click)="toggleManage()"></ebad-menu-item>
+          <ul class="sidebar-subnav collapse" [ngClass]="{ 'show': navbarManageOpen }">
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.MANAGEMENT.BATCHS' | translate" icon="terminal" link="/manage/batchs"></ebad-menu-item>
+            </li>
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.MANAGEMENT.CHAINS' | translate" icon="link" link="/manage/chains"></ebad-menu-item>
+            </li>
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.MANAGEMENT.FOLDERS' | translate" icon="folder" link="/manage/directories"></ebad-menu-item>
+            </li>
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.MANAGEMENT.NAMING' | translate" icon="edit" link="/manage/naming"></ebad-menu-item>
+            </li>
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.MANAGEMENT.ENVIRONMENTS' | translate" icon="server" link="/manage/environments"></ebad-menu-item>
+            </li>
+          </ul>
+        </li>
+        <li class="sidebar-nav-item" *hasRole="'ROLE_ADMIN'">
+          <ebad-menu-item [label]="'MENU.ADMINISTRATION.TITLE' | translate" icon="paperclip"
+                          isParent="true" [isOpen]="navbarAdministrateOpen"
+                          (click)="toggleAdministrate()"></ebad-menu-item>
+          <ul class="sidebar-subnav collapse" [ngClass]="{ 'show': navbarAdministrateOpen }">
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.ADMINISTRATION.USERS' | translate" icon="users" link="/admin/users"></ebad-menu-item>
+            </li>
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.ADMINISTRATION.APPLICATIONS' | translate" icon="layers" link="/admin/applications"></ebad-menu-item>
+            </li>
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.ADMINISTRATION.NORMS' | translate" icon="flag" link="/admin/norms"></ebad-menu-item>
+            </li>
+            <li class="sidebar-nav-item">
+              <ebad-menu-item [label]="'MENU.ADMINISTRATION.NEWS' | translate" icon="inbox" link="/admin/news"></ebad-menu-item>
+            </li>
+          </ul>
+        </li>
+        <li class="sidebar-nav-item">
+          <ebad-menu-item [label]="'MENU.OTHERS.HELP' | translate" icon="life-buoy" href="https://github.com/informatique-cdc/ebad-front/wiki"></ebad-menu-item>
+        </li>
+        <li class="sidebar-nav-item">
+          <ebad-menu-item [label]="'MENU.OTHERS.CHANGELOG' | translate" icon="git-commit" href="https://github.com/informatique-cdc/ebad/releases/latest"></ebad-menu-item>
         </li>
       </ul>
     </div>
@@ -34,132 +90,3 @@
       </a>
     </div>
   </div>
-</aside>
-<!--
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-  <div class="sidebar-sticky">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/home">
-          <i-bar-chart-2></i-bar-chart-2>
-          {{ 'MENU.DASHBOARD' | translate}}
-        </a>
-      </li>
-    </ul>
-
-    <h6 *hasRole="'ROLE_USER'" class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-      <span>{{'MENU.FUNCTION.TITLE' | translate}}</span>
-    </h6>
-    <ul *hasRole="'ROLE_USER'" class="nav flex-column mb-2">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/batchs" routerLinkActive="active">
-          <i-terminal></i-terminal>
-          {{'MENU.FUNCTION.BATCHS' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"  routerLink="/chains" routerLinkActive="active">
-          <i-link></i-link>
-          {{'MENU.FUNCTION.CHAINS' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/files" routerLinkActive="active">
-          <i-folder></i-folder>
-          {{'MENU.FUNCTION.FILES' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/traces" routerLinkActive="active">
-          <i-activity></i-activity>
-          {{'MENU.FUNCTION.TRACES' | translate}}
-        </a>
-      </li>
-    </ul>
-
-    <h6 *hasRole="'ROLE_MODO'" class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-      <span> {{'MENU.MANAGEMENT.TITLE' | translate}}</span>
-    </h6>
-    <ul *hasRole="'ROLE_MODO'" class="nav flex-column mb-2">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/manage/batchs" routerLinkActive="active" id="batchManageMenu">
-          <i-terminal></i-terminal>
-          {{'MENU.MANAGEMENT.BATCHS' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/manage/chains" routerLinkActive="active">
-          <i-link></i-link>
-          {{'MENU.MANAGEMENT.CHAINS' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/manage/directories" routerLinkActive="active">
-          <i-folder></i-folder>
-          {{'MENU.MANAGEMENT.FOLDERS' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/manage/naming" routerLinkActive="active">
-          <i-edit></i-edit>
-          {{'MENU.MANAGEMENT.NAMING' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/manage/environments" routerLinkActive="active" id="environnementMenu">
-          <i-server></i-server>
-          {{'MENU.MANAGEMENT.ENVIRONMENTS' | translate}}
-        </a>
-      </li>
-    </ul>
-
-    <h6 *hasRole="'ROLE_ADMIN'" class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-      <span>{{'MENU.ADMINISTRATION.TITLE' | translate}}</span>
-    </h6>
-    <ul *hasRole="'ROLE_ADMIN'" class="nav flex-column mb-2">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">
-          <i-users></i-users>
-          {{'MENU.ADMINISTRATION.USERS' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/admin/applications" routerLinkActive="active" id="applicationMenu">
-          <i-layers></i-layers>
-          {{'MENU.ADMINISTRATION.APPLICATIONS' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/admin/norms" routerLinkActive="active" id="normeMenu">
-          <i-flag></i-flag>
-          {{'MENU.ADMINISTRATION.NORMS' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/admin/news" routerLinkActive="active">
-          <i-inbox></i-inbox>
-          {{'MENU.ADMINISTRATION.ACTUALITIES' | translate}}
-        </a>
-      </li>
-    </ul>
-
-    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-      <span>{{'MENU.OTHERS.TITLE' | translate}}</span>
-    </h6>
-    <ul class="nav flex-column mb-2">
-      <li class="nav-item">
-        <a class="nav-link" href="https://github.com/informatique-cdc/ebad-front/wiki" rel="noopener noreferrer" target="_blank">
-          <i-life-buoy></i-life-buoy>
-          {{'MENU.OTHERS.HELP' | translate}}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://github.com/informatique-cdc/ebad/releases/latest" rel="noopener noreferrer" target="_blank">
-          <i-git-commit></i-git-commit>
-          {{'MENU.OTHERS.CHANGELOG' | translate}}
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
--->

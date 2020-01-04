@@ -20,6 +20,7 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { AnonymousComponent } from './anonymous/anonymous.component';
 import {AccreditationRequestModule} from "./accreditation-requests/accreditation-request.module";
 import {AngularSvgIconModule} from "angular-svg-icon";
+import {IconLogOut} from "angular-feather";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -50,6 +51,7 @@ registerLocaleData(localeFr);
         deps: [HttpClient]
       }
     }),
+    IconLogOut,
 
   ],
   providers: [{provide: LOCALE_ID, useValue: 'fr-FR'}],

@@ -5,12 +5,13 @@ import {Router} from '@angular/router';
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-layout-header',
+  selector: '[ebad-header]',
   templateUrl: './header.component.html',
   styleUrls: ['./header.scss']
 })
 export class HeaderComponent implements OnInit {
   notifications: Notification[] = [];
+  showMenu = false;
 
   constructor(
     private userService: UserService,
@@ -31,6 +32,10 @@ export class HeaderComponent implements OnInit {
     this.showNotification();
     setInterval(()=> { this.showNotification() }, 10 * 1000);
 
+  }
+
+  toggleMenu(){
+    this.showMenu = !this.showMenu;
   }
 
   logout() {

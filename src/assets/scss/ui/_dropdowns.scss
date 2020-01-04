@@ -3,7 +3,7 @@
   box-shadow: $box-shadow;
   user-select: none;
 
-  .icon {
+  .icon, .icon-svg > svg {
     width: 1em;
     margin-right: .5rem;
     color: inherit;
