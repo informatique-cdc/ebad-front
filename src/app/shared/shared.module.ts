@@ -21,6 +21,9 @@ import {TranslateModule} from "@ngx-translate/core";
 import {MenuItemComponent} from "./layout";
 import {AngularSvgIconModule} from "angular-svg-icon";
 import {IconComponent} from "./icon";
+import {NgApexchartsModule} from "ng-apexcharts";
+import {IconHeart} from "angular-feather";
+import {AvatarPipe} from "./avatar.pipe";
 
 @NgModule({
   imports: [
@@ -36,7 +39,9 @@ import {IconComponent} from "./icon";
     IconsModule,
     NgbModule,
     TranslateModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    NgApexchartsModule,
+    IconHeart
   ],
   declarations: [
     ListErrorsComponent,
@@ -49,7 +54,8 @@ import {IconComponent} from "./icon";
     ModalDateTraitementComponent,
     HasRoleDirective,
     MenuItemComponent,
-    IconComponent
+    IconComponent,
+    AvatarPipe
   ],
   exports: [
     CommonModule,
@@ -67,7 +73,8 @@ import {IconComponent} from "./icon";
     HasRoleDirective,
     TranslateModule,
     MenuItemComponent,
-    IconComponent
+    IconComponent,
+    AvatarPipe
   ],
   entryComponents: [
     ModalDateTraitementComponent

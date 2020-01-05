@@ -1,16 +1,21 @@
-<div class="row mb-4">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">{{'ACTUALITY.TITLE' | translate}}</div>
-      <div class="card-body">
-        <ul class="list-unstyled">
-          <li class="media mb-4" *ngFor="let oneNew of news">
-            <div class="media-body">
-              <span class="float-right">{{oneNew.createdDate | date: 'dd/MM/yyyy - hh:mm:ss'}}</span><h5 class="mt-0 mb-1">{{oneNew.title}}</h5>
-              <div [innerHTML]="oneNew.content"></div>
-            </div>
-          </li>
-        </ul>
+<div class="row row-deck">
+  <div class="col-sm-12 col-xl-6" *ngFor="let oneNew of news">
+    <div class="card d-flex flex-column">
+      <div class="card-body d-flex flex-column">
+        <h3 class="card-title"><a>{{oneNew.title}}</a></h3>
+        <div class="text-muted" [innerHTML]="oneNew.content"></div>
+        <div class="d-flex align-items-center pt-5 mt-auto">
+          <span class="avatar avatar-md">AD</span>
+          <div class="ml-3">
+            <a class="text-body">{{oneNew.createdBy}}</a>
+            <small class="d-block text-muted">{{oneNew.createdDate | date: 'dd/MM/yyyy - hh:mm:ss'}}</small>
+          </div>
+          <div class="ml-auto">
+            <a class="icon d-none d-md-inline-block ml-3 text-muted">
+              <ebad-icon name="heart"></ebad-icon>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

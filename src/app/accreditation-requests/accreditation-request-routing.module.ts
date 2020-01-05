@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {AccreditationRequestComponent} from './accreditation-request.component';
 import {AuthGuard} from '../core/services';
+import {SynthesisAccreditationRequest} from "./synthesis-accreditation-request.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: AccreditationRequestComponent,
+    component: SynthesisAccreditationRequest,
     canActivate: [AuthGuard]
   }
 ];

@@ -4,6 +4,7 @@ import {HomeComponent} from "./home/home.component";
 import {AuthGuard} from "./core/services";
 import {NoAuthGuard} from "./auth/no-auth-guard.service";
 import {AuthComponent} from "./auth/auth.component";
+import {SynthesisAccreditationRequest} from "./accreditation-requests/synthesis-accreditation-request.component";
 
 
 const routes: Routes = [
@@ -72,6 +73,11 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'accreditations',
+    component: SynthesisAccreditationRequest,
     canActivate: [AuthGuard]
   },
   {

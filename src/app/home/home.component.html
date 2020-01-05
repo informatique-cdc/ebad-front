@@ -68,7 +68,7 @@
           </div>
         </div>
       </div>
-      <div id="chart-revenue-bg"  class="chart-sm" ></div>
+      <apx-chart class="chart-sm" [series]="series" [chart]="chart[2]" [stroke]="stroke" [xaxis]="xaxis" [colors]="colors" [fill]="fill" [labels]="labels" [legend]="legend"></apx-chart>
     </div>
   </div>
   <div class="col-sm-6 col-lg-3">
@@ -97,7 +97,8 @@
                         </span>
           </div>
         </div>
-        <div id="chart-new-clients"  class="chart-sm" ></div>
+        <apx-chart class="chart-sm" [series]="series" [chart]="chart[1]" [stroke]="stroke" [xaxis]="xaxis" [colors]="colors" [fill]="fill" [labels]="labels" [legend]="legend"></apx-chart>
+
       </div>
     </div>
   </div>
@@ -127,29 +128,10 @@
                         </span>
           </div>
         </div>
-        <div id="chart-active-users"  class="chart-sm" ></div>
+        <apx-chart class="chart-sm" [series]="series" [chart]="chart[0]" [xaxis]="xaxis" [colors]="colors" [fill]="fill" [labels]="labels" [legend]="legend"></apx-chart>
       </div>
     </div>
   </div>
 </div>
-
 
 <app-actuality-block></app-actuality-block>
-<div class="row mb-4">
-  <div class="col-md-12">
-    <app-list-accreditation-request [userOnly]="false"></app-list-accreditation-request>
-  </div>
-</div>
-<div class="row mb-4">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">Demande d'accréditation</div>
-      <div class="card-body">
-        <app-accreditation-request></app-accreditation-request>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <app-list-accreditation-request [userOnly]="true"></app-list-accreditation-request>
-  </div>
-</div>

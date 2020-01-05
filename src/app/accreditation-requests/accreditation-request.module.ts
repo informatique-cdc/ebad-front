@@ -5,11 +5,12 @@ import {NgbPaginationModule, NgbTypeaheadModule} from "@ng-bootstrap/ng-bootstra
 import {AccreditationRequestComponent} from "./accreditation-request.component";
 import {AccreditationRequestRoutingModule} from "./accreditation-request-routing.module";
 import {ListAccreditationRequestComponent} from "./list-accreditation-request.component";
+import {SynthesisAccreditationRequest} from "./synthesis-accreditation-request.component";
 
 ;
 
 @NgModule({
-  declarations: [AccreditationRequestComponent, ListAccreditationRequestComponent],
+  declarations: [AccreditationRequestComponent, ListAccreditationRequestComponent, SynthesisAccreditationRequest],
   imports: [
     AccreditationRequestRoutingModule,
     SharedModule,
@@ -19,7 +20,8 @@ import {ListAccreditationRequestComponent} from "./list-accreditation-request.co
   ],
   exports: [
     AccreditationRequestComponent,
-    ListAccreditationRequestComponent
+    ListAccreditationRequestComponent,
+    SynthesisAccreditationRequest
   ],
   entryComponents: []
 })
