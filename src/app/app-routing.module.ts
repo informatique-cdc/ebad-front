@@ -76,8 +76,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: HomeComponent,
-    canActivate: [AuthGuard]
+    redirectTo: '/home',
+    pathMatch: 'full'
   },
   {
     path: 'oauth',

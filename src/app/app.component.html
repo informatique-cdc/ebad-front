@@ -1,7 +1,7 @@
-<div class="wrapper">
-  <aside class="sidebar sidebar-dark" ebad-aside *appShowAuthed="true"></aside>
+<div class="wrapper" *appShowAuthed="true" >
+  <aside class="sidebar sidebar-dark" ebad-aside ></aside>
   <div class="content">
-    <header ebad-header *appShowAuthed="true" class="topnav topbar"></header>
+    <header ebad-header class="topnav topbar"></header>
     <div class="content-page">
       <main class="container my-4 flex-fill">
         <router-outlet></router-outlet>
@@ -9,6 +9,7 @@
     </div>
   </div>
 </div>
+<router-outlet *appShowAuthed="false"></router-outlet>
 <!--<app-layout-header *appShowAuthed="true"></app-layout-header>
 <div class="container-fluid">
   <div class="row">

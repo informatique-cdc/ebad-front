@@ -1,40 +1,50 @@
-<form [formGroup]="authForm" (ngSubmit)="submitForm()" class="form-signin">
-  <div class="text-center mb-4">
-    <img class="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">{{'APP.NAME' | translate}}</h1>
-    <p>{{'LOGIN.WELCOME' | translate}}</p>
-    <p>{{'LOGIN.INFO.LOGIN' | translate}}</p>
-    <p *ngIf="error" class="text-danger">{{'LOGIN.ERROR.LOGIN' | translate}}</p>
+<div class="d-flex h-auto min-h-full justify-content-center">
+  <div class="d-flex align-items-center justify-content-center flex-fill">
+    <div class="container">
+      <div class="row">
+        <div class="col col-login mx-auto">
+          <div class="text-center mb-4">
+            <img src="./assets/img/logo.svg" class="h-8" alt="">
+          </div>
+          <form class="card" [formGroup]="authForm" (ngSubmit)="submitForm()">
+
+            <div class="card-body p-6">
+                <div class="card-title">{{'LOGIN.INFO.LOGIN' | translate}}</div>
+                <p *ngIf="error" class="text-danger">{{'LOGIN.ERROR.LOGIN' | translate}}</p>
+
+              <fieldset *ngIf="jwt">
+                <div class="mb-2">
+                  <label class="form-label" for="username">{{'LOGIN.LABEL.USERNAME' | translate}}</label>
+                  <input formControlName="username" required type="email" class="form-control" id="username"
+                         aria-describedby="emailHelp"
+                         placeholder="{{'LOGIN.LABEL.USERNAME' | translate}}" autocomplete="off">
+                </div>
+                <div class="mb-2">
+                  <!-- <a href="./forgot-password.html" class="float-right small">I forgot password</a> -->
+                  <label class="form-label" for="password">
+                    {{'LOGIN.LABEL.PASSWORD' | translate}}
+                  </label>
+                  <input formControlName="password" required type="password" class="form-control" id="password"
+                         placeholder="{{'LOGIN.LABEL.PASSWORD' | translate}}" autocomplete="off">
+                </div>
+                <div class="mb-2">
+                  <label class="custom-control custom-checkbox">
+                    <input id="remember-me" type="checkbox" class="custom-control-input"/>
+                    <span class="custom-control-label">{{'LOGIN.LABEL.REMEMBERME' | translate}}</span>
+                  </label>
+                </div>
+              </fieldset>
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary btn-block"
+                        [disabled]="!authForm.valid && jwt">{{'LOGIN.TITLE' | translate}}</button>
+              </div>
+            </div>
+          </form>
+          <!-- <div class="text-center text-muted">
+             Don't have account yet? <a href="./register.html">Sign up</a>
+           </div>-->
+        </div>
+      </div>
+    </div>
   </div>
-
-  <fieldset [disabled]="isSubmitting" *ngIf="jwt">
-    <fieldset class="form-group">
-      <legend>{{'LOGIN.LABEL.USERNAME' | translate}}</legend>
-      <div class="form-label-group">
-        <input formControlName="username" type="test" id="username" class="form-control"
-               placeholder="{{'LOGIN.LABEL.USERNAME' | translate}}" required="" autofocus="">
-        <label for="username">{{'LOGIN.LABEL.USERNAME' | translate}}</label>
-      </div>
-    </fieldset>
-    <fieldset class="form-group">
-      <legend>{{'LOGIN.LABEL.PASSWORD' | translate}}</legend>
-      <div class="form-label-group">
-        <input formControlName="password" type="password" id="password" class="form-control"
-               placeholder="{{'LOGIN.LABEL.PASSWORD' | translate}}" required="">
-        <label for="password">{{'LOGIN.LABEL.PASSWORD' | translate}}</label>
-      </div>
-    </fieldset>
-
-    <fieldset class="form-group">
-      <legend>{{'LOGIN.LABEL.REMEMBERME' | translate}}</legend>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> {{'LOGIN.LABEL.REMEMBERME' | translate}}
-        </label>
-      </div>
-    </fieldset>
-  </fieldset>
-  <button class="btn btn-lg btn-primary btn-block" type="submit"
-          [disabled]="!authForm.valid && jwt">{{'LOGIN.TITLE' | translate}}</button>
-  <p class="mt-5 mb-3 text-muted text-center">© 2016-2019</p>
-</form>
+</div>
