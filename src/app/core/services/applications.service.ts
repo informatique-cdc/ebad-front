@@ -30,7 +30,7 @@ export class ApplicationsService {
     return this.apiService.get(`${this.apiName}/write`, pageable);
   }
 
-  getAllManage(pageable: Pageable = new Pageable(0,20)): Observable<Page<Application>> {
+  getAllManage(pageable: any = new Pageable(0,20)): Observable<Page<Application>> {
     return this.apiService.get(`${this.apiName}/gestion`, pageable);
   }
 

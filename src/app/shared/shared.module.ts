@@ -24,6 +24,7 @@ import {IconComponent} from "./icon";
 import {NgApexchartsModule} from "ng-apexcharts";
 import {IconHeart} from "angular-feather";
 import {AvatarPipe} from "./avatar.pipe";
+import {DataTablesModule} from "angular-datatables";
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import {AvatarPipe} from "./avatar.pipe";
     TranslateModule,
     AngularSvgIconModule,
     NgApexchartsModule,
-    IconHeart
+    IconHeart,
+    DataTablesModule
   ],
   declarations: [
     ListErrorsComponent,

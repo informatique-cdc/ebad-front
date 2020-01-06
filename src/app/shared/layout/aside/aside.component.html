@@ -35,7 +35,7 @@
           </ul>
         </li>
         <li class="sidebar-nav-item" *hasRole="'ROLE_MODO'" >
-          <ebad-menu-item [label]="'MENU.MANAGEMENT.TITLE' | translate" icon="paperclip"
+          <ebad-menu-item [label]="'MENU.MANAGEMENT.TITLE' | translate" icon="box"
                           isParent="true" [isOpen]="navbarManageOpen"
                           (click)="toggleManage()"></ebad-menu-item>
           <ul class="sidebar-subnav collapse" [ngClass]="{ 'show': navbarManageOpen }">
@@ -57,7 +57,7 @@
           </ul>
         </li>
         <li class="sidebar-nav-item" *hasRole="'ROLE_ADMIN'">
-          <ebad-menu-item [label]="'MENU.ADMINISTRATION.TITLE' | translate" icon="paperclip"
+          <ebad-menu-item [label]="'MENU.ADMINISTRATION.TITLE' | translate" icon="settings"
                           isParent="true" [isOpen]="navbarAdministrateOpen"
                           (click)="toggleAdministrate()"></ebad-menu-item>
           <ul class="sidebar-subnav collapse" [ngClass]="{ 'show': navbarAdministrateOpen }">

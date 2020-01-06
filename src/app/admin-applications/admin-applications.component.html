@@ -24,12 +24,52 @@
     </div>
   </div>
 </div>
-<app-table
-  id="listApplications"
-  [title]="'Applications'"
-  [table]="table"
-  (actionClicked)="onActionClicked($event)"
-  (globalActionClicked)="onClickAddApplication()"
-  (secondGlobalActionClicked)="onClickImportApplications()">
-  <ngb-pagination footer class="d-flex justify-content-center" [maxSize]="5" [collectionSize]="totalSize" [pageSize]="size" [(page)]="page" (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
-</app-table>
+
+<div class="card">
+  <div class="table-responsive">
+    <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th class="w-1p"><input class="form-check-input m-0 align-middle" type="checkbox"></th>
+        <th>
+          Code
+        </th>
+        <th>
+          Nom
+        </th>
+        <th>
+          Pattern paramètre
+        </th>
+        <th>
+          Pattern fichier
+        </th>
+        <th>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let app of applications; index as lineNumber">
+        <td><input class="form-check-input m-0 align-middle" type="checkbox"></td>
+        <td class="align-middle">
+         {{app.code}}
+        </td>
+        <td class="align-middle">
+         {{app.name}}
+        </td>
+        <td class="align-middle">
+         {{app.dateParametrePattern}}
+        </td>
+        <td class="align-middle">
+         {{app.dateFichierPattern}}
+        </td>
+        <td class="text-center">
+          <a (click)="editApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a (click)="deleteApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+          <a (click)="usersApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Users</a>
+          <a (click)="managersApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Manages</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
