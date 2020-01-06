@@ -1,5 +1,28 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Administration des applications</h1>
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      <h2 class="page-pretitle">
+        Administration
+      </h2>
+      <h2 class="page-title">
+        Applications
+      </h2>
+    </div>
+    <!-- Page title actions -->
+    <div class="col-auto ml-auto d-print-none">
+      <div class="d-flex">
+        <a *ngIf="addApplicationEnabled" href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary mr-3" (click)="onClickAddApplication()">
+          <ebad-icon name="plus"></ebad-icon>
+          Nouvelle application
+        </a>
+
+        <a *ngIf="importApplicationEnabled" href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary" (click)="onClickImportApplications()">
+          <ebad-icon name="download"></ebad-icon>
+          Importer des applications
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
 <app-table
   id="listApplications"

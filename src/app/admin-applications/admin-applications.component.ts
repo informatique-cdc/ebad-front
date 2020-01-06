@@ -22,6 +22,9 @@ export class AdminApplicationsComponent implements OnInit {
   totalSize = 0;
   sort = "code,asc";
 
+  addApplicationEnabled = true;
+  importApplicationEnabled = true;
+
   private idActionModify = 'actionModify';
   private idActionDelete = 'actionDelete';
   private idActionUtilisateurs = 'actionUtilisateurs';
@@ -36,20 +39,14 @@ export class AdminApplicationsComponent implements OnInit {
 
   ngOnInit() {
     this.showApplications();
+    this.addApplicationEnabled = this.globalSettingsService.createApplicationIsEnable();
+    this.importApplicationEnabled = this.globalSettingsService.importApplicationIsEnable();
   }
 
   showApplications() {
     this.table = new Table();
     this.table.showHeader = false;
     this.table.showFooter = true;
-
-    if(this.globalSettingsService.createApplicationIsEnable()) {
-      this.table.settings.globalAction = new Action('Ajouter une application', '');
-    }
-
-    if(this.globalSettingsService.importApplicationIsEnable()) {
-      this.table.settings.secondGlobalAction = new Action('Importer des applications', '');
-    }
 
     this.table.settings.columnsDefinition.code = new ColumnsDefinition();
     this.table.settings.columnsDefinition.code.title = 'Code';
