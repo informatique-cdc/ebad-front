@@ -52,9 +52,9 @@ export class TracesComponent implements OnInit {
     columnsDefinition.params.title = 'Paramètres';
     columnsDefinition.params.order = 4;
 
-    columnsDefinition.user = new ColumnsDefinition();
-    columnsDefinition.user.title = 'Utilisateur';
-    columnsDefinition.user.order = 5;
+    columnsDefinition.login = new ColumnsDefinition();
+    columnsDefinition.login.title = 'Utilisateur';
+    columnsDefinition.login.order = 5;
 
     columnsDefinition.logDate = new ColumnsDefinition();
     columnsDefinition.logDate.title = 'Exécution';
@@ -81,7 +81,6 @@ export class TracesComponent implements OnInit {
         for (const trace of traces.content) {
           const item: any = trace;
           item.batch = item.batch.name;
-          item.user = item.user.login;
           item.dateTraitement = this.datePipe.transform(item.dateTraitement, 'dd/MM/yyyy');
           item.logDate = this.datePipe.transform(item.logDate, 'dd/MM/yyyy HH:mm:ss');
           this.table.items.push(item);

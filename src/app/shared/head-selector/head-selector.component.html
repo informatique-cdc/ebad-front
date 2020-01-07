@@ -9,13 +9,16 @@
       </h2>
     </div>
     <div class="col-auto ml-auto d-print-none">
-      <form class="form-inline">
-        <select [name]="select.id" *ngFor="let select of selects; let indexSelect = index"
-                (change)="onSelect($event, indexSelect)" id="{{select.id}}" class="form-select">
-          <option *ngFor="let option of select.options; let indexOption = index"
-                  [value]="indexOption">{{option.label}}</option>
-        </select>
-      </form>
+      <div class="d-flex">
+        <form class="form-inline">
+          <select [name]="select.id" *ngFor="let select of selects; let indexSelect = index"
+                  (change)="onSelect($event, indexSelect)" id="{{select.id}}" class="form-select  mr-3">
+            <option *ngFor="let option of select.options; let indexOption = index"
+                    [value]="indexOption">{{option.label}}</option>
+          </select>
+        </form>
+        <ng-content select="[header]"></ng-content>
+      </div>
     </div>
   </div>
 </div>

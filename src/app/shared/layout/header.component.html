@@ -11,11 +11,11 @@
       </form>
     </div>
     <ul class="nav navbar-menu align-items-center ml-auto">
-      <li class="nav-item d-none d-lg-flex">
+      <li class="nav-item d-none d-lg-flex mr-3">
         <a href="https://github.com/informatique-cdc/ebad" rel="noopener noreferrer" class="btn btn-sm btn-success" target="_blank"><ebad-icon name="github"></ebad-icon> Source code
         </a>
       </li>
-      <li class="nav-item dropdown" ngbDropdown placement="">
+      <li class="nav-item dropdown mr-3" ngbDropdown placement="">
         <a ngbDropdownToggle id="notificationMenu"
            class="nav-link d-flex align-items-center py-0 px-lg-0 px-2 text-reset ml-2"
            style="cursor: pointer">
@@ -43,9 +43,10 @@
         <a ngbDropdownToggle  id="settingsMenu"
            class="nav-link d-flex align-items-center py-0 px-lg-0 px-2 text-reset ml-2"
            style="cursor: pointer">
-          <span class="avatar avatar-sm" style="background-image: url(./assets/img/avatars/004f.jpg)"></span>
+<!--          <span class="avatar avatar-sm" style="background-image: url(./assets/img/avatars/004f.jpg)"></span>-->
+          <span class="avatar avatar-sm">{{currentUser | avatar}}</span>
           <span class="ml-2 d-none d-lg-block lh-1">
-            Leesa Beaty
+            {{currentUser?.firstName}} {{currentUser?.lastName}}
             <span class="text-muted d-block mt-1 text-h6">Utilisateur</span>
           </span>
         </a>

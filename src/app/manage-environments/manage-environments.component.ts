@@ -18,7 +18,8 @@ import {Constants} from "../shared/Constants";
 export class ManageEnvironmentsComponent implements OnInit {
   table: Table;
   applicationSelected: Application;
-
+  addEnvironmentEnabled = true;
+  importEnvironmentEnabled = true;
   size = this.constants.numberByPage;
   page = 0;
   totalSize = 0;
@@ -35,6 +36,8 @@ export class ManageEnvironmentsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.addEnvironmentEnabled = this.globalSettingsService.createEnvironmentIsEnable();
+    this.importEnvironmentEnabled = this.globalSettingsService.importEnvironmentIsEnable();
   }
 
   applicationChanged(application: Application) {

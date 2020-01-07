@@ -10,5 +10,5 @@ export interface Trace {
   executionTime: number;
   params: string;
   returnCode: number;
-  user: User;
+  login: string;
 }

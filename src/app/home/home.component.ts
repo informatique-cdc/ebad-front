@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {
-  ApexAxisChartSeries,
   ApexChart,
   ApexFill,
   ApexLegend,
   ApexStroke,
-  ApexXAxis
+  ApexXAxis, ChartComponent
 } from "ng-apexcharts";
+import {StatisticsService} from "../core/services";
+import {Statistics} from "../core/models";
 
 @Component({
   selector: 'app-home-page',
@@ -14,19 +15,49 @@ import {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild("chartComponentAvgTime")
+  chartComponentAvgTime: ChartComponent;
+  @ViewChild("chartComponentBatchRunnedNbr")
+  chartComponentBatchRunnedNbr: ChartComponent;
   chart: ApexChart[] = [];
   stroke: ApexStroke;
   fill: ApexFill;
-  series: ApexAxisChartSeries;
   xaxis: ApexXAxis;
-  labels: string[];
   colors: string[];
   legend: ApexLegend;
 
-  constructor() {
+  statistics: Statistics;
+  private dataBatchsNbr: number[] = [];
+  seriesBatchsNbr = [{
+    name: "Count batchs",
+    data: this.dataBatchsNbr
+  }];
+
+  private dataAvgTime: number[] = [];
+  seriesAvgTime = [{
+    name: "Average Time",
+    data: this.dataAvgTime
+  }];
+
+  private labels: string[] = [];
+
+  constructor(private statisticsService: StatisticsService) {
   }
 
   ngOnInit() {
+    this.statisticsService.get().subscribe(
+      (statistics) => {
+        this.statistics = statistics;
+        for(let statByDay of statistics.statisticsByDay){
+          this.labels.push(statByDay.date);
+          this.dataAvgTime.push(statByDay.executionTime);
+          this.dataBatchsNbr.push(statByDay.nbr);
+        }
+        this.chartComponentAvgTime.updateSeries(this.seriesAvgTime,true);
+        this.chartComponentBatchRunnedNbr.updateSeries(this.seriesBatchsNbr,true);
+      }
+    );
+
     this.chart[0] = {
       type: "bar",
       fontFamily: 'inherit',
@@ -38,6 +69,7 @@ export class HomeComponent implements OnInit {
         enabled: false
       },
     };
+
     this.chart[1] = {
       type: "line",
       fontFamily: 'inherit',
@@ -46,44 +78,38 @@ export class HomeComponent implements OnInit {
         enabled: true
       },
       animations: {
-        enabled: false
+        enabled: true
       },
     };
+
     this.chart[2] = {
-      type: "area",
+      type: "line",
       fontFamily: 'inherit',
       height: 40.0,
       sparkline: {
         enabled: true
       },
       animations: {
-        enabled: false
+        enabled: true,
+        speed: 2000
       },
     };
+
     this.stroke = {
       width: 2,
       dashArray: [0, 3],
       lineCap: "round",
       curve: "smooth",
     };
+
     this.fill = {
       opacity: 1
     };
-
-    this.series = [{
-      name: "Profits",
-      data: [37, 35, 44, 28, 36, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35, 27, 93, 53, 61, 27, 54, 43, 19, 46, 39, 62, 51, 35, 41, 67]
-    }];
 
     this.xaxis = {
       type: 'datetime',
     };
 
-    this.labels = [];
-    for (let i = 1; i < 31; i++) {
-      this.labels.push('2019-09-' + i);
-
-    }
     this.colors = ["#206bc4"];
     this.legend = {
       show: false,
