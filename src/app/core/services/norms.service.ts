@@ -13,7 +13,7 @@ export class NormsService {
   ) {
   }
 
-  getAll(pageable: Pageable = new Pageable(0,20)): Observable<Page<Norme>> {
+  getAll(pageable: any = new Pageable(0,20)): Observable<Page<Norme>> {
     return this.apiService.get(`/norms`, pageable);
   }
 

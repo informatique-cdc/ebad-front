@@ -1,11 +1,69 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Administration des normes</h1>
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      <h2 class="page-pretitle">
+        Administration
+      </h2>
+      <h2 class="page-title">
+        Normes
+      </h2>
+    </div>
+    <div class="col-auto ml-auto d-print-none">
+      <div class="d-flex">
+        <a  href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary mr-3" (click)="onClickAddNorm()">
+          <ebad-icon name="plus"></ebad-icon>
+          Nouvelle norme
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
-<app-table
-  id="listNormes"
-  [title]="'Normes'"
-  [table]="table"
-  (actionClicked)="onActionClicked($event)"
-  (globalActionClicked)="onClickAddNorm()">
-  <ngb-pagination footer class="d-flex justify-content-center" [maxSize]="5" [collectionSize]="totalSize" [pageSize]="size" [(page)]="page" (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
-</app-table>
+
+<div class="card">
+  <div class="table-responsive">
+    <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="normId">ID</th>
+        <th id="normName">
+          Nom
+        </th>
+        <th id="commandLineNorm">
+          Interpréteur
+        </th>
+        <th id="pathShellNorm">
+          Dossier shell
+        </th>
+        <th id="ctrlMDateNorm">
+          Fichier date
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let norm of norms">
+        <td class="align-middle">
+          {{norm.id}}
+        </td>
+        <td class="align-middle">
+          {{norm.name}}
+        </td>
+        <td class="align-middle">
+          {{norm.commandLine}}
+        </td>
+        <td class="align-middle">
+          {{norm.pathShell}}
+        </td>
+        <td class="align-middle">
+          {{norm.ctrlMDate}}
+        </td>
+        <td class="text-center">
+          <a (click)="editNorm(norm)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a (click)="deleteNorm(norm)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
