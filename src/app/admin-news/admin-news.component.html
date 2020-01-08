@@ -1,9 +1,65 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Administration des actualités</h1>
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      <h2 class="page-pretitle">
+        Administration
+      </h2>
+      <h2 class="page-title">
+        Actualités
+      </h2>
+    </div>
+    <!-- Page title actions -->
+    <div class="col-auto ml-auto d-print-none">
+      <div class="d-flex">
+        <a href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary mr-3" (click)="onClickAddNew()">
+          <ebad-icon name="plus"></ebad-icon>
+          Nouvelle application
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
-<app-table [title]="'Actualités'"
-           [table]="table"
-           (actionClicked)="onActionClicked($event)"
-           (globalActionClicked)="onClickAddNew()">
-  <ngb-pagination footer class="d-flex justify-content-center" [maxSize]="5" [collectionSize]="totalSize" [pageSize]="size" [(page)]="page" (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
-</app-table>
+<div class="card">
+  <div class="table-responsive">
+    <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="newId">
+          ID
+        </th>
+        <th id="newTitle">
+          Title
+        </th>
+        <th id="newDraft">
+          Draft
+        </th>
+        <th id="newDate">
+          Date
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let oneNew of news">
+        <td class="align-middle">
+          {{oneNew.id}}
+        </td>
+        <td class="align-middle">
+          {{oneNew.title}}
+        </td>
+        <td class="align-middle">
+          {{oneNew.draft}}
+        </td>
+        <td class="align-middle">
+          {{oneNew.createdDate}}
+        </td>
+        <td class="text-center">
+          <a (click)="editNew(oneNew)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a (click)="deleteNew(oneNew)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import {ModalNewComponent} from './modal-new/modal-new.component';
 import {ModalNewDeletionComponent} from './modal-new-deletion/modal-new-deletion.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
+import {DataTablesModule} from "angular-datatables";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
     AdminNewsRoutingModule,
     SharedModule,
     CKEditorModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    DataTablesModule
   ],
   entryComponents: [
     ModalNewDeletionComponent,

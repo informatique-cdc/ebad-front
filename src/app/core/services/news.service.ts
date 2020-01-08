@@ -18,7 +18,7 @@ export class NewsService {
     return this.apiService.get(`${this.apiName}/public`,pageable);
   }
 
-  getAll(pageable: Pageable = new Pageable(0,20)): Observable<Page<New>> {
+  getAll(pageable: any = new Pageable(0,20)): Observable<Page<New>> {
     return this.apiService.get(`${this.apiName}`,pageable);
   }
 
