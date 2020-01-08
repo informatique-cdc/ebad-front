@@ -17,9 +17,9 @@ export class EnvAppHeadSelectorComponent implements OnInit {
   private applications: Application[] = [];
 
   private environmentSelected: Environment;
-  customTitle;
 
   @Input() title;
+  @Input() preTitle;
   @Input() showEnvironment = true;
   @Input() isModarable = false;
   @Output() environmentChanged = new EventEmitter<Environment>();
@@ -29,7 +29,6 @@ export class EnvAppHeadSelectorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.customTitle = this.title;
     if (!this.isModarable) {
       this.applicationsService.getAll(new Pageable(0,100)).subscribe(
         applications => {
@@ -85,7 +84,7 @@ export class EnvAppHeadSelectorComponent implements OnInit {
       if (this.showEnvironment) {
         this.updateSelectEnvironment(event.value.environnements);
       }
-      this.customTitle = `${this.title} - ${event.value.name}`;
+
       this.applicationChanged.emit(event.value);
     }
 
