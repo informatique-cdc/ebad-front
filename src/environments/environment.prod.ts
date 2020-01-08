@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://ebad.herokuapp.com/ebad',
+  apiUrl: 'https://ebad.herokuapp.com/ebad',
   jwt: true,
   atHash: 'at_hash',
   issuer: '',
