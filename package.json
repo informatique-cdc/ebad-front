@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build --prod",
+    "start": "node server.js",
+    "start-dev": "ng serve --proxy-config proxy.conf.json",
+    "build": "ng build --aot --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -37,6 +38,7 @@
     "core-js": "^2.5.4",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
+    "express": "^4.17.1",
     "file-saver": "^2.0.1",
     "jquery": "^3.4.1",
     "live-server": "^1.2.1",
