@@ -92,7 +92,7 @@ export class FilesComponent implements OnInit {
     if (environment != null) {
       this.filesService.getAllFromEnvironment(environment.id).subscribe(
         directories => {
-          for (const directory of directories) {
+          for (const directory of directories.content) {
             optionsDirectory.push(new Option(directory, directory.name, false));
           }
         }
