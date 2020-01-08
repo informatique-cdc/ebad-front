@@ -55,7 +55,6 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
       },
       columns: [{
         data: 'id',
-        orderable: false
       }, {data: 'title'}, {data: 'draft'}, {data: 'createdDate'}, {
         data: '',
         orderable: false

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {UserService} from "../../../core/services";
+import {Router} from "@angular/router";
 
 @Component({
   selector: '[ebad-aside]',
@@ -8,6 +10,8 @@ export class AsideComponent {
   navbarUsageOpen = false;
   navbarManageOpen = false;
   navbarAdministrateOpen = false;
+
+  constructor(private userService: UserService, private router: Router){}
 
   toggleUsage() {
     this.navbarUsageOpen = !this.navbarUsageOpen;
@@ -31,5 +35,10 @@ export class AsideComponent {
       this.navbarUsageOpen = false;
       this.navbarManageOpen = false;
     }
+  }
+
+  logout(){
+    this.userService.purgeAuth();
+    this.router.navigateByUrl('/login');
   }
 }

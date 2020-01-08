@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {Notification, NotificationsService, User, UserService} from '../../core';
 import {Router} from '@angular/router';
 import {TranslateService} from "@ngx-translate/core";
+import {interval, Observable, Subscription} from "rxjs";
 
 @Component({
   selector: '[ebad-header]',
@@ -11,8 +12,8 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class HeaderComponent implements OnInit {
   notifications: Notification[] = [];
-  showMenu = false;
-
+  notificationsGetAll: Subscription;
+  timeSub: Subscription;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -30,15 +31,14 @@ export class HeaderComponent implements OnInit {
     );
 
     this.showNotification();
-    setInterval(()=> { this.showNotification() }, 10 * 1000);
-
+    const source = interval(10 * 1000);
+    this.timeSub = source.subscribe(() => this.showNotification())
   }
 
-  toggleMenu(){
-    this.showMenu = !this.showMenu;
-  }
 
   logout() {
+    this.notificationsGetAll.unsubscribe();
+    this.timeSub.unsubscribe();
     this.userService.purgeAuth();
     this.router.navigateByUrl('/login');
 
@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit {
   }
 
   showNotification(){
-    this.notificationsService.getAll().subscribe(
+    this.notificationsGetAll = this.notificationsService.getAll().subscribe(
       notifications => {
         this.notifications = notifications;
       }

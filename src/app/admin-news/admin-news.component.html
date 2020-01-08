@@ -52,7 +52,7 @@
           {{oneNew.draft}}
         </td>
         <td class="align-middle">
-          {{oneNew.createdDate}}
+          {{oneNew.createdDate | date : 'dd-MM-yyyy'}}
         </td>
         <td class="text-center">
           <a (click)="editNew(oneNew)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
