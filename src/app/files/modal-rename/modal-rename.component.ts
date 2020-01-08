@@ -24,7 +24,7 @@ export class ModalRenameComponent implements OnInit {
   ngOnInit() {
     this.fileKindsService.getAllFromApplication(this.application.id).subscribe(
       (data) => {
-        this.fileKinds = data;
+        this.fileKinds = data.content;
       }
     );
   }
