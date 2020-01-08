@@ -1,64 +1,96 @@
-import {Component, OnInit} from '@angular/core';
-import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Application} from '../core/models';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NotifierService} from 'angular-notifier';
-import {ActionClickEvent} from '../shared/table/action-click-event.model';
 import {FileKindsService} from '../core/services/file-kinds.service';
 import {ModalNamingComponent} from './modal-naming/modal-naming.component';
 import {ModalNamingDeletionComponent} from './modal-naming-deletion/modal-naming-deletion.component';
+import {FileKind} from "../core/models/file-kind.model";
+import {DataTableDirective} from "angular-datatables";
+import {Subject} from "rxjs";
+import {Constants} from "../shared/Constants";
 
 @Component({
   selector: 'app-manage-naming',
   templateUrl: './manage-naming.component.html',
   styleUrls: ['./manage-naming.component.scss']
 })
-export class ManageNamingComponent implements OnInit {
-
-  table: Table;
+export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   applicationSelected: Application;
-  private idActionModify = 'actionModify';
-  private idActionDelete = 'actionDelete';
+  namings: FileKind[];
+
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
 
   constructor(private fileKindsService: FileKindsService,
               private modalService: NgbModal,
-              private notifierService: NotifierService) {
+              private notifierService: NotifierService,
+              private constants: Constants) {
   }
 
   ngOnInit() {
+
+
+    this.dtOptions = {
+      order: [[0, 'asc']],
+      pagingType: 'full_numbers',
+      pageLength: this.constants.numberByPage,
+      serverSide: true,
+      processing: false,
+      ajax: (dataTablesParameters: any, callback) => {
+        if (!this.applicationSelected) {
+          this.namings = [];
+          return
+        }
+        this.fileKindsService
+          .getAllFromApplication(this.applicationSelected.id, {
+              'page': dataTablesParameters.start / dataTablesParameters.length,
+              'size': dataTablesParameters.length,
+              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              'name': dataTablesParameters.search.value
+            }
+          )
+          .subscribe(resp => {
+            this.namings = resp.content;
+            callback({
+              recordsTotal: resp.totalElements,
+              recordsFiltered: resp.totalElements,
+              data: []
+            });
+          });
+      },
+      columns: [{
+        data: 'id'
+      }, {data: 'name'}, {data: 'pattern'},{
+        data: '',
+        orderable: false
+      }]
+    };
+    this.dtTrigger.next();
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  refreshNaming() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
+    });
   }
 
   applicationChanged(application: Application) {
-    this.showNaming();
     this.applicationSelected = application;
-    this.fileKindsService.getAllFromApplication(application.id).subscribe(
-      fileKinds => {
-        this.table.items = fileKinds;
-      }
-    );
+    this.refreshNaming();
   }
 
-  showNaming() {
-    this.table = new Table();
-    this.table.showHeader = false;
-    this.table.showFooter = false;
-
-    this.table.settings.globalAction = new Action('Ajouter un nommage', '');
-
-    this.table.settings.columnsDefinition.id = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.id.title = 'Id';
-    this.table.settings.columnsDefinition.id.order = 1;
-    this.table.settings.columnsDefinition.name = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.name.title = 'Nom';
-    this.table.settings.columnsDefinition.name.order = 2;
-    this.table.settings.columnsDefinition.pattern = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.pattern.title = 'Pattern';
-    this.table.settings.columnsDefinition.pattern.order = 3;
-
-    this.table.settings.actionsDefinition.title = 'Action';
-    this.table.settings.actionsDefinition.actions.push(new Action('Modifier', this.idActionModify));
-    this.table.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionDelete));
-  }
 
   onClickAddNaming() {
     const modalRef = this.modalService.open(ModalNamingComponent);
@@ -74,41 +106,38 @@ export class ManageNamingComponent implements OnInit {
     modalRef.componentInstance.isUpdate = false;
   }
 
-  onActionClicked(event: ActionClickEvent) {
-    if (event.id === this.idActionModify) {
-      const modalRef = this.modalService.open(ModalNamingComponent);
-      modalRef.result.then((result) => {
-        this.notifierService.notify('success', `Le nommage ${result.name} a bien été modifié`);
-        this.applicationChanged(this.applicationSelected);
-      }, (reason) => {
-        if (reason.message !== undefined) {
-          this.notifierService.notify('error', `Une erreur est survenue lors de la modification du nommage : ${reason.message}`);
-        }
-      });
-      modalRef.componentInstance.application = this.applicationSelected;
-      modalRef.componentInstance.fileKind = event.item;
-      modalRef.componentInstance.isUpdate = true;
-    }
-
-    if (event.id === this.idActionDelete) {
-      const modalRef = this.modalService.open(ModalNamingDeletionComponent);
-      modalRef.result.then((result) => {
-        event.item.environnements = [];
-        this.fileKindsService.deleteNaming(event.item).subscribe(
-          fileKind => {
-            this.notifierService.notify('success', `Le nommage a été supprimé`);
-            this.applicationChanged(this.applicationSelected);
-          },
-          reason => {
-            this.notifierService.notify('error', `Une erreur est survenue lors de la suppression du nommage : ${reason}`);
-          }
-        );
-      }, reason => {
-      });
-      modalRef.componentInstance.application = this.applicationSelected;
-      modalRef.componentInstance.fileKind = event.item;
-      modalRef.componentInstance.isUpdate = true;
-    }
+  editNaming(naming: FileKind) {
+    const modalRef = this.modalService.open(ModalNamingComponent);
+    modalRef.result.then((result) => {
+      this.notifierService.notify('success', `Le nommage ${result.name} a bien été modifié`);
+      this.applicationChanged(this.applicationSelected);
+    }, (reason) => {
+      if (reason.message !== undefined) {
+        this.notifierService.notify('error', `Une erreur est survenue lors de la modification du nommage : ${reason.message}`);
+      }
+    });
+    modalRef.componentInstance.application = this.applicationSelected;
+    modalRef.componentInstance.fileKind = naming;
+    modalRef.componentInstance.isUpdate = true;
   }
 
+  deleteNaming(naming: FileKind) {
+    const modalRef = this.modalService.open(ModalNamingDeletionComponent);
+    modalRef.result.then((result) => {
+      this.fileKindsService.deleteNaming(naming).subscribe(
+        fileKind => {
+          this.notifierService.notify('success', `Le nommage a été supprimé`);
+          this.applicationChanged(this.applicationSelected);
+        },
+        reason => {
+          this.notifierService.notify('error', `Une erreur est survenue lors de la suppression du nommage : ${reason}`);
+        }
+      );
+    }, reason => {
+    });
+    modalRef.componentInstance.application = this.applicationSelected;
+    modalRef.componentInstance.fileKind = naming;
+    modalRef.componentInstance.isUpdate = true;
+  }
 }
+

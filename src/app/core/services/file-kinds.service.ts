@@ -3,6 +3,8 @@ import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
 import {FileKind} from '../models/file-kind.model';
+import {Pageable} from "../models/pageable.model";
+import {Page} from "../models/page.model";
 
 @Injectable()
 export class FileKindsService {
@@ -11,8 +13,9 @@ export class FileKindsService {
   ) {
   }
 
-  getAllFromApplication(applicationId): Observable<FileKind[]> {
-    return this.apiService.get(`/typefichier/application/` + applicationId);
+  getAllFromApplication(applicationId, pageable: any = new Pageable(0,20)): Observable<Page<FileKind>> {
+    console.log(pageable);
+    return this.apiService.get(`/typefichier/application/${applicationId}`,pageable);
   }
 
   addNaming(fileKinds: FileKind): Observable<FileKind> {
