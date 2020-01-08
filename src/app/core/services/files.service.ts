@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {ApiService} from './api.service';
 import {Directory} from '../models';
 import {HttpClient} from '@angular/common/http';
+import {Page} from "../models/page.model";
+import {Pageable} from "../models/pageable.model";
 
 @Injectable()
 export class FilesService {
@@ -12,8 +14,8 @@ export class FilesService {
   ) {
   }
 
-  getAllFromEnvironment(slug): Observable<Directory[]> {
-    return this.apiService.get(`/directories/env/` + slug);
+  getAllFromEnvironment(envId, pageable: any = new Pageable(0,20)): Observable<Page<Directory>> {
+    return this.apiService.get(`/directories/env/${envId}`, pageable);
   }
 
   addDirectory(directory: Directory): Observable<Directory> {

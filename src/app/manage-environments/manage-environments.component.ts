@@ -82,8 +82,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
           });
       },
       columns: [{
-        data: 'id',
-        orderable: false
+        data: 'id'
       }, {data: 'name'}, {data: 'host'}, {data: 'login'}, {data: 'homePath'}, {data: 'prefix'}, {
         data: '',
         orderable: false
