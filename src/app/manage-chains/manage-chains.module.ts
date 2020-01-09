@@ -6,6 +6,7 @@ import {ModalChainComponent} from './modal-chain/modal-chain.component';
 import { DragDropModule} from '@angular/cdk/drag-drop';
 import {IconsModule} from '../icons';
 import {ModalChainDeletionComponent} from './modal-chain-deletion/modal-chain-deletion.component';
+import {DataTablesModule} from "angular-datatables";
 
 @NgModule({
   declarations: [ManageChainsComponent, ModalChainComponent, ModalChainDeletionComponent],
@@ -13,7 +14,8 @@ import {ModalChainDeletionComponent} from './modal-chain-deletion/modal-chain-de
     SharedModule,
     ManageChainsRoutingModule,
     DragDropModule,
-    IconsModule
+    IconsModule,
+    DataTablesModule
   ],
   entryComponents: [
     ModalChainComponent,

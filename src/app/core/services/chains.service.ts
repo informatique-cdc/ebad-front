@@ -3,6 +3,8 @@ import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
 import {Chain, Trace} from '../models';
+import {Pageable} from "../models/pageable.model";
+import {Page} from "../models/page.model";
 
 @Injectable()
 export class ChainsService {
@@ -11,8 +13,8 @@ export class ChainsService {
   ) {
   }
 
-  getAllFromEnvironment(environmentId): Observable<Chain[]> {
-    return this.apiService.get(`/chaines/env/` + environmentId);
+  getAllFromEnvironment(environmentId, pageable: any = new Pageable(0,20)): Observable<Page<Chain>> {
+    return this.apiService.get(`/chaines/env/${environmentId}`, pageable);
   }
 
   get(chainId): Observable<Chain> {
