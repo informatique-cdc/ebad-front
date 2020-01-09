@@ -1,13 +1,10 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {BatchsService, EnvironmentsService} from '../core/services';
-import {Application, Batch, Environment, InfoEnvironment} from '../core/models';
-import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
-import {ActionClickEvent} from '../shared/table/action-click-event.model';
+import {Batch, Environment, InfoEnvironment} from '../core/models';
 import {NotifierService} from 'angular-notifier';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
 import {Constants} from "../shared/Constants";
-import {Pageable} from "../core/models/pageable.model";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 
@@ -101,18 +98,16 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
 
-
-
-  runBatchWithCustomParam(batch: Batch){
-      const modalRef = this.modalService.open(ModalRunWithParametersComponent);
-      modalRef.result.then((parameters) => {
-        this.runBatch(batch, parameters);
-      }, (reason) => {
-        console.log(`Dismissed ${reason}`);
-      });
-      modalRef.componentInstance.batchName = batch.name;
-      modalRef.componentInstance.parameters = batch.defaultParam;
-    }
+  runBatchWithCustomParam(batch: Batch) {
+    const modalRef = this.modalService.open(ModalRunWithParametersComponent);
+    modalRef.result.then((parameters) => {
+      this.runBatch(batch, parameters);
+    }, (reason) => {
+      console.log(`Dismissed ${reason}`);
+    });
+    modalRef.componentInstance.batchName = batch.name;
+    modalRef.componentInstance.parameters = batch.defaultParam;
+  }
 
 
   runBatch(batch, param) {

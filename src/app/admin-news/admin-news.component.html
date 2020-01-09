@@ -49,7 +49,7 @@
           {{oneNew.title}}
         </td>
         <td class="align-middle">
-          {{oneNew.draft}}
+          {{oneNew.draft | yesno}}
         </td>
         <td class="align-middle">
           {{oneNew.createdDate | date : 'dd-MM-yyyy'}}

@@ -57,5 +57,7 @@
     "LOGOUT": "Logout",
     "TRANSLATE.FR": "Français",
     "TRANSLATE.EN": "English"
-  }
+  },
+  "YES": "Yes",
+  "NO": "No"
 }

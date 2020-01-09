@@ -42,7 +42,7 @@
           {{directory.path}}
         </td>
         <td class="align-middle">
-          {{directory.canWrite}}
+          {{directory.canWrite | yesno}}
         </td>
         <td class="text-center">
           <a (click)="editDirectory(directory)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>

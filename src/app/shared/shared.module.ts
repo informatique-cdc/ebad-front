@@ -25,6 +25,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
 import {IconHeart} from "angular-feather";
 import {AvatarPipe} from "./avatar.pipe";
 import {DataTablesModule} from "angular-datatables";
+import {YesNoPipe} from "./yesno.pipe";
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import {DataTablesModule} from "angular-datatables";
     HasRoleDirective,
     MenuItemComponent,
     IconComponent,
-    AvatarPipe
+    AvatarPipe,
+    YesNoPipe
   ],
   exports: [
     CommonModule,
@@ -76,7 +78,8 @@ import {DataTablesModule} from "angular-datatables";
     TranslateModule,
     MenuItemComponent,
     IconComponent,
-    AvatarPipe
+    AvatarPipe,
+    YesNoPipe
   ],
   entryComponents: [
     ModalDateTraitementComponent

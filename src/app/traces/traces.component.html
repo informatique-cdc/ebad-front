@@ -1,5 +1,66 @@
-<app-env-app-head-selector title="Traces" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
-<app-table *ngIf="environmentSelected"
-           [title]="environmentSelected.name" [table]="table">
-  <ngb-pagination footer class="d-flex justify-content-center" [maxSize]="5" [collectionSize]="collectionSize" [pageSize]="perPage" [(page)]="pageNumber" (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
-</app-table>
+<app-env-app-head-selector preTitle="Traces" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
+<div class="card">
+  <div class="table-responsive">
+    <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
+           class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="traceId">
+          ID
+        </th>
+        <th id="traceBatch">
+          Batch
+        </th>
+        <th id="traceBusinessDate">
+          Date traitement
+        </th>
+        <th id="traceParams">
+          Paramètres
+        </th>
+        <th id="traceUser">
+          Utilisateur
+        </th>
+        <th id="traceRunDatetime">
+          Date de lancement
+        </th>
+        <th id="traceExecutionTime">
+          Temps d'exécution
+        </th>
+        <th id="traceReturnCode">
+          Code retour
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let trace of traces">
+        <td class="align-middle">
+          {{trace.id}}
+        </td>
+        <td class="align-middle">
+          {{trace.batch.name}}
+        </td>
+        <td class="align-middle">
+          {{trace.dateTraitement | date: 'dd/MM/yyyy'}}
+        </td>
+        <td class="align-middle">
+          {{trace.params}}
+        </td>
+        <td class="align-middle">
+          {{trace.login}}
+        </td>
+        <td class="align-middle">
+          {{trace.logDate  | date: 'dd/MM/yyyy'}}
+        </td>
+        <td class="align-middle">
+          {{trace.executionTime}} ms
+        </td>
+        <td class="align-middle">
+          {{trace.returnCode}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
