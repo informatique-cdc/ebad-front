@@ -51,7 +51,7 @@ export class ChainsComponent implements OnInit {
     this.table.settings.actionsDefinition.actions.push(new Action('Lancer', this.idActionRun));
     this.chainsService.getAllFromEnvironment(this.environmentSelected.id).subscribe(
       chains => {
-        this.table.items = chains;
+        this.table.items = chains.content;
       }
     );
   }
