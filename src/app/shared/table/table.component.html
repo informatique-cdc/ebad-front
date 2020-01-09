@@ -3,11 +3,11 @@
     <table datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
-        <th class="w-1p"><input class="form-check-input m-0 align-middle" type="checkbox"></th>
-        <th *ngFor="let columnDef of table.settings.columnsDefinition | keyvalue: valueAscOrder" class="border-0">
+        <th id="checkbox" class="w-1p"><input class="form-check-input m-0 align-middle" type="checkbox"></th>
+        <th *ngFor="let columnDef of table.settings.columnsDefinition | keyvalue: valueAscOrder" id="{{columnDef.key}}" class="border-0">
           {{columnDef.value.title}}
         </th>
-        <th *ngIf="table.settings.actionsDefinition.actions.length > 0" class="border-0 text-center">
+        <th *ngIf="table.settings.actionsDefinition.actions.length > 0" id="actions" class="border-0 text-center">
           {{table.settings.actionsDefinition.title}}
         </th>
       </tr>
