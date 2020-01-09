@@ -5,6 +5,7 @@ import {SharedModule} from '../shared';
 import {IconsModule} from '../icons';
 import { ModalRunWithParametersComponent } from './modal-run-with-parameters/modal-run-with-parameters.component';
 import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
+import {DataTablesModule} from "angular-datatables";
 
 @NgModule({
   declarations: [BatchsComponent, ModalRunWithParametersComponent],
@@ -12,7 +13,8 @@ import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
     BatchsRoutingModule,
     SharedModule,
     IconsModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    DataTablesModule
   ],
   entryComponents: [
     ModalRunWithParametersComponent

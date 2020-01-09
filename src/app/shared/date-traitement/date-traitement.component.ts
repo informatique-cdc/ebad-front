@@ -6,7 +6,7 @@ import {DatePipe} from '@angular/common';
 import {NgbDateParserFormatter, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-date-traitement',
+  selector: 'ebad-date-traitement',
   templateUrl: './date-traitement.component.html',
   styleUrls: ['./date-traitement.component.scss']
 })

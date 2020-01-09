@@ -1,7 +1,52 @@
-<app-env-app-head-selector title="Batchs" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
-<app-table *ngIf="environmentSelected"
-           [title]="environmentSelected.name" [table]="table"
-           (actionClicked)="onActionClicked($event)">
-<app-date-traitement header [infoEnvironment]="environmentSelectedInfo"></app-date-traitement>
-  <ngb-pagination footer class="d-flex justify-content-center" [maxSize]="5" [collectionSize]="totalSize" [pageSize]="size" [(page)]="page" (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
-</app-table>
+<app-env-app-head-selector preTitle="Batchs" [title]="environmentSelected?.name"
+                           (environmentChanged)="environmentChanged($event)">
+<ebad-date-traitement header [infoEnvironment]="environmentSelectedInfo"></ebad-date-traitement>
+</app-env-app-head-selector>
+
+<div class="card">
+  <div class="table-responsive">
+    <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
+           class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="batchId">
+          ID
+        </th>
+        <th id="batchName">
+          Nom
+        </th>
+        <th id="batchShell">
+          Shell
+        </th>
+        <th id="batchDefaultParam">
+          Paramètres par défaut
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let batch of batchs">
+        <td class="align-middle">
+          {{batch.id}}
+        </td>
+        <td class="align-middle">
+          {{batch.name}}
+        </td>
+        <td class="align-middle">
+          {{batch.path}}
+        </td>
+        <td class="align-middle">
+          {{batch.defaultParam}}
+        </td>
+        <td class="text-center">
+          <a (click)="runBatch(batch,null)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Lancer</a>
+          <a (click)="runBatchWithCustomParam(batch)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Lancer avec paramètre</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

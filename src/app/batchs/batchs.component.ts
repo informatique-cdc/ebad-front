@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {BatchsService, EnvironmentsService} from '../core/services';
 import {Application, Batch, Environment, InfoEnvironment} from '../core/models';
 import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
@@ -8,22 +8,24 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
 import {Constants} from "../shared/Constants";
 import {Pageable} from "../core/models/pageable.model";
+import {DataTableDirective} from "angular-datatables";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-batchs-page',
   templateUrl: './batchs.component.html',
   styleUrls: ['./batchs.component.scss']
 })
-export class BatchsComponent implements OnInit {
-  private idActionRun = 'run';
-  private idActionRunWithParameter = 'runWithParameter';
+export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;
-  size = this.constants.numberByPage;
-  page = 0;
-  totalSize = 0;
+  batchs: Batch[];
+
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
 
   environmentSelectedInfo: InfoEnvironment;
-  table: Table;
 
   constructor(
     private batchsService: BatchsService,
@@ -34,9 +36,58 @@ export class BatchsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.dtOptions = {
+      order: [[0, 'asc']],
+      pagingType: 'full_numbers',
+      pageLength: this.constants.numberByPage,
+      serverSide: true,
+      processing: false,
+      ajax: (dataTablesParameters: any, callback) => {
+        if (!this.environmentSelected) {
+          this.batchs = [];
+          return
+        }
+        this.batchsService
+          .getAllFromEnvironment(this.environmentSelected.id, {
+              'page': dataTablesParameters.start / dataTablesParameters.length,
+              'size': dataTablesParameters.length,
+              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              'name': dataTablesParameters.search.value
+            }
+          )
+          .subscribe(resp => {
+            this.batchs = resp.content;
+            callback({
+              recordsTotal: resp.totalElements,
+              recordsFiltered: resp.totalElements,
+              data: []
+            });
+          });
+      },
+      columns: [{
+        data: 'id'
+      }, {data: 'name'}, {data: 'path'}, {data: 'environnements', orderable: false}, {
+        data: '',
+        orderable: false
+      }]
+    };
+    this.dtTrigger.next();
   }
 
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  refreshBatchs() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
+    });
+  }
 
   environmentChanged(env: Environment) {
     this.environmentSelected = env;
@@ -46,44 +97,13 @@ export class BatchsComponent implements OnInit {
         this.environmentSelectedInfo = environment;
       }
     );
-    this.showBatch();
-  }
-  refreshBatchs(pageable?: Pageable) {
-    this.batchsService.getAllFromEnvironment(this.environmentSelected.id, pageable).subscribe(
-      batchs => {
-        this.table.items = batchs.content;
-        this.totalSize = batchs.totalElements;
-      }
-    );
+    this.refreshBatchs();
   }
 
-  showBatch() {
-    this.table = new Table();
-    this.table.showHeader = true;
-    this.table.showFooter = true;
 
-    this.table.settings.columnsDefinition.name = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.name.title = 'Nom';
-    this.table.settings.columnsDefinition.name.order = 1;
-    this.table.settings.columnsDefinition.path = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.path.title = 'Chemin du shell';
-    this.table.settings.columnsDefinition.path.order = 2;
 
-    this.table.settings.actionsDefinition.title = 'Action';
-    this.table.settings.actionsDefinition.actions.push(new Action('Lancer', this.idActionRun));
-    this.table.settings.actionsDefinition.actions.push(new Action('Lancer avec paramètre', this.idActionRunWithParameter));
-    this.refreshBatchs(new Pageable(this.page-1, this.size))
-  }
 
-  onActionClicked(event: ActionClickEvent) {
-    if (event.id === this.idActionRun) {
-      const batch: Batch = event.item;
-      this.runBatch(batch, batch.defaultParam);
-      return;
-    }
-
-    if (event.id === this.idActionRunWithParameter) {
-      const batch: Batch = event.item;
+  runBatchWithCustomParam(batch: Batch){
       const modalRef = this.modalService.open(ModalRunWithParametersComponent);
       modalRef.result.then((parameters) => {
         this.runBatch(batch, parameters);
@@ -93,7 +113,7 @@ export class BatchsComponent implements OnInit {
       modalRef.componentInstance.batchName = batch.name;
       modalRef.componentInstance.parameters = batch.defaultParam;
     }
-  }
+
 
   runBatch(batch, param) {
     this.notifierService.notify('info', 'Votre batch vient d\'être lancé');
@@ -112,10 +132,6 @@ export class BatchsComponent implements OnInit {
 
       }
     );
-  }
-
-  onPageChange(event) {
-    this.refreshBatchs(new Pageable(this.page-1, this.size))
   }
 }
 

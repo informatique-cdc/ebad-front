@@ -1,6 +1,43 @@
-<app-env-app-head-selector title="Chaines" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
-<app-table *ngIf="environmentSelected"
-           [title]="environmentSelected.name" [table]="table"
-           (actionClicked)="onActionClicked($event)">
-  <app-date-traitement header [infoEnvironment]="environmentSelectedInfo"></app-date-traitement>
-</app-table>
+<app-env-app-head-selector preTitle="Chaines" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)">
+  <ebad-date-traitement header [infoEnvironment]="environmentSelectedInfo"></ebad-date-traitement>
+</app-env-app-head-selector>
+
+<div class="card">
+  <div class="table-responsive">
+    <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
+           class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="chainId">
+          ID
+        </th>
+        <th id="chainName">
+          Nom
+        </th>
+        <th id="chainDescription">
+          Shell
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let chain of chains">
+        <td class="align-middle">
+          {{chain.id}}
+        </td>
+        <td class="align-middle">
+          {{chain.name}}
+        </td>
+        <td class="align-middle">
+          {{chain.description}}
+        </td>
+        <td class="text-center">
+          <a (click)="runChain(chain)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Lancer</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
