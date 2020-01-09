@@ -14,7 +14,7 @@
                 <div class="card-title">{{'LOGIN.INFO.LOGIN' | translate}}</div>
                 <p *ngIf="error" class="text-danger">{{'LOGIN.ERROR.LOGIN' | translate}}</p>
 
-              <fieldset *ngIf="jwt">
+              <div *ngIf="jwt">
                 <div class="mb-2">
                   <label class="form-label" for="username">{{'LOGIN.LABEL.USERNAME' | translate}}</label>
                   <input formControlName="username" required type="email" class="form-control" id="username"
@@ -35,7 +35,7 @@
                     <span class="custom-control-label">{{'LOGIN.LABEL.REMEMBERME' | translate}}</span>
                   </label>
                 </div>
-              </fieldset>
+              </div>
               <div class="form-footer">
                 <button type="submit" class="btn btn-primary btn-block"
                         [disabled]="!authForm.valid && jwt">{{'LOGIN.TITLE' | translate}}</button>
