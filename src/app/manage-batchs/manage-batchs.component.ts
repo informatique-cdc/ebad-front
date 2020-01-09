@@ -1,31 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {Application} from '../core/models';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Application, Batch} from '../core/models';
 import {BatchsService} from '../core/services';
-import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalBatchComponent} from './modal-batch/modal-batch.component';
-import {ActionClickEvent} from '../shared/table/action-click-event.model';
 import {NotifierService} from 'angular-notifier';
 import {ModalBatchDeletionComponent} from './modal-batch-deletion/modal-batch-deletion.component';
 import {Constants} from "../shared/Constants";
-import {Pageable} from "../core/models/pageable.model";
+import {DataTableDirective} from "angular-datatables";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-manage-batchs',
   templateUrl: './manage-batchs.component.html',
   styleUrls: ['./manage-batchs.component.scss']
 })
-export class ManageBatchsComponent implements OnInit {
-
-  table: Table;
+export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   applicationSelected: Application;
+  batchs: Batch[];
 
-  size = this.constants.numberByPage;
-  page = 0;
-  totalSize = 0;
-
-  private idActionModify = 'actionModify';
-  private idActionDelete = 'actionDelete';
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
 
   constructor(private batchsService: BatchsService,
               private modalService: NgbModal,
@@ -33,57 +29,65 @@ export class ManageBatchsComponent implements OnInit {
               private notifierService: NotifierService) {
   }
 
-  ngOnInit() {
-  }
-
   applicationChanged(application: Application) {
-    this.showBatch();
     this.applicationSelected = application;
-    this.page = 1;
-    this.refreshBatchs(new Pageable(this.page-1, this.size))
+    this.refreshBatchs()
   }
 
-
-  refreshBatchs(pageable?: Pageable) {
-    this.batchsService.getAllFromApplication(this.applicationSelected.id, pageable).subscribe(
-      batchs => {
-        this.table.items = batchs.content;
-        this.totalSize = batchs.totalElements;
-
-        for (const batch of this.table.items) {
-          batch.env = '';
-          for (const environnement of batch.environnements) {
-            batch.env = `<span class="badge badge-primary">${environnement.name}</span>&nbsp${batch.env}`;
-          }
+  ngOnInit() {
+    this.dtOptions = {
+      order: [[0, 'asc']],
+      pagingType: 'full_numbers',
+      pageLength: this.constants.numberByPage,
+      serverSide: true,
+      processing: false,
+      ajax: (dataTablesParameters: any, callback) => {
+        if (!this.applicationSelected) {
+          this.batchs = [];
+          return
         }
-      }
-    );
+        this.batchsService
+          .getAllFromApplication(this.applicationSelected.id, {
+              'page': dataTablesParameters.start / dataTablesParameters.length,
+              'size': dataTablesParameters.length,
+              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              'name': dataTablesParameters.search.value
+            }
+          )
+          .subscribe(resp => {
+            this.batchs = resp.content;
+            callback({
+              recordsTotal: resp.totalElements,
+              recordsFiltered: resp.totalElements,
+              data: []
+            });
+          });
+      },
+      columns: [{
+        data: 'id'
+      }, {data: 'name'}, {data: 'path'}, {data: 'environnements', orderable: false}, {
+        data: '',
+        orderable: false
+      }]
+    };
+    this.dtTrigger.next();
   }
 
-  showBatch() {
-    this.table = new Table();
-    this.table.showHeader = false;
-    this.table.showFooter = true;
-
-    this.table.settings.globalAction = new Action('Ajouter un batch', '');
-
-    this.table.settings.columnsDefinition.id = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.id.title = 'Id';
-    this.table.settings.columnsDefinition.id.order = 1;
-    this.table.settings.columnsDefinition.name = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.name.title = 'Nom';
-    this.table.settings.columnsDefinition.name.order = 2;
-    this.table.settings.columnsDefinition.path = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.path.title = 'Chemin du shell';
-    this.table.settings.columnsDefinition.path.order = 3;
-    this.table.settings.columnsDefinition.env = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.env.title = 'Environnements';
-    this.table.settings.columnsDefinition.env.order = 4;
-
-    this.table.settings.actionsDefinition.title = 'Action';
-    this.table.settings.actionsDefinition.actions.push(new Action('Modifier', this.idActionModify));
-    this.table.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionDelete));
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
   }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  refreshBatchs() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
+    });
+  }
+
 
   onClickAddBatch() {
     const modalRef = this.modalService.open(ModalBatchComponent);
@@ -99,43 +103,37 @@ export class ManageBatchsComponent implements OnInit {
     modalRef.componentInstance.isUpdate = false;
   }
 
-  onActionClicked(event: ActionClickEvent) {
-    if (event.id === this.idActionModify) {
-      const modalRef = this.modalService.open(ModalBatchComponent);
-      modalRef.result.then((result) => {
-        this.notifierService.notify('success', `Le batch ${result.name} a bien été modifié`);
-        this.applicationChanged(this.applicationSelected);
-      }, (reason) => {
-        if (reason.message !== undefined) {
-          this.notifierService.notify('error', `Une erreur est survenue lors de la modification du batch : ${reason.message}`);
-        }
-      });
-      modalRef.componentInstance.application = this.applicationSelected;
-      modalRef.componentInstance.batch = event.item;
-      modalRef.componentInstance.isUpdate = true;
-    }
-
-    if (event.id === this.idActionDelete) {
-      const modalRef = this.modalService.open(ModalBatchDeletionComponent);
-      modalRef.result.then((result) => {
-        event.item.environnements = [];
-        this.batchsService.updateBatch(event.item).subscribe(
-          batch => {
-            this.notifierService.notify('success', `Le batch ${batch.name} a été supprimé`);
-            this.applicationChanged(this.applicationSelected);
-          },
-          reason => {
-            this.notifierService.notify('error', `Une erreur est survenue lors de la suppression du batch : ${reason}`);
-          }
-        );
-      }, reason => {});
-      modalRef.componentInstance.application = this.applicationSelected;
-      modalRef.componentInstance.batch = event.item;
-      modalRef.componentInstance.isUpdate = true;
-    }
+  editBatch(batch: Batch) {
+    const modalRef = this.modalService.open(ModalBatchComponent);
+    modalRef.result.then((result) => {
+      this.notifierService.notify('success', `Le batch ${result.name} a bien été modifié`);
+      this.applicationChanged(this.applicationSelected);
+    }, (reason) => {
+      if (reason.message !== undefined) {
+        this.notifierService.notify('error', `Une erreur est survenue lors de la modification du batch : ${reason.message}`);
+      }
+    });
+    modalRef.componentInstance.application = this.applicationSelected;
+    modalRef.componentInstance.batch = batch;
+    modalRef.componentInstance.isUpdate = true;
   }
 
-  onPageChange(event) {
-    this.refreshBatchs(new Pageable(this.page-1, this.size))
+  deleteBatch(batch: Batch) {
+    const modalRef = this.modalService.open(ModalBatchDeletionComponent);
+    modalRef.result.then((result) => {
+      this.batchsService.updateBatch(batch).subscribe(
+        batch => {
+          this.notifierService.notify('success', `Le batch ${batch.name} a été supprimé`);
+          this.applicationChanged(this.applicationSelected);
+        },
+        reason => {
+          this.notifierService.notify('error', `Une erreur est survenue lors de la suppression du batch : ${reason}`);
+        }
+      );
+    }, reason => {
+    });
+    modalRef.componentInstance.application = this.applicationSelected;
+    modalRef.componentInstance.batch = batch;
+    modalRef.componentInstance.isUpdate = true;
   }
 }

@@ -17,7 +17,7 @@ export class BatchsService {
     return this.apiService.get(`/batchs?environnements.id=${idEnvironment}`, pageable);
   }
 
-  getAllFromApplication(idApplication: number, pageable: Pageable = new Pageable(0,20)): Observable<Page<Batch>> {
+  getAllFromApplication(idApplication: number, pageable: any = new Pageable(0,20)): Observable<Page<Batch>> {
     return this.apiService.get(`/batchs?environnements.application.id=${idApplication}`, pageable);
 }
 
