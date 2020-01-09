@@ -4,7 +4,7 @@
       <h2 class="page-pretitle">
         Administration
       </h2>
-      <h2 class="page-title">
+      <h2 id="tableTitle" class="page-title">
         Normes
       </h2>
     </div>
@@ -21,7 +21,7 @@
 
 <div class="card">
   <div class="table-responsive">
-    <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
         <th id="normId">ID</th>

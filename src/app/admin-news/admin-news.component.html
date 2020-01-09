@@ -1,7 +1,7 @@
 <div class="page-title-box">
   <div class="row align-items-center">
     <div class="col-auto">
-      <h2 class="page-pretitle">
+      <h2 id="tableTitle" class="page-pretitle">
         Administration
       </h2>
       <h2 class="page-title">
@@ -21,7 +21,7 @@
 </div>
 <div class="card">
   <div class="table-responsive">
-    <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+    <table  aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
         <th id="newId">
