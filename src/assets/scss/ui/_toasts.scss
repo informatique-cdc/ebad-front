@@ -1,3 +1,8 @@
 .toast-header {
   user-select: none;
 }
+
+.ngb-toasts {
+  bottom: 0;
+  top: auto !important;
+}

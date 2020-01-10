@@ -3,8 +3,8 @@ import {ToastService} from "../../core/services/toast.service";
 
 @Component({
   selector: 'ebad-toasts',
-  template: '',
-  // templateUrl: 'toast.component.html',
+  // template: '',
+  templateUrl: 'toast.component.html',
   host: {'[class.ngb-toasts]': 'true'}
 })
 export class ToastComponent {

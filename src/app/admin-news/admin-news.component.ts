@@ -29,7 +29,6 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    // this.toastService.show('I am a standard toast');
     this.dtOptions = {
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
@@ -73,6 +72,8 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   refreshNews() {
+    this.toastService.show('I am a standard toast');
+
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();
@@ -80,6 +81,8 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onClickAddNew() {
+
+
     const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
     modalRef.result.then(() => {
       // this.notifierService.notify('success', `L'actualité a bien été ajoutée`);
