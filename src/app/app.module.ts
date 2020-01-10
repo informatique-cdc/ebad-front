@@ -8,7 +8,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {CoreModule} from './core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {IconsModule} from './icons';
-import {NotifierModule} from 'angular-notifier';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
