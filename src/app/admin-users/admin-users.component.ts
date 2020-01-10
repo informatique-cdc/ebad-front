@@ -118,11 +118,11 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   onClickModifyUser(user: User) {
     const modalRef = this.modalService.open(ModalUserComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `L'utilisateur ${result.login} a bien été modifié`);
+      // this.notifierService.notify('success', `L'utilisateur ${result.login} a bien été modifié`);
       this.refreshUsers();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
       }
     });
     modalRef.componentInstance.user = user;
