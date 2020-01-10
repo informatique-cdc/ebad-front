@@ -8,6 +8,7 @@ import {Constants} from "../shared/Constants";
 import {New} from "../core/models";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-admin-news',
@@ -25,10 +26,12 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(private modalService: NgbModal,
               private notifierService: NotifierService,
               private constants: Constants,
-              private newsService: NewsService) {
+              private newsService: NewsService,
+              private toastService: ToastService) {
   }
 
   ngOnInit() {
+    // this.toastService.show('I am a standard toast');
     this.dtOptions = {
       order: [[1, 'asc']],
       pagingType: 'full_numbers',

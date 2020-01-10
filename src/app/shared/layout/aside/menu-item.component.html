@@ -1,6 +1,6 @@
 <a (click)="click()" class="sidebar-nav-link" [ngClass]="{'open': isOpen}" [routerLink]="link" [routerLinkActive]="classActive" >
   <ebad-icon *ngIf="icon" [name]="icon" classname="icon-svg nav-icon-svg"></ebad-icon>
   <span class="nav-text">{{label}}</span>
- <!-- <span class="badge bg-blue">test</span> BADGE-->
+  <span *ngIf="badgeText" class="badge bg-red">{{badgeText}}</span>
   <span *ngIf="isParent" class="sidebar-nav-arrow"></span>
 </a>

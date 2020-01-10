@@ -71,6 +71,15 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'user',
+    children: [
+      {
+        path: 'profile',
+        loadChildren: './profile/profile.module#ProfileModule'
+      }
+    ]
+  },
+  {
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard]

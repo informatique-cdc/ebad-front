@@ -9,6 +9,7 @@ export class MenuItemComponent implements OnInit{
   @Input() link: string;
   @Input() href: string;
   @Input() label: string;
+  @Input() badgeText: string;
   @Input() icon: string;
   @Input() isParent: boolean;
   @Input() isOpen: boolean;

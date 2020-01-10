@@ -26,6 +26,7 @@ import {IconHeart} from "angular-feather";
 import {AvatarPipe} from "./avatar.pipe";
 import {DataTablesModule} from "angular-datatables";
 import {YesNoPipe} from "./yesno.pipe";
+import {ToastComponent} from "./toast/toast.component";
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import {YesNoPipe} from "./yesno.pipe";
     MenuItemComponent,
     IconComponent,
     AvatarPipe,
-    YesNoPipe
+    YesNoPipe,
+    ToastComponent
   ],
   exports: [
     CommonModule,
@@ -79,7 +81,8 @@ import {YesNoPipe} from "./yesno.pipe";
     MenuItemComponent,
     IconComponent,
     AvatarPipe,
-    YesNoPipe
+    YesNoPipe,
+    ToastComponent
   ],
   entryComponents: [
     ModalDateTraitementComponent
