@@ -15,7 +15,7 @@ import {ToastService} from "../core/services/toast.service";
   styleUrls: ['./admin-news.component.scss']
 })
 export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, { static: true })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};

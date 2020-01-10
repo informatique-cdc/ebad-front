@@ -16,7 +16,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;
   batchs: Batch[];
 
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, { static: true })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};

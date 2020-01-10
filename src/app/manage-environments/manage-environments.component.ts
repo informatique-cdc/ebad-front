@@ -18,7 +18,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
   addEnvironmentEnabled = true;
   importEnvironmentEnabled = true;
 
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, { static: true })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};

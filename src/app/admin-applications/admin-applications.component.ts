@@ -15,7 +15,7 @@ import {Subject} from 'rxjs';
   styleUrls: ['./admin-applications.component.scss']
 })
 export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, { static: true })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};

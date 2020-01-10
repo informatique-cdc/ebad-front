@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 
 import {ApiService} from './api.service';
 import {GlobalSetting} from '../models';
-import {forEach} from "@angular/router/src/utils/collection";
 
 
 @Injectable()

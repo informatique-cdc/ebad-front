@@ -19,7 +19,7 @@ export class ModalChainComponent implements OnInit {
   batchs: Batch[] = [];
   tempBatchAssociation: Batch[] = [];
   tmpBatch: Batch = null;
-  @ViewChild('selectBatch') private selectBatch: NgModel;
+  @ViewChild('selectBatch', { static: true }) private selectBatch: NgModel;
 
   chain: Chain = {
     id: undefined,

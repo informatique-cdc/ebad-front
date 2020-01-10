@@ -14,7 +14,7 @@ import {Norme} from "../core/models";
   styleUrls: ['./admin-norms.component.scss']
 })
 export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, { static: true })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};

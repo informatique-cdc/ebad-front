@@ -15,9 +15,9 @@ import {Statistics} from "../core/models";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild("chartComponentAvgTime")
+  @ViewChild("chartComponentAvgTime", { static: true })
   chartComponentAvgTime: ChartComponent;
-  @ViewChild("chartComponentBatchRunnedNbr")
+  @ViewChild("chartComponentBatchRunnedNbr", { static: true })
   chartComponentBatchRunnedNbr: ChartComponent;
   chart: ApexChart[] = [];
   stroke: ApexStroke;

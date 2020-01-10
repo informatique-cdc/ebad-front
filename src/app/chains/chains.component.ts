@@ -14,7 +14,7 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;
   environmentSelectedInfo: InfoEnvironment;
 
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, { static: true })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};

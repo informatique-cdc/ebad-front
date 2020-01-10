@@ -15,7 +15,7 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;
   traces: Trace[];
 
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, { static: true })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};

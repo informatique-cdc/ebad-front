@@ -17,7 +17,7 @@ import {debounceTime, distinctUntilChanged, filter, tap} from "rxjs/operators";
   styleUrls: ['./admin-users.component.scss']
 })
 export class AdminUsersComponent implements OnInit, AfterViewInit {
-  @ViewChild('input') input: ElementRef;
+  @ViewChild('input', { static: true }) input: ElementRef;
 
   table: Table;
   jwt = environment.jwt;

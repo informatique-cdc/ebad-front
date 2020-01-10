@@ -18,7 +18,7 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   applicationSelected: Application;
   namings: FileKind[];
 
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, { static: true })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};

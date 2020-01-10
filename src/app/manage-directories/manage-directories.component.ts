@@ -17,7 +17,7 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
   environmentSelected: Environment;
   directories: Directory[];
 
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, { static: true })
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
