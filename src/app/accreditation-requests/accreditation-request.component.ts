@@ -4,7 +4,6 @@ import {Observable, of} from "rxjs";
 import {catchError, debounceTime, distinctUntilChanged, map, switchMap, tap} from "rxjs/operators";
 import {Application, CreationAccreditationRequest} from "../core/models";
 import {Pageable} from "../core/models/pageable.model";
-import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-accreditation-request',
@@ -17,8 +16,7 @@ export class AccreditationRequestComponent implements OnInit {
   request: CreationAccreditationRequest = {applicationId: undefined, wantManage: false, wantUse: false};
 
   constructor(private accreditationRequestsService: AccreditationRequestsService,
-              private applicationsService: ApplicationsService,
-              private notifierService: NotifierService) {
+              private applicationsService: ApplicationsService) {
   }
 
   formatter = (result: Application) => result.name;
@@ -48,8 +46,12 @@ export class AccreditationRequestComponent implements OnInit {
   sendRequest(){
     this.request.applicationId = this.model.id;
     this.accreditationRequestsService.sendAccreditation(this.request).subscribe(
-      () => this.notifierService.notify('success', `Votre demande d'accréditation a bien été envoyée`),
-      (error) => this.notifierService.notify('error', `Votre demande d'accréditation n'a pas pu être envoyée : ${error}`)
+      () => {
+        // this.notifierService.notify('success', `Votre demande d'accréditation a bien été envoyée`)
+      },
+      (error) => {
+        // this.notifierService.notify('error', `Votre demande d'accréditation n'a pas pu être envoyée : ${error}`)
+      }
     );
   }
 }
