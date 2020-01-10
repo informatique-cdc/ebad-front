@@ -39,7 +39,6 @@ registerLocaleData(localeFr);
     AuthModule,
     IconsModule,
     NgbModule,
-    NotifierModule,
     HomeModule,
     AngularSvgIconModule,
     SecurityModule.forRoot(),
