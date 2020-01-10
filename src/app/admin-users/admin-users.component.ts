@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Table} from '../shared/table/table.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NotifierService} from 'angular-notifier';
@@ -7,34 +7,80 @@ import {ModalUserComponent} from './modal-user/modal-user.component';
 import {User} from '../core/models';
 import {ModalRolesComponent} from "./modal-roles/modal-roles.component";
 import {environment} from "../../environments/environment";
+import {Pageable} from "../core/models/pageable.model";
+import {Constants} from "../shared/Constants";
+import {fromEvent} from "rxjs";
+import {debounceTime, distinctUntilChanged, filter, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.scss']
 })
-export class AdminUsersComponent implements OnInit {
+export class AdminUsersComponent implements OnInit, AfterViewInit {
+  @ViewChild('input') input: ElementRef;
+
   table: Table;
   jwt = environment.jwt;
-  private idActionModify = 'actionModify';
-  private idActionActivate = 'ActionActivate';
-  private idActionInctivate = 'ActionInctivate';
+  pageSize = this.constants.numberByPage;
+
+  pagination = {
+    itemsPerPage: this.pageSize,
+    currentPage: 0,
+    totalItems: 0
+  };
+  peoplesPage = {
+    to: 0,
+    from: 0,
+    of: 0
+  };
 
   users: User[] = [];
 
   constructor(private usersService: UsersService,
               private modalService: NgbModal,
-              private notifierService: NotifierService) {
+              private notifierService: NotifierService,
+              private constants: Constants) {
+
   }
 
   ngOnInit() {
-    this.refreshUsers();
+    this.changePage(1);
   }
 
-  refreshUsers() {
-    this.usersService.getAll().subscribe(
+  ngAfterViewInit() {
+    // server-side search
+    fromEvent(this.input.nativeElement,'keyup')
+      .pipe(
+        filter(Boolean),
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap((text) => {
+          let pageable : any = new Pageable(0, this.pageSize);
+          pageable.login = this.input.nativeElement.value;
+          this.refreshUsers(pageable);
+        })
+      )
+      .subscribe();
+  }
+
+  changePage(event){
+    this.refreshUsers(new Pageable(event-1,this.pageSize));
+  }
+
+  refreshUsers(pageable: any = new Pageable(0, this.pageSize)) {
+    this.usersService.getAll(pageable).subscribe(
       users => {
-        this.users = users;
+        this.pagination.currentPage = users.number + 1;
+        this.pagination.itemsPerPage = users.size;
+        this.pagination.totalItems = users.totalElements;
+        this.users = users.content;
+        this.peoplesPage.from = (this.pagination.currentPage - 1) * this.pagination.itemsPerPage + 1;
+        this.peoplesPage.to = (this.pagination.currentPage - 1) * this.pagination.itemsPerPage + this.pagination.itemsPerPage;
+        this.peoplesPage.of = this.pagination.totalItems;
+        if(this.peoplesPage.to > this.peoplesPage.of){
+          this.peoplesPage.to = this.peoplesPage.of;
+        }
       }
     );
   }

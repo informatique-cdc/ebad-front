@@ -98,7 +98,7 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   runChain(chain) {
     this.notifierService.notify('info', 'Votre chaine vient d\'être lancée');
 
-    this.chainsService.run(chain.id, {env: this.environmentSelected.id}).subscribe(
+    this.chainsService.run(chain.id).subscribe(
       trace => {
         if (trace.returnCode === 0) {
           this.notifierService.notify('success', 'La chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);

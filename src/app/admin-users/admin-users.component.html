@@ -6,12 +6,12 @@
       </h2>
     </div>
     <div class="col-auto">
-      <div class="text-muted text-h5 mt-2">1-18 of 413 people</div>
+      <div class="text-muted text-h5 mt-2">{{peoplesPage.from}} - {{peoplesPage.to}} sur {{peoplesPage.of}} personnes</div>
     </div>
     <!-- Page title actions -->
     <div class="col-auto ml-auto d-print-none">
       <div class="d-flex">
-        <input type="search" class="form-control d-inline-block w-9 mr-3" placeholder="Search user&hellip;"/>
+        <input #input type="search" class="form-control d-inline-block w-9 mr-3" placeholder="Search user&hellip;"/>
         <a href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary" (click)="onClickAddUser()">
           <ebad-icon name="plus"></ebad-icon>
           New user
@@ -21,7 +21,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6 col-lg-6" *ngFor="let user of users">
+  <div class="col-md-6 col-lg-6" *ngFor="let user of users | paginate: pagination">
     <div class="card">
       <div class="card-body">
         <div class="row row-sm align-items-center">
@@ -61,21 +61,5 @@
 </div>
 
 <div class="d-flex">
-  <ul class="pagination ml-auto">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">
-        <ebad-icon name="chevron-left"></ebad-icon>        Prev
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">4</a></li>
-    <li class="page-item"><a class="page-link" href="#">5</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">
-        Next <ebad-icon name="chevron-right"></ebad-icon>
-      </a>
-    </li>
-  </ul>
+  <pagination-controls class="pagination ml-auto" (pageChange)="changePage($event)"></pagination-controls>
 </div>

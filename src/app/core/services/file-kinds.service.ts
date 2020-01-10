@@ -8,6 +8,7 @@ import {Page} from "../models/page.model";
 
 @Injectable()
 export class FileKindsService {
+  private apiName = 'file-kinds';
   constructor(
     private apiService: ApiService,
   ) {
@@ -15,18 +16,18 @@ export class FileKindsService {
 
   getAllFromApplication(applicationId, pageable: any = new Pageable(0,20)): Observable<Page<FileKind>> {
     console.log(pageable);
-    return this.apiService.get(`/typefichier/application/${applicationId}`,pageable);
+    return this.apiService.get(`/${this.apiName}/application/${applicationId}`,pageable);
   }
 
   addNaming(fileKinds: FileKind): Observable<FileKind> {
-    return this.apiService.put(`/typefichier`, fileKinds);
+    return this.apiService.put(`/${this.apiName}`, fileKinds);
   }
 
   deleteNaming(fileKinds: FileKind): Observable<FileKind> {
-    return this.apiService.post(`/typefichier/delete`, fileKinds);
+    return this.apiService.post(`/${this.apiName}/delete`, fileKinds);
   }
 
   updateNaming(fileKinds: FileKind): Observable<FileKind> {
-    return this.apiService.patch(`/typefichier`, fileKinds);
+    return this.apiService.patch(`/${this.apiName}`, fileKinds);
   }
 }

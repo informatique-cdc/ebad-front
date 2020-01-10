@@ -8,32 +8,33 @@ import {Page} from "../models/page.model";
 
 @Injectable()
 export class ChainsService {
+  private apiName = 'chains';
   constructor(
     private apiService: ApiService
   ) {
   }
 
   getAllFromEnvironment(environmentId, pageable: any = new Pageable(0,20)): Observable<Page<Chain>> {
-    return this.apiService.get(`/chaines/env/${environmentId}`, pageable);
+    return this.apiService.get(`/${this.apiName}/env/${environmentId}`, pageable);
   }
 
   get(chainId): Observable<Chain> {
-    return this.apiService.get('/chaines/' + chainId);
+    return this.apiService.get(`/${this.apiName}/` + chainId);
   }
 
-  run(chainId, params): Observable<Trace> {
-    return this.apiService.get('/chaines/run/' + chainId, params);
+  run(chainId): Observable<Trace> {
+    return this.apiService.post(`/${this.apiName}/${chainId}/run`);
   }
 
   createChain(chain: Chain): Observable<Chain> {
-    return this.apiService.put('/chaines', chain);
+    return this.apiService.put(`/${this.apiName}`, chain);
   }
 
   updateChain(chain: Chain): Observable<Chain> {
-    return this.apiService.patch('/chaines', chain);
+    return this.apiService.patch(`/${this.apiName}`, chain);
   }
 
   deleteChaine(chain: Chain): Observable<Chain> {
-    return this.apiService.delete(`/chaines/delete/${chain.id}`);
+    return this.apiService.delete(`/${this.apiName}/${chain.id}`);
   }
 }
