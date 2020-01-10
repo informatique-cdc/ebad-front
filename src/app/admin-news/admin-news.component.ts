@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NotifierService} from 'angular-notifier';
 import {NewsService} from '../core/services';
 import {ModalNewComponent} from './modal-new/modal-new.component';
 import {ModalNewDeletionComponent} from './modal-new-deletion/modal-new-deletion.component';
@@ -24,7 +23,6 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   news: New[] = [];
 
   constructor(private modalService: NgbModal,
-              private notifierService: NotifierService,
               private constants: Constants,
               private newsService: NewsService,
               private toastService: ToastService) {
@@ -84,11 +82,11 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   onClickAddNew() {
     const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
     modalRef.result.then(() => {
-      this.notifierService.notify('success', `L'actualité a bien été ajoutée`);
+      // this.notifierService.notify('success', `L'actualité a bien été ajoutée`);
       this.refreshNews();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de l'actualité : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de l'actualité : ${reason.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
@@ -97,11 +95,11 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   editNew(oneNew: New) {
     const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `L'actualité a bien été modifiée`);
+      // this.notifierService.notify('success', `L'actualité a bien été modifiée`);
       this.refreshNews();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'actualité : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'actualité : ${reason.message}`);
       }
     });
     modalRef.componentInstance.oneNew = oneNew;
@@ -113,11 +111,11 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.result.then((result) => {
       this.newsService.deleteNew(oneNew.id).subscribe(
         () => {
-          this.notifierService.notify('success', `L'actualité a été supprimée`);
+          // this.notifierService.notify('success', `L'actualité a été supprimée`);
           this.refreshNews();
         },
         reason => {
-          this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'actualité : ${reason}`);
+          // this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'actualité : ${reason}`);
         }
       );
     }, reason => {

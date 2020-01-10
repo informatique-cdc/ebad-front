@@ -1,11 +1,9 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NormsService} from '../core/services';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NotifierService} from 'angular-notifier';
 import {ModalNormComponent} from './modal-norm/modal-norm.component';
 import {ModalNormDeletionComponent} from './modal-norm-deletion/modal-norm-deletion.component';
 import {Constants} from "../shared/Constants";
-import {Pageable} from "../core/models/pageable.model";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 import {Norme} from "../core/models";
@@ -24,7 +22,6 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
   norms: Norme[];
 
   constructor(private modalService: NgbModal,
-              private notifierService: NotifierService,
               private constants: Constants,
               private normsService: NormsService) {
   }
@@ -82,11 +79,11 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
   onClickAddNorm() {
     const modalRef = this.modalService.open(ModalNormComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `La norme a bien été ajoutée`);
+      // this.notifierService.notify('success', `La norme a bien été ajoutée`);
       this.refreshNorms();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de la norme : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de la norme : ${reason.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
@@ -95,11 +92,11 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
   editNorm(norm: Norme) {
     const modalRef = this.modalService.open(ModalNormComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `La norme a bien été modifiée`);
+      // this.notifierService.notify('success', `La norme a bien été modifiée`);
       this.refreshNorms();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de la modification de la norme : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification de la norme : ${reason.message}`);
       }
     });
     modalRef.componentInstance.norm = norm;
@@ -111,11 +108,11 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.result.then((result) => {
       this.normsService.deleteNorm(norm.id).subscribe(
         () => {
-          this.notifierService.notify('success', `La norme a été supprimée`);
+          // this.notifierService.notify('success', `La norme a été supprimée`);
           this.refreshNorms();
         },
         reason => {
-          this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de la norme : ${reason.detail}`);
+          // this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de la norme : ${reason.detail}`);
         }
       );
     }, reason => {

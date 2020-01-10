@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Application, Environment} from '../core/models';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NotifierService} from 'angular-notifier';
 import {ApplicationsService, EnvironmentsService, GlobalSettingsService} from '../core/services';
 import {ModalEnvironmentComponent} from './modal-environment/modal-environment.component';
 import {ModalEnvironmentDeletionComponent} from './modal-environment-deletion/modal-environment-deletion.component';
@@ -30,7 +29,6 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
               private modalService: NgbModal,
               private applicationsService: ApplicationsService,
               private constants: Constants,
-              private notifierService: NotifierService,
               private globalSettingsService: GlobalSettingsService) {
   }
 
@@ -110,11 +108,11 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
   onClickAddEnvironment() {
     const modalRef = this.modalService.open(ModalEnvironmentComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `L'environnement ${result.name} a bien été ajouté`);
+      // this.notifierService.notify('success', `L'environnement ${result.name} a bien été ajouté`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de l'ahout de l'environnement : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ahout de l'environnement : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -124,21 +122,21 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
   onClickImportEnvironments() {
     this.environmentsService.importEnvironmentToApp(this.applicationSelected.id).subscribe(
       (result) => {
-        this.notifierService.notify('success', `Les environnements ont bien étaient importés`);
+        // this.notifierService.notify('success', `Les environnements ont bien étaient importés`);
         this.refreshEnvironments();
       },
-      (error) => this.notifierService.notify('error', `Une erreur est survenue lors de l'import des environnments : ${error.message}`)
+      // (error) => this.notifierService.notify('error', `Une erreur est survenue lors de l'import des environnments : ${error.message}`)
     )
   }
 
   editEnvironment(env: Environment) {
     const modalRef = this.modalService.open(ModalEnvironmentComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `L'environnement ${result.name} a bien été modifié`);
+      // this.notifierService.notify('success', `L'environnement ${result.name} a bien été modifié`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'environnement : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'environnement : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -151,11 +149,11 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     modalRef.result.then((result) => {
       this.environmentsService.deleteEnvironemnt(env.id).subscribe(
         fileKind => {
-          this.notifierService.notify('success', `L'environnement a été supprimé`);
+          // this.notifierService.notify('success', `L'environnement a été supprimé`);
           this.applicationChanged(this.applicationSelected);
         },
         reason => {
-          this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'environnement : ${reason}`);
+          // this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'environnement : ${reason}`);
         }
       );
     }, reason => {

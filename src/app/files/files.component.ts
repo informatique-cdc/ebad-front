@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FileSystemDirectoryEntry, FileSystemFileEntry, UploadEvent} from 'ngx-file-drop';
+import {FileSystemDirectoryEntry, FileSystemFileEntry} from 'ngx-file-drop';
 import {EventSelectChangeModel, Option, Select} from '../shared/head-selector';
 import {Application, Directory, Environment} from '../core/models';
 import {ApplicationsService, FilesService} from '../core/services';
 import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
 import {ActionClickEvent} from '../shared/table/action-click-event.model';
-import {NotifierService} from 'angular-notifier';
 import * as FileSaver from 'file-saver';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
@@ -37,7 +36,6 @@ export class FilesComponent implements OnInit {
 
   constructor(private applicationsService: ApplicationsService,
               private filesService: FilesService,
-              private notifierService: NotifierService,
               private modalService: NgbModal) {
   }
 
@@ -169,7 +167,9 @@ export class FilesComponent implements OnInit {
   }
 
   //// UPLOAD ////
-  public dropped(event: UploadEvent) {
+
+  //FIXME UPLOAD EVENT
+  public dropped(event: any) {
     for (const droppedFile of event.files) {
 
       // Is it a file?
@@ -219,9 +219,9 @@ export class FilesComponent implements OnInit {
       this.filesService.deleteFile(event.item).subscribe(
         () => {
           this.tableRemote.items.splice(this.tableRemote.items.indexOf(event.item), 1);
-          this.notifierService.notify('success', 'Le fichier ' + event.item.name + ' a été supprimé du serveur distant');
+          // this.notifierService.notify('success', 'Le fichier ' + event.item.name + ' a été supprimé du serveur distant');
         }, error => {
-          this.notifierService.notify('error', 'Une erreur s\'est produite lors de la suppresion du fichier ' + event.item.name);
+          // this.notifierService.notify('error', 'Une erreur s\'est produite lors de la suppresion du fichier ' + event.item.name);
         }
       );
     }
@@ -253,7 +253,7 @@ export class FilesComponent implements OnInit {
           );
         },
         (error) => {
-          this.notifierService.notify('error', 'Une erreur est survenue lors de l\'envoi d\'un fichier sur le serveur distant');
+          // this.notifierService.notify('error', 'Une erreur est survenue lors de l\'envoi d\'un fichier sur le serveur distant');
         }
       );
     }

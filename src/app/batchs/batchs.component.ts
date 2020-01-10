@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {BatchsService, EnvironmentsService} from '../core/services';
 import {Batch, Environment, InfoEnvironment} from '../core/models';
-import {NotifierService} from 'angular-notifier';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
 import {Constants} from "../shared/Constants";
@@ -26,7 +25,6 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   constructor(
     private batchsService: BatchsService,
-    private notifierService: NotifierService,
     private environmentsService: EnvironmentsService,
     private constants: Constants,
     private modalService: NgbModal) {
@@ -111,19 +109,19 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
   runBatch(batch, param) {
-    this.notifierService.notify('info', 'Votre batch vient d\'être lancé');
+    // this.notifierService.notify('info', 'Votre batch vient d\'être lancé');
 
     this.batchsService.run(batch.id, {env: this.environmentSelected.id, param}).subscribe(
       trace => {
         if (trace.returnCode === 0) {
-          this.notifierService.notify('success', 'Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
+          // this.notifierService.notify('success', 'Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
         } else {
-          this.notifierService.notify('error', 'Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
+          // this.notifierService.notify('error', 'Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
         }
       },
       err => {
         console.log(err);
-        this.notifierService.notify('error', err || 'Une erreur est survenue');
+        // this.notifierService.notify('error', err || 'Une erreur est survenue');
 
       }
     );

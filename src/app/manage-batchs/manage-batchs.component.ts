@@ -3,7 +3,6 @@ import {Application, Batch} from '../core/models';
 import {BatchsService} from '../core/services';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalBatchComponent} from './modal-batch/modal-batch.component';
-import {NotifierService} from 'angular-notifier';
 import {ModalBatchDeletionComponent} from './modal-batch-deletion/modal-batch-deletion.component';
 import {Constants} from "../shared/Constants";
 import {DataTableDirective} from "angular-datatables";
@@ -25,8 +24,7 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   constructor(private batchsService: BatchsService,
               private modalService: NgbModal,
-              private constants: Constants,
-              private notifierService: NotifierService) {
+              private constants: Constants,) {
   }
 
   applicationChanged(application: Application) {
@@ -92,11 +90,11 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   onClickAddBatch() {
     const modalRef = this.modalService.open(ModalBatchComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `Le batch ${result.name} a bien été ajouté`);
+      // this.notifierService.notify('success', `Le batch ${result.name} a bien été ajouté`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de l'ahout du batch : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ahout du batch : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -106,11 +104,11 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   editBatch(batch: Batch) {
     const modalRef = this.modalService.open(ModalBatchComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `Le batch ${result.name} a bien été modifié`);
+      // this.notifierService.notify('success', `Le batch ${result.name} a bien été modifié`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de la modification du batch : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification du batch : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -123,11 +121,11 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.result.then((result) => {
       this.batchsService.updateBatch(batch).subscribe(
         batch => {
-          this.notifierService.notify('success', `Le batch ${batch.name} a été supprimé`);
+          // this.notifierService.notify('success', `Le batch ${batch.name} a été supprimé`);
           this.applicationChanged(this.applicationSelected);
         },
         reason => {
-          this.notifierService.notify('error', `Une erreur est survenue lors de la suppression du batch : ${reason}`);
+          // this.notifierService.notify('error', `Une erreur est survenue lors de la suppression du batch : ${reason}`);
         }
       );
     }, reason => {

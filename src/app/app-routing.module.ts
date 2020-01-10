@@ -10,42 +10,42 @@ import {SynthesisAccreditationRequest} from "./accreditation-requests/synthesis-
 const routes: Routes = [
   {
     path: 'batchs',
-    loadChildren: './batchs/batchs.module#BatchsModule'
+    loadChildren: () => import('./batchs/batchs.module').then(m => m.BatchsModule)
   },
   {
     path: 'traces',
-    loadChildren: './traces/traces.module#TracesModule'
+    loadChildren: () => import('./traces/traces.module').then(m => m.TracesModule)
   },
   {
     path: 'chains',
-    loadChildren: './chains/chains.module#ChainsModule'
+    loadChildren: () => import('./chains/chains.module').then(m => m.ChainsModule)
   },
   {
     path: 'files',
-    loadChildren: './files/files.module#FilesModule'
+    loadChildren: () => import('./files/files.module').then(m => m.FilesModule)
   },
   {
     path: 'manage',
     children: [
       {
         path: 'batchs',
-        loadChildren: './manage-batchs/manage-batchs.module#ManageBatchsModule'
+        loadChildren: () => import('./manage-batchs/manage-batchs.module').then(m => m.ManageBatchsModule)
       },
       {
         path: 'chains',
-        loadChildren: './manage-chains/manage-chains.module#ManageChainsModule'
+        loadChildren: () => import('./manage-chains/manage-chains.module').then(m => m.ManageChainsModule)
       },
       {
         path: 'directories',
-        loadChildren: './manage-directories/manage-directories.module#ManageDirectoriesModule'
+        loadChildren: () => import('./manage-directories/manage-directories.module').then(m => m.ManageDirectoriesModule)
       },
       {
         path: 'naming',
-        loadChildren: './manage-naming/manage-naming.module#ManageNamingModule'
+        loadChildren: () => import('./manage-naming/manage-naming.module').then(m => m.ManageNamingModule)
       },
       {
         path: 'environments',
-        loadChildren: './manage-environments/manage-environments.module#ManageEnvironmentsModule'
+        loadChildren: () => import('./manage-environments/manage-environments.module').then(m => m.ManageEnvironmentsModule)
       }
       ]
   },
@@ -54,19 +54,19 @@ const routes: Routes = [
     children: [
       {
         path: 'users',
-        loadChildren: './admin-users/admin-users.module#AdminUsersModule'
+        loadChildren: () => import('./admin-users/admin-users.module').then(m => m.AdminUsersModule)
       },
       {
         path: 'applications',
-        loadChildren: './admin-applications/admin-applications.module#AdminApplicationsModule'
+        loadChildren: () => import('./admin-applications/admin-applications.module').then(m => m.AdminApplicationsModule)
       },
       {
         path: 'norms',
-        loadChildren: './admin-norms/admin-norms.module#AdminNormsModule'
+        loadChildren: () => import('./admin-norms/admin-norms.module').then(m => m.AdminNormsModule)
       },
       {
         path: 'news',
-        loadChildren: './admin-news/admin-news.module#AdminNewsModule'
+        loadChildren: () => import('./admin-news/admin-news.module').then(m => m.AdminNewsModule)
       }
     ]
   },
@@ -75,7 +75,7 @@ const routes: Routes = [
     children: [
       {
         path: 'profile',
-        loadChildren: './profile/profile.module#ProfileModule'
+        loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
       }
     ]
   },

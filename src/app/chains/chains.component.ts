@@ -1,9 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Chain, Environment, InfoEnvironment} from '../core/models';
 import {ChainsService, EnvironmentsService} from '../core/services';
-import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
-import {ActionClickEvent} from '../shared/table/action-click-event.model';
-import {NotifierService} from 'angular-notifier';
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 import {Constants} from "../shared/Constants";
@@ -26,7 +23,6 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   constructor(private environmentsService: EnvironmentsService,
               private chainsService: ChainsService,
-              private notifierService: NotifierService,
               private constants: Constants) {
   }
 
@@ -96,18 +92,18 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   runChain(chain) {
-    this.notifierService.notify('info', 'Votre chaine vient d\'être lancée');
+    // this.notifierService.notify('info', 'Votre chaine vient d\'être lancée');
 
     this.chainsService.run(chain.id).subscribe(
       trace => {
         if (trace.returnCode === 0) {
-          this.notifierService.notify('success', 'La chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);
+          // this.notifierService.notify('success', 'La chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);
         } else {
-          this.notifierService.notify('error', 'Le chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);
+          // this.notifierService.notify('error', 'Le chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);
         }
       },
       err => {
-        this.notifierService.notify('error', err || 'Une erreur est survenue');
+        // this.notifierService.notify('error', err || 'Une erreur est survenue');
 
       }
     );

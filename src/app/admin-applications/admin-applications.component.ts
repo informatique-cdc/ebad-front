@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ApplicationsService, GlobalSettingsService} from '../core/services';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NotifierService} from 'angular-notifier';
 import {ModalApplicationComponent} from './modal-application/modal-application.component';
 import {ModalUsersComponent} from './modal-users/modal-users.component';
 import {ModalApplicationDeletionComponent} from './modal-application-deletion/modal-application-deletion.component';
@@ -29,8 +28,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
   constructor(private modalService: NgbModal,
               private applicationsService: ApplicationsService,
               private constants: Constants,
-              private globalSettingsService: GlobalSettingsService,
-              private notifierService: NotifierService) {
+              private globalSettingsService: GlobalSettingsService) {
   }
 
   ngOnInit() {
@@ -90,11 +88,11 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
   onClickAddApplication() {
     const modalRef = this.modalService.open(ModalApplicationComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `L'application ${result.name} a bien été ajoutée`);
+      // this.notifierService.notify('success', `L'application ${result.name} a bien été ajoutée`);
       this.refreshApplication()
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
@@ -103,21 +101,22 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
   onClickImportApplications() {
     this.applicationsService.importApplications().subscribe(
       (result) => {
-        this.notifierService.notify('success', `Les applications ont bien étaient importées`);
+        // this.notifierService.notify('success', `Les applications ont bien étaient importées`);
         this.refreshApplication()
-      },
-      (error) => this.notifierService.notify('error', `Une erreur est survenue lors de l'import des applications : ${error.message}`)
+      }
+      //,
+      // (error) => this.notifierService.notify('error', `Une erreur est survenue lors de l'import des applications : ${error.message}`)
     )
   }
 
   editApplication(app: Application) {
     const modalRef = this.modalService.open(ModalApplicationComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `L'application ${result.name} a bien été modifiée`);
+      // this.notifierService.notify('success', `L'application ${result.name} a bien été modifiée`);
       this.refreshApplication()
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
+        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = app;
@@ -129,11 +128,11 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     modalRef.result.then((result) => {
       this.applicationsService.deleteApplication(app.id).subscribe(
         () => {
-          this.notifierService.notify('success', `L'application a été supprimée`);
+          // this.notifierService.notify('success', `L'application a été supprimée`);
           this.refreshApplication()
         },
         reason => {
-          this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'application : ${reason}`);
+          // this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'application : ${reason}`);
         }
       );
     }, reason => {
