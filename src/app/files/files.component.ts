@@ -9,6 +9,7 @@ import * as FileSaver from 'file-saver';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
 import {Pageable} from "../core/models/pageable.model";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-files',
@@ -36,6 +37,7 @@ export class FilesComponent implements OnInit {
 
   constructor(private applicationsService: ApplicationsService,
               private filesService: FilesService,
+              private toastService: ToastService,
               private modalService: NgbModal) {
   }
 
@@ -219,9 +221,9 @@ export class FilesComponent implements OnInit {
       this.filesService.deleteFile(event.item).subscribe(
         () => {
           this.tableRemote.items.splice(this.tableRemote.items.indexOf(event.item), 1);
-          // this.notifierService.notify('success', 'Le fichier ' + event.item.name + ' a été supprimé du serveur distant');
+          this.toastService.showSuccess('Le fichier ' + event.item.name + ' a été supprimé du serveur distant');
         }, error => {
-          // this.notifierService.notify('error', 'Une erreur s\'est produite lors de la suppresion du fichier ' + event.item.name);
+          this.toastService.showError( 'Une erreur s\'est produite lors de la suppresion du fichier ' + event.item.name);
         }
       );
     }
@@ -253,7 +255,7 @@ export class FilesComponent implements OnInit {
           );
         },
         (error) => {
-          // this.notifierService.notify('error', 'Une erreur est survenue lors de l\'envoi d\'un fichier sur le serveur distant');
+          this.toastService.showError( 'Une erreur est survenue lors de l\'envoi d\'un fichier sur le serveur distant');
         }
       );
     }

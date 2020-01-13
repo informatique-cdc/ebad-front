@@ -8,6 +8,7 @@ import {FileKind} from "../core/models/file-kind.model";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 import {Constants} from "../shared/Constants";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-manage-naming',
@@ -25,6 +26,7 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
 
   constructor(private fileKindsService: FileKindsService,
               private modalService: NgbModal,
+              private toastService: ToastService,
               private constants: Constants) {
   }
 
@@ -93,11 +95,11 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   onClickAddNaming() {
     const modalRef = this.modalService.open(ModalNamingComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `Le nommage ${result.name} a bien été ajouté`);
+      this.toastService.showSuccess(`Le nommage ${result.name} a bien été ajouté`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ahout du nommage : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'ahout du nommage : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -107,11 +109,11 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   editNaming(naming: FileKind) {
     const modalRef = this.modalService.open(ModalNamingComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `Le nommage ${result.name} a bien été modifié`);
+      this.toastService.showSuccess(`Le nommage ${result.name} a bien été modifié`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification du nommage : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de la modification du nommage : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -124,11 +126,11 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.result.then((result) => {
       this.fileKindsService.deleteNaming(naming).subscribe(
         fileKind => {
-          // this.notifierService.notify('success', `Le nommage a été supprimé`);
+          this.toastService.showSuccess(`Le nommage a été supprimé`);
           this.applicationChanged(this.applicationSelected);
         },
         reason => {
-          // this.notifierService.notify('error', `Une erreur est survenue lors de la suppression du nommage : ${reason}`);
+          this.toastService.showError( `Une erreur est survenue lors de la suppression du nommage : ${reason}`);
         }
       );
     }, reason => {

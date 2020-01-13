@@ -4,6 +4,7 @@ import {ChainsService, EnvironmentsService} from '../core/services';
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 import {Constants} from "../shared/Constants";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-chains',
@@ -23,6 +24,7 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   constructor(private environmentsService: EnvironmentsService,
               private chainsService: ChainsService,
+              private toastService: ToastService,
               private constants: Constants) {
   }
 
@@ -92,18 +94,18 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   runChain(chain) {
-    // this.notifierService.notify('info', 'Votre chaine vient d\'être lancée');
+    this.toastService.showInfo('Votre chaine vient d\'être lancée');
 
     this.chainsService.run(chain.id).subscribe(
       trace => {
         if (trace.returnCode === 0) {
-          // this.notifierService.notify('success', 'La chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);
+          this.toastService.showSuccess('La chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);
         } else {
-          // this.notifierService.notify('error', 'Le chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);
+          this.toastService.showError( 'Le chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);
         }
       },
       err => {
-        // this.notifierService.notify('error', err || 'Une erreur est survenue');
+        this.toastService.showError( err || 'Une erreur est survenue');
 
       }
     );

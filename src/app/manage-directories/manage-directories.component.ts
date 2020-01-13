@@ -7,6 +7,7 @@ import {ModalDirectoryDeletionComponent} from './modal-directory-deletion/modal-
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 import {Constants} from "../shared/Constants";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-manage-directories',
@@ -24,6 +25,7 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
 
   constructor(private filesService: FilesService,
               private modalService: NgbModal,
+              private toastService: ToastService,
               private constants: Constants) {
   }
 
@@ -90,11 +92,11 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
   onClickAddDirectory() {
     const modalRef = this.modalService.open(ModalDirectoryComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `Le répertoire ${result.name} a bien été ajouté`);
+      this.toastService.showSuccess(`Le répertoire ${result.name} a bien été ajouté`);
       this.environmentChanged(this.environmentSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout du répertoire : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'ajout du répertoire : ${reason.message}`);
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
@@ -104,11 +106,11 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
   editDirectory(directory: Directory) {
     const modalRef = this.modalService.open(ModalDirectoryComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `Le répertoire ${result.name} a bien été modifié`);
+      this.toastService.showSuccess(`Le répertoire ${result.name} a bien été modifié`);
       this.environmentChanged(this.environmentSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification du répertoire : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de la modification du répertoire : ${reason.message}`);
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
@@ -121,11 +123,11 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
     modalRef.result.then((result) => {
       this.filesService.deleteDirectory(directory).subscribe(
         () => {
-          // this.notifierService.notify('success', `Le répertoire a été supprimé`);
+          this.toastService.showSuccess(`Le répertoire a été supprimé`);
           this.environmentChanged(this.environmentSelected);
         },
         reason => {
-          // this.notifierService.notify('error', `Une erreur est survenue lors de la suppression du répertoire : ${reason}`);
+          this.toastService.showError( `Une erreur est survenue lors de la suppression du répertoire : ${reason}`);
         }
       );
     }, reason => {

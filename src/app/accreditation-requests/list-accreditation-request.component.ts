@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {AccreditationRequest} from "../core/models";
 import {Page} from "../core/models/page.model";
 import {ActionClickEvent} from "../shared/table/action-click-event.model";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-list-accreditation-request',
@@ -26,6 +27,7 @@ export class ListAccreditationRequestComponent implements OnInit {
 
 
   constructor(private accreditationRequestsService: AccreditationRequestsService,
+              private toastService: ToastService,
               private constants: Constants) {
   }
 
@@ -87,11 +89,11 @@ export class ListAccreditationRequestComponent implements OnInit {
     if (event.id === this.idActionAccept) {
       this.accreditationRequestsService.sendResponse({accepted: true, id: event.item.id}).subscribe(
         () => {
-          // this.notifierService.notify('success', `Demande acceptée avec succès`);
+          this.toastService.showSuccess(`Demande acceptée avec succès`);
           this.refreshAccreditationRequests();
         },
         (error) => {
-          // this.notifierService.notify('error', `Une erreur est survenue lors de l'acceptation : ${error}`);
+          this.toastService.showError( `Une erreur est survenue lors de l'acceptation : ${error}`);
           this.refreshAccreditationRequests();
         }
       )
@@ -100,11 +102,11 @@ export class ListAccreditationRequestComponent implements OnInit {
     if (event.id === this.idActionReject) {
       this.accreditationRequestsService.sendResponse({accepted: false, id: event.item.id}).subscribe(
         () => {
-          // this.notifierService.notify('success', `Demande rejetée avec succès`);
+          this.toastService.showSuccess(`Demande rejetée avec succès`);
           this.refreshAccreditationRequests();
         },
         (error) => {
-          // this.notifierService.notify('error', `Une erreur est survenue lors du rejet : ${error}`);
+          this.toastService.showError( `Une erreur est survenue lors du rejet : ${error}`);
           this.refreshAccreditationRequests();
         }
       );

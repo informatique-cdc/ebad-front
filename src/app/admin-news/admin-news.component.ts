@@ -72,8 +72,6 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   refreshNews() {
-    this.toastService.show('I am a standard toast');
-
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();
@@ -85,11 +83,11 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
 
     const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
     modalRef.result.then(() => {
-      // this.notifierService.notify('success', `L'actualité a bien été ajoutée`);
+      this.toastService.showSuccess(`L'actualité a bien été ajoutée`);
       this.refreshNews();
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de l'actualité : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'ajout de l'actualité : ${reason.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
@@ -98,11 +96,11 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   editNew(oneNew: New) {
     const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `L'actualité a bien été modifiée`);
+      this.toastService.showSuccess(`L'actualité a bien été modifiée`);
       this.refreshNews();
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'actualité : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de la modification de l'actualité : ${reason.message}`);
       }
     });
     modalRef.componentInstance.oneNew = oneNew;
@@ -114,11 +112,11 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.result.then((result) => {
       this.newsService.deleteNew(oneNew.id).subscribe(
         () => {
-          // this.notifierService.notify('success', `L'actualité a été supprimée`);
+          this.toastService.showSuccess(`L'actualité a été supprimée`);
           this.refreshNews();
         },
         reason => {
-          // this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'actualité : ${reason}`);
+          this.toastService.showError( `Une erreur est survenue lors de la suppression de l'actualité : ${reason}`);
         }
       );
     }, reason => {

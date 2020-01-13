@@ -7,6 +7,7 @@ import {ModalEnvironmentDeletionComponent} from './modal-environment-deletion/mo
 import {Constants} from "../shared/Constants";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-manage-environments',
@@ -29,6 +30,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
               private modalService: NgbModal,
               private applicationsService: ApplicationsService,
               private constants: Constants,
+              private toastService: ToastService,
               private globalSettingsService: GlobalSettingsService) {
   }
 
@@ -108,11 +110,11 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
   onClickAddEnvironment() {
     const modalRef = this.modalService.open(ModalEnvironmentComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `L'environnement ${result.name} a bien été ajouté`);
+      this.toastService.showSuccess(`L'environnement ${result.name} a bien été ajouté`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ahout de l'environnement : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'ahout de l'environnement : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -122,21 +124,21 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
   onClickImportEnvironments() {
     this.environmentsService.importEnvironmentToApp(this.applicationSelected.id).subscribe(
       (result) => {
-        // this.notifierService.notify('success', `Les environnements ont bien étaient importés`);
+        this.toastService.showSuccess(`Les environnements ont bien étaient importés`);
         this.refreshEnvironments();
       },
-      // (error) => this.notifierService.notify('error', `Une erreur est survenue lors de l'import des environnments : ${error.message}`)
+      (error) => this.toastService.showError(`Une erreur est survenue lors de l'import des environnments : ${error.message}`)
     )
   }
 
   editEnvironment(env: Environment) {
     const modalRef = this.modalService.open(ModalEnvironmentComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `L'environnement ${result.name} a bien été modifié`);
+      this.toastService.showSuccess(`L'environnement ${result.name} a bien été modifié`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'environnement : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de la modification de l'environnement : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -149,11 +151,11 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     modalRef.result.then((result) => {
       this.environmentsService.deleteEnvironemnt(env.id).subscribe(
         fileKind => {
-          // this.notifierService.notify('success', `L'environnement a été supprimé`);
+          this.toastService.showSuccess(`L'environnement a été supprimé`);
           this.applicationChanged(this.applicationSelected);
         },
         reason => {
-          // this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'environnement : ${reason}`);
+          this.toastService.showError( `Une erreur est survenue lors de la suppression de l'environnement : ${reason}`);
         }
       );
     }, reason => {

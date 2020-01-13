@@ -10,6 +10,7 @@ import {Pageable} from "../core/models/pageable.model";
 import {Constants} from "../shared/Constants";
 import {fromEvent} from "rxjs";
 import {debounceTime, distinctUntilChanged, filter, tap} from "rxjs/operators";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-admin-users',
@@ -38,6 +39,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
 
   constructor(private usersService: UsersService,
               private modalService: NgbModal,
+              private toastService: ToastService,
               private constants: Constants) {
 
   }
@@ -86,11 +88,11 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   onClickAddUser() {
     const modalRef = this.modalService.open(ModalUserComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `L'utilisateur ${result.login} a bien été ajouté`);
+      this.toastService.showSuccess(`L'utilisateur ${result.login} a bien été ajouté`);
       this.refreshUsers();
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ahout de l'utilisateur : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'ahout de l'utilisateur : ${reason.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
@@ -99,11 +101,11 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   onClickChangeRole(user: User) {
     const modalRef = this.modalService.open(ModalRolesComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `L'utilisateur ${result.login} a bien été modifié`);
+      this.toastService.showSuccess(`L'utilisateur ${result.login} a bien été modifié`);
       this.refreshUsers();
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
       }
     });
     modalRef.componentInstance.roles.loginUser = user.login;
@@ -118,11 +120,11 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   onClickModifyUser(user: User) {
     const modalRef = this.modalService.open(ModalUserComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `L'utilisateur ${result.login} a bien été modifié`);
+      this.toastService.showSuccess(`L'utilisateur ${result.login} a bien été modifié`);
       this.refreshUsers();
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
       }
     });
     modalRef.componentInstance.user = user;
@@ -132,11 +134,11 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   onClickActivateUser(user: User) {
     this.usersService.activateUser(user.activationKey).subscribe(
       () => {
-        // this.notifierService.notify('success', `L\'utilisateur a bien été activé`);
+        this.toastService.showSuccess(`L\'utilisateur a bien été activé`);
         this.users[this.users.indexOf(user)].activated = true;
       },
       (reason) => {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de l'activation de l'utilisateur : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'activation de l'utilisateur : ${reason.message}`);
       }
     );
   }
@@ -144,11 +146,11 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   onClickInactivateUser(user: User) {
     this.usersService.inactivateUser(user.login).subscribe(
       (thisUser) => {
-        // this.notifierService.notify('success', `L\'utilisateur ${thisUser.login} a bien été désactivé`);
+        this.toastService.showSuccess(`L\'utilisateur ${thisUser.login} a bien été désactivé`);
         this.users[this.users.indexOf(user)].activated = false;
       },
       (reason) => {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de la désactivation de l'utilisateur : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de la désactivation de l'utilisateur : ${reason.message}`);
       }
     );
   }

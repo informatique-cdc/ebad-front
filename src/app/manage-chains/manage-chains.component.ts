@@ -7,6 +7,7 @@ import {ModalChainDeletionComponent} from './modal-chain-deletion/modal-chain-de
 import {Constants} from "../shared/Constants";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-manage-chains',
@@ -25,6 +26,7 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   constructor(private chainsService: ChainsService,
               private modalService: NgbModal,
+              private toastService: ToastService,
               private constants: Constants) {
   }
 
@@ -90,11 +92,11 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   onClickAddChain() {
     const modalRef = this.modalService.open(ModalChainComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `La chaine ${result.name} a bien été ajoutée`);
+      this.toastService.showSuccess(`La chaine ${result.name} a bien été ajoutée`);
       this.environmentChanged(this.environmentSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de la chaine : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'ajout de la chaine : ${reason.message}`);
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
@@ -104,11 +106,11 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   editChain(chain: Chain) {
     const modalRef = this.modalService.open(ModalChainComponent);
     modalRef.result.then((result) => {
-      // this.notifierService.notify('success', `La chaine ${result.name} a bien été modifiée`);
+      this.toastService.showSuccess(`La chaine ${result.name} a bien été modifiée`);
       this.environmentChanged(this.environmentSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        // this.notifierService.notify('error', `Une erreur est survenue lors de la modification de la chaine : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de la modification de la chaine : ${reason.message}`);
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
@@ -121,11 +123,11 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.result.then((result) => {
       this.chainsService.deleteChaine(chain).subscribe(
         () => {
-          // this.notifierService.notify('success', `Le chaine a été supprimée`);
+          this.toastService.showSuccess(`Le chaine a été supprimée`);
           this.environmentChanged(this.environmentSelected);
         },
         reason => {
-          // this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de la chaine : ${reason}`);
+          this.toastService.showError( `Une erreur est survenue lors de la suppression de la chaine : ${reason}`);
         }
       );
     }, reason => {

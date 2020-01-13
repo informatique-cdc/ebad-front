@@ -4,6 +4,7 @@ import {Observable, of} from "rxjs";
 import {catchError, debounceTime, distinctUntilChanged, map, switchMap, tap} from "rxjs/operators";
 import {Application, CreationAccreditationRequest} from "../core/models";
 import {Pageable} from "../core/models/pageable.model";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-accreditation-request',
@@ -16,6 +17,7 @@ export class AccreditationRequestComponent implements OnInit {
   request: CreationAccreditationRequest = {applicationId: undefined, wantManage: false, wantUse: false};
 
   constructor(private accreditationRequestsService: AccreditationRequestsService,
+              private toastService: ToastService,
               private applicationsService: ApplicationsService) {
   }
 
@@ -47,10 +49,10 @@ export class AccreditationRequestComponent implements OnInit {
     this.request.applicationId = this.model.id;
     this.accreditationRequestsService.sendAccreditation(this.request).subscribe(
       () => {
-        // this.notifierService.notify('success', `Votre demande d'accréditation a bien été envoyée`)
+        this.toastService.showSuccess(`Votre demande d'accréditation a bien été envoyée`)
       },
       (error) => {
-        // this.notifierService.notify('error', `Votre demande d'accréditation n'a pas pu être envoyée : ${error}`)
+        this.toastService.showError( `Votre demande d'accréditation n'a pas pu être envoyée : ${error}`)
       }
     );
   }

@@ -6,6 +6,7 @@ import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal
 import {Constants} from "../shared/Constants";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-batchs-page',
@@ -27,6 +28,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     private batchsService: BatchsService,
     private environmentsService: EnvironmentsService,
     private constants: Constants,
+    private toastService: ToastService,
     private modalService: NgbModal) {
   }
 
@@ -109,19 +111,18 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
   runBatch(batch, param) {
-    // this.notifierService.notify('info', 'Votre batch vient d\'être lancé');
+    this.toastService.showInfo('Votre batch vient d\'être lancé');
 
     this.batchsService.run(batch.id, {env: this.environmentSelected.id, param}).subscribe(
       trace => {
         if (trace.returnCode === 0) {
-          // this.notifierService.notify('success', 'Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
+          this.toastService.showSuccess('Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
         } else {
-          // this.notifierService.notify('error', 'Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
+          this.toastService.showError( 'Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
         }
       },
       err => {
-        console.log(err);
-        // this.notifierService.notify('error', err || 'Une erreur est survenue');
+        this.toastService.showError( err || 'Une erreur est survenue');
 
       }
     );
