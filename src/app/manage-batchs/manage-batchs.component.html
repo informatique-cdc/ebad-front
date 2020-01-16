@@ -1,6 +1,7 @@
 <app-env-app-head-selector preTitle="Gestion des batchs" [title]="applicationSelected?.name" (applicationChanged)="applicationChanged($event)" [showEnvironment]="false" [isModarable]="true">
   <span header>
     <a href="javascript:void(0)" style="cursor: pointer"
+       *ngIf="applicationSelected"
        class="btn btn-primary mr-3" (click)="onClickAddBatch()">
       <ebad-icon name="plus"></ebad-icon>
       Nouveau batch
