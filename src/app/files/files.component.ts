@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FileSystemDirectoryEntry, FileSystemFileEntry} from 'ngx-file-drop';
 import {EventSelectChangeModel, Option, Select} from '../shared/head-selector';
 import {Application, Directory, Environment} from '../core/models';
-import {ApplicationsService, FilesService} from '../core/services';
+import {ApplicationsService, EnvironmentsService, FilesService} from '../core/services';
 import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
 import {ActionClickEvent} from '../shared/table/action-click-event.model';
 import * as FileSaver from 'file-saver';
@@ -38,6 +38,7 @@ export class FilesComponent implements OnInit {
   constructor(private applicationsService: ApplicationsService,
               private filesService: FilesService,
               private toastService: ToastService,
+              private environmentsService: EnvironmentsService,
               private modalService: NgbModal) {
   }
 
@@ -106,7 +107,8 @@ export class FilesComponent implements OnInit {
 
     if (event.idSelect === this.idSelectApplication) {
       this.applicationSelected = event.value;
-      this.updateSelectEnvironment(event.value.environnements);
+      this.environmentsService.getEnvironmentFromApp(event.value.id, new Pageable(0,100,'name,asc'))
+        .subscribe((page) => this.updateSelectEnvironment(page.content));
       this.title = `Fichiers - ${event.value.name}`;
       this.updateSelectDirectory(null);
     }

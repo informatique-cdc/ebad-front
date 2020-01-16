@@ -1,4 +1,7 @@
 import {Component} from '@angular/core';
+import {ModalRenameComponent} from "../files/modal-rename/modal-rename.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ModalRequestComponent} from "./modal-request/modal-request.component";
 
 @Component({
   selector: 'ebad-synthesis-accreditation-request',
@@ -6,8 +9,13 @@ import {Component} from '@angular/core';
 })
 export class SynthesisAccreditationRequest {
 
-  constructor() {
-  }
+  constructor(private modalService: NgbModal) {}
 
+  requestAccreditation(){
+    const modalRef = this.modalService.open(ModalRequestComponent);
+    modalRef.result.then((result) => {
+    }, (reason) => {
+    });
+  }
 }
 

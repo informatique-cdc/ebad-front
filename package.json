@@ -44,6 +44,7 @@
     "marked": "^0.7.0",
     "ng-apexcharts": "^1.1.2",
     "ng-multiselect-dropdown": "^0.2.10",
+    "ngx-countup": "^7.3.0",
     "ngx-file-drop": "^8.0.8",
     "ngx-pagination": "^5.0.0",
     "rxjs": "^6.5.4",

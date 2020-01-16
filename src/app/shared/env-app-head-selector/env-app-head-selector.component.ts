@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EventSelectChangeModel, Option, Select} from '../head-selector';
 import {Application, Environment} from '../../core/models';
-import {ApplicationsService} from '../../core/services';
+import {ApplicationsService, EnvironmentsService} from '../../core/services';
 import {Pageable} from "../../core/models/pageable.model";
 
 @Component({
@@ -25,7 +25,8 @@ export class EnvAppHeadSelectorComponent implements OnInit {
   @Output() environmentChanged = new EventEmitter<Environment>();
   @Output() applicationChanged = new EventEmitter<Application>();
 
-  constructor(private applicationsService: ApplicationsService) {
+  constructor(private applicationsService: ApplicationsService,
+              private environmentsService: EnvironmentsService) {
   }
 
   ngOnInit() {
@@ -82,7 +83,9 @@ export class EnvAppHeadSelectorComponent implements OnInit {
   showChanged(event: EventSelectChangeModel) {
     if (event.idSelect === this.idSelectApplication) {
       if (this.showEnvironment) {
-        this.updateSelectEnvironment(event.value.environnements);
+
+        this.environmentsService.getEnvironmentFromApp(event.value.id, new Pageable(0,100,'name,asc'))
+          .subscribe((page) => this.updateSelectEnvironment(page.content));
       }
 
       this.applicationChanged.emit(event.value);

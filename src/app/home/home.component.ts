@@ -25,6 +25,16 @@ export class HomeComponent implements OnInit {
   xaxis: ApexXAxis;
   colors: string[];
   legend: ApexLegend;
+  optionsCountUpMs = {
+    separator: ' ',
+    decimal: ',',
+    suffix: ' ms'
+  };
+
+  optionsCountUp = {
+    separator: ' ',
+    decimal: ','
+  };
 
   statistics: Statistics;
   private dataBatchsNbr: number[] = [];

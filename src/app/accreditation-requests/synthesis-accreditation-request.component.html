@@ -1,20 +1,31 @@
-<app-head-selector preTitle="Synthèse" title="Demandes d'accréditation"></app-head-selector>
-
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      <h2 class="page-pretitle">
+        Synthèse
+      </h2>
+      <h2 id="tableTitle" class="page-title">
+        Demande d'accréditation
+      </h2>
+    </div>
+    <!-- Page title actions -->
+    <div class="col-auto ml-auto d-print-none">
+      <div class="d-flex">
+        <a  href="javascript:void(0)"  class="btn btn-primary mr-3 cursor-pointer" (click)="requestAccreditation()">
+          <ebad-icon name="plus"></ebad-icon>
+          Nouvelle demande
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row mb-4">
   <div class="col-md-12">
     <app-list-accreditation-request [userOnly]="false"></app-list-accreditation-request>
   </div>
 </div>
 <div class="row mb-4">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header">Demande d'accréditation</div>
-      <div class="card-body">
-        <app-accreditation-request></app-accreditation-request>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
+  <div class="col-md-12">
     <app-list-accreditation-request [userOnly]="true"></app-list-accreditation-request>
   </div>
 </div>

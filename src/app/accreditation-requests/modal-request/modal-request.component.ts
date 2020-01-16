@@ -1,16 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {AccreditationRequestsService, ApplicationsService} from '../core/services';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {FileKind} from '../../core/models/file-kind.model';
+import {FileKindsService} from '../../core/services/file-kinds.service';
+import {Application, CreationAccreditationRequest} from '../../core/models';
+import {DatePipe} from '@angular/common';
+import {AccreditationRequestsService, ApplicationsService} from "../../core/services";
+import {ToastService} from "../../core/services/toast.service";
 import {Observable, of} from "rxjs";
 import {catchError, debounceTime, distinctUntilChanged, map, switchMap, tap} from "rxjs/operators";
-import {Application, CreationAccreditationRequest} from "../core/models";
-import {Pageable} from "../core/models/pageable.model";
-import {ToastService} from "../core/services/toast.service";
+import {Pageable} from "../../core/models/pageable.model";
 
 @Component({
-  selector: 'app-accreditation-request',
-  templateUrl: './accreditation-request.component.html'
+  selector: 'ebad-modal-request',
+  templateUrl: './modal-request.component.html'
 })
-export class AccreditationRequestComponent implements OnInit {
+export class ModalRequestComponent implements OnInit {
   model: Application;
   searching = false;
   searchFailed = false;
@@ -18,6 +22,7 @@ export class AccreditationRequestComponent implements OnInit {
 
   constructor(private accreditationRequestsService: AccreditationRequestsService,
               private toastService: ToastService,
+              private activeModal: NgbActiveModal,
               private applicationsService: ApplicationsService) {
   }
 
@@ -49,7 +54,8 @@ export class AccreditationRequestComponent implements OnInit {
     this.request.applicationId = this.model.id;
     this.accreditationRequestsService.sendAccreditation(this.request).subscribe(
       () => {
-        this.toastService.showSuccess(`Votre demande d'accréditation a bien été envoyée`)
+        this.toastService.showSuccess(`Votre demande d'accréditation a bien été envoyée`);
+        this.activeModal.close();
       },
       (error) => {
         this.toastService.showError( `Votre demande d'accréditation n'a pas pu être envoyée : ${error}`)
@@ -57,4 +63,3 @@ export class AccreditationRequestComponent implements OnInit {
     );
   }
 }
-
