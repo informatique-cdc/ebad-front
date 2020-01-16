@@ -22,7 +22,7 @@ export class ModalRequestComponent implements OnInit {
 
   constructor(private accreditationRequestsService: AccreditationRequestsService,
               private toastService: ToastService,
-              private activeModal: NgbActiveModal,
+              public activeModal: NgbActiveModal,
               private applicationsService: ApplicationsService) {
   }
 
