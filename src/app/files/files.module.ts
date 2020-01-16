@@ -5,13 +5,15 @@ import {FilesRoutingModule} from './files-routing.module';
 import {SharedModule} from '../shared';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
 import {NgxFileDropModule} from "ngx-file-drop";
+import {DataTablesModule} from "angular-datatables";
 
 @NgModule({
   declarations: [FilesComponent, ModalRenameComponent],
   imports: [
     FilesRoutingModule,
     SharedModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    DataTablesModule
   ],
   entryComponents: [
     ModalRenameComponent

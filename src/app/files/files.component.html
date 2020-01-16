@@ -3,7 +3,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header py-1">
-        Echanges de fichiers
+        Envoie de fichiers
       </div>
       <div class="card-body p-0">
         <div class="m-4">
@@ -19,20 +19,96 @@
 </div>
 <div class="row">
   <div class="col-6" *ngIf="directorySelected && directorySelected.canWrite">
-    <app-table [title]="'Fichiers locaux'" [table]="tableLocal"
-               (actionClicked)="onActionClickedLocal($event)">
-      <div footer>
-        <button type="button" class="btn btn-primary btn btn-block" (click)="upload()">
-          <i class="glyphicon glyphicon-open-file"></i>&nbsp;Envoyer sur le serveur distant
-        </button>
+    <div class="card">
+      <div class="table-responsive">
+        <table aria-describedby="tableTitle" class="table card-table table-vcenter text-nowrap datatable">
+          <thead>
+          <tr>
+            <th id="filename">
+              Nom
+            </th>
+            <th id="fileSize">
+              Taille
+            </th>
+            <th id="fileProgress">
+              Progression
+            </th>
+            <th id="fileState">
+              Satut
+            </th>
+            <th id="actions">
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngIf="localFiles.length == 0">
+            <td colspan="100%">Aucun fichiers à envoyer</td>
+          </tr>
+          <tr *ngFor="let file of localFiles">
+            <td class="align-middle">
+              {{file.customName}}
+            </td>
+            <td class="align-middle">
+              {{file.size}}
+            </td>
+            <td class="align-middle">
+            </td>
+            <td class="align-middle">
+            </td>
+            <td class="text-center">
+              <a (click)="deleteLocalFile(file)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+              <a (click)="renameLocalFile(file)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Rename</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-    </app-table>
+    </div>
+    <button type="button" class="btn btn-primary btn btn-block" (click)="upload()">
+      <i class="glyphicon glyphicon-open-file"></i>&nbsp;Envoyer sur le serveur distant
+    </button>
   </div>
-  <div class="col">
-    <app-table *ngIf="directorySelected"
-               [title]="directorySelected.name" [table]="tableRemote"
-               (actionClicked)="onActionClickedRemote($event)">
-    </app-table>
-
+  <div class="col" *ngIf="directorySelected">
+    <div class="card">
+      <div class="table-responsive">
+        <table aria-describedby="tableTitle" class="table card-table table-vcenter text-nowrap datatable">
+          <thead>
+          <tr>
+            <th id="remoteFileName">
+              Nom
+            </th>
+            <th id="remoteFileSize">
+              Taille
+            </th>
+            <th id="remoteFileCreationDate">
+              Date création
+            </th>
+            <th id="remoteFileActions">
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngIf="remoteFiles.length == 0">
+            <td colspan="100%">Aucun fichiers distants</td>
+          </tr>
+          <tr *ngFor="let remotefile of remoteFiles">
+            <td class="align-middle">
+              {{remotefile.name}}
+            </td>
+            <td class="align-middle">
+              {{remotefile.size}}
+            </td>
+            <td class="align-middle">
+              {{remotefile.createDate | date : 'dd/MM/yyyy hh:mm:ss'}}
+            </td>
+            <td class="text-center">
+              <a (click)="downloadRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Download</a>
+              <a (click)="deleteRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

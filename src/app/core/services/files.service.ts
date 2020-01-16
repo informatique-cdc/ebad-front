@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
-import {Directory} from '../models';
-import {HttpClient} from '@angular/common/http';
+import {Directory, File} from '../models';
 import {Page} from "../models/page.model";
 import {Pageable} from "../models/pageable.model";
 
