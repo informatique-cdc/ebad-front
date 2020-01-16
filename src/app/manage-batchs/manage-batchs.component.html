@@ -1,7 +1,56 @@
-<app-env-app-head-selector title="Gestion des batchs" (applicationChanged)="applicationChanged($event)" [showEnvironment]="false" [isModarable]="true"></app-env-app-head-selector>
-<app-table *ngIf="applicationSelected"
-           [title]="applicationSelected.name" [table]="table"
-           (actionClicked)="onActionClicked($event)"
-          (globalActionClicked)="onClickAddBatch()">
-  <ngb-pagination footer class="d-flex justify-content-center" [maxSize]="5" [collectionSize]="totalSize" [pageSize]="size" [(page)]="page" (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
-</app-table>
+<app-env-app-head-selector preTitle="Gestion des batchs" [title]="applicationSelected?.name" (applicationChanged)="applicationChanged($event)" [showEnvironment]="false" [isModarable]="true">
+  <span header>
+    <a href="javascript:void(0)" style="cursor: pointer"
+       *ngIf="applicationSelected"
+       class="btn btn-primary mr-3" (click)="onClickAddBatch()">
+      <ebad-icon name="plus"></ebad-icon>
+      Nouveau batch
+    </a>
+  </span>
+</app-env-app-head-selector>
+
+<div class="card">
+  <div class="table-responsive">
+    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="batchId">
+          ID
+        </th>
+        <th id="batchName">
+          Nom
+        </th>
+        <th id="batchShell">
+          Shell
+        </th>
+        <th id="batchEnvs">
+          Environnements
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let batch of batchs">
+        <td class="align-middle">
+          {{batch.id}}
+        </td>
+        <td class="align-middle">
+          {{batch.name}}
+        </td>
+        <td class="align-middle">
+          {{batch.path}}
+        </td>
+        <td class="align-middle">
+          <span *ngFor="let env of batch.environnements" class="badge bg-green-lt mr-1" >{{env.name}}</span>
+        </td>
+        <td class="text-center">
+          <a (click)="editBatch(batch)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a (click)="deleteBatch(batch)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

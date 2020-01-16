@@ -1,14 +1,22 @@
-<app-layout-header *appShowAuthed="true"></app-layout-header>
-<div class="container-fluid">
-  <div class="row">
-    <app-layout-aside *appShowAuthed="true"></app-layout-aside>
-    <main role="main" class="ml-sm-auto" [ngClass]="{'col-md-9 col-lg-10 px-4': isAuthenticated, 'col-md-12 col-lg-12': !isAuthenticated}">
-      <router-outlet></router-outlet>
-    </main>
-    <!--<app-layout-footer></app-layout-footer>-->
+<div class="wrapper" *appShowAuthed="true">
+  <aside class="sidebar sidebar-dark" ebad-aside></aside>
+  <div class="content">
+    <header ebad-header class="topnav topbar"></header>
+    <div class="content-page">
+      <main class="container my-4 flex-fill">
+        <ng-container *ngTemplateOutlet="template"></ng-container>
+      </main>
+    </div>
   </div>
 </div>
-<!--<div class="container-fluid" *appShowAuthed="false" style="background-image: url('assets/img/cover.jpg')">-->
-<!--      <router-outlet></router-outlet>-->
-<!--</div>-->
-<notifier-container></notifier-container>
+
+<div *appShowAuthed="false">
+  <ng-container *ngTemplateOutlet="template"></ng-container>
+</div>
+<ng-template #template>
+  <router-outlet>
+  </router-outlet>
+</ng-template>
+
+<ebad-toasts></ebad-toasts>
+

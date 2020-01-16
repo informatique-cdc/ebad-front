@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {ApiService} from './api.service';
 import {Roles, User} from '../models';
 import {UserApplication} from '../models/user-application.model';
+import {Page} from "../models/page.model";
+import {Pageable} from "../models/pageable.model";
 
 @Injectable()
 export class UsersService {
@@ -12,8 +14,8 @@ export class UsersService {
   ) {
   }
 
-  getAll(): Observable<User[]> {
-    return this.apiService.get(`/users`);
+  getAll(pageable: any = new Pageable(0,20)): Observable<Page<User>> {
+    return this.apiService.get(`/users`, pageable);
   }
 
   addUser(user: User): Observable<User> {

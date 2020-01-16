@@ -12,15 +12,36 @@ export class TableComponent implements OnInit {
   @Input() title: string;
   @Input() table: Table;
   valueAscOrder;
+  dtOptions: DataTables.Settings = {};
 
   @Output() actionClicked = new EventEmitter<ActionClickEvent>();
-  @Output() globalActionClicked = new EventEmitter<void>();
-  @Output() secondGlobalActionClicked = new EventEmitter<void>();
 
   constructor() {
   }
 
   ngOnInit() {
+    // this.dtOptions = {
+    //   pagingType: 'full_numbers',
+    //   pageLength: 2,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTablesParameters: any, callback) => {
+    //     this.http
+    //       .post<>(
+    //         'https://angular-datatables-demo-server.herokuapp.com/',
+    //         dataTablesParameters, {}
+    //       ).subscribe(resp => {
+    //       this.persons = resp.data;
+    //
+    //       callback({
+    //         recordsTotal: resp.recordsTotal,
+    //         recordsFiltered: resp.recordsFiltered,
+    //         data: []
+    //       });
+    //     });
+    //   },
+    //   columns: [{data: 'id'}, {data: 'firstName'}, {data: 'lastName'}]
+    // };
     this.valueAscOrder = (a: KeyValue<number, ColumnsDefinition>, b: KeyValue<number, ColumnsDefinition>): number => {
       if (a.value.order > b.value.order) {
         return 1;
@@ -32,13 +53,5 @@ export class TableComponent implements OnInit {
 
   onClick(event, item) {
     this.actionClicked.emit(new ActionClickEvent(event.target.name, item));
-  }
-
-  onGlobalActionClicked() {
-    this.globalActionClicked.emit();
-  }
-
-  onSecondGlobalActionClicked() {
-    this.secondGlobalActionClicked.emit();
   }
 }

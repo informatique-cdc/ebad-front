@@ -1,75 +1,65 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Administration des utilisateurs</h1>
-</div>
-<div class="row mb-4">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header py-1 d-flex" *ngIf="jwt">
-        <div class="ml-auto">
-          <button type="button" class="btn btn-primary btn-sm float-right" (click)="onClickAddUser()">
-            Ajouter un utilisateur
-          </button>
-        </div>
-      </div>
-      <div class="card-body p-0">
-        <table class="table table-striped table-sm mb-0">
-          <thead>
-          <tr>
-            <th class="border-0">
-              Etat
-            </th>
-            <th class="border-0">
-              Login
-            </th>
-            <th class="border-0">
-              Prénom
-            </th>
-            <th class="border-0">
-              Nom
-            </th>
-            <th class="border-0">
-              Autorisations
-            </th>
-            <th class="border-0">
-              Actions
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngIf="users && users.length === 0">
-            <td colspan="100%">Aucun élément</td>
-          </tr>
-          <tr *ngFor="let user of users">
-            <td class="align-middle">
-              <i-x-circle *ngIf="!user.activated" (click)="onClickActivateUser(user)"></i-x-circle>
-              <i-check-circle *ngIf="user.activated" (click)="onClickInactivateUser(user)"></i-check-circle>
-            </td>
-            <td class="align-middle">
-              {{user.login}}
-            </td>
-            <td class="align-middle">
-              {{user.firstName}}
-            </td>
-            <td class="align-middle">
-              {{user.lastName}}
-            </td>
-            <td class="align-middle">
-              <span *ngFor="let authority of user.authorities" class="badge badge-primary mr-2">{{authority.name}}</span>
-            </td>
-            <td class="text-center">
-              <div class="btn-group btn-group-sm" role="group" *ngIf="jwt">
-                <button type="button" class="btn btn-primary" id="modify-{{user.id}}" (click)="onClickModifyUser(user)">
-                  Modifier
-                </button>
-                <button type="button" class="btn btn-primary" id="roles-{{user.id}}" (click)="onClickChangeRole(user)">
-                  Roles
-                </button>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      <h2 class="page-title">
+        Users
+      </h2>
+    </div>
+    <div class="col-auto">
+      <div class="text-muted text-h5 mt-2">{{peoplesPage.from}} - {{peoplesPage.to}} sur {{peoplesPage.of}} personnes</div>
+    </div>
+    <!-- Page title actions -->
+    <div class="col-auto ml-auto d-print-none">
+      <div class="d-flex">
+        <input #input type="search" class="form-control d-inline-block w-9 mr-3" placeholder="Search user&hellip;"/>
+        <a href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary" (click)="onClickAddUser()">
+          <ebad-icon name="plus"></ebad-icon>
+          New user
+        </a>
       </div>
     </div>
   </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-lg-6" *ngFor="let user of users | paginate: pagination">
+    <div class="card">
+      <div class="card-body">
+        <div class="row row-sm align-items-center">
+          <div class="col-auto">
+            <span class="avatar avatar-md">{{user | avatar}}</span>
+          </div>
+          <div class="col">
+            <h3 class="mb-0"><a>{{user.firstName}} {{user.lastName}}</a></h3>
+            <div class="text-muted text-h5">{{user.login}}</div>
+          </div>
+          <div class="col-auto lh-1 align-self-start">
+            <span style="cursor: pointer" *ngIf="user.activated" class="badge bg-green-lt" (click)="onClickInactivateUser(user)">Activated</span>
+            <span style="cursor: pointer" *ngIf="!user.activated" class="badge bg-red-lt" (click)="onClickActivateUser(user)">Unactivated</span>
+          </div>
+        </div>
+        <div class="row align-items-center mt-4">
+          <div class="col">
+            <span *ngFor="let authority of user.authorities">
+              <span class="badge bg-gray-lt">{{authority.name}}</span>
+              &nbsp;
+            </span>
+          </div>
+          <div class="col-auto">
+            <div class="btn-list">
+              <a href="javascript:void(0);" class="btn btn-secondary btn-sm" id="modify-{{user.id}}" (click)="onClickModifyUser(user)">
+                Edit
+              </a>
+              <a href="javascript:void(0);" class="btn btn-secondary btn-sm" id="roles-{{user.id}}" (click)="onClickChangeRole(user)">
+                Roles
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex">
+  <pagination-controls class="pagination ml-auto" (pageChange)="changePage($event)"></pagination-controls>
 </div>

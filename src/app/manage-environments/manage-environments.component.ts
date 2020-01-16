@@ -1,165 +1,168 @@
-import {Component, OnInit} from '@angular/core';
-import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
-import {Application} from '../core/models';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Application, Environment} from '../core/models';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NotifierService} from 'angular-notifier';
-import {ActionClickEvent} from '../shared/table/action-click-event.model';
 import {ApplicationsService, EnvironmentsService, GlobalSettingsService} from '../core/services';
 import {ModalEnvironmentComponent} from './modal-environment/modal-environment.component';
 import {ModalEnvironmentDeletionComponent} from './modal-environment-deletion/modal-environment-deletion.component';
-import {Pageable} from "../core/models/pageable.model";
 import {Constants} from "../shared/Constants";
+import {DataTableDirective} from "angular-datatables";
+import {Subject} from "rxjs";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-manage-environments',
   templateUrl: './manage-environments.component.html',
   styleUrls: ['./manage-environments.component.scss']
 })
-export class ManageEnvironmentsComponent implements OnInit {
-  table: Table;
+export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, OnInit {
   applicationSelected: Application;
+  addEnvironmentEnabled = true;
+  importEnvironmentEnabled = true;
 
-  size = this.constants.numberByPage;
-  page = 0;
-  totalSize = 0;
+  @ViewChild(DataTableDirective, { static: true })
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
 
-  private idActionModify = 'actionModify';
-  private idActionDelete = 'actionDelete';
+  environments: Environment[] = [];
 
   constructor(private environmentsService: EnvironmentsService,
               private modalService: NgbModal,
               private applicationsService: ApplicationsService,
               private constants: Constants,
-              private notifierService: NotifierService,
+              private toastService: ToastService,
               private globalSettingsService: GlobalSettingsService) {
   }
 
-  ngOnInit() {
-  }
 
   applicationChanged(application: Application) {
-    this.showEnvironments();
+    this.refreshEnvironments();
     this.applicationSelected = application;
     this.applicationsService.getAllModerable().subscribe(
       apps => {
         for (const app of apps.content) {
           if (app.id === this.applicationSelected.id) {
-            this.page = 1;
-            this.refreshEnvironments(new Pageable(this.page - 1, this.size))
+            this.refreshEnvironments();
           }
         }
       }
     );
   }
 
-  refreshEnvironments(pageable?: Pageable) {
-    this.environmentsService.getEnvironmentFromApp(this.applicationSelected.id,pageable).subscribe(
-      (environmentsPage) => {
-        this.table.items = environmentsPage.content;
-        this.totalSize = environmentsPage.totalElements;
-      }
-    );
+  ngOnInit() {
+    this.addEnvironmentEnabled = this.globalSettingsService.createEnvironmentIsEnable();
+    this.importEnvironmentEnabled = this.globalSettingsService.importEnvironmentIsEnable();
+
+    this.dtOptions = {
+      order: [[0,'asc']],
+      pagingType: 'full_numbers',
+      pageLength: this.constants.numberByPage,
+      serverSide: true,
+      processing: false,
+      ajax: (dataTablesParameters: any, callback) => {
+        if(!this.applicationSelected){
+          this.environments = [];
+          return
+        }
+        this.environmentsService
+          .getEnvironmentFromApp(this.applicationSelected.id, {
+              'page': dataTablesParameters.start / dataTablesParameters.length,
+              'size': dataTablesParameters.length,
+              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              'name': dataTablesParameters.search.value
+            }
+          )
+          .subscribe(resp => {
+            this.environments = resp.content;
+            callback({
+              recordsTotal: resp.totalElements,
+              recordsFiltered: resp.totalElements,
+              data: []
+            });
+          });
+      },
+      columns: [{
+        data: 'id'
+      }, {data: 'name'}, {data: 'host'}, {data: 'login'}, {data: 'homePath'}, {data: 'prefix'}, {
+        data: '',
+        orderable: false
+      }]
+    };
+    this.dtTrigger.next();
   }
 
-  showEnvironments() {
-    this.table = new Table();
-    this.table.showHeader = false;
-    this.table.showFooter = true;
-
-    if(this.globalSettingsService.createEnvironmentIsEnable()) {
-      this.table.settings.globalAction = new Action('Ajouter un environnement', '');
-    }
-
-    if(this.globalSettingsService.importEnvironmentIsEnable()) {
-      this.table.settings.secondGlobalAction = new Action('Importer les environnements', '');
-    }
-
-    this.table.settings.columnsDefinition.id = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.id.title = 'Id';
-    this.table.settings.columnsDefinition.id.order = 1;
-    this.table.settings.columnsDefinition.name = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.name.title = 'Nom';
-    this.table.settings.columnsDefinition.name.order = 2;
-    this.table.settings.columnsDefinition.host = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.host.title = 'Serveur';
-    this.table.settings.columnsDefinition.host.order = 3;
-    this.table.settings.columnsDefinition.login = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.login.title = 'Login';
-    this.table.settings.columnsDefinition.login.order = 4;
-    this.table.settings.columnsDefinition.homePath = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.homePath.title = 'Home';
-    this.table.settings.columnsDefinition.homePath.order = 6;
-    this.table.settings.columnsDefinition.prefix = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.prefix.title = 'Préfix';
-    this.table.settings.columnsDefinition.prefix.order = 7;
-
-    this.table.settings.actionsDefinition.title = 'Action';
-    this.table.settings.actionsDefinition.actions.push(new Action('Modifier', this.idActionModify));
-    this.table.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionDelete));
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
   }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  refreshEnvironments() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
+    });
+  }
+
 
   onClickAddEnvironment() {
     const modalRef = this.modalService.open(ModalEnvironmentComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `L'environnement ${result.name} a bien été ajouté`);
+      this.toastService.showSuccess(`L'environnement ${result.name} a bien été ajouté`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de l'ahout de l'environnement : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'ahout de l'environnement : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
     modalRef.componentInstance.isUpdate = false;
   }
 
-  onClickImportEnvironments(){
+  onClickImportEnvironments() {
     this.environmentsService.importEnvironmentToApp(this.applicationSelected.id).subscribe(
       (result) => {
-        this.notifierService.notify('success', `Les environnements ont bien étaient importés`);
-        this.page = 1;
-        this.refreshEnvironments(new Pageable(this.page-1, this.size))
+        this.toastService.showSuccess(`Les environnements ont bien étaient importés`);
+        this.refreshEnvironments();
       },
-      (error) => this.notifierService.notify('error', `Une erreur est survenue lors de l'import des environnments : ${error.message}`)
+      (error) => this.toastService.showError(`Une erreur est survenue lors de l'import des environnments : ${error.message}`)
     )
   }
 
-  onActionClicked(event: ActionClickEvent) {
-    if (event.id === this.idActionModify) {
-      const modalRef = this.modalService.open(ModalEnvironmentComponent);
-      modalRef.result.then((result) => {
-        this.notifierService.notify('success', `L'environnement ${result.name} a bien été modifié`);
-        this.applicationChanged(this.applicationSelected);
-      }, (reason) => {
-        if (reason.message !== undefined) {
-          this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'environnement : ${reason.message}`);
+  editEnvironment(env: Environment) {
+    const modalRef = this.modalService.open(ModalEnvironmentComponent);
+    modalRef.result.then((result) => {
+      this.toastService.showSuccess(`L'environnement ${result.name} a bien été modifié`);
+      this.applicationChanged(this.applicationSelected);
+    }, (reason) => {
+      if (reason.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de la modification de l'environnement : ${reason.message}`);
+      }
+    });
+    modalRef.componentInstance.application = this.applicationSelected;
+    modalRef.componentInstance.environment = env;
+    modalRef.componentInstance.isUpdate = true;
+  }
+
+  deleteEnvironment(env: Environment) {
+    const modalRef = this.modalService.open(ModalEnvironmentDeletionComponent);
+    modalRef.result.then((result) => {
+      this.environmentsService.deleteEnvironemnt(env.id).subscribe(
+        fileKind => {
+          this.toastService.showSuccess(`L'environnement a été supprimé`);
+          this.applicationChanged(this.applicationSelected);
+        },
+        reason => {
+          this.toastService.showError( `Une erreur est survenue lors de la suppression de l'environnement : ${reason}`);
         }
-      });
-      modalRef.componentInstance.application = this.applicationSelected;
-      modalRef.componentInstance.environment = event.item;
-      modalRef.componentInstance.isUpdate = true;
-    }
-
-    if (event.id === this.idActionDelete) {
-      const modalRef = this.modalService.open(ModalEnvironmentDeletionComponent);
-      modalRef.result.then((result) => {
-        this.environmentsService.deleteEnvironemnt(event.item.id).subscribe(
-          fileKind => {
-            this.notifierService.notify('success', `L'environnement a été supprimé`);
-            this.applicationChanged(this.applicationSelected);
-          },
-          reason => {
-            this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'environnement : ${reason}`);
-          }
-        );
-      }, reason => {
-      });
-      modalRef.componentInstance.application = this.applicationSelected;
-      modalRef.componentInstance.environment = event.item;
-      modalRef.componentInstance.isUpdate = true;
-    }
+      );
+    }, reason => {
+    });
+    modalRef.componentInstance.application = this.applicationSelected;
+    modalRef.componentInstance.environment = env;
+    modalRef.componentInstance.isUpdate = true;
   }
 
-  onPageChange(event) {
-    this.refreshEnvironments(new Pageable(this.page - 1, this.size))
-  }
 }

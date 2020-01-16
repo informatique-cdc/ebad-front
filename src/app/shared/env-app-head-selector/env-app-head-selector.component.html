@@ -1,1 +1,3 @@
-<app-head-selector title="{{customTitle}}" (changed)="showChanged($event)" [selects]="selectHead"></app-head-selector>
+<app-head-selector title="{{title}}" preTitle="{{preTitle}}" (changed)="showChanged($event)" [selects]="selectHead">
+  <ng-content header select="[header]"></ng-content>
+</app-head-selector>

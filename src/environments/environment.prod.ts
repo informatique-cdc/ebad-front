@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: '/ebad',
+  apiUrl: 'https://ebad.herokuapp.com/ebad',
   jwt: true,
   atHash: 'at_hash',
   issuer: '',
@@ -8,5 +8,5 @@ export const environment = {
   loginUrl: '',
   scope: 'openid profile',
   logoutUrl: '',
-  userinfoEndpoint: '',
+  userinfoEndpoint: ''
 };

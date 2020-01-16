@@ -6,6 +6,7 @@ import {ModalBatchComponent} from './modal-batch/modal-batch.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {ModalBatchDeletionComponent} from './modal-batch-deletion/modal-batch-deletion.component';
 import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
+import {DataTablesModule} from "angular-datatables";
 
 @NgModule({
   declarations: [ManageBatchsComponent, ModalBatchComponent, ModalBatchDeletionComponent],
@@ -13,7 +14,8 @@ import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
     SharedModule,
     ManageBatchsRoutingModule,
     NgMultiSelectDropDownModule.forRoot(),
-    NgbPaginationModule
+    NgbPaginationModule,
+    DataTablesModule
   ],
   entryComponents: [
     ModalBatchComponent,

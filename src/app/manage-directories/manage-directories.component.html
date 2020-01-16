@@ -1,6 +1,56 @@
-<app-env-app-head-selector title="Gestion des répertoires" (environmentChanged)="environmentChanged($event)" [showEnvironment]="true" [isModarable]="true"></app-env-app-head-selector>
-<app-table *ngIf="environmentSelected"
-           [title]="environmentSelected.name" [table]="table"
-           (actionClicked)="onActionClicked($event)"
-           (globalActionClicked)="onClickAddDirectory()">
-</app-table>
+<app-env-app-head-selector preTitle="Gestion des répertoires" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)" [showEnvironment]="true" [isModarable]="true">
+<span header>
+  <a href="javascript:void(0)" *ngIf="environmentSelected" style="cursor: pointer"
+     class="btn btn-primary mr-3" (click)="onClickAddDirectory()">
+    <ebad-icon name="plus"></ebad-icon>
+    Nouveau répertoire
+  </a>
+</span>
+</app-env-app-head-selector>
+
+
+<div class="card">
+  <div class="table-responsive">
+    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="directoryId">
+          ID
+        </th>
+        <th id="directoryName">
+          Nom
+        </th>
+        <th id="directoryPath">
+          Chemin relatif
+        </th>
+        <th id="directoryCanWrite">
+          Droit d'écriture
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let directory of directories">
+        <td class="align-middle">
+          {{directory.id}}
+        </td>
+        <td class="align-middle">
+          {{directory.name}}
+        </td>
+        <td class="align-middle">
+          {{directory.path}}
+        </td>
+        <td class="align-middle">
+          {{directory.canWrite | yesno}}
+        </td>
+        <td class="text-center">
+          <a (click)="editDirectory(directory)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a (click)="deleteDirectory(directory)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

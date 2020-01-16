@@ -1,82 +1,142 @@
-<nav class="navbar navbar-dark navbar-expand-sm fixed-top bg-primary flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><i-code></i-code>E.B.A.D
-  </a>
-  <!--<input class="form-control form-control-dark w-100" type="text" placeholder="" aria-label="" disabled>-->
-  <span class="w-100"></span>
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <div ngbDropdown class="d-inline-block">
-        <a class="nav-link">
-          <i-bell id="dropdownBasic1" ngbDropdownToggle></i-bell>
-          <span class="badge badge-pill badge-primary">{{notifications.length}}</span>
-          <div id="notifications" class="dropdown-menu w-xl bg-light" aria-labelledby="dropdownBasic1" ngbDropdownMenu>
-            <div *ngIf="notifications.length ==0">
-              <div class="panel bg-white">
-                <div class="list-group">
-                  <span class="list-group-item">
-                    <span class="clear block m-b-none">
-                      Vous n'avez pas de notification.
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="notifications.length > 0">
-              <div class="panel bg-white">
-                <div class="panel-heading b-light bg-light">
-                  <strong>Vous avez
-                    <span>{{notifications.length}}</span>
-                    notification(s)
-                  </strong>
-                </div>
-                <div class="list-group">
-                  <span class="list-group-item" *ngFor="let notification of notifications">
-                    <span class="clear block m-b-none" id="notification{{notification.id}}">
-                      {{notification.content}}
-                      <br>
-                      <!--                      <small class="text-muted">{{notification.createdDate | date: 'dd/MM/yyyy' }}</small>-->
-                    </span>
-                  </span>
-                </div>
-                <div class="panel-footer text-sm bg-light">
-                  <a (click)="markAsRead()" class="pull-right">
-                    <i-bell-off></i-bell-off>
-                    <span data-toggle="class:show animated fadeInRight">Marquer comme lue(s)</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+<div class="container">
+  <div class="navbar navbar-expand-lg navbar-light">
+    <div *ngIf="false" class="navbar-search d-none d-xl-block">
+      <form action="." method="get">
+        <div class="input-icon">
+          <span class="input-icon-addon">
+            <ebad-icon name="search"></ebad-icon>
+          </span>
+          <input type="text" class="form-control form-control-light" placeholder="Search&hellip;">
+        </div>
+      </form>
+    </div>
+    <ul class="nav navbar-menu align-items-center ml-auto">
+      <li class="nav-item d-none d-lg-flex mr-3">
+        <a href="https://github.com/informatique-cdc/ebad" rel="noopener noreferrer" class="btn btn-sm btn-success" target="_blank"><ebad-icon name="github"></ebad-icon> Source code
         </a>
-      </div>
-    </li>
-    <li class="nav-item text-nowrap">
-      <div ngbDropdown class="d-inline-block">
-        <a class="nav-link">
-          <i-flag id="dropdownFlag" ngbDropdownToggle></i-flag>
-          <div id="flags" class="dropdown-menu w-xl bg-light" aria-labelledby="dropdownFlag" ngbDropdownMenu>
+      </li>
+      <li class="nav-item dropdown mr-3" ngbDropdown placement="">
+        <a ngbDropdownToggle id="notificationMenu"
+           class="nav-link d-flex align-items-center py-0 px-lg-0 px-2 text-reset ml-2"
+           style="cursor: pointer">
+          <ebad-icon name="bell"></ebad-icon>
+          <span *ngIf="notifications.length > 0" class="badge bg-red badge-up"></span>
+        </a>
+        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+             aria-labelledby="notificationMenu">
+          <a href="#" class="dropdown-item d-flex">
             <div>
-              <div class="panel bg-white">
-                <div class="list-group">
-                  <span class="list-group-item">
-                    <span class="clear block m-b-none" (click)="changeLang('fr')">
-                      {{'HEADER.TRANSLATE.FR' | translate}}
-                    </span>
-                  </span>
-                  <span class="list-group-item" (click)="changeLang('en')">
-                    <span class="clear block m-b-none">
-                      {{'HEADER.TRANSLATE.EN' | translate}}
-                    </span>
-                  </span>
-                </div>
-              </div>
+              Vous avez <strong>{{notifications.length}}</strong> notification(s)
             </div>
-          </div>
+          </a>
+          <a *ngFor="let notification of notifications" class="dropdown-item d-flex">
+            <div id="notification{{notification.id}}">
+              {{notification.content}}
+              <div class="small text-muted">{{notification.createdDate}}</div>
+            </div>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a (click)="markAsRead()" style="cursor: pointer" class="dropdown-item text-center">Marquer comme lue(s)</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" ngbDropdown placement="">
+        <a ngbDropdownToggle  id="settingsMenu"
+           class="nav-link d-flex align-items-center py-0 px-lg-0 px-2 text-reset ml-2"
+           style="cursor: pointer">
+<!--          <span class="avatar avatar-sm" style="background-image: url(./assets/img/avatars/004f.jpg)"></span>-->
+          <span class="avatar avatar-sm">{{currentUser | avatar}}</span>
+          <span class="ml-2 d-none d-lg-block lh-1">
+            {{currentUser?.firstName}} {{currentUser?.lastName}}
+            <span class="text-muted d-block mt-1 text-h6">Utilisateur</span>
+          </span>
         </a>
-      </div>
-    </li>
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" id="logout" (click)="logout()">{{'HEADER.LOGOUT' | translate}}</a>
-    </li>
-  </ul>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" aria-labelledby="settingsMenu"
+             ngbDropdownMenu>
+          <a class="dropdown-item" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="icon dropdown-icon">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            Profile
+          </a>
+          <a class="dropdown-item" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="icon dropdown-icon">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            Settings
+          </a>
+          <a class="dropdown-item" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="icon dropdown-icon">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Inbox
+            <span class="badge bg-primary ml-auto">6</span>
+          </a>
+          <a class="dropdown-item" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="icon dropdown-icon">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            Message
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="icon dropdown-icon">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12" y2="17"></line>
+            </svg>
+            Need help?
+          </a>
+          <a class="dropdown-item" (click)="logout()">
+            <i-log-out class="icon dropdown-icon"></i-log-out>
+            {{'HEADER.LOGOUT' | translate}}
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--
+   <li class="nav-item text-nowrap">
+     <div ngbDropdown class="d-inline-block">
+       <a class="nav-link">
+         <i-flag id="dropdownFlag" ngbDropdownToggle></i-flag>
+         <div id="flags" class="dropdown-menu w-xl bg-light" aria-labelledby="dropdownFlag" ngbDropdownMenu>
+           <div>
+             <div class="panel bg-white">
+               <div class="list-group">
+                 <span class="list-group-item">
+                   <span class="clear block m-b-none" (click)="changeLang('fr')">
+                     {{'HEADER.TRANSLATE.FR' | translate}}
+                   </span>
+                 </span>
+                 <span class="list-group-item" (click)="changeLang('en')">
+                   <span class="clear block m-b-none">
+                     {{'HEADER.TRANSLATE.EN' | translate}}
+                   </span>
+                 </span>
+               </div>
+             </div>
+           </div>
+         </div>
+       </a>
+     </div>
+   </li>
+
+ </ul>
 </nav>
+-->

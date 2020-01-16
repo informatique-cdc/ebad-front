@@ -1,163 +1,161 @@
-import {Component, OnInit} from '@angular/core';
-import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ApplicationsService, GlobalSettingsService} from '../core/services';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NotifierService} from 'angular-notifier';
-import {ActionClickEvent} from '../shared/table/action-click-event.model';
 import {ModalApplicationComponent} from './modal-application/modal-application.component';
 import {ModalUsersComponent} from './modal-users/modal-users.component';
 import {ModalApplicationDeletionComponent} from './modal-application-deletion/modal-application-deletion.component';
 import {Constants} from "../shared/Constants";
-import {Pageable} from "../core/models/pageable.model";
+import {Application} from "../core/models";
+import {DataTableDirective} from "angular-datatables";
+import {Subject} from 'rxjs';
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-admin-applications',
   templateUrl: './admin-applications.component.html',
   styleUrls: ['./admin-applications.component.scss']
 })
-export class AdminApplicationsComponent implements OnInit {
-  table: Table;
-  size = this.constants.numberByPage;
-  page = 0;
-  totalSize = 0;
-  sort = "code,asc";
+export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnInit {
+  @ViewChild(DataTableDirective, { static: true })
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
 
-  private idActionModify = 'actionModify';
-  private idActionDelete = 'actionDelete';
-  private idActionUtilisateurs = 'actionUtilisateurs';
-  private idActionGestionnaires = 'actionGestionnaires';
+  applications: Application[] = [];
+
+  addApplicationEnabled = true;
+  importApplicationEnabled = true;
 
   constructor(private modalService: NgbModal,
               private applicationsService: ApplicationsService,
               private constants: Constants,
-              private globalSettingsService : GlobalSettingsService,
-              private notifierService: NotifierService) {
+              private toastService: ToastService,
+              private globalSettingsService: GlobalSettingsService) {
   }
 
   ngOnInit() {
-    this.showApplications();
+    this.addApplicationEnabled = this.globalSettingsService.createApplicationIsEnable();
+    this.importApplicationEnabled = this.globalSettingsService.importApplicationIsEnable();
+
+    this.dtOptions = {
+      order: [[1,'asc']],
+      pagingType: 'full_numbers',
+      pageLength: this.constants.numberByPage,
+      serverSide: true,
+      processing: false,
+      ajax: (dataTablesParameters: any, callback) => {
+        this.applicationsService
+          .getAllManage({
+              'page': dataTablesParameters.start / dataTablesParameters.length,
+              'size': dataTablesParameters.length,
+              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              'name': dataTablesParameters.search.value
+            }
+          )
+          .subscribe(resp => {
+            this.applications = resp.content;
+            callback({
+              recordsTotal: resp.totalElements,
+              recordsFiltered: resp.totalElements,
+              data: []
+            });
+          });
+      },
+      columns: [{
+        data: '',
+        orderable: false
+      }, {data: 'code'}, {data: 'name'}, {data: 'dateParametrePattern'}, {data: 'dateFichierPattern'}, {
+        data: '',
+        orderable: false
+      }]
+    };
+    this.dtTrigger.next();
   }
 
-  showApplications() {
-    this.table = new Table();
-    this.table.showHeader = false;
-    this.table.showFooter = true;
-
-    if(this.globalSettingsService.createApplicationIsEnable()) {
-      this.table.settings.globalAction = new Action('Ajouter une application', '');
-    }
-
-    if(this.globalSettingsService.importApplicationIsEnable()) {
-      this.table.settings.secondGlobalAction = new Action('Importer des applications', '');
-    }
-
-    this.table.settings.columnsDefinition.code = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.code.title = 'Code';
-    this.table.settings.columnsDefinition.code.order = 1;
-    this.table.settings.columnsDefinition.name = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.name.title = 'Nom';
-    this.table.settings.columnsDefinition.name.order = 2;
-    this.table.settings.columnsDefinition.dateParametrePattern = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.dateParametrePattern.title = 'Pattern paramètre';
-    this.table.settings.columnsDefinition.dateParametrePattern.order = 3;
-    this.table.settings.columnsDefinition.dateFichierPattern = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.dateFichierPattern.title = 'Pattern fichier';
-    this.table.settings.columnsDefinition.dateFichierPattern.order = 4;
-
-    this.table.settings.actionsDefinition.title = 'Action';
-    this.table.settings.actionsDefinition.actions.push(new Action('Modifier', this.idActionModify));
-    this.table.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionDelete));
-    this.table.settings.actionsDefinition.actions.push(new Action('Utilisateurs', this.idActionUtilisateurs));
-    this.table.settings.actionsDefinition.actions.push(new Action('Gestionnaires', this.idActionGestionnaires));
-    this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
   }
 
-  refreshApplication(pageable: Pageable = new Pageable(0,this.size, this.sort)) {
-    console.log(pageable);
-    this.applicationsService.getAllManage(pageable).subscribe(
-      (applications) => {
-        this.table.items = applications.content;
-        this.totalSize = applications.totalElements;
-      }
-    );
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  refreshApplication() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
+    });
   }
 
   onClickAddApplication() {
     const modalRef = this.modalService.open(ModalApplicationComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `L'application ${result.name} a bien été ajoutée`);
-      this.page = 1;
-      this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
+      this.toastService.showSuccess(`L'application ${result.name} a bien été ajoutée`);
+      this.refreshApplication()
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
   }
 
-  onClickImportApplications(){
+  onClickImportApplications() {
     this.applicationsService.importApplications().subscribe(
       (result) => {
-        this.notifierService.notify('success', `Les applications ont bien étaient importées`);
-        this.page = 1;
-        this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
-      },
-      (error) => this.notifierService.notify('error', `Une erreur est survenue lors de l'import des applications : ${error.message}`)
+        this.toastService.showSuccess(`Les applications ont bien étaient importées`);
+        this.refreshApplication()
+      }
+      ,
+      (error) => this.toastService.showError(`Une erreur est survenue lors de l'import des applications : ${error.message}`)
     )
   }
 
-  onActionClicked(event: ActionClickEvent) {
-    if (event.id === this.idActionModify) {
-      const modalRef = this.modalService.open(ModalApplicationComponent);
-      modalRef.result.then((result) => {
-        this.notifierService.notify('success', `L'application ${result.name} a bien été modifiée`);
-        this.page = 1;
-        this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
-      }, (reason) => {
-        if (reason.message !== undefined) {
-          this.notifierService.notify('error', `Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
+  editApplication(app: Application) {
+    const modalRef = this.modalService.open(ModalApplicationComponent);
+    modalRef.result.then((result) => {
+      this.toastService.showSuccess(`L'application ${result.name} a bien été modifiée`);
+      this.refreshApplication()
+    }, (reason) => {
+      if (reason.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
+      }
+    });
+    modalRef.componentInstance.application = app;
+    modalRef.componentInstance.isUpdate = true;
+  }
+
+  deleteApplication(app: Application) {
+    const modalRef = this.modalService.open(ModalApplicationDeletionComponent);
+    modalRef.result.then((result) => {
+      this.applicationsService.deleteApplication(app.id).subscribe(
+        () => {
+          this.toastService.showSuccess(`L'application a été supprimée`);
+          this.refreshApplication()
+        },
+        reason => {
+          this.toastService.showError( `Une erreur est survenue lors de la suppression de l'application : ${reason}`);
         }
-      });
-      modalRef.componentInstance.application = event.item;
-      modalRef.componentInstance.isUpdate = true;
-    }
-
-    if (event.id === this.idActionDelete) {
-      const modalRef = this.modalService.open(ModalApplicationDeletionComponent);
-      modalRef.result.then((result) => {
-        this.applicationsService.deleteApplication(event.item.id).subscribe(
-          () => {
-            this.notifierService.notify('success', `L'application a été supprimée`);
-            this.page = 1;
-            this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
-          },
-          reason => {
-            this.notifierService.notify('error', `Une erreur est survenue lors de la suppression de l'application : ${reason}`);
-          }
-        );
-      }, reason => {
-      });
-      modalRef.componentInstance.application = event.item;
-    }
-
-    if (event.id === this.idActionUtilisateurs) {
-      const modalRef = this.modalService.open(ModalUsersComponent, {size: 'lg'});
-      this.applicationsService.getUsersFromApplication(event.item.id)
-        .subscribe(users => modalRef.componentInstance.usersApplication = users);
-      modalRef.componentInstance.application = event.item;
-    }
-
-    if (event.id === this.idActionGestionnaires) {
-      const modalRef = this.modalService.open(ModalUsersComponent, {size: 'lg'});
-      this.applicationsService.getModeratorsFromApplication(event.item.id)
-        .subscribe(users => modalRef.componentInstance.usersApplication = users);
-      modalRef.componentInstance.application = event.item;
-      modalRef.componentInstance.isModerator = true;
-    }
+      );
+    }, reason => {
+    });
+    modalRef.componentInstance.application = app;
   }
 
-  onPageChange(event) {
-    this.refreshApplication(new Pageable(this.page-1, this.size, this.sort))
+  usersApplication(app: Application) {
+    const modalRef = this.modalService.open(ModalUsersComponent, {size: 'lg'});
+    this.applicationsService.getUsersFromApplication(app.id)
+      .subscribe(users => modalRef.componentInstance.usersApplication = users);
+    modalRef.componentInstance.application = app;
   }
+
+  managersApplication(app: Application) {
+    const modalRef = this.modalService.open(ModalUsersComponent, {size: 'lg'});
+    this.applicationsService.getModeratorsFromApplication(app.id)
+      .subscribe(users => modalRef.componentInstance.usersApplication = users);
+    modalRef.componentInstance.application = app;
+    modalRef.componentInstance.isModerator = true;
+  }
+
+
 }

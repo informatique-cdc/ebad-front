@@ -18,6 +18,15 @@ import {NgbDateFRParserFormatter} from './ngb-date-fr-parser-formatter';
 import {Constants} from './Constants';
 import {HasRoleDirective} from "./has-role/has-role.directive";
 import {TranslateModule} from "@ngx-translate/core";
+import {MenuItemComponent} from "./layout";
+import {AngularSvgIconModule} from "angular-svg-icon";
+import {IconComponent} from "./icon";
+import {NgApexchartsModule} from "ng-apexcharts";
+import {IconHeart} from "angular-feather";
+import {AvatarPipe} from "./avatar.pipe";
+import {DataTablesModule} from "angular-datatables";
+import {YesNoPipe} from "./yesno.pipe";
+import {ToastComponent} from "./toast/toast.component";
 
 @NgModule({
   imports: [
@@ -32,7 +41,11 @@ import {TranslateModule} from "@ngx-translate/core";
     RouterModule,
     IconsModule,
     NgbModule,
-    TranslateModule
+    TranslateModule,
+    AngularSvgIconModule,
+    NgApexchartsModule,
+    IconHeart,
+    DataTablesModule
   ],
   declarations: [
     ListErrorsComponent,
@@ -43,7 +56,12 @@ import {TranslateModule} from "@ngx-translate/core";
     EnvAppHeadSelectorComponent,
     DateTraitementComponent,
     ModalDateTraitementComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    MenuItemComponent,
+    IconComponent,
+    AvatarPipe,
+    YesNoPipe,
+    ToastComponent
   ],
   exports: [
     CommonModule,
@@ -59,7 +77,12 @@ import {TranslateModule} from "@ngx-translate/core";
     EnvAppHeadSelectorComponent,
     DateTraitementComponent,
     HasRoleDirective,
-    TranslateModule
+    TranslateModule,
+    MenuItemComponent,
+    IconComponent,
+    AvatarPipe,
+    YesNoPipe,
+    ToastComponent
   ],
   entryComponents: [
     ModalDateTraitementComponent

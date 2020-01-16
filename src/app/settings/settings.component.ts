@@ -40,7 +40,7 @@ export class SettingsComponent implements OnInit {
 
   logout() {
     this.userService.purgeAuth();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/login');
   }
 
   submitForm() {

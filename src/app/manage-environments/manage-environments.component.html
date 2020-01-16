@@ -1,9 +1,73 @@
-<app-env-app-head-selector title="Gestion des environnements" (applicationChanged)="applicationChanged($event)" [showEnvironment]="false" [isModarable]="true"></app-env-app-head-selector>
-<app-table *ngIf="applicationSelected"
-           id="listEnvironnements"
-           [title]="applicationSelected.name" [table]="table"
-           (actionClicked)="onActionClicked($event)"
-           (globalActionClicked)="onClickAddEnvironment()"
-           (secondGlobalActionClicked)="onClickImportEnvironments()">
-  <ngb-pagination footer class="d-flex justify-content-center" [maxSize]="5" [collectionSize]="totalSize" [pageSize]="size" [(page)]="page" (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
-</app-table>
+<app-env-app-head-selector [title]="applicationSelected?.name" preTitle="Gestion des environnements" (applicationChanged)="applicationChanged($event)"
+                           [showEnvironment]="false" [isModarable]="true">
+<span header>
+  <a href="javascript:void(0)" *ngIf="addEnvironmentEnabled && applicationSelected" style="cursor: pointer"
+     class="btn btn-primary mr-3" (click)="onClickAddEnvironment()">
+    <ebad-icon name="plus"></ebad-icon>
+    Nouvel environnement
+  </a>
+  <a href="javascript:void(0)" *ngIf="importEnvironmentEnabled && applicationSelected" style="cursor: pointer"
+     class="btn btn-primary" (click)="onClickImportEnvironments()">
+    <ebad-icon name="download"></ebad-icon>
+    Importer les environnements
+  </a>
+</span>
+</app-env-app-head-selector>
+
+<div class="card">
+  <div class="table-responsive">
+    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="envId">
+          ID
+        </th>
+        <th id="envName">
+          Nom
+        </th>
+        <th id="envHost">
+          Serveur
+        </th>
+        <th id="envLogin">
+          Login
+        </th>
+        <th id="envHome">
+          Home
+        </th>
+        <th id="envPrefix">
+          Prefix
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let env of environments">
+        <td class="align-middle">
+          {{env.id}}
+        </td>
+        <td class="align-middle">
+          {{env.name}}
+        </td>
+        <td class="align-middle">
+          {{env.host}}
+        </td>
+        <td class="align-middle">
+          {{env.login}}
+        </td>
+        <td class="align-middle">
+          {{env.homePath}}
+        </td>
+        <td class="align-middle">
+          {{env.prefix}}
+        </td>
+        <td class="text-center">
+          <a (click)="editEnvironment(env)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a (click)="deleteEnvironment(env)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

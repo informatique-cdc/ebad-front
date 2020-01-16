@@ -9,6 +9,7 @@ import {Select} from './select.model';
 })
 export class HeadSelectorComponent implements OnInit {
   @Input() title: string;
+  @Input() preTitle: string;
   @Input() selects: Select[];
 
   @Output() changed = new EventEmitter<EventSelectChangeModel>();

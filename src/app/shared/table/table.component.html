@@ -1,60 +1,34 @@
-<div class="row mb-4">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header py-1 d-flex" *ngIf="title != null">
-        <h5>{{ title }}</h5>
-        <div class="ml-auto"></div>
-        <div class=" ml-1" *ngIf="table.settings.globalAction">
-          <button type="button" class="btn btn-primary btn-sm float-right" (click)="onGlobalActionClicked()" id="globalAction">
-            {{table.settings.globalAction.label}}
-          </button>
-        </div>
-        <div class="ml-1" *ngIf="table.settings.secondGlobalAction">
-          <button type="button" class="btn btn-primary btn-sm float-right" (click)="onSecondGlobalActionClicked()" id="secondGlobalAction">
-            {{table.settings.secondGlobalAction.label}}
-          </button>
-        </div>
-      </div>
-      <div class="card-header" *ngIf="table.showHeader">
-        <ng-content select="[header]"></ng-content>
-      </div>
-
-      <div class="card-body p-0">
-        <table class="table table-striped table-sm mb-0">
-          <thead>
-          <tr>
-            <th *ngFor="let columnDef of table.settings.columnsDefinition | keyvalue: valueAscOrder" class="border-0">
-              {{columnDef.value.title}}
-            </th>
-            <th *ngIf="table.settings.actionsDefinition.actions.length > 0" class="border-0 text-center">
-              {{table.settings.actionsDefinition.title}}
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngIf="table.items && table.items.length === 0">
-            <td colspan="100%">Aucun élément</td>
-          </tr>
-          <tr *ngFor="let item of table.items; index as lineNumber">
-            <td *ngFor="let columnDef of table.settings.columnsDefinition | keyvalue: valueAscOrder"
-                class="align-middle">
-              <span [innerHTML]="item[columnDef.key]"></span>
-            </td>
-            <td class="text-center">
-              <div class="btn-group btn-group-sm" role="group">
-                <button *ngFor="let action of table.settings.actionsDefinition.actions" type="button"
-                        class="btn btn-primary" name="{{action.id}}" id="{{action.id}}-{{lineNumber}}" (click)="onClick($event,item)">
-                  {{action.label}}
-                </button>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="card-footer" *ngIf="table.showFooter">
-        <ng-content select="[footer]"></ng-content>
-      </div>
-    </div>
+<div class="card">
+  <div class="table-responsive">
+    <table aria-describedby="tableTitle" datatable class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="checkbox" class="w-1p"><input class="form-check-input m-0 align-middle" type="checkbox"></th>
+        <th *ngFor="let columnDef of table.settings.columnsDefinition | keyvalue: valueAscOrder" id="{{columnDef.key}}" class="border-0">
+          {{columnDef.value.title}}
+        </th>
+        <th *ngIf="table.settings.actionsDefinition.actions.length > 0" id="actions" class="border-0 text-center">
+          {{table.settings.actionsDefinition.title}}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of table.items; index as lineNumber">
+        <td><input class="form-check-input m-0 align-middle" type="checkbox"></td>
+        <td *ngFor="let columnDef of table.settings.columnsDefinition | keyvalue: valueAscOrder" class="align-middle">
+          <span [innerHTML]="item[columnDef.key]"></span>
+        </td>
+        <td class="text-center">
+          <div class="btn-group btn-group-sm" role="group">
+            <button *ngFor="let action of table.settings.actionsDefinition.actions" type="button"
+                    class="btn btn-primary" name="{{action.id}}" id="{{action.id}}-{{lineNumber}}"
+                    (click)="onClick($event,item)">
+              {{action.label}}
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>

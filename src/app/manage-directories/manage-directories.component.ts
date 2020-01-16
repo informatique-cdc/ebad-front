@@ -1,118 +1,138 @@
-import {Component, OnInit} from '@angular/core';
-import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Directory, Environment} from '../core/models';
-import {ActionClickEvent} from '../shared/table/action-click-event.model';
 import {FilesService} from '../core/services';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NotifierService} from 'angular-notifier';
 import {ModalDirectoryComponent} from './modal-directory/modal-directory.component';
 import {ModalDirectoryDeletionComponent} from './modal-directory-deletion/modal-directory-deletion.component';
+import {DataTableDirective} from "angular-datatables";
+import {Subject} from "rxjs";
+import {Constants} from "../shared/Constants";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-manage-directories',
   templateUrl: './manage-directories.component.html',
   styleUrls: ['./manage-directories.component.scss']
 })
-export class ManageDirectoriesComponent implements OnInit {
-  table: Table;
+export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;
-  private idActionModify = 'actionModify';
-  private idActionDelete = 'actionDelete';
+  directories: Directory[];
+
+  @ViewChild(DataTableDirective, { static: true })
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
 
   constructor(private filesService: FilesService,
               private modalService: NgbModal,
-              private notifierService: NotifierService) {
+              private toastService: ToastService,
+              private constants: Constants) {
   }
 
   ngOnInit() {
+
+    this.dtOptions = {
+      order: [[0, 'asc']],
+      pagingType: 'full_numbers',
+      pageLength: this.constants.numberByPage,
+      serverSide: true,
+      processing: false,
+      ajax: (dataTablesParameters: any, callback) => {
+        if (!this.environmentSelected) {
+          this.directories = [];
+          return
+        }
+        this.filesService
+          .getAllFromEnvironment(this.environmentSelected.id, {
+              'page': dataTablesParameters.start / dataTablesParameters.length,
+              'size': dataTablesParameters.length,
+              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              'name': dataTablesParameters.search.value
+            }
+          )
+          .subscribe(resp => {
+            this.directories = resp.content;
+            callback({
+              recordsTotal: resp.totalElements,
+              recordsFiltered: resp.totalElements,
+              data: []
+            });
+          });
+      },
+      columns: [{
+        data: 'id'
+      }, {data: 'name'}, {data: 'path'}, {data: 'canWrite'}, {
+        data: '',
+        orderable: false
+      }]
+    };
+    this.dtTrigger.next();
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  refreshDirectories() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
+    });
   }
 
   environmentChanged(environment: Environment) {
-    this.showDirectories();
     this.environmentSelected = environment;
-    this.filesService.getAllFromEnvironment(environment.id).subscribe(
-      directories => {
-        this.table.items = directories;
-        for (const file of this.table.items) {
-          file.right = 'Lecture seule';
-          if ((file as Directory).canWrite) {
-            file.right = 'Lecture / Ecriture';
-          }
-        }
-      }
-    );
-  }
-
-  showDirectories() {
-    this.table = new Table();
-    this.table.showHeader = false;
-    this.table.showFooter = false;
-
-    this.table.settings.globalAction = new Action('Ajouter un répertoire', '');
-
-    this.table.settings.columnsDefinition.id = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.id.title = 'Id';
-    this.table.settings.columnsDefinition.id.order = 1;
-    this.table.settings.columnsDefinition.name = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.name.title = 'Nom';
-    this.table.settings.columnsDefinition.name.order = 2;
-    this.table.settings.columnsDefinition.path = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.path.title = 'Chemin relatif';
-    this.table.settings.columnsDefinition.path.order = 3;
-    this.table.settings.columnsDefinition.right = new ColumnsDefinition();
-    this.table.settings.columnsDefinition.right.title = 'Droits';
-    this.table.settings.columnsDefinition.right.order = 4;
-
-    this.table.settings.actionsDefinition.title = 'Action';
-    this.table.settings.actionsDefinition.actions.push(new Action('Modifier', this.idActionModify));
-    this.table.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionDelete));
+    this.refreshDirectories();
   }
 
   onClickAddDirectory() {
     const modalRef = this.modalService.open(ModalDirectoryComponent);
     modalRef.result.then((result) => {
-      this.notifierService.notify('success', `Le répertoire ${result.name} a bien été ajouté`);
+      this.toastService.showSuccess(`Le répertoire ${result.name} a bien été ajouté`);
       this.environmentChanged(this.environmentSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.notifierService.notify('error', `Une erreur est survenue lors de l'ajout du répertoire : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'ajout du répertoire : ${reason.message}`);
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
     modalRef.componentInstance.isUpdate = false;
   }
 
-  onActionClicked(event: ActionClickEvent) {
-    if (event.id === this.idActionModify) {
-      const modalRef = this.modalService.open(ModalDirectoryComponent);
-      modalRef.result.then((result) => {
-        this.notifierService.notify('success', `Le répertoire ${result.name} a bien été modifié`);
-        this.environmentChanged(this.environmentSelected);
-      }, (reason) => {
-        if (reason.message !== undefined) {
-          this.notifierService.notify('error', `Une erreur est survenue lors de la modification du répertoire : ${reason.message}`);
-        }
-      });
-      modalRef.componentInstance.environment = this.environmentSelected;
-      modalRef.componentInstance.directory = event.item;
-      modalRef.componentInstance.isUpdate = true;
-    }
-
-    if (event.id === this.idActionDelete) {
-      const modalRef = this.modalService.open(ModalDirectoryDeletionComponent);
-      modalRef.result.then((result) => {
-        event.item.environnements = [];
-        this.filesService.deleteDirectory(event.item).subscribe(
-          () => {
-            this.notifierService.notify('success', `Le répertoire a été supprimé`);
-            this.environmentChanged(this.environmentSelected);
-          },
-          reason => {
-            this.notifierService.notify('error', `Une erreur est survenue lors de la suppression du répertoire : ${reason}`);
-          }
-        );
-      }, reason => {});
-      modalRef.componentInstance.directory = event.item;
-    }
+  editDirectory(directory: Directory) {
+    const modalRef = this.modalService.open(ModalDirectoryComponent);
+    modalRef.result.then((result) => {
+      this.toastService.showSuccess(`Le répertoire ${result.name} a bien été modifié`);
+      this.environmentChanged(this.environmentSelected);
+    }, (reason) => {
+      if (reason.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de la modification du répertoire : ${reason.message}`);
+      }
+    });
+    modalRef.componentInstance.environment = this.environmentSelected;
+    modalRef.componentInstance.directory = directory;
+    modalRef.componentInstance.isUpdate = true;
   }
+
+  deleteDirectory(directory: Directory) {
+    const modalRef = this.modalService.open(ModalDirectoryDeletionComponent);
+    modalRef.result.then((result) => {
+      this.filesService.deleteDirectory(directory).subscribe(
+        () => {
+          this.toastService.showSuccess(`Le répertoire a été supprimé`);
+          this.environmentChanged(this.environmentSelected);
+        },
+        reason => {
+          this.toastService.showError( `Une erreur est survenue lors de la suppression du répertoire : ${reason}`);
+        }
+      );
+    }, reason => {
+    });
+    modalRef.componentInstance.directory = directory;
+  }
+
 }

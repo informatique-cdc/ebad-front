@@ -8,7 +8,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {CoreModule} from './core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {IconsModule} from './icons';
-import {NotifierModule} from 'angular-notifier';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,6 +18,8 @@ import {HttpClient} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { AnonymousComponent } from './anonymous/anonymous.component';
 import {AccreditationRequestModule} from "./accreditation-requests/accreditation-request.module";
+import {AngularSvgIconModule} from "angular-svg-icon";
+import {IconLogOut} from "angular-feather";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -38,8 +39,8 @@ registerLocaleData(localeFr);
     AuthModule,
     IconsModule,
     NgbModule,
-    NotifierModule,
     HomeModule,
+    AngularSvgIconModule,
     SecurityModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -48,6 +49,7 @@ registerLocaleData(localeFr);
         deps: [HttpClient]
       }
     }),
+    IconLogOut,
 
   ],
   providers: [{provide: LOCALE_ID, useValue: 'fr-FR'}],

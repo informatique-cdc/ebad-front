@@ -27,7 +27,7 @@ export class ModalUsersComponent implements OnInit {
     if (this.isModerator) {
       this.title = `Gestion des modérateurs`;
     }
-    this.usersService.getAll().subscribe(users => this.listUsers = users);
+    this.usersService.getAll().subscribe(users => this.listUsers = users.content);
   }
 
   addUser() {

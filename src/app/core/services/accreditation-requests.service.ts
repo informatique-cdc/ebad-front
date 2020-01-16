@@ -17,11 +17,11 @@ export class AccreditationRequestsService {
   ) {
   }
 
-  getAllNeedAnswer(pageable: Pageable = new Pageable(0,20)): Observable<Page<AccreditationRequest>> {
+  getAllNeedAnswer(pageable: any = new Pageable(0,20)): Observable<Page<AccreditationRequest>> {
     return this.apiService.get(`${this.apiName}/need-answer`,  pageable);
   }
 
-  getAllMyRequests(pageable: Pageable = new Pageable(0,20)): Observable<Page<AccreditationRequest>> {
+  getAllMyRequests(pageable: any = new Pageable(0,20)): Observable<Page<AccreditationRequest>> {
     return this.apiService.get(`${this.apiName}`, pageable);
   }
 

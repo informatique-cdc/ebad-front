@@ -1,6 +1,50 @@
-<app-env-app-head-selector title="Gestion des chaines" (environmentChanged)="environmentChanged($event)" [showEnvironment]="true" [isModarable]="true"></app-env-app-head-selector>
-<app-table *ngIf="environmentSelected"
-           [title]="environmentSelected.name" [table]="table"
-           (actionClicked)="onActionClicked($event)"
-           (globalActionClicked)="onClickAddChain()">
-</app-table>
+<app-env-app-head-selector preTitle="Gestion des chaines" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)" [showEnvironment]="true" [isModarable]="true">
+  <span header>
+  <a href="javascript:void(0)" *ngIf="environmentSelected" style="cursor: pointer"
+     class="btn btn-primary mr-3" (click)="onClickAddChain()">
+    <ebad-icon name="plus"></ebad-icon>
+    Nouvelle chaine
+  </a>
+</span>
+</app-env-app-head-selector>
+
+
+<div class="card">
+  <div class="table-responsive">
+    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="chainId">
+          ID
+        </th>
+        <th id="chainName">
+          Nom
+        </th>
+        <th id="chainDescription">
+          Description
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let chain of chains">
+        <td class="align-middle">
+          {{chain.id}}
+        </td>
+        <td class="align-middle">
+          {{chain.name}}
+        </td>
+        <td class="align-middle">
+          {{chain.description}}
+        </td>
+        <td class="text-center">
+          <a (click)="editChain(chain)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a (click)="deleteChain(chain)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

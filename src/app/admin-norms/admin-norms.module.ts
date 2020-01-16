@@ -5,13 +5,15 @@ import {SharedModule} from '../shared';
 import {ModalNormComponent} from './modal-norm/modal-norm.component';
 import {ModalNormDeletionComponent} from './modal-norm-deletion/modal-norm-deletion.component';
 import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
+import {DataTablesModule} from "angular-datatables";
 
 @NgModule({
   declarations: [AdminNormsComponent, ModalNormComponent, ModalNormDeletionComponent],
   imports: [
     AdminNormsRoutingModule,
     SharedModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    DataTablesModule
   ],
   entryComponents: [
     ModalNormDeletionComponent,

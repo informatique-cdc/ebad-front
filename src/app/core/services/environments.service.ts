@@ -18,7 +18,7 @@ export class EnvironmentsService {
     return this.apiService.get(`${this.apiName}/${slug}`);
   }
 
-  getEnvironmentFromApp(appId: number, pageable: Pageable = new Pageable(0,20)): Observable<Page<Environment>> {
+  getEnvironmentFromApp(appId: number, pageable: any = new Pageable(0,20)): Observable<Page<Environment>> {
       return this.apiService.get(`${this.apiName}?applicationId=${appId}`,pageable);
   }
 

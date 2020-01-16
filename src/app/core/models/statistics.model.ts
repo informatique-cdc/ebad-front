@@ -1,8 +1,10 @@
+import {StatisticsByDay} from "./statisticsByDay.model";
+
 export interface Statistics {
-  nbrApplications: number;
-  nbrBatchLancesParJour: number[];
-  nbrBatchs: number;
-  nbrBatchsLances: number;
-  nbrUtilisateurs: number;
-  tpsMoyenBatch: number;
+  usersNbr: number;
+  batchsNbrs: number;
+  batchsRunnedNbrs: number;
+  applicationsNbr: number;
+  avgExecutionTime: number;
+  statisticsByDay: StatisticsByDay[];
 }

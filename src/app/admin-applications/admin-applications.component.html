@@ -1,12 +1,75 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Administration des applications</h1>
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      <h2 class="page-pretitle">
+        Administration
+      </h2>
+      <h2 id="tableTitle" class="page-title">
+        Applications
+      </h2>
+    </div>
+    <!-- Page title actions -->
+    <div class="col-auto ml-auto d-print-none">
+      <div class="d-flex">
+        <a *ngIf="addApplicationEnabled" href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary mr-3" (click)="onClickAddApplication()">
+          <ebad-icon name="plus"></ebad-icon>
+          Nouvelle application
+        </a>
+
+        <a *ngIf="importApplicationEnabled" href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary" (click)="onClickImportApplications()">
+          <ebad-icon name="download"></ebad-icon>
+          Importer des applications
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
-<app-table
-  id="listApplications"
-  [title]="'Applications'"
-  [table]="table"
-  (actionClicked)="onActionClicked($event)"
-  (globalActionClicked)="onClickAddApplication()"
-  (secondGlobalActionClicked)="onClickImportApplications()">
-  <ngb-pagination footer class="d-flex justify-content-center" [maxSize]="5" [collectionSize]="totalSize" [pageSize]="size" [(page)]="page" (pageChange)="onPageChange($event)" aria-label="Default pagination"></ngb-pagination>
-</app-table>
+
+<div class="card">
+  <div class="table-responsive">
+    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th class="w-1p" id="selectbox"><input class="form-check-input m-0 align-middle" type="checkbox"></th>
+        <th id="appCode">
+          Code
+        </th>
+        <th id="appName">
+          Nom
+        </th>
+        <th id="appParamPattern">
+          Pattern paramètre
+        </th>
+        <th id="appFilePattern">
+          Pattern fichier
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let app of applications">
+        <td><input class="form-check-input m-0 align-middle" type="checkbox"></td>
+        <td class="align-middle">
+         {{app.code}}
+        </td>
+        <td class="align-middle">
+         {{app.name}}
+        </td>
+        <td class="align-middle">
+         {{app.dateParametrePattern}}
+        </td>
+        <td class="align-middle">
+         {{app.dateFichierPattern}}
+        </td>
+        <td class="text-center">
+          <a (click)="editApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a (click)="deleteApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+          <a (click)="usersApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Users</a>
+          <a (click)="managersApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Manages</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

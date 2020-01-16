@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {FileSystemDirectoryEntry, FileSystemFileEntry, UploadEvent} from 'ngx-file-drop';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FileSystemDirectoryEntry, FileSystemFileEntry} from 'ngx-file-drop';
 import {EventSelectChangeModel, Option, Select} from '../shared/head-selector';
-import {Application, Directory, Environment} from '../core/models';
-import {ApplicationsService, FilesService} from '../core/services';
-import {Action, ColumnsDefinition, Table} from '../shared/table/table.model';
-import {ActionClickEvent} from '../shared/table/action-click-event.model';
-import {NotifierService} from 'angular-notifier';
+import {Application, Directory, Environment, File} from '../core/models';
+import {ApplicationsService, EnvironmentsService, FilesService} from '../core/services';
 import * as FileSaver from 'file-saver';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
 import {Pageable} from "../core/models/pageable.model";
+import {ToastService} from "../core/services/toast.service";
+import {DataTableDirective} from "angular-datatables";
+import {Subject} from "rxjs";
+import {Constants} from "../shared/Constants";
 
 @Component({
   selector: 'app-files',
@@ -21,28 +22,27 @@ export class FilesComponent implements OnInit {
   private idSelectEnvironnement = 'selectEnvironnement';
   private idSelectDirectory = 'selectDirectory';
 
-  private idActionLocalDelete = 'actionLocalDelete';
-  private idActionLocalRename = 'actionLocalRename';
-  private idActionRemoteDelete = 'actionRemoteDelete';
-  private idActionRemoteDownload = 'actionRemoteDownload';
 
   selectHead: Select[] = [];
   private applications: Application[] = [];
   title = 'Fichiers';
-  tableRemote: Table;
-  tableLocal: Table;
+  localFiles: any[] = [];
+  remoteFiles: File[];
+
 
   directorySelected: Directory = null;
   applicationSelected: Application = null;
 
   constructor(private applicationsService: ApplicationsService,
               private filesService: FilesService,
-              private notifierService: NotifierService,
-              private modalService: NgbModal) {
+              private toastService: ToastService,
+              private environmentsService: EnvironmentsService,
+              private modalService: NgbModal,
+              private constants: Constants) {
   }
 
   ngOnInit() {
-    this.applicationsService.getAll(new Pageable(0,100)).subscribe(
+    this.applicationsService.getAll(new Pageable(0, 100)).subscribe(
       applications => {
         this.applications = applications.content;
         this.constructSelect();
@@ -50,6 +50,10 @@ export class FilesComponent implements OnInit {
     );
   }
 
+
+  refreshRemoteFiles() {
+    this.filesService.getAllFilesFromDirectory(this.directorySelected.id).subscribe((files) => this.remoteFiles=files);
+  }
 
   constructSelect() {
     const optionsApplication: Option[] = [];
@@ -74,7 +78,6 @@ export class FilesComponent implements OnInit {
   }
 
   updateSelectEnvironment(environnements: Environment[]) {
-
     const optionsEnvironnement: Option[] = [];
     optionsEnvironnement.push(new Option('', 'Environnements', true));
 
@@ -92,7 +95,7 @@ export class FilesComponent implements OnInit {
     if (environment != null) {
       this.filesService.getAllFromEnvironment(environment.id).subscribe(
         directories => {
-          for (const directory of directories) {
+          for (const directory of directories.content) {
             optionsDirectory.push(new Option(directory, directory.name, false));
           }
         }
@@ -106,7 +109,8 @@ export class FilesComponent implements OnInit {
 
     if (event.idSelect === this.idSelectApplication) {
       this.applicationSelected = event.value;
-      this.updateSelectEnvironment(event.value.environnements);
+      this.environmentsService.getEnvironmentFromApp(event.value.id, new Pageable(0, 100, 'name,asc'))
+        .subscribe((page) => this.updateSelectEnvironment(page.content));
       this.title = `Fichiers - ${event.value.name}`;
       this.updateSelectDirectory(null);
     }
@@ -117,78 +121,64 @@ export class FilesComponent implements OnInit {
 
     if (event.idSelect === this.idSelectDirectory) {
       this.directorySelected = event.value;
-      this.showRemoteFiles();
+      this.refreshRemoteFiles();
       if (this.directorySelected.canWrite) {
-        this.showLocalFiles();
+        // this.showLocalFile();
       }
     }
   }
+
 
   // SHOW FILE PART RIGHT
-  showRemoteFiles() {
-    this.tableRemote = new Table();
-    this.tableRemote.showHeader = false;
+  // showRemoteFiles() {
+  //   this.tableRemote = new Table();
+  //   this.tableRemote.showHeader = false;
+  //
+  //   this.tableRemote.settings.columnsDefinition.name = new ColumnsDefinition();
+  //   this.tableRemote.settings.columnsDefinition.name.title = 'Nom';
+  //   this.tableRemote.settings.columnsDefinition.name.order = 1;
+  //
+  //   this.tableRemote.settings.columnsDefinition.size = new ColumnsDefinition();
+  //   this.tableRemote.settings.columnsDefinition.size.title = 'Taille';
+  //   this.tableRemote.settings.columnsDefinition.size.order = 2;
+  //
+  //   this.tableRemote.settings.actionsDefinition.title = 'Action';
+  //   if (this.directorySelected.canWrite) {
+  //     this.tableRemote.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionRemoteDelete));
+  //   }
+  //   this.tableRemote.settings.actionsDefinition.actions.push(new Action('Télécharger', this.idActionRemoteDownload));
+  //   this.filesService.getAllFilesFromDirectory(this.directorySelected.id).subscribe(
+  //     files => {
+  //       this.tableRemote.items = files;
+  //     }
+  //   );
+  // }
 
-    this.tableRemote.settings.columnsDefinition.name = new ColumnsDefinition();
-    this.tableRemote.settings.columnsDefinition.name.title = 'Nom';
-    this.tableRemote.settings.columnsDefinition.name.order = 1;
-
-    this.tableRemote.settings.columnsDefinition.size = new ColumnsDefinition();
-    this.tableRemote.settings.columnsDefinition.size.title = 'Taille';
-    this.tableRemote.settings.columnsDefinition.size.order = 2;
-
-    this.tableRemote.settings.actionsDefinition.title = 'Action';
-    if (this.directorySelected.canWrite) {
-      this.tableRemote.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionRemoteDelete));
-    }
-    this.tableRemote.settings.actionsDefinition.actions.push(new Action('Télécharger', this.idActionRemoteDownload));
-    this.filesService.getAllFilesFromDirectory(this.directorySelected.id).subscribe(
-      files => {
-        this.tableRemote.items = files;
-      }
-    );
-  }
-
-  showLocalFiles() {
-    this.tableLocal = new Table();
-    this.tableLocal.showHeader = false;
-    this.tableLocal.showFooter = false;
-
-    this.tableLocal.settings.columnsDefinition.customName = new ColumnsDefinition();
-    this.tableLocal.settings.columnsDefinition.customName.title = 'Nom';
-    this.tableLocal.settings.columnsDefinition.customName.order = 1;
-
-    this.tableLocal.settings.columnsDefinition.size = new ColumnsDefinition();
-    this.tableLocal.settings.columnsDefinition.size.title = 'Taille';
-    this.tableLocal.settings.columnsDefinition.size.order = 2;
-
-    this.tableLocal.settings.actionsDefinition.title = 'Action';
-    this.tableLocal.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionLocalDelete));
-    this.tableLocal.settings.actionsDefinition.actions.push(new Action('Renommer', this.idActionLocalRename));
-    this.tableLocal.items = [];
-  }
 
   //// UPLOAD ////
-  public dropped(event: UploadEvent) {
-    for (const droppedFile of event.files) {
+
+  //FIXME UPLOAD EVENT
+  public dropped(event: any) {
+    console.log(event);
+    for (const droppedFile of event) {
 
       // Is it a file?
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
+        fileEntry.file((file) => {
 
-          const existFile = (this.tableLocal.items as File[]).find(
+          const existFile = (this.localFiles as any[]).find(
             thisFile => thisFile.name === file.name && thisFile.size === thisFile.size
           );
 
           if (!existFile) {
             (file as any).customName = file.name;
-            this.tableLocal.items.push(file);
+            this.localFiles.push(file);
           }
 
-          if (this.tableLocal.items.length > 0) {
-            this.tableLocal.showFooter = true;
-          }
+          // if (this.tableLocal.items.length > 0) {
+          //   this.tableLocal.showFooter = true;
+          // }
         });
       } else {
         // It was a directory (empty directories are added, otherwise only files)
@@ -197,63 +187,53 @@ export class FilesComponent implements OnInit {
     }
   }
 
-  onActionClickedLocal(event: ActionClickEvent) {
-    if (event.id === this.idActionLocalDelete) {
-      this.tableLocal.items.splice(this.tableLocal.items.indexOf(event.item), 1);
-    }
-
-    if (event.id === this.idActionLocalRename) {
-      const modalRef = this.modalService.open(ModalRenameComponent);
-      modalRef.result.then((result) => {
-        const indexItem = this.tableLocal.items.indexOf(event.item);
-        this.tableLocal.items[indexItem].customName = result;
-      }, (reason) => {
-      });
-      modalRef.componentInstance.file = event.item;
-      modalRef.componentInstance.application = this.applicationSelected;
-    }
+  deleteLocalFile(file: File) {
+    this.localFiles.splice(this.localFiles.indexOf(file), 1);
   }
 
-  onActionClickedRemote(event: ActionClickEvent) {
-    if (event.id === this.idActionRemoteDelete) {
-      this.filesService.deleteFile(event.item).subscribe(
-        () => {
-          this.tableRemote.items.splice(this.tableRemote.items.indexOf(event.item), 1);
-          this.notifierService.notify('success', 'Le fichier ' + event.item.name + ' a été supprimé du serveur distant');
-        }, error => {
-          this.notifierService.notify('error', 'Une erreur s\'est produite lors de la suppresion du fichier ' + event.item.name);
-        }
-      );
-    }
+  renameLocalFile(file: File) {
+    const modalRef = this.modalService.open(ModalRenameComponent);
+    modalRef.result.then((result) => {
+      const indexItem = this.localFiles.indexOf(file);
+      this.localFiles[indexItem].customName = result;
+    }, (reason) => {
+    });
+    modalRef.componentInstance.file = file;
+    modalRef.componentInstance.application = this.applicationSelected;
 
-    if (event.id === this.idActionRemoteDownload) {
-      this.filesService.downloadFile(event.item).subscribe(
-        arrayBuffer => {
-          const blob = new Blob([arrayBuffer], {type: 'application/octet-stream'});
-          const url = window.URL.createObjectURL(blob);
-          FileSaver.saveAs(blob, event.item.name);
-        }
-      );
-    }
+  }
+
+  deleteRemoteFile(file: File) {
+    this.filesService.deleteFile(file).subscribe(
+      () => {
+        this.remoteFiles.splice(this.remoteFiles.indexOf(file), 1);
+        this.toastService.showSuccess('Le fichier ' + file.name + ' a été supprimé du serveur distant');
+      }, error => {
+        this.toastService.showError('Une erreur s\'est produite lors de la suppresion du fichier ' + file.name);
+      }
+    );
+  }
+
+  downloadRemoteFile(file: File) {
+    this.filesService.downloadFile(file).subscribe(
+      arrayBuffer => {
+        const blob = new Blob([arrayBuffer], {type: 'application/octet-stream'});
+        const url = window.URL.createObjectURL(blob);
+        FileSaver.saveAs(blob, file.name);
+      }
+    );
   }
 
   upload() {
 
-    for (const file of this.tableLocal.items) {
+    for (const file of this.localFiles) {
       this.filesService.uploadFile(file, file.customName, this.directorySelected.id).subscribe(
         () => {
-          this.filesService.getAllFilesFromDirectory(this.directorySelected.id).subscribe(
-            files => {
-              this.tableRemote.items = files;
-              this.tableLocal.items.splice(this.tableLocal.items.indexOf(file), 1);
-              if (this.tableLocal.items.length === 0) {
-                this.tableLocal.showFooter = false;
-              }
-            }
-          );
+          this.localFiles.splice(this.localFiles.indexOf(file), 1);
+          this.refreshRemoteFiles();
         },
         (error) => {
-          this.notifierService.notify('error', 'Une erreur est survenue lors de l\'envoi d\'un fichier sur le serveur distant');
+          this.toastService.showError('Une erreur est survenue lors de l\'envoi d\'un fichier sur le serveur distant');
         }
       );
     }

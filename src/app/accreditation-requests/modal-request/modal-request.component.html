@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Demande d'accréditation</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="newForm.form.valid && sendRequest()" #newForm="ngForm">
+    <div class="mb-2">
+      <label class="form-label" for="application">Nom de l'application</label>
+      <input id="application"  name="application" type="text" class="form-control" [class.is-invalid]="searchFailed"
+             [resultFormatter]="formatter" [inputFormatter]="formatter" [(ngModel)]="model" [ngbTypeahead]="search"
+             placeholder="nom de l'application"/>
+      <span *ngIf="searching">recherche en cours...</span>
+      <div class="invalid-feedback" *ngIf="searchFailed">Désolé, les suggestions ne peuvent être chargées.</div>
+    </div>
+    <div class="mb-2">
+      <label class="form-label">Droits</label>
+      <div class="form-selectgroup form-selectgroup-pills mr-1">
+        <label class="form-selectgroup-item">
+          <input type="checkbox"  id="wantManage"  name="wantManage" [(ngModel)]="request.wantManage" class="form-selectgroup-input" checked>
+          <span class="form-selectgroup-box">Droit de gestion</span>
+        </label>
+      </div>
+      <div class="form-selectgroup form-selectgroup-pills">
+        <label class="form-selectgroup-item">
+          <input type="checkbox"  id="wantUse"  name="wantUse" [(ngModel)]="request.wantUse" class="form-selectgroup-input" checked>
+          <span class="form-selectgroup-box">Droit de lancement</span>
+        </label>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+  <button type="button" class="btn btn-outline-dark" (click)="newForm.form.valid && sendRequest()">Envoyer</button>
+</div>

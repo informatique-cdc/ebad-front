@@ -1,10 +1,24 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">{{title}}</h1>
-  <div class="btn-toolbar mb-2 mb-md-0">
-    <form class="form-inline">
-        <select [name]="select.id" *ngFor="let select of selects; let indexSelect = index" (change)="onSelect($event, indexSelect)" id="{{select.id}}" class="custom-select custom-select-sm ml-sm-2">
-          <option *ngFor="let option of select.options; let indexOption = index" [value]="indexOption">{{option.label}}</option><!-- use track index -->
-        </select>
-    </form>
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      <div id="tableTitle" *ngIf="preTitle" class="page-pretitle">
+        {{preTitle}}
+      </div>
+      <h2 class="page-title">
+        {{title}}
+      </h2>
+    </div>
+    <div class="col-auto ml-auto d-print-none">
+      <div class="d-flex">
+        <form class="form-inline">
+          <select [name]="select.id" *ngFor="let select of selects; let indexSelect = index"
+                  (change)="onSelect($event, indexSelect)" id="{{select.id}}" class="form-select  mr-3">
+            <option *ngFor="let option of select.options; let indexOption = index"
+                    [value]="indexOption">{{option.label}}</option>
+          </select>
+        </form>
+        <ng-content select="[header]"></ng-content>
+      </div>
+    </div>
   </div>
 </div>

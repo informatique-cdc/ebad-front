@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EventSelectChangeModel, Option, Select} from '../head-selector';
 import {Application, Environment} from '../../core/models';
-import {ApplicationsService} from '../../core/services';
+import {ApplicationsService, EnvironmentsService} from '../../core/services';
 import {Pageable} from "../../core/models/pageable.model";
 
 @Component({
@@ -17,19 +17,19 @@ export class EnvAppHeadSelectorComponent implements OnInit {
   private applications: Application[] = [];
 
   private environmentSelected: Environment;
-  customTitle;
 
   @Input() title;
+  @Input() preTitle;
   @Input() showEnvironment = true;
   @Input() isModarable = false;
   @Output() environmentChanged = new EventEmitter<Environment>();
   @Output() applicationChanged = new EventEmitter<Application>();
 
-  constructor(private applicationsService: ApplicationsService) {
+  constructor(private applicationsService: ApplicationsService,
+              private environmentsService: EnvironmentsService) {
   }
 
   ngOnInit() {
-    this.customTitle = this.title;
     if (!this.isModarable) {
       this.applicationsService.getAll(new Pageable(0,100)).subscribe(
         applications => {
@@ -83,9 +83,11 @@ export class EnvAppHeadSelectorComponent implements OnInit {
   showChanged(event: EventSelectChangeModel) {
     if (event.idSelect === this.idSelectApplication) {
       if (this.showEnvironment) {
-        this.updateSelectEnvironment(event.value.environnements);
+
+        this.environmentsService.getEnvironmentFromApp(event.value.id, new Pageable(0,100,'name,asc'))
+          .subscribe((page) => this.updateSelectEnvironment(page.content));
       }
-      this.customTitle = `${this.title} - ${event.value.name}`;
+
       this.applicationChanged.emit(event.value);
     }
 
