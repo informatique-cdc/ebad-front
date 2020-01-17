@@ -4,19 +4,19 @@ context('Gestion Application', () => {
   });
 
   it('Ajouter une application', () => {
-    cy.login({login: 'dtrouillet', password: 'admin'})
+    cy.login({login: 'admin2', password: 'admin'})
       .addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
     cy.get('p.notifier__notification-message').should('have.text', 'L\'application ApplicationTest1 a bien été ajoutée');
   });
 
   it('Supprimer une application', () => {
-    cy.login({login: 'dtrouillet', password: 'admin'})
+    cy.login({login: 'admin2', password: 'admin'})
       .deleteApplication({codeAppli: 'AT1'});
     cy.get('p.notifier__notification-message').should('have.text', 'L\'application a été supprimée');
   });
 
   it('Lister les applications', () => {
-    cy.login({login: 'dtrouillet', password: 'admin'});
+    cy.login({login: 'admin2', password: 'admin'});
     cy.addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
     cy.addApplication({codeAppli: 'AT2', name: 'ApplicationTest2', parmPattern: 'ddMMyyyy', filePattern: 'ddMMyyyy'});
 
@@ -44,7 +44,7 @@ context('Gestion Application', () => {
   });
 
   it('Modifier une application', () => {
-    cy.login({login: 'dtrouillet', password: 'admin'})
+    cy.login({login: 'admin2', password: 'admin'})
       .addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
     cy.updateApplication({
         codeAppliToUpdate: 'AT1',

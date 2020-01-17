@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "node server.js",
     "start-dev": "ng serve --proxy-config proxy.conf.json",
+    "start:coverage": "ng serve --proxy-config proxy-cov.conf.json",
     "build": "ng build --aot --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -57,6 +58,10 @@
     "@angular/cli": "~8.3.22",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
+    "@briebug/cypress-schematic": "^3.2.0",
+    "@cypress/code-coverage": "^1.10.4",
+    "@cypress/webpack-preprocessor": "latest",
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/datatables.net": "^1.10.18",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
@@ -64,6 +69,8 @@
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.1",
     "cypress": "^3.7.0",
+    "istanbul-instrumenter-loader": "^3.0.1",
+    "istanbul-lib-coverage": "^3.0.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.1.1",
@@ -71,9 +78,16 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.4.0",
-    "ts-node": "~7.0.0",
+    "ngx-build-plus": "^9.0.2",
+    "nyc": "^15.0.0",
+    "source-map-support": "^0.5.16",
+    "ts-loader": "latest",
+    "ts-node": "^7.0.1",
     "tslint": "~5.11.0",
     "typescript": "~3.5.3"
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true
   }
 }
