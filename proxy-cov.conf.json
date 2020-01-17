@@ -2,6 +2,6 @@
   "/ebad":
   {
     "target": "https://ebad.herokuapp.com/ebad",
-    "secure": true
+    "secure": false
   }
 }
