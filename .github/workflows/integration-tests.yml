@@ -16,6 +16,7 @@ jobs:
           start: npm run start:coverage
           wait-on: 'http://localhost:4200'
       - name: SonarCloud Scan
+        if: always()
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
