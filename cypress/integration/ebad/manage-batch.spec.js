@@ -1,4 +1,5 @@
 context('Gestion Batch', () => {
+  const loginAdmin = 'admin2';
   beforeEach(() => {
     cy.visit('http://localhost:4200')
   });
@@ -9,11 +10,11 @@ context('Gestion Batch', () => {
 
   before(() => {
     cy.visit('http://localhost:4200');
-    cy.login({login: 'dtrouillet', password: 'admin'})
+    cy.login({login: loginAdmin, password: 'admin'})
       .addApplication({codeAppli: 'AE1', name: 'ApplicationBatch1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'})
       .addManagerToApplication({codeAppli: 'AE1', login: 'dtrouillet'})
       .logout()
-      .login({login: 'dtrouillet', password: 'admin'})
+      .login({login: loginAdmin, password: 'admin'})
       .addNorme({name: 'Linux', interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.in'})
       .addEnvironnement({
         applicationName: 'ApplicationBatch1',
@@ -38,13 +39,13 @@ context('Gestion Batch', () => {
 
   after(() => {
     cy.visit('http://localhost:4200');
-    cy.login({login: 'dtrouillet', password: 'admin'})
+    cy.login({login: loginAdmin, password: 'admin'})
       .deleteApplication({codeAppli: 'AE1'})
       .deleteNorme({name: 'Linux'});
   });
 
   xit('Ajouter un batch', () => {
-    cy.login({login: 'dtrouillet', password: 'admin'})
+    cy.login({login: loginAdmin, password: 'admin'})
       .addBatch({
         applicationName: 'ApplicationBatch1',
         name: 'batch1',
@@ -56,13 +57,13 @@ context('Gestion Batch', () => {
   });
 
   xit('Supprimer une application', () => {
-    cy.login({login: 'dtrouillet', password: 'admin'})
+    cy.login({login: loginAdmin, password: 'admin'})
       .deleteApplication({codeAppli: 'AT1'});
     cy.get('p.notifier__notification-message').should('have.text', 'L\'application a été supprimée');
   });
 
   xit('Lister les applications', () => {
-    cy.login({login: 'dtrouillet', password: 'admin'});
+    cy.login({login: loginAdmin, password: 'admin'});
     cy.addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
     cy.addApplication({codeAppli: 'AT2', name: 'ApplicationTest2', parmPattern: 'ddMMyyyy', filePattern: 'ddMMyyyy'});
 
@@ -90,7 +91,7 @@ context('Gestion Batch', () => {
   });
 
   xit('Modifier une application', () => {
-    cy.login({login: 'dtrouillet', password: 'admin'})
+    cy.login({login: loginAdmin, password: 'admin'})
       .addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
     cy.updateApplication({
       codeAppliToUpdate: 'AT1',

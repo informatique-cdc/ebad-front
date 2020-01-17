@@ -63,7 +63,7 @@
           </li>
         </ul>
       </li>
-      <li class="sidebar-nav-item" *hasRole="'ROLE_ADMIN'">
+      <li id="administrationMenu" class="sidebar-nav-item" *hasRole="'ROLE_ADMIN'">
         <ebad-menu-item [label]="'MENU.ADMINISTRATION.TITLE' | translate" icon="settings"
                         isParent="true" [isOpen]="navbarAdministrateOpen"
                         (click)="toggleAdministrate()"></ebad-menu-item>
@@ -72,7 +72,7 @@
             <ebad-menu-item [label]="'MENU.ADMINISTRATION.USERS' | translate" icon="users"
                             link="/admin/users"></ebad-menu-item>
           </li>
-          <li class="sidebar-nav-item">
+          <li id="applicationMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.ADMINISTRATION.APPLICATIONS' | translate" icon="layers"
                             link="/admin/applications"></ebad-menu-item>
           </li>

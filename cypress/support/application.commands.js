@@ -1,5 +1,6 @@
 /////////// APPLICATION ///////////////
 Cypress.Commands.add("addApplication", ({codeAppli, name, parmPattern, filePattern}) => {
+  cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
   cy.get('#globalAction').click();
   cy.get('#code').type(codeAppli);
@@ -10,6 +11,7 @@ Cypress.Commands.add("addApplication", ({codeAppli, name, parmPattern, filePatte
 });
 
 Cypress.Commands.add("deleteApplication", ({codeAppli}) => {
+  cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
   cy.wait(1500);
   cy.get('tr').contains('td > span', codeAppli).parent('td').parent('tr').within(() => {
@@ -19,6 +21,7 @@ Cypress.Commands.add("deleteApplication", ({codeAppli}) => {
 });
 
 Cypress.Commands.add("updateApplication", ({codeAppliToUpdate, codeAppli, name, parmPattern, filePattern}) => {
+  cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
   cy.wait(1500);
   cy.get('tr').contains('td > span', codeAppliToUpdate).parent('td').parent('tr').within(() => {
@@ -40,6 +43,7 @@ Cypress.Commands.add("updateApplication", ({codeAppliToUpdate, codeAppli, name, 
 });
 
 Cypress.Commands.add("addUserToApplication",({codeAppli, login}) => {
+  cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
   cy.get('tr').contains('td > span', codeAppli).parent('td').parent('tr').within(() => {
     cy.get('button[name="actionUtilisateurs"]').click();
@@ -51,6 +55,7 @@ Cypress.Commands.add("addUserToApplication",({codeAppli, login}) => {
 });
 
 Cypress.Commands.add("addManagerToApplication",({codeAppli, login}) => {
+  cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
   cy.get('tr').contains('td > span', codeAppli).parent('td').parent('tr').within(() => {
     cy.get('button[name="actionGestionnaires"]').click();
