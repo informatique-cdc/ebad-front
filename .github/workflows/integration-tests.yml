@@ -14,3 +14,14 @@ jobs:
         with:
           build: npm run build
           start: npm run start:coverage
+          wait-on: 'http://localhost:4200'
+  sonarCloudTrigger:
+      name: SonarCloud Trigger
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@master
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
