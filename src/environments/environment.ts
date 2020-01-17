@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:10300/ebad',
+  apiUrl: '/ebad',
   jwt: true,
   atHash: 'at_hash',
   issuer: '',
