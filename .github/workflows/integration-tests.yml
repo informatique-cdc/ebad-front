@@ -4,6 +4,7 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
+      - run: sudo apt-get install xvfb
       - name: Checkout
         uses: actions/checkout@v1
       # Install NPM dependencies, cache them correctly
