@@ -16,7 +16,6 @@ import {SecurityModule} from "./security/security.module";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {HttpClient} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import { AnonymousComponent } from './anonymous/anonymous.component';
 import {AccreditationRequestModule} from "./accreditation-requests/accreditation-request.module";
 import {AngularSvgIconModule} from "angular-svg-icon";
 import {IconLogOut} from "angular-feather";
@@ -28,7 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 registerLocaleData(localeFr);
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent, HeaderComponent, AsideComponent, AnonymousComponent],
+  declarations: [AppComponent, FooterComponent, HeaderComponent, AsideComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,

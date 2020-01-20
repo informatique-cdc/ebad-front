@@ -11,8 +11,7 @@ import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-manage-directories',
-  templateUrl: './manage-directories.component.html',
-  styleUrls: ['./manage-directories.component.scss']
+  templateUrl: './manage-directories.component.html'
 })
 export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;

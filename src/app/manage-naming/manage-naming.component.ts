@@ -12,8 +12,7 @@ import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-manage-naming',
-  templateUrl: './manage-naming.component.html',
-  styleUrls: ['./manage-naming.component.scss']
+  templateUrl: './manage-naming.component.html'
 })
 export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   applicationSelected: Application;

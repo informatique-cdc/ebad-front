@@ -14,8 +14,7 @@ import {Constants} from "../shared/Constants";
 
 @Component({
   selector: 'app-files',
-  templateUrl: './files.component.html',
-  styleUrls: ['./files.component.scss']
+  templateUrl: './files.component.html'
 })
 export class FilesComponent implements OnInit {
   private idSelectApplication = 'selectApplication';

@@ -14,8 +14,7 @@ import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-admin-users',
-  templateUrl: './admin-users.component.html',
-  styleUrls: ['./admin-users.component.scss']
+  templateUrl: './admin-users.component.html'
 })
 export class AdminUsersComponent implements OnInit, AfterViewInit {
   @ViewChild('input', { static: true }) input: ElementRef;
