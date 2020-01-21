@@ -1,22 +1,25 @@
 context('Gestion Application', () => {
-  beforeEach(() => {
+  beforeEach(function () {
     cy.visit('http://localhost:4200')
+    cy.fixture('login.json').then((login) => {
+      this.login = login;
+    })
   });
 
-  it('Ajouter une application', () => {
-    cy.login({login: 'admin2', password: 'admin'})
+  it('Ajouter une application', function () {
+    cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
     cy.get('.toast-body').should('have.text', '\nL\'application ApplicationTest1 a bien été ajoutée\n');
   });
 
-  it('Supprimer une application', () => {
-    cy.login({login: 'admin2', password: 'admin'})
+  it('Supprimer une application', function () {
+    cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .deleteApplication({codeAppli: 'AT1', name: 'ApplicationTest1'});
     cy.get('.toast-body').should('have.text', '\nL\'application a été supprimée\n');
   });
 
-  it('Lister les applications', () => {
-    cy.login({login: 'admin2', password: 'admin'});
+  it('Lister les applications', function () {
+    cy.login({login: this.login.admin.login, password: this.login.admin.password});
     cy.addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
     cy.addApplication({codeAppli: 'AT2', name: 'ApplicationTest2', parmPattern: 'ddMMyyyy', filePattern: 'ddMMyyyy'});
 
@@ -46,8 +49,8 @@ context('Gestion Application', () => {
     cy.deleteApplication({codeAppli: 'AT2', name: 'ApplicationTest2'});
   });
 
-  it('Modifier une application', () => {
-    cy.login({login: 'admin2', password: 'admin'})
+  it('Modifier une application', function () {
+    cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
     cy.updateApplication({
       codeAppliToUpdate: 'AT1',
