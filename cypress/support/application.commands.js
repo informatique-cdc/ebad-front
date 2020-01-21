@@ -2,7 +2,7 @@
 Cypress.Commands.add("addApplication", ({codeAppli, name, parmPattern, filePattern}) => {
   cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
-  cy.get('#globalAction').click();
+  cy.get('#addApplication').click();
   cy.get('#code').type(codeAppli);
   cy.get('#name').type(name);
   cy.get("#dateParametrePattern").type(parmPattern);
@@ -10,23 +10,22 @@ Cypress.Commands.add("addApplication", ({codeAppli, name, parmPattern, filePatte
   cy.get('form').submit();
 });
 
-Cypress.Commands.add("deleteApplication", ({codeAppli}) => {
+Cypress.Commands.add("deleteApplication", ({codeAppli, name}) => {
   cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
-  cy.wait(1500);
-  cy.get('tr').contains('td > span', codeAppli).parent('td').parent('tr').within(() => {
-    cy.get('button[name="actionDelete"]').click();
-  });
+  cy.get('input[type="search"]').clear();
+  cy.get('input[type="search"]').type(name);
+  cy.get('#actionDelete-'+codeAppli).click();
   cy.get('#deleteBtn').click();
 });
 
-Cypress.Commands.add("updateApplication", ({codeAppliToUpdate, codeAppli, name, parmPattern, filePattern}) => {
+Cypress.Commands.add("updateApplication", ({codeAppliToUpdate,nameToUpdate, codeAppli, name, parmPattern, filePattern}) => {
   cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
-  cy.wait(1500);
-  cy.get('tr').contains('td > span', codeAppliToUpdate).parent('td').parent('tr').within(() => {
-    cy.get('button[name="actionModify"]').click();
-  });
+  cy.get('input[type="search"]').clear();
+  cy.get('input[type="search"]').type(nameToUpdate);
+  cy.get('#actionUpdate-'+codeAppliToUpdate).click();
+
   if (codeAppli) {
     cy.get('#code').clear().type(codeAppli);
   }

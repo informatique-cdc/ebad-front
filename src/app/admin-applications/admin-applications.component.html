@@ -11,7 +11,7 @@
     <!-- Page title actions -->
     <div class="col-auto ml-auto d-print-none">
       <div class="d-flex">
-        <a *ngIf="addApplicationEnabled" href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary mr-3" (click)="onClickAddApplication()">
+        <a *ngIf="addApplicationEnabled" href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary mr-3" (click)="onClickAddApplication()" id="addApplication">
           <ebad-icon name="plus"></ebad-icon>
           Nouvelle application
         </a>
@@ -27,10 +27,9 @@
 
 <div class="card">
   <div class="table-responsive">
-    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+    <table id="listApplications" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
-        <th class="w-1p" id="selectbox"><input class="form-check-input m-0 align-middle" type="checkbox"></th>
         <th id="appCode">
           Code
         </th>
@@ -49,7 +48,6 @@
       </thead>
       <tbody>
       <tr *ngFor="let app of applications">
-        <td><input class="form-check-input m-0 align-middle" type="checkbox"></td>
         <td class="align-middle">
          {{app.code}}
         </td>
@@ -63,10 +61,10 @@
          {{app.dateFichierPattern}}
         </td>
         <td class="text-center">
-          <a (click)="editApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
-          <a (click)="deleteApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
-          <a (click)="usersApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Users</a>
-          <a (click)="managersApplication(app)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Manages</a>
+          <a (click)="editApplication(app)" id="actionUpdate-{{app.code}}" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a (click)="deleteApplication(app)" id="actionDelete-{{app.code}}" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+          <a (click)="usersApplication(app)" id="actionUser-{{app.code}}" href="javascript:void(0)" class="btn btn-secondary btn-sm">Users</a>
+          <a (click)="managersApplication(app)" id="actionManager-{{app.code}}" href="javascript:void(0)" class="btn btn-secondary btn-sm">Manages</a>
         </td>
       </tr>
       </tbody>
