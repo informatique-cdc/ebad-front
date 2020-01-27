@@ -68,7 +68,7 @@
     "@types/jquery": "^3.3.31",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.1",
-    "cypress": "^3.8.2",
+    "cypress": "^3.8.3",
     "istanbul-instrumenter-loader": "^3.0.1",
     "istanbul-lib-coverage": "^3.0.0",
     "jasmine-core": "~2.99.1",

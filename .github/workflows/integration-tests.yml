@@ -2,13 +2,13 @@ name: End-to-end tests
 on: [push]
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
     steps:
       - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - name: Checkout
         uses: actions/checkout@v1
       - name: Cypress run
-        uses: cypress-io/github-action@master
+        uses: cypress-io/github-action@v1
         with:
           start: npm run start:coverage
           wait-on: 'http://localhost:4200'
