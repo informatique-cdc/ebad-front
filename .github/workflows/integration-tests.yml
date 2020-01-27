@@ -7,10 +7,8 @@ jobs:
       - run: sudo apt-get install xvfb
       - name: Checkout
         uses: actions/checkout@v1
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
       - name: Cypress run
-        uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@master
         with:
           start: npm run start:coverage
           wait-on: 'http://localhost:4200'
