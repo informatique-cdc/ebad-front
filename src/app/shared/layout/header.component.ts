@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {Notification, NotificationsService, User, UserService} from '../../core';
 import {Router} from '@angular/router';

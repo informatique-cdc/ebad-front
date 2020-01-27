@@ -1,7 +1,8 @@
 /////////// NORME ///////////////
 Cypress.Commands.add("addNorme", ({name, interpreteur, shellFolder, fileDate}) => {
-  cy.get('#normeMenu').click();
-  cy.get('#globalAction').click();
+  cy.get('#administrationMenu').click();
+  cy.get('#normMenu').click();
+  cy.get('#addNormAction').click();
   cy.get('#name').type(name);
   cy.get('#interpreteur').type(interpreteur);
   cy.get("#shellFolder").type(shellFolder);
@@ -10,8 +11,8 @@ Cypress.Commands.add("addNorme", ({name, interpreteur, shellFolder, fileDate}) =
 });
 
 Cypress.Commands.add("deleteNorme", ({name}) => {
-  cy.get('#normeMenu').click();
-  cy.wait(1500);
+  cy.get('#administrationMenu').click();
+  cy.get('#normMenu').click();
   cy.get('tr').contains('td > span', name).parent('td').parent('tr').within(() => {
     cy.get('button[name="actionDelete"]').click();
   });
@@ -19,8 +20,8 @@ Cypress.Commands.add("deleteNorme", ({name}) => {
 });
 
 Cypress.Commands.add("updateNorme", ({nameToUpdate, name, interpreteur, shellFolder, fileDate}) => {
-  cy.get('#normeMenu').click();
-  cy.wait(1500);
+  cy.get('#administrationMenu').click();
+  cy.get('#normMenu').click();
   cy.get('tr').contains('td > span', nameToUpdate).parent('td').parent('tr').within(() => {
     cy.get('button[name="actionModify"]').click();
   });

@@ -11,7 +11,7 @@ context('Gestion Environnement', () => {
     cy.visit('http://localhost:4200');
      cy.login({login: 'dtrouillet', password: 'admin'})
       .addApplication({codeAppli: 'AE1', name: 'ApplicationEnv1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'})
-      .addManagerToApplication({codeAppli: 'AE1', login: 'dtrouillet'})
+      .addManagerToApplication({codeAppli: 'AE1', nameAppli: 'ApplicationEnv1', firstname: 'admin' login: 'admin'})
       .addNorme({name: 'Linux', interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.in'})
       .logout();
   });

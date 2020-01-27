@@ -61,7 +61,7 @@
             </svg>
             Profile
           </a>
-          <a class="dropdown-item" href="#">
+          <a id="userSettingsMenu" class="dropdown-item" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                  class="icon dropdown-icon">
@@ -101,7 +101,7 @@
             </svg>
             Need help?
           </a>
-          <a class="dropdown-item" (click)="logout()">
+          <a id="logoutHeader" class="dropdown-item" (click)="logout()">
             <i-log-out class="icon dropdown-icon"></i-log-out>
             {{'HEADER.LOGOUT' | translate}}
           </a>

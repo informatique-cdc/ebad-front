@@ -1,15 +1,15 @@
 context('Gestion Application', () => {
   beforeEach(function () {
-    cy.visit('http://localhost:4200')
+    cy.visit('http://localhost:4200');
     cy.fixture('login.json').then((login) => {
       this.login = login;
-    })
+    });
   });
 
   it('Ajouter une application', function () {
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
-    cy.get('.toast-body').should('have.text', '\nL\'application ApplicationTest1 a bien été ajoutée\n');
+    cy.get('.toast-body').should('contains.text', 'L\'application ApplicationTest1 a bien été ajoutée');
   });
 
   it('Supprimer une application', function () {

@@ -1,8 +1,9 @@
 /////////// ENVIRONNEMENT ///////////////
 Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, login, homePath, prefix, norme}) => {
-  cy.get('#environnementMenu').click();
+  cy.get('#managementMenu').click();
+  cy.get('#environmentMenu').click();
   cy.get("#selectApplication").select(applicationName);
-  cy.get('#globalAction').click();
+  cy.get('#addEnvAction').click();
   cy.get('#name').type(name);
   cy.get('#host').type(host);
   cy.get('#login').type(login);
@@ -13,7 +14,8 @@ Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, login, h
 });
 
 Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName}) => {
-  cy.get('#environnementMenu').click();
+  cy.get('#managementMenu').click();
+  cy.get('#environmentMenu').click();
   cy.get("#selectApplication").select(applicationName);
 
   cy.wait(1500);
@@ -27,7 +29,8 @@ Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName
 Cypress.Commands.add("updateEnvironnement", ({
                                                applicationName, environnementNameToUpdate, name, host, login, homePath, prefix, norme
                                              }) => {
-  cy.get('#environnementMenu').click();
+  cy.get('#managementMenu').click();
+  cy.get('#environmentMenu').click();
   cy.get("#selectApplication").select(applicationName);
 
   cy.wait(1500);

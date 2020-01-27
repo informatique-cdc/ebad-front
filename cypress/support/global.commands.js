@@ -34,5 +34,6 @@ Cypress.Commands.add("login", ({login, password}) => {
 
 Cypress.Commands.add("logout", () => {
   // cy.visit('/#/login');
-  cy.get('#logout').click();
+  cy.get('#settingsMenu').click();
+  cy.get('#logoutHeader').click();
 });
