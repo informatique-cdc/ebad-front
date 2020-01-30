@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EventSelectChangeModel, Option, Select} from '../head-selector';
 import {Application, Environment} from '../../core/models';
-import {ApplicationsService, EnvironmentsService} from '../../core/services';
+import {ApplicationsService, EnvironmentsService, SelectChoicesService} from '../../core/services';
 import {Pageable} from "../../core/models/pageable.model";
 
 @Component({
@@ -26,19 +26,20 @@ export class EnvAppHeadSelectorComponent implements OnInit {
   @Output() applicationChanged = new EventEmitter<Application>();
 
   constructor(private applicationsService: ApplicationsService,
-              private environmentsService: EnvironmentsService) {
+              private environmentsService: EnvironmentsService,
+              private selectChoicesService: SelectChoicesService) {
   }
 
   ngOnInit() {
     if (!this.isModarable) {
-      this.applicationsService.getAll(new Pageable(0,100)).subscribe(
+      this.applicationsService.getAll(new Pageable(0, 100)).subscribe(
         applications => {
           this.applications = applications.content;
           this.constructSelect();
         }
       );
     } else {
-      this.applicationsService.getAllModerable(new Pageable(0,100)).subscribe(
+      this.applicationsService.getAllModerable(new Pageable(0, 100)).subscribe(
         applications => {
           this.applications = applications.content;
           this.constructSelect();
@@ -59,39 +60,66 @@ export class EnvAppHeadSelectorComponent implements OnInit {
       this.selectHead.push(selectEnvironnement);
     }
 
-    optionsApplication.push(new Option('', 'Application', true));
-    for (const app of this.applications) {
-      optionsApplication.push(new Option(app, app.name, false));
+    const appIdSelected = this.selectChoicesService.getSelectedApp();
+    if (appIdSelected) {
+      optionsApplication.push(new Option('', 'Application', false));
+    } else {
+      optionsApplication.push(new Option('', 'Application', true));
+      optionsEnvironnement.push(new Option('', 'Environnements', true));
     }
 
-    optionsEnvironnement.push(new Option('', 'Environnements', true));
+    for (const app of this.applications) {
+      let selected = false;
+      if (appIdSelected == app.id + '') {
+        selected = true;
+        this.showChanged(new EventSelectChangeModel(this.idSelectApplication, app), true);
+      }
+      optionsApplication.push(new Option(app, app.name, selected));
+    }
   }
 
   updateSelectEnvironment(environnements: Environment[]) {
     this.environmentSelected = null;
 
     const optionsEnvironnement: Option[] = [];
-    optionsEnvironnement.push(new Option('', 'Environnements', true));
 
+    const envIdSelected = this.selectChoicesService.getSelectedEnv();
+    if(envIdSelected){
+      optionsEnvironnement.push(new Option('', 'Environnements', false));
+    }else {
+      optionsEnvironnement.push(new Option('', 'Environnements', true));
+    }
     for (const env of environnements) {
-      optionsEnvironnement.push(new Option(env, env.name, false));
+      let select = false;
+      if (envIdSelected == env.id + '') {
+        select = true;
+        this.showChanged(new EventSelectChangeModel(this.idSelectEnvironnement, env), true);
+      }
+      optionsEnvironnement.push(new Option(env, env.name, select));
     }
 
     this.selectHead[1].options = optionsEnvironnement;
   }
 
-  showChanged(event: EventSelectChangeModel) {
+  showChanged(event: EventSelectChangeModel, init: boolean = false) {
+    if(!init){
+      this.selectChoicesService.selectEnv(null);
+      //this.selectChoicesService.selectApp(null);
+    }
+
     if (event.idSelect === this.idSelectApplication) {
       if (this.showEnvironment) {
 
-        this.environmentsService.getEnvironmentFromApp(event.value.id, new Pageable(0,100,'name,asc'))
+        this.environmentsService.getEnvironmentFromApp(event.value.id, new Pageable(0, 100, 'name,asc'))
           .subscribe((page) => this.updateSelectEnvironment(page.content));
       }
 
+      this.selectChoicesService.selectApp(event.value as Application);
       this.applicationChanged.emit(event.value);
     }
 
     if (event.idSelect === this.idSelectEnvironnement) {
+      this.selectChoicesService.selectEnv(event.value as Environment);
       this.environmentChanged.emit(event.value);
     }
   }

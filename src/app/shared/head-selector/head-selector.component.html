@@ -14,7 +14,7 @@
           <select [name]="select.id" *ngFor="let select of selects; let indexSelect = index"
                   (change)="onSelect($event, indexSelect)" id="{{select.id}}" class="form-select  mr-3">
             <option *ngFor="let option of select.options; let indexOption = index"
-                    [value]="indexOption">{{option.label}}</option>
+                    [value]="indexOption" [selected]="option.selected">{{option.label}}</option>
           </select>
         </form>
         <ng-content select="[header]"></ng-content>
