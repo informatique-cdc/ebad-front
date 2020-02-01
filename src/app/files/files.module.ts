@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FilesComponent } from './files.component';
+import {NgModule} from '@angular/core';
+import {FilesComponent} from './files.component';
 import {FilesRoutingModule} from './files-routing.module';
 import {SharedModule} from '../shared';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';

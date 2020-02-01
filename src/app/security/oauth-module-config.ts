@@ -1,4 +1,4 @@
-import { OAuthModuleConfig } from 'angular-oauth2-oidc';
+import {OAuthModuleConfig} from 'angular-oauth2-oidc';
 
 export const oauthModuleConfig: OAuthModuleConfig = {
   resourceServer: {

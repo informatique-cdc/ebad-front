@@ -1,11 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {
-  ApexChart,
-  ApexFill,
-  ApexLegend,
-  ApexStroke,
-  ApexXAxis, ChartComponent
-} from "ng-apexcharts";
+import {ApexChart, ApexFill, ApexLegend, ApexStroke, ApexXAxis, ChartComponent} from "ng-apexcharts";
 import {StatisticsService} from "../core/services";
 import {Statistics} from "../core/models";
 

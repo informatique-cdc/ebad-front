@@ -1,4 +1,3 @@
-import {Environment} from './environment.model';
 import {Audit} from './audit.model';
 import {User} from "./user.model";
 import {Application} from "./application.model";

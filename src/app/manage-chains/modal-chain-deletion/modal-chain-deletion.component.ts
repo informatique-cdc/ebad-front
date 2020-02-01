@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { Chain} from '../../core/models';
+import {Chain} from '../../core/models';
 
 @Component({
   selector: 'app-modal-chain-deletion',

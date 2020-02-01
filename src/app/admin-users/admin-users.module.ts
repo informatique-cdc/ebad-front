@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
 import {AdminUsersRoutingModule} from './admin-users-routing.module';
 import {SharedModule} from '../shared';
 import {AdminUsersComponent} from './admin-users.component';

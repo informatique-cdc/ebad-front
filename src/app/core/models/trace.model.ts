@@ -1,6 +1,5 @@
 import {Batch} from './batch.model';
 import {Environment} from './environment.model';
-import {User} from './user.model';
 
 export interface Trace {
   id: number;

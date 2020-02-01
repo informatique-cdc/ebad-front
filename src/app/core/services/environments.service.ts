@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
-import { Environment, InfoEnvironment} from '../models';
+import {Environment, InfoEnvironment} from '../models';
 import {Pageable} from "../models/pageable.model";
 import {Page} from "../models/page.model";
 

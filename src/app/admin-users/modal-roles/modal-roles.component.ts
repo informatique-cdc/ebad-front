@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Roles, User} from '../../core/models';
+import {Roles} from '../../core/models';
 import {UsersService} from '../../core/services';
 
 @Component({

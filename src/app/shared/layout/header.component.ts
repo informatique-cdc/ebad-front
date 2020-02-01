@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {Notification, NotificationsService, User, UserService} from '../../core';
 import {Router} from '@angular/router';
 import {TranslateService} from "@ngx-translate/core";
-import {interval, Observable, Subscription} from "rxjs";
+import {interval, Subscription} from "rxjs";
 
 @Component({
   selector: '[ebad-header]',

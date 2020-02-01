@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FileKind} from '../../core/models/file-kind.model';
-import {FileKindsService} from '../../core/services/file-kinds.service';
 import {Application, CreationAccreditationRequest} from '../../core/models';
-import {DatePipe} from '@angular/common';
 import {AccreditationRequestsService, ApplicationsService} from "../../core/services";
 import {ToastService} from "../../core/services/toast.service";
 import {Observable, of} from "rxjs";

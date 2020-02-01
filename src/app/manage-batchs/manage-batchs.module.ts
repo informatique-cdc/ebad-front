@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { ManageBatchsComponent } from './manage-batchs.component';
+import {NgModule} from '@angular/core';
+import {ManageBatchsComponent} from './manage-batchs.component';
 import {SharedModule} from '../shared';
 import {ManageBatchsRoutingModule} from './manage-batchs-routing.module';
 import {ModalBatchComponent} from './modal-batch/modal-batch.component';

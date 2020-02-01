@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FileSystemDirectoryEntry, FileSystemFileEntry} from 'ngx-file-drop';
 import {EventSelectChangeModel, Option, Select} from '../shared/head-selector';
 import {Application, Directory, Environment, File} from '../core/models';
@@ -8,8 +8,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
 import {Pageable} from "../core/models/pageable.model";
 import {ToastService} from "../core/services/toast.service";
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
 import {Constants} from "../shared/Constants";
 
 @Component({

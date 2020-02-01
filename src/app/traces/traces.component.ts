@@ -2,7 +2,6 @@ import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/c
 import {Environment, Trace} from '../core/models';
 import {TracesService} from '../core/services/traces.service';
 import {Constants} from '../shared/Constants';
-import {DatePipe} from '@angular/common';
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 

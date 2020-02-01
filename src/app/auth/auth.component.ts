@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 
-import {ApiService, Errors, UserService} from '../core';
+import {ApiService, UserService} from '../core';
 import {OauthService} from "../security/oauth.service";
 import {environment} from "../../environments/environment";
 
