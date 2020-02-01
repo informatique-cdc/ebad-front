@@ -36,7 +36,7 @@ export class AuthComponent implements OnInit {
   ngOnInit() {
     this.apiService.get('/csrf').subscribe((result) => {
       console.log('csrf');
-    });
+    }, (error) => {});
 
   }
 

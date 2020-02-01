@@ -43,6 +43,6 @@ export class AppComponent implements OnInit {
       if(result){
         this.globalSettingsService.populateGlobalSetting();
       }
-    });
+    }, (error) => {});
   }
 }

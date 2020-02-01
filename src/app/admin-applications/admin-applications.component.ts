@@ -61,10 +61,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
             });
           });
       },
-      columns: [{
-        data: '',
-        orderable: false
-      }, {data: 'code'}, {data: 'name'}, {data: 'dateParametrePattern'}, {data: 'dateFichierPattern'}, {
+      columns: [{data: 'code'}, {data: 'name'}, {data: 'dateParametrePattern'}, {data: 'dateFichierPattern'}, {
         data: '',
         orderable: false
       }]

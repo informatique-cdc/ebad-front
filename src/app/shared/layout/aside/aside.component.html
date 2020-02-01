@@ -36,12 +36,12 @@
           </li>
         </ul>
       </li>
-      <li class="sidebar-nav-item" *hasRole="'ROLE_MODO'">
+      <li id="managementMenu" class="sidebar-nav-item" *hasRole="'ROLE_MODO'">
         <ebad-menu-item [label]="'MENU.MANAGEMENT.TITLE' | translate" icon="box"
                         isParent="true" [isOpen]="navbarManageOpen"
                         (click)="toggleManage()"></ebad-menu-item>
         <ul class="sidebar-subnav collapse" [ngClass]="{ 'show': navbarManageOpen }">
-          <li class="sidebar-nav-item">
+          <li id="batchManageMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.MANAGEMENT.BATCHS' | translate" icon="terminal"
                             link="/manage/batchs"></ebad-menu-item>
           </li>
@@ -57,13 +57,13 @@
             <ebad-menu-item [label]="'MENU.MANAGEMENT.NAMING' | translate" icon="edit"
                             link="/manage/naming"></ebad-menu-item>
           </li>
-          <li class="sidebar-nav-item">
+          <li id="environmentMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.MANAGEMENT.ENVIRONMENTS' | translate" icon="server"
                             link="/manage/environments"></ebad-menu-item>
           </li>
         </ul>
       </li>
-      <li class="sidebar-nav-item" *hasRole="'ROLE_ADMIN'">
+      <li id="administrationMenu" class="sidebar-nav-item" *hasRole="'ROLE_ADMIN'">
         <ebad-menu-item [label]="'MENU.ADMINISTRATION.TITLE' | translate" icon="settings"
                         isParent="true" [isOpen]="navbarAdministrateOpen"
                         (click)="toggleAdministrate()"></ebad-menu-item>
@@ -72,11 +72,11 @@
             <ebad-menu-item [label]="'MENU.ADMINISTRATION.USERS' | translate" icon="users"
                             link="/admin/users"></ebad-menu-item>
           </li>
-          <li class="sidebar-nav-item">
+          <li id="applicationMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.ADMINISTRATION.APPLICATIONS' | translate" icon="layers"
                             link="/admin/applications"></ebad-menu-item>
           </li>
-          <li class="sidebar-nav-item">
+          <li id="normMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.ADMINISTRATION.NORMS' | translate" icon="flag"
                             link="/admin/norms"></ebad-menu-item>
           </li>
@@ -97,7 +97,7 @@
     </ul>
   </div>
   <div class="mt-auto">
-    <a href="javascript:void(0);" (click)="logout()" class="btn btn-primary btn-block">
+    <a href="javascript:void(0);" (click)="logout()" id="logout" class="btn btn-primary btn-block">
       <ebad-icon name="log-out"></ebad-icon>
       Logout
     </a>

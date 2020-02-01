@@ -2,11 +2,15 @@
 Cypress.Commands.add("addBatch", ({applicationName, name, shell, parms, envs}) => {
   cy.get('#batchManageMenu').click();
   cy.get("#selectApplication").select(applicationName);
-  cy.get('#globalAction').click();
+  cy.get('#addBatchAction').click();
   cy.get('#name').type(name);
   cy.get('#shell').type(shell);
   cy.get('#parameters').type(parms);
-  cy.get('#evironnements').select(envs);
+  cy.get('#environments').click();
+  cy.get('.multiselect-item-checkbox > div').invoke('text').then((text) => {
+    console.log(text)
+  });
+
   cy.get('#addBatchForm').submit();
 });
 

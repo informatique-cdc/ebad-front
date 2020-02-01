@@ -8,8 +8,7 @@ import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-chains',
-  templateUrl: './chains.component.html',
-  styleUrls: ['./chains.component.scss']
+  templateUrl: './chains.component.html'
 })
 export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;

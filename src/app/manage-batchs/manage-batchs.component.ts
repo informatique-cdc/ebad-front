@@ -11,8 +11,7 @@ import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-manage-batchs',
-  templateUrl: './manage-batchs.component.html',
-  styleUrls: ['./manage-batchs.component.scss']
+  templateUrl: './manage-batchs.component.html'
 })
 export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   applicationSelected: Application;

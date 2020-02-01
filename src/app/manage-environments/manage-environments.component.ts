@@ -11,8 +11,7 @@ import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-manage-environments',
-  templateUrl: './manage-environments.component.html',
-  styleUrls: ['./manage-environments.component.scss']
+  templateUrl: './manage-environments.component.html'
 })
 export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, OnInit {
   applicationSelected: Application;

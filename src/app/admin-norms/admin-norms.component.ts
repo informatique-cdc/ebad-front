@@ -11,8 +11,7 @@ import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-admin-norms',
-  templateUrl: './admin-norms.component.html',
-  styleUrls: ['./admin-norms.component.scss']
+  templateUrl: './admin-norms.component.html'
 })
 export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(DataTableDirective, { static: true })

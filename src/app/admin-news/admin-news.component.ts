@@ -11,8 +11,7 @@ import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-admin-news',
-  templateUrl: './admin-news.component.html',
-  styleUrls: ['./admin-news.component.scss']
+  templateUrl: './admin-news.component.html'
 })
 export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(DataTableDirective, { static: true })
