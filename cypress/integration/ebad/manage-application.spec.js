@@ -1,4 +1,12 @@
 context('Gestion Application', () => {
+  before(function () {
+    cy.server();
+    cy.route({
+      method: 'GET',
+      url: '/ebad/applications/gestion*',
+    }).as('searchApplication');
+  });
+
   beforeEach(function () {
     cy.visit('http://localhost:4200');
     cy.fixture('login.json').then((login) => {
@@ -19,6 +27,12 @@ context('Gestion Application', () => {
   });
 
   it('Lister les applications', function () {
+    cy.server();
+    cy.route({
+      method: 'GET',
+      url: '/ebad/applications/gestion?page=0&size=10&sort=name,asc&name=ApplicationTest',
+    }).as('searchApplicationTest');
+
     cy.login({login: this.login.admin.login, password: this.login.admin.password});
     cy.addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
     cy.addApplication({codeAppli: 'AT2', name: 'ApplicationTest2', parmPattern: 'ddMMyyyy', filePattern: 'ddMMyyyy'});
@@ -28,6 +42,7 @@ context('Gestion Application', () => {
     cy.get('#applicationMenu').click();
     cy.get('input[type="search"]').type('ApplicationTest');
 
+    cy.wait('@searchApplicationTest');
 
     cy.get('#listApplications > tbody > tr').not('.odd').as('lines');
     cy.get('@lines').should('have.length', 2);
@@ -47,11 +62,13 @@ context('Gestion Application', () => {
 
     cy.deleteApplication({codeAppli: 'AT1', name: 'ApplicationTest1'});
     cy.deleteApplication({codeAppli: 'AT2', name: 'ApplicationTest2'});
+
   });
 
   it('Modifier une application', function () {
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
+
     cy.updateApplication({
       codeAppliToUpdate: 'AT1',
       nameToUpdate: 'ApplicationTest1',
@@ -64,6 +81,5 @@ context('Gestion Application', () => {
 
     cy.deleteApplication({codeAppli: 'AT2', name: 'ApplicationTest2'});
     cy.get('.toast-body').should('contains.text', 'L\'application a été supprimée');
-
   });
 });
