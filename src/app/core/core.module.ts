@@ -12,7 +12,7 @@ import {
   JwtService, NewsService, NormsService, NotificationsService,
   ProfilesService,
   TagsService,
-  UserService, UsersService
+  UserService, UsersService, SelectChoicesService
 } from './services';
 import {TracesService} from './services/traces.service';
 import {FileKindsService} from './services/file-kinds.service';
@@ -42,7 +42,8 @@ import {FileKindsService} from './services/file-kinds.service';
     NewsService,
     NotificationsService,
     GlobalSettingsService,
-    AccreditationRequestsService
+    AccreditationRequestsService,
+    SelectChoicesService
   ],
   declarations: []
 })
