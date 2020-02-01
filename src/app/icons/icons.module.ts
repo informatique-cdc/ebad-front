@@ -16,12 +16,12 @@ import {
   IconLayers,
   IconLifeBuoy,
   IconLink,
+  IconPlus,
   IconServer,
   IconTerminal,
   IconUsers,
   IconX,
-  IconXCircle,
-  IconPlus
+  IconXCircle
 } from 'angular-feather';
 
 const icons = [

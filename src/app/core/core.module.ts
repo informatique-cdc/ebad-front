@@ -1,18 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpTokenInterceptor } from './interceptors';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpTokenInterceptor} from './interceptors';
 
 import {
   AccreditationRequestsService,
   ApiService,
   ApplicationsService,
-  AuthGuard, BatchsService, ChainsService,
-  StatisticsService, EnvironmentsService, FilesService, GlobalSettingsService,
-  JwtService, NewsService, NormsService, NotificationsService,
+  AuthGuard,
+  BatchsService,
+  ChainsService,
+  EnvironmentsService,
+  FilesService,
+  GlobalSettingsService,
+  JwtService,
+  NewsService,
+  NormsService,
+  NotificationsService,
   ProfilesService,
+  SelectChoicesService,
+  StatisticsService,
   TagsService,
-  UserService, UsersService, SelectChoicesService
+  UserService,
+  UsersService
 } from './services';
 import {TracesService} from './services/traces.service';
 import {FileKindsService} from './services/file-kinds.service';

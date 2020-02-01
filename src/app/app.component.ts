@@ -4,7 +4,7 @@ import {GlobalSettingsService, UserService} from './core';
 import {TranslateService} from "@ngx-translate/core";
 import {OauthService} from "./security/oauth.service";
 import {environment} from "../environments/environment";
-import {ActivatedRouteSnapshot, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -43,6 +43,8 @@ export class AppComponent implements OnInit {
       if(result){
         this.globalSettingsService.populateGlobalSetting();
       }
-    }, (error) => {});
+    }, (error) => {
+      console.error(error);
+    });
   }
 }

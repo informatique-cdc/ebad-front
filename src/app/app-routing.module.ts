@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {NoPreloading, PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {AuthGuard} from "./core/services";
 import {NoAuthGuard} from "./auth/no-auth-guard.service";

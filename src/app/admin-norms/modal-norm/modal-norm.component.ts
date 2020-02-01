@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Application, Norme} from '../../core/models';
-import {ApplicationsService, NormsService} from '../../core/services';
+import {Norme} from '../../core/models';
+import {NormsService} from '../../core/services';
 
 @Component({
   selector: 'app-modal-norm',

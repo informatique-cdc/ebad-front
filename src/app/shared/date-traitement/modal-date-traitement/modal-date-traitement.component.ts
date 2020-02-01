@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbDate, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
-import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-modal-date-traitement',

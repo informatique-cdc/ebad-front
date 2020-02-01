@@ -1,5 +1,3 @@
-import {NgbPagination} from '@ng-bootstrap/ng-bootstrap';
-
 export class Table {
   showHeader: boolean;
   showFooter: boolean;

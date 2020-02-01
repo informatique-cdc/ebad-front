@@ -2,10 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
-import {
-  AccreditationRequest,
-  CreationAccreditationRequest, ResponseAccreditationRequest
-} from '../models';
+import {AccreditationRequest, CreationAccreditationRequest, ResponseAccreditationRequest} from '../models';
 import {Page} from "../models/page.model";
 import {Pageable} from "../models/pageable.model";
 

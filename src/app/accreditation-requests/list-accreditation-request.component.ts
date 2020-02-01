@@ -1,7 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {AccreditationRequestsService} from '../core/services';
-import {Pageable} from "../core/models/pageable.model";
-import {Action, ColumnsDefinition, Table} from "../shared/table/table.model";
 import {Constants} from "../shared/Constants";
 import {Observable, Subject} from "rxjs";
 import {AccreditationRequest} from "../core/models";

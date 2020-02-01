@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 
-import { ApiService } from './api.service';
-import { Statistics} from '../models';
+import {ApiService} from './api.service';
+import {Statistics} from '../models';
 
 
 @Injectable()

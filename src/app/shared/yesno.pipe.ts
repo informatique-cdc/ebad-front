@@ -1,6 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import {User} from "../core/models";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
+import {Pipe, PipeTransform} from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
 
 @Pipe({name: 'yesno'})
 export class YesNoPipe implements PipeTransform {

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {BatchsService} from '../../core/services';
-import {Application, Batch} from '../../core/models';
+import {Batch} from '../../core/models';
 
 @Component({
   selector: 'app-modal-batch-deletion',
