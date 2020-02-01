@@ -4,22 +4,22 @@
       <thead>
       <tr>
         <th id="accReqId">
-          Id
+          {{'ACCREDITATION.ID' | translate}}
         </th>
         <th id="accReqApp">
-          Application
+          {{'ACCREDITATION.APPLICATION' | translate}}
         </th>
         <th id="accReqWantUse">
-          Droit Utilisation
+          {{'ACCREDITATION.USERIGHT' | translate}}
         </th>
         <th id="accReqWantManage">
-          Droit de gestion
+          {{'ACCREDITATION.MANAGERIGHT' | translate}}
         </th>
         <th id="accReqState">
-          Etat
+          {{'ACCREDITATION.STATE' | translate}}
         </th>
         <th id="actions">
-          Actions
+          {{'ACTIONS' | translate}}
         </th>
       </tr>
       </thead>
@@ -41,8 +41,8 @@
           {{accReq.state}}
         </td>
         <td class="text-center">
-          <a *ngIf="!userOnly" (click)="accept(accReq)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Accepter</a>
-          <a *ngIf="!userOnly" (click)="reject(accReq)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Rejeter</a>
+          <a *ngIf="!userOnly" (click)="accept(accReq)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'ACCREDITATION.ALLOW' | translate}}</a>
+          <a *ngIf="!userOnly" (click)="reject(accReq)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'ACCREDITATION.REJECT' | translate}}</a>
         </td>
       </tr>
       </tbody>

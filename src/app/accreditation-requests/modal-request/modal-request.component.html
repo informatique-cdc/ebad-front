@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Demande d'accréditation</h4>
+  <h4 class="modal-title" id="modal-basic-title">{{'ACCREDITATION.REQUEST_TITLE' | translate}}</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -7,31 +7,31 @@
 <div class="modal-body">
   <form (ngSubmit)="newForm.form.valid && sendRequest()" #newForm="ngForm">
     <div class="mb-2">
-      <label class="form-label" for="application">Nom de l'application</label>
+      <label class="form-label" for="application">{{'ACCREDITATION.APPLICATION_NAME' | translate}}</label>
       <input id="application"  name="application" type="text" class="form-control" [class.is-invalid]="searchFailed"
              [resultFormatter]="formatter" [inputFormatter]="formatter" [(ngModel)]="model" [ngbTypeahead]="search"
              placeholder="nom de l'application"/>
-      <span *ngIf="searching">recherche en cours...</span>
-      <div class="invalid-feedback" *ngIf="searchFailed">Désolé, les suggestions ne peuvent être chargées.</div>
+      <span *ngIf="searching">{{'ACCREDITATION.LOAD_SEARCH' | translate}}</span>
+      <div class="invalid-feedback" *ngIf="searchFailed">{{'ACCREDITATION.SEARCH_TROUBLE' | translate}}</div>
     </div>
     <div class="mb-2">
-      <label class="form-label">Droits</label>
+      <label class="form-label">{{'ACCREDITATION.RIGHTS' | translate}}</label>
       <div class="form-selectgroup form-selectgroup-pills mr-1">
         <label class="form-selectgroup-item">
           <input type="checkbox"  id="wantManage"  name="wantManage" [(ngModel)]="request.wantManage" class="form-selectgroup-input" checked>
-          <span class="form-selectgroup-box">Droit de gestion</span>
+          <span class="form-selectgroup-box">{{'ACCREDITATION.MANAGERIGHT' | translate}}</span>
         </label>
       </div>
       <div class="form-selectgroup form-selectgroup-pills">
         <label class="form-selectgroup-item">
           <input type="checkbox"  id="wantUse"  name="wantUse" [(ngModel)]="request.wantUse" class="form-selectgroup-input" checked>
-          <span class="form-selectgroup-box">Droit de lancement</span>
+          <span class="form-selectgroup-box">{{'ACCREDITATION.USERIGHT' | translate}}</span>
         </label>
       </div>
     </div>
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
-  <button type="button" class="btn btn-outline-dark" (click)="newForm.form.valid && sendRequest()">Envoyer</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">{{'CANCEL' | translate}}</button>
+  <button type="button" class="btn btn-outline-dark" (click)="newForm.form.valid && sendRequest()">{{'SUBMIT' | translate}}</button>
 </div>

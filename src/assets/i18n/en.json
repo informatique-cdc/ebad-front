@@ -59,5 +59,24 @@
     "TRANSLATE.EN": "English"
   },
   "YES": "Yes",
-  "NO": "No"
+  "NO": "No",
+  "ACTIONS": "actions",
+  "SUBMIT": "Submit",
+  "CANCEL": "Cancel",
+  "ACCREDITATION": {
+    "ID": "ID",
+    "APPLICATION": "Application",
+    "USERIGHT": "Right to use",
+    "MANAGERIGHT": "Right to manage",
+    "STATE": "State",
+    "ALLOW": "Accepter",
+    "REJECT": "Rejeter",
+    "ACCREDITATION.APPLICATION_NAME": "Application name",
+    "ACCREDITATION.RIGHTS": "Rights",
+    "REQUEST_TITLE": "Accreditation request",
+    "NEW_REQUEST": "New request",
+    "SYNTHESIS": "Synthesis",
+    "LOAD_SEARCH": "search in progress...",
+    "SEARCH_TROUBLE": "Sorry, an error occured when search suggestions"
+  }
 }

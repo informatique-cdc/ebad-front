@@ -59,5 +59,24 @@
     "TRANSLATE.EN": "English"
   },
   "YES": "Oui",
-  "NO": "Non"
+  "NO": "Non",
+  "ACTIONS": "actions",
+  "SUBMIT": "Envoyer",
+  "CANCEL": "Annuler",
+  "ACCREDITATION": {
+    "ID": "ID",
+    "APPLICATION": "Application",
+    "USERIGHT": "Droit d'utilisation",
+    "MANAGERIGHT": "Droit de gestion",
+    "STATE": "Etat",
+    "ALLOW": "Accepter",
+    "REJECT": "Rejeter",
+    "APPLICATION_NAME": "Nom de l'application",
+    "RIGHTS": "Droits",
+    "REQUEST_TITLE": "Demande d'accréditation",
+    "NEW_REQUEST": "Nouvelle demande",
+    "SYNTHESIS": "Synthèse",
+    "LOAD_SEARCH": "recherche en cours...",
+    "SEARCH_TROUBLE": "Désolé, les suggestions ne peuvent être chargées"
+  }
 }
