@@ -78,5 +78,55 @@
     "SYNTHESIS": "Synthesis",
     "LOAD_SEARCH": "search in progress...",
     "SEARCH_TROUBLE": "Sorry, an error occured when search suggestions"
+  },
+  "TRACE": {
+    "TITLE": "Traces",
+    "ID": "ID",
+    "BATCH": "Batch",
+    "PROCESSING_DATE": "Processing date",
+    "PARAMETERS": "Parameters",
+    "USER": "User",
+    "EXECUTION_TIME": "Execution time",
+    "RUN_DATE": "Run date",
+    "RETURN_CODE": "Return code"
+  },
+  "BATCH": {
+    "TITLE": "Batchs",
+    "ID": "ID",
+    "BATCH": "Batch",
+    "SHELL": "Shell",
+    "DEFAULT_PARAMETERS": "Paramètres par défaut",
+    "RUN": "Lancer",
+    "RUN_WITH_PARAMETERS": "Lancer avec paramètres",
+    "CANCEL": "Annuler",
+    "PARAMETERS": "Paramètre",
+    "RUN_BATCH": "Lancement du batch {{name}}"
+  },
+  "CHAIN": {
+    "TITLE": "Chains",
+    "ID": "ID",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "RUN": "Run"
+  },
+  "FILE": {
+    "TITLE": "Files",
+    "NAME": "Name",
+    "SIZE": "Size",
+    "STATE": "State",
+    "CREATION_DATE": "Creation date",
+    "PROGRESSION": "Progression",
+    "NO_FILE_TO_SEND": "No file to send",
+    "NO_REMOTE_FILE": "No file on remote server",
+    "DELETE": "Delete",
+    "RENAME": "Rename",
+    "DOWNLOAD": "Download",
+    "CANCEL": "Cancel",
+    "DRAG_AND_DROP": "Drag and drop yours files or use the button",
+    "SEND_TO_REMOTE": "Send to remote",
+    "FILE_KIND": "File kind",
+    "RENAME_FILE": "Rename file {{name}}",
+    "SEND_FILE_TITLE": "File to send",
+    "BROWSE": "Browse"
   }
 }

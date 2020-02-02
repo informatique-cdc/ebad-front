@@ -8,7 +8,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
 import {Pageable} from "../core/models/pageable.model";
 import {ToastService} from "../core/services/toast.service";
-import {Constants} from "../shared/Constants";
 
 @Component({
   selector: 'app-files',
@@ -34,8 +33,7 @@ export class FilesComponent implements OnInit {
               private filesService: FilesService,
               private toastService: ToastService,
               private environmentsService: EnvironmentsService,
-              private modalService: NgbModal,
-              private constants: Constants) {
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -125,33 +123,6 @@ export class FilesComponent implements OnInit {
     }
   }
 
-
-  // SHOW FILE PART RIGHT
-  // showRemoteFiles() {
-  //   this.tableRemote = new Table();
-  //   this.tableRemote.showHeader = false;
-  //
-  //   this.tableRemote.settings.columnsDefinition.name = new ColumnsDefinition();
-  //   this.tableRemote.settings.columnsDefinition.name.title = 'Nom';
-  //   this.tableRemote.settings.columnsDefinition.name.order = 1;
-  //
-  //   this.tableRemote.settings.columnsDefinition.size = new ColumnsDefinition();
-  //   this.tableRemote.settings.columnsDefinition.size.title = 'Taille';
-  //   this.tableRemote.settings.columnsDefinition.size.order = 2;
-  //
-  //   this.tableRemote.settings.actionsDefinition.title = 'Action';
-  //   if (this.directorySelected.canWrite) {
-  //     this.tableRemote.settings.actionsDefinition.actions.push(new Action('Supprimer', this.idActionRemoteDelete));
-  //   }
-  //   this.tableRemote.settings.actionsDefinition.actions.push(new Action('Télécharger', this.idActionRemoteDownload));
-  //   this.filesService.getAllFilesFromDirectory(this.directorySelected.id).subscribe(
-  //     files => {
-  //       this.tableRemote.items = files;
-  //     }
-  //   );
-  // }
-
-
   //// UPLOAD ////
 
   //FIXME UPLOAD EVENT
@@ -165,7 +136,7 @@ export class FilesComponent implements OnInit {
         fileEntry.file((file) => {
 
           const existFile = (this.localFiles as any[]).find(
-            thisFile => thisFile.name === file.name && thisFile.size === thisFile.size
+            thisFile => thisFile.name === file.name && file.size === thisFile.size
           );
 
           if (!existFile) {

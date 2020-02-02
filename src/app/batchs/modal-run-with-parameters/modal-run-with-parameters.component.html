@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Lancement du batch {{batchName}}</h4>
+  <h4 class="modal-title" id="modal-basic-title">{{'BATCH.RUN_BATCH' | translate:{'name':batchName} }}</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -7,7 +7,7 @@
 <div class="modal-body">
   <form>
     <div class="form-group">
-      <label for="parameters">Paramètres</label>
+      <label for="parameters">{{'BATCH.PARAMETERS' | translate}}</label>
       <div class="input-group">
         <input id="parameters" class="form-control" placeholder="dd/MM/yyyy" name="parameters" [(ngModel)]="parameters">
       </div>
@@ -15,6 +15,6 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close(parameters)">Lancer</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">{{'BATCH.CANCEL' | translate}}</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close(parameters)">{{'BATCH.RUN' | translate}}</button>
 </div>

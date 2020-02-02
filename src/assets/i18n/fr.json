@@ -78,5 +78,55 @@
     "SYNTHESIS": "Synthèse",
     "LOAD_SEARCH": "recherche en cours...",
     "SEARCH_TROUBLE": "Désolé, les suggestions ne peuvent être chargées"
+  },
+  "TRACE": {
+    "TITLE": "Traces",
+    "ID": "ID",
+    "BATCH": "Batch",
+    "PROCESSING_DATE": "Date traitement",
+    "PARAMETERS": "Paramètres",
+    "USER": "Utilisateur",
+    "EXECUTION_TIME": "Temps d'exécution",
+    "RUN_DATE": "Date de lancement",
+    "RETURN_CODE": "Code retour"
+  },
+  "BATCH": {
+    "TITLE": "Batchs",
+    "ID": "ID",
+    "NAME": "Nom",
+    "SHELL": "Shell",
+    "DEFAULT_PARAMETERS": "Paramètres par défaut",
+    "RUN": "Lancer",
+    "RUN_WITH_PARAMETERS": "Lancer avec paramètres",
+    "CANCEL": "Annuler",
+    "PARAMETERS": "Paramètre",
+    "RUN_BATCH": "Lancement du batch {{name}}"
+  },
+  "CHAIN": {
+    "TITLE": "Chaines",
+    "ID": "ID",
+    "NAME": "Nom",
+    "DESCRIPTION": "Description",
+    "RUN": "Lancer"
+  },
+  "FILE": {
+    "TITLE": "Fichiers",
+    "NAME": "Nom",
+    "SIZE": "Taille",
+    "STATE": "Etat",
+    "CREATION_DATE": "Date de création",
+    "PROGRESSION": "Progression",
+    "NO_FILE_TO_SEND": "Pas de fichier à envoyer",
+    "NO_REMOTE_FILE": "Pas de fichier sur le serveur distant",
+    "DELETE": "Supprimer",
+    "RENAME": "Renommer",
+    "DOWNLOAD": "Télécharger",
+    "CANCEL": "Annuler",
+    "DRAG_AND_DROP": "Glissez vos fichiers ici ou utilisez le bouton",
+    "SEND_TO_REMOTE": "Envoyer sur le serveur",
+    "FILE_KIND": "Type de fichier",
+    "RENAME_FILE": "Renommer le fichier {{name}}",
+    "SEND_FILE_TITLE": "Envoie de fichier",
+    "BROWSE": "Parcourir"
   }
 }

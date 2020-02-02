@@ -1,4 +1,4 @@
-<app-env-app-head-selector preTitle="Traces" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
+<app-env-app-head-selector preTitle="{{ 'TRACE.TITLE' | translate }}" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
 <div class="card">
   <div class="table-responsive">
     <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
@@ -6,28 +6,28 @@
       <thead>
       <tr>
         <th id="traceId">
-          ID
+          {{'TRACE.ID' | translate}}
         </th>
         <th id="traceBatch">
-          Batch
+          {{'TRACE.BATCH' | translate}}
         </th>
         <th id="traceBusinessDate">
-          Date traitement
+          {{'TRACE.PROCESSING_DATE' | translate}}
         </th>
         <th id="traceParams">
-          Paramètres
+          {{'TRACE.PARAMETERS' | translate}}
         </th>
         <th id="traceUser">
-          Utilisateur
+          {{'TRACE.USER' | translate}}
         </th>
         <th id="traceRunDatetime">
-          Date de lancement
+          {{'TRACE.RUN_DATE' | translate}}
         </th>
         <th id="traceExecutionTime">
-          Temps d'exécution
+          {{'TRACE.EXECUTION_TIME' | translate}}
         </th>
         <th id="traceReturnCode">
-          Code retour
+          {{'TRACE.RETURN_CODE' | translate}}
         </th>
       </tr>
       </thead>
