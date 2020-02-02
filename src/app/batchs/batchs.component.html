@@ -10,16 +10,16 @@
       <thead>
       <tr>
         <th id="batchId">
-          ID
+          {{'BATCH.ID' | translate}}
         </th>
         <th id="batchName">
-          Nom
+          {{'BATCH.NAME' | translate}}
         </th>
         <th id="batchShell">
-          Shell
+          {{'BATCH.SHELL' | translate}}
         </th>
         <th id="batchDefaultParam">
-          Paramètres par défaut
+          {{'BATCH.DEFAULT_PARAMETERS' | translate}}
         </th>
         <th id="actions">
         </th>
@@ -40,8 +40,8 @@
           {{batch.defaultParam}}
         </td>
         <td class="text-center">
-          <a (click)="runBatch(batch,null)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Lancer</a>
-          <a (click)="runBatchWithCustomParam(batch)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Lancer avec paramètre</a>
+          <a (click)="runBatch(batch,null)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'BATCH.RUN' | translate}}</a>
+          <a (click)="runBatchWithCustomParam(batch)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'BATCH.RUN_WITH_PARAMETERS' | translate}}</a>
         </td>
       </tr>
       </tbody>

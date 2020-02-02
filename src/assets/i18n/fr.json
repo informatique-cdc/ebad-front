@@ -78,5 +78,26 @@
     "SYNTHESIS": "Synthèse",
     "LOAD_SEARCH": "recherche en cours...",
     "SEARCH_TROUBLE": "Désolé, les suggestions ne peuvent être chargées"
+  },
+  "TRACE": {
+    "ID": "ID",
+    "BATCH": "Batch",
+    "PROCESSING_DATE": "Date traitement",
+    "PARAMETERS": "Paramètres",
+    "USER": "Utilisateur",
+    "EXECUTION_TIME": "Temps d'exécution",
+    "RUN_DATE": "Date de lancement",
+    "RETURN_CODE": "Code retour"
+  },
+  "BATCH": {
+    "ID": "ID",
+    "NAME": "Nom",
+    "SHELL": "Shell",
+    "DEFAULT_PARAMETERS": "Paramètres par défaut",
+    "RUN": "Lancer",
+    "RUN_WITH_PARAMETERS": "Lancer avec paramètres",
+    "CANCEL": "Annuler",
+    "PARAMETERS": "Paramètre",
+    "RUN_BATCH": "Lancement du batch {{name}}"
   }
 }
