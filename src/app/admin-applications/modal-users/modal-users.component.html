@@ -17,10 +17,10 @@
   </div>
   <table class="table table-striped table-sm mb-0">
     <tr>
-      <th>Login</th>
-      <th>Prénom</th>
-      <th>Nom</th>
-      <th>Action</th>
+      <th id="loginUser">Login</th>
+      <th id="firstnameUser">Prénom</th>
+      <th id="lastnameUser">Nom</th>
+      <th id="action">Action</th>
     </tr>
     <tr *ngFor="let user of this.usersApplication">
       <td>{{user.login}}</td>
