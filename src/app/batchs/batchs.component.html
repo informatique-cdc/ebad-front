@@ -1,4 +1,4 @@
-<app-env-app-head-selector preTitle="Batchs" [title]="environmentSelected?.name"
+<app-env-app-head-selector preTitle="{{'BATCH.TITLE' | translate}}" [title]="environmentSelected?.name"
                            (environmentChanged)="environmentChanged($event)">
 <ebad-date-traitement header [infoEnvironment]="environmentSelectedInfo"></ebad-date-traitement>
 </app-env-app-head-selector>

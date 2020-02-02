@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Renommer le fichier {{file.name}}</h4>
+  <h4 class="modal-title" id="modal-basic-title">{{'FILE.RENAME_FILE' | translate: {'name':file.name} }}</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -7,7 +7,7 @@
 <div class="modal-body">
   <form>
     <div class="form-group">
-      <label for="kindFile">Type de fichier</label>
+      <label for="kindFile">{{'FILE.FILE_KIND' | translate}}</label>
       <div class="input-group">
         <select name="kindFile" id="kindFile"
                 class="custom-select custom-select-sm ml-sm-2" [(ngModel)]="fileKindSelected">
@@ -18,6 +18,6 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
-  <button type="button" class="btn btn-outline-dark" (click)="changeName()">Renommer</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">{{'FILE.CANCEL' | translate}}</button>
+  <button type="button" class="btn btn-outline-dark" (click)="changeName()">{{'FILE.RENAME' | translate}}</button>
 </div>

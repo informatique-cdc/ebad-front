@@ -8,7 +8,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
 import {Pageable} from "../core/models/pageable.model";
 import {ToastService} from "../core/services/toast.service";
-import {Constants} from "../shared/Constants";
 
 @Component({
   selector: 'app-files',
@@ -34,8 +33,7 @@ export class FilesComponent implements OnInit {
               private filesService: FilesService,
               private toastService: ToastService,
               private environmentsService: EnvironmentsService,
-              private modalService: NgbModal,
-              private constants: Constants) {
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-<app-env-app-head-selector preTitle="Chaines" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)">
+<app-env-app-head-selector preTitle="{{'CHAIN.TITLE' | translate}}" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)">
   <ebad-date-traitement header [infoEnvironment]="environmentSelectedInfo"></ebad-date-traitement>
 </app-env-app-head-selector>
 
@@ -9,13 +9,13 @@
       <thead>
       <tr>
         <th id="chainId">
-          ID
+          {{'CHAIN.ID' | translate}}
         </th>
         <th id="chainName">
-          Nom
+          {{'CHAIN.NAME' | translate}}
         </th>
         <th id="chainDescription">
-          Shell
+          {{'CHAIN.DESCRIPTION' | translate}}
         </th>
         <th id="actions">
         </th>
@@ -33,7 +33,7 @@
           {{chain.description}}
         </td>
         <td class="text-center">
-          <a (click)="runChain(chain)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Lancer</a>
+          <a (click)="runChain(chain)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'CHAIN.RUN' | translate}}</a>
         </td>
       </tr>
       </tbody>

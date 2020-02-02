@@ -1,4 +1,4 @@
-<app-env-app-head-selector preTitle="Traces" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
+<app-env-app-head-selector preTitle="{{ 'TRACE.TITLE' | translate }}" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
 <div class="card">
   <div class="table-responsive">
     <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
