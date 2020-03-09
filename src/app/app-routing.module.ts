@@ -67,6 +67,10 @@ const routes: Routes = [
       {
         path: 'news',
         loadChildren: () => import('./admin-news/admin-news.module').then(m => m.AdminNewsModule)
+      },
+      {
+        path: 'settings',
+        loadChildren: () => import('./admin-settings/admin-settings.module').then(m => m.AdminSettingsModule)
       }
     ]
   },

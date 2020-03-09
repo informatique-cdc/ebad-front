@@ -6,9 +6,9 @@ import {User, UserService} from '../core';
 
 @Component({
   selector: 'app-settings-page',
-  templateUrl: './settings.component.html'
+  templateUrl: './admin-settings.component.html'
 })
-export class SettingsComponent implements OnInit {
+export class AdminSettingsComponent implements OnInit {
   user: User = {} as User;
   settingsForm: FormGroup;
   errors: object = {};
