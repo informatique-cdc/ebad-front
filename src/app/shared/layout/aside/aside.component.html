@@ -12,7 +12,7 @@
       <li class="sidebar-nav-item">
         <ebad-menu-item [label]="'MENU.DASHBOARD' | translate" link="home" icon="/home"></ebad-menu-item>
       </li>
-      <li class="sidebar-nav-item">
+      <li class="sidebar-nav-item" *hasAnyRole="['ROLE_MODO','ROLE_USER']">
         <ebad-menu-item label="Accreditations" badgeText="NEW" icon="check-square" link="/accreditations"></ebad-menu-item>
       </li>
       <li class="sidebar-nav-item" *hasRole="'ROLE_USER'">

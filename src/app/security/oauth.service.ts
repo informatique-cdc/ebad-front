@@ -76,7 +76,6 @@ export class OauthService {
   }
 
   public runInitialLoginSequence(): Promise<void> {
-    console.log("runInitialLoginSequence");
     this.oauthService.tokenValidationHandler = new CustomValidationHandler();
     if (location.hash) {
       console.log('Encountered hash fragment, plotting as table...');
@@ -92,7 +91,9 @@ export class OauthService {
 
 
         return this.oauthService.silentRefresh()
-          .then(() => Promise.resolve())
+          .then(() => {
+            Promise.resolve();
+          })
           .catch(result => {
 
             const errorResponsesRequiringUserInteraction = [
@@ -112,6 +113,9 @@ export class OauthService {
 
             return Promise.reject(result);
           });
+
+      }).catch((e) => {
+        this.router.navigate(['login']);
       })
 
       .then(() => {
@@ -120,7 +124,7 @@ export class OauthService {
           console.log('There was state, so we are sending you to: ' + this.oauthService.state);
           this.router.navigate([this.oauthService.state]);
         }
-      })
+  })
       .catch((error) => {
         this.isDoneLoadingSubject$.next(true);
       });

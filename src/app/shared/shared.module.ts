@@ -27,6 +27,7 @@ import {AvatarPipe} from "./avatar.pipe";
 import {DataTablesModule} from "angular-datatables";
 import {YesNoPipe} from "./yesno.pipe";
 import {ToastComponent} from "./toast/toast.component";
+import {HasAnyRoleDirective} from "./has-any-role/has-any-role.directive";
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import {ToastComponent} from "./toast/toast.component";
     DateTraitementComponent,
     ModalDateTraitementComponent,
     HasRoleDirective,
+    HasAnyRoleDirective,
     MenuItemComponent,
     IconComponent,
     AvatarPipe,
@@ -77,6 +79,7 @@ import {ToastComponent} from "./toast/toast.component";
     EnvAppHeadSelectorComponent,
     DateTraitementComponent,
     HasRoleDirective,
+    HasAnyRoleDirective,
     TranslateModule,
     MenuItemComponent,
     IconComponent,

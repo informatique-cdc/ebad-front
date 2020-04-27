@@ -3,12 +3,11 @@ import {UserService} from "../../core/services";
 import {RoleService} from "../../core/services/role.service";
 
 @Directive({
-  selector: '[hasRole]'
+  selector: '[hasAnyRole]'
 })
-export class HasRoleDirective implements OnInit {
+export class HasAnyRoleDirective implements OnInit {
   // the role the user must have
-  @Input() hasRole: string;
-
+  @Input() hasAnyRole: string[];
   isVisible = false;
 
   /**
@@ -31,11 +30,9 @@ export class HasRoleDirective implements OnInit {
     this.userService.currentUser.subscribe((us) => this.showHide(us));
   }
 
-  showHide(user) {
-    const roles = [];
-    roles[0] = this.hasRole;
-
-    if (this.roleService.hasRoleSearch(user, roles)) {
+  showHide(user){
+    const hasRole = this.roleService.hasRoleSearch(user,this.hasAnyRole);
+    if (hasRole) {
       if (!this.isVisible) {
         this.isVisible = true;
         this.viewContainerRef.createEmbeddedView(this.templateRef);

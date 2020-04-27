@@ -22,10 +22,11 @@ import {
   StatisticsService,
   TagsService,
   UserService,
-  UsersService
+  UsersService,
 } from './services';
 import {TracesService} from './services/traces.service';
 import {FileKindsService} from './services/file-kinds.service';
+import {RoleService} from "./services/role.service";
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import {FileKindsService} from './services/file-kinds.service';
     NotificationsService,
     GlobalSettingsService,
     AccreditationRequestsService,
-    SelectChoicesService
+    SelectChoicesService,
+    RoleService
   ],
   declarations: []
 })
