@@ -1,6 +1,5 @@
 import {Directive, Input, OnInit, TemplateRef, ViewContainerRef} from "@angular/core";
 import {UserService} from "../../core/services";
-import {User} from "../../core/models";
 import {RoleService} from "../../core/services/role.service";
 
 @Directive({
