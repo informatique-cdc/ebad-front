@@ -4,7 +4,6 @@ import {User} from "../core/models";
 @Pipe({name: 'avatar'})
 export class AvatarPipe implements PipeTransform {
   transform(user: User): string {
-    console.log(user);
     if(!user || !user.firstName || !user.lastName){
       return '?';
     }
