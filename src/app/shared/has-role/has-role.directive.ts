@@ -1,6 +1,7 @@
 import {Directive, Input, OnInit, TemplateRef, ViewContainerRef} from "@angular/core";
 import {UserService} from "../../core/services";
 import {User} from "../../core/models";
+import {RoleService} from "../../core/services/role.service";
 
 @Directive({
   selector: '[hasRole]'
@@ -10,7 +11,6 @@ export class HasRoleDirective implements OnInit {
   @Input() hasRole: string;
 
   isVisible = false;
-  private user: User;
 
   /**
    * @param {ViewContainerRef} viewContainerRef
@@ -23,17 +23,20 @@ export class HasRoleDirective implements OnInit {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private templateRef: TemplateRef<any>,
-    private userService: UserService
+    private userService: UserService,
+    private roleService: RoleService
   ) {
   }
 
   ngOnInit() {
-    this.userService.currentUser.subscribe((us) => this.hasRoleSearch(us));
+    this.userService.currentUser.subscribe((us) => this.showHide(us));
   }
 
-  hasRoleSearch(user){
-    this.user = user;
-    if (this.hasThisRole(this.hasRole)) {
+  showHide(user) {
+    const roles = [];
+    roles[0] = this.hasRole;
+
+    if (this.roleService.hasRoleSearch(user, roles)) {
       if (!this.isVisible) {
         this.isVisible = true;
         this.viewContainerRef.createEmbeddedView(this.templateRef);
@@ -42,34 +45,5 @@ export class HasRoleDirective implements OnInit {
       this.isVisible = false;
       this.viewContainerRef.clear();
     }
-  }
-
-  isModo(): boolean {
-    if(this.user.usageApplications === undefined){
-      return false;
-    }
-    for (const usageApp of this.user.usageApplications) {
-      if (usageApp.canManage) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  hasThisRole(role: String): boolean {
-    const roles = this.user.authorities;
-    if (role === "ROLE_MODO") {
-      return this.isModo();
-    }
-
-    if(roles === undefined){
-      return false;
-    }
-
-    const result = roles.find(function (obj: any) {
-      return obj.name === role;
-    });
-
-    return result !== undefined;
   }
 }

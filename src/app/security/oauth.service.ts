@@ -4,7 +4,6 @@ import {OAuthErrorEvent, OAuthService} from 'angular-oauth2-oidc';
 import {BehaviorSubject, combineLatest, Observable, ReplaySubject} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import {CustomValidationHandler} from "./CustomValidationHandler";
-import {UserService} from "../core/services";
 
 @Injectable({
   providedIn: 'root'

@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-auth-page',
   templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.scss']
+  styleUrls: []
 })
 export class LoadingComponent implements OnInit {
   constructor(private router: Router) {

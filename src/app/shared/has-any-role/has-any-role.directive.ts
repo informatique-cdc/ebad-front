@@ -1,6 +1,7 @@
 import {Directive, Input, OnInit, TemplateRef, ViewContainerRef} from "@angular/core";
 import {UserService} from "../../core/services";
 import {User} from "../../core/models";
+import {RoleService} from "../../core/services/role.service";
 
 @Directive({
   selector: '[hasAnyRole]'
@@ -8,9 +9,7 @@ import {User} from "../../core/models";
 export class HasAnyRoleDirective implements OnInit {
   // the role the user must have
   @Input() hasAnyRole: string[];
-
   isVisible = false;
-  private user: User;
 
   /**
    * @param {ViewContainerRef} viewContainerRef
@@ -23,21 +22,17 @@ export class HasAnyRoleDirective implements OnInit {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private templateRef: TemplateRef<any>,
-    private userService: UserService
+    private userService: UserService,
+    private roleService: RoleService
   ) {
   }
 
   ngOnInit() {
-    this.userService.currentUser.subscribe((us) => this.hasRoleSearch(us));
+    this.userService.currentUser.subscribe((us) => this.showHide(us));
   }
 
-  hasRoleSearch(user){
-    let hasRole  = false;
-    this.user = user;
-    this.hasAnyRole.forEach(role => {
-      hasRole = hasRole || this.hasThisRole(role);
-    });
-
+  showHide(user){
+    const hasRole = this.roleService.hasRoleSearch(user,this.hasAnyRole);
     if (hasRole) {
       if (!this.isVisible) {
         this.isVisible = true;
@@ -47,34 +42,5 @@ export class HasAnyRoleDirective implements OnInit {
       this.isVisible = false;
       this.viewContainerRef.clear();
     }
-  }
-
-  isModo(): boolean {
-    if(this.user.usageApplications === undefined){
-      return false;
-    }
-    for (const usageApp of this.user.usageApplications) {
-      if (usageApp.canManage) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  hasThisRole(role: String): boolean {
-    const roles = this.user.authorities;
-    if (role === "ROLE_MODO") {
-      return this.isModo();
-    }
-
-    if(roles === undefined){
-      return false;
-    }
-
-    const result = roles.find(function (obj: any) {
-      return obj.name === role;
-    });
-
-    return result !== undefined;
   }
 }
