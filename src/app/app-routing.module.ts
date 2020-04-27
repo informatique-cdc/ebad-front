@@ -91,8 +91,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
+    loadChildren: () => import('./loading/loading.module').then(m => m.LoadingModule)
   },
   {
     path: 'oauth',
