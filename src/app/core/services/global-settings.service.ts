@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 
 import {ApiService} from './api.service';
-import {GlobalSetting} from '../models';
+import {File, GlobalSetting} from '../models';
+import {Observable} from "rxjs";
 
 
 @Injectable()
@@ -25,6 +26,14 @@ export class GlobalSettingsService {
       },
       (error) => console.log(error)
     );
+  }
+
+  getAllSettings(): Observable<GlobalSetting[]> {
+    return this.apiService.get(`${this.apiName}`);
+  }
+
+  changeValue(key: String, value: String): Observable<GlobalSetting> {
+    return this.apiService.post(`${this.apiName}/${key}`,{value: value});
   }
 
   importEnvironmentIsEnable(): boolean{
