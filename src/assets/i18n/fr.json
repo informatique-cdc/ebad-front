@@ -73,6 +73,7 @@
     "ALLOW": "Accepter",
     "REJECT": "Rejeter",
     "APPLICATION_NAME": "Nom de l'application",
+    "USER": "Utilisateur",
     "RIGHTS": "Droits",
     "REQUEST_TITLE": "Demande d'accréditation",
     "NEW_REQUEST": "Nouvelle demande",
