@@ -6,6 +6,9 @@
         <th id="accReqId">
           {{'ACCREDITATION.ID' | translate}}
         </th>
+        <th id="accReqUser" *ngIf="!userOnly">
+          {{'ACCREDITATION.USER' | translate}}
+        </th>
         <th id="accReqApp">
           {{'ACCREDITATION.APPLICATION' | translate}}
         </th>
@@ -18,7 +21,7 @@
         <th id="accReqState">
           {{'ACCREDITATION.STATE' | translate}}
         </th>
-        <th id="actions">
+        <th id="actions" *ngIf="!userOnly">
           {{'ACTIONS' | translate}}
         </th>
       </tr>
@@ -27,6 +30,9 @@
       <tr *ngFor="let accReq of accreditationsRequests">
         <td class="align-middle">
           {{accReq.id}}
+        </td>
+        <td class="align-middle" *ngIf="!userOnly">
+          {{accReq.user.login}}
         </td>
         <td class="align-middle">
           {{accReq.application.name}}
@@ -40,9 +46,9 @@
         <td class="align-middle">
           {{accReq.state}}
         </td>
-        <td class="text-center">
-          <a *ngIf="!userOnly" (click)="accept(accReq)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'ACCREDITATION.ALLOW' | translate}}</a>
-          <a *ngIf="!userOnly" (click)="reject(accReq)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'ACCREDITATION.REJECT' | translate}}</a>
+        <td class="text-center" *ngIf="!userOnly">
+          <a (click)="accept(accReq)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'ACCREDITATION.ALLOW' | translate}}</a>
+          <a (click)="reject(accReq)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'ACCREDITATION.REJECT' | translate}}</a>
         </td>
       </tr>
       </tbody>

@@ -28,9 +28,17 @@ export class ListAccreditationRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const columnsForAdminOrModo = [{data: 'id',},{data:'user'}, {data: 'application'}, {data: 'wantUse'}, {data: 'wantManage'}, {data: 'state'}, {data: '',orderable: false}];
+    const columnsForUserOnly = [{data: 'id',}, {data: 'application'}, {data: 'wantUse'}, {data: 'wantManage'}, {data: 'state'}];
+    var columns = columnsForAdminOrModo;
     if (this.userOnly) {
       this.title = 'Liste des demandes d\'accréditation';
+      columns = columnsForUserOnly;
     }
+
+
+
+
 
     this.dtOptions = {
       order: [[1, 'asc']],
@@ -54,12 +62,7 @@ export class ListAccreditationRequestComponent implements OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id',
-      }, {data: 'application'}, {data: 'wantUse'}, {data: 'wantManage'}, {data: 'state'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: columns
     };
     this.dtTrigger.next();
   }
