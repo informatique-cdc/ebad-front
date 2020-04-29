@@ -45,7 +45,8 @@
       "USERS": "Users",
       "APPLICATIONS": "Applications",
       "NORMS": "Norms",
-      "NEWS": "Actualities"
+      "NEWS": "News",
+      "SETTINGS": "Settings"
     },
     "OTHERS": {
       "TITLE": "Others",
