@@ -2,10 +2,10 @@
   <div class="row align-items-center">
     <div class="col-auto">
       <h2 id="tableTitle" class="page-pretitle">
-        Administration
+        {{'MENU.ADMINISTRATION.TITLE' | translate}}
       </h2>
       <h2 class="page-title">
-        Paramètres
+        {{'MENU.ADMINISTRATION.SETTINGS' | translate}}
       </h2>
     </div>
   </div>
@@ -16,11 +16,14 @@
       <div class="card-body">
         <div class="row row-sm align-items-center">
           <div class="col">
-            <h3 class="mb-0"><a>{{setting.key}}</a></h3>
+            <h3 class="mb-0"><a>{{setting.key}}</a> is
+              <strong *ngIf="setting.value === 'true'">ENABLED</strong>
+              <strong *ngIf="setting.value === 'false'">DISABLED</strong>
+            </h3>
           </div>
           <div class="col-auto lh-1 align-self-start">
-            <span style="cursor: pointer" *ngIf="setting.value === 'true'" class="badge bg-green-lt" (click)="disableSetting(setting)">Disable</span>
-            <span style="cursor: pointer" *ngIf="setting.value === 'false'" class="badge bg-red-lt" (click)="enableSetting(setting)">Enable</span>
+            <span style="cursor: pointer" *ngIf="setting.value === 'true'" class="badge bg-red-lt" (click)="disableSetting(setting)">Disable</span>
+            <span style="cursor: pointer" *ngIf="setting.value === 'false'" class="badge bg-green-lt" (click)="enableSetting(setting)">Enable</span>
           </div>
         </div>
       </div>
