@@ -40,7 +40,7 @@
     "datatables.net-dt": "^1.10.20",
     "express": "^4.17.1",
     "file-saver": "^2.0.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "live-server": "^1.2.1",
     "marked": "^0.7.0",
     "ng-apexcharts": "^1.1.2",
