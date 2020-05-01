@@ -5,7 +5,7 @@ import {UsersService} from '../../core/services';
 import {Observable} from 'rxjs';
 import {UserApplication} from '../../core/models/user-application.model';
 import {Pageable} from "../../core/models/pageable.model";
-import {catchError, debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-modal-users',
