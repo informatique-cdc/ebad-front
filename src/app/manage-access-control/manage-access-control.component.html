@@ -1,0 +1,40 @@
+<app-env-app-head-selector preTitle="Contrôle des accès" [title]="applicationSelected?.name" (applicationChanged)="applicationChanged($event)" [showEnvironment]="false" [isModarable]="true">
+</app-env-app-head-selector>
+<div class="row">
+  <div class="col-md-6 col-lg-6" *ngFor="let user of users">
+    <div class="card">
+      <div class="card-body">
+        <div class="row row-sm align-items-center">
+          <div class="col-auto">
+            <span class="avatar avatar-md">{{user.user | avatar}}</span>
+          </div>
+          <div class="col">
+            <h3 class="mb-0"><a>{{user.user.firstName}} {{user.user.lastName}}</a></h3>
+            <div class="text-muted text-h5">{{user.user.login}}</div>
+          </div>
+        </div>
+        <div class="row align-items-center mt-4">
+          <div class="col">
+              <span *ngIf="user.canUse" class="badge bg-gray-lt">Utilisateur</span>&nbsp;
+              <span *ngIf="user.canManage" class="badge bg-gray-lt">Manager</span>
+          </div>
+          <div class="col-auto">
+            <div class="btn-list">
+<!--              <a href="javascript:void(0);" class="btn btn-secondary btn-sm" id="modify-{{user.id}}" (click)="onClickModifyUser(user)">-->
+<!--                Edit-->
+<!--              </a>-->
+<!--              <a href="javascript:void(0);" class="btn btn-secondary btn-sm" id="roles-{{user.id}}" (click)="onClickChangeRole(user)">-->
+<!--                Roles-->
+<!--              </a>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex">
+  <pagination-controls class="pagination ml-auto" (pageChange)="changePage($event)"></pagination-controls>
+</div>
+
+

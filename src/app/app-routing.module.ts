@@ -46,6 +46,10 @@ const routes: Routes = [
       {
         path: 'environments',
         loadChildren: () => import('./manage-environments/manage-environments.module').then(m => m.ManageEnvironmentsModule)
+      },
+      {
+        path: 'access-control',
+        loadChildren: () => import('./manage-access-control/manage-access-control.module').then(m => m.ManageAccessControlModule)
       }
       ]
   },

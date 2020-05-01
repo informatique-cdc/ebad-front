@@ -61,6 +61,10 @@
             <ebad-menu-item [label]="'MENU.MANAGEMENT.ENVIRONMENTS' | translate" icon="server"
                             link="/manage/environments"></ebad-menu-item>
           </li>
+          <li id="accessControlMenu" class="sidebar-nav-item">
+            <ebad-menu-item [label]="'MENU.MANAGEMENT.ACCESS-CONTROL' | translate" icon="server"
+                            link="/manage/access-control"></ebad-menu-item>
+          </li>
         </ul>
       </li>
       <li id="administrationMenu" class="sidebar-nav-item" *hasRole="'ROLE_ADMIN'">
