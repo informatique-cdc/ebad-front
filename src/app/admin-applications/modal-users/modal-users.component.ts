@@ -21,7 +21,7 @@ export class ModalUsersComponent implements OnInit {
   listUsers: User[];
 
 
-  constructor(private activeModal: NgbActiveModal,
+  constructor(public activeModal: NgbActiveModal,
               private usersService: UsersService) {
   }
 
