@@ -38,7 +38,8 @@
       "CHAINS": "Chains",
       "FOLDERS": "Folders",
       "NAMING": "Naming",
-      "ENVIRONMENTS": "Manage Environments"
+      "ENVIRONMENTS": "Manage Environments",
+      "ACCESS-CONTROL": "Access Control"
     },
     "ADMINISTRATION": {
       "TITLE": "Administration",

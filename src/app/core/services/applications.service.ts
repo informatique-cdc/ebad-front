@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
-import {Application, User} from '../models';
+import {Application, UsageApplication, User} from '../models';
 import {Page} from "../models/page.model";
 import {Pageable} from "../models/pageable.model";
 
@@ -54,4 +54,7 @@ export class ApplicationsService {
     return this.apiService.get(`${this.apiName}/moderators/${applicationId}`);
   }
 
+  getUsageFromApplication(applicationId: number, pageable: Pageable = new Pageable(0,20)):  Observable<Page<UsageApplication>> {
+    return this.apiService.get(`${this.apiName}/${applicationId}/usages`, pageable);
+  }
 }

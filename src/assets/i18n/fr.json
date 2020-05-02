@@ -38,7 +38,8 @@
       "CHAINS": "Chaines",
       "FOLDERS": "Répertoires",
       "NAMING": "Nommages",
-      "ENVIRONMENTS": "Environnements"
+      "ENVIRONMENTS": "Environnements",
+      "ACCESS-CONTROL": "Contrôle d'accès"
     },
     "ADMINISTRATION": {
       "TITLE": "Administration",

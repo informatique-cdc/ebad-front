@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Application, User} from '../../core/models';
 import {UsersService} from '../../core/services';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {UserApplication} from '../../core/models/user-application.model';
+import {Pageable} from "../../core/models/pageable.model";
+import { debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-modal-users',
@@ -19,6 +20,7 @@ export class ModalUsersComponent implements OnInit {
   user: User;
   listUsers: User[];
 
+
   constructor(public activeModal: NgbActiveModal,
               private usersService: UsersService) {
   }
@@ -27,8 +29,26 @@ export class ModalUsersComponent implements OnInit {
     if (this.isModerator) {
       this.title = `Gestion des modérateurs`;
     }
-    this.usersService.getAll().subscribe(users => this.listUsers = users.content);
+
+
   }
+
+  search = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      switchMap(
+        (searchText) => {
+          let pageable: any = new Pageable(0, 20);
+          pageable.login = searchText;
+          return this.usersService.getAll(pageable).pipe(
+            map(results => results.content)
+          )
+        }),
+    );
+  };
+
+
 
   addUser() {
     if (!this.user || !this.user.login) {
@@ -53,7 +73,6 @@ export class ModalUsersComponent implements OnInit {
   }
 
   deleteUser(user: User) {
-    console.log(user);
     const userApplication: UserApplication = {
       addModo: false,
       addUser: false,
@@ -71,17 +90,6 @@ export class ModalUsersComponent implements OnInit {
     );
 
   }
-
-
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 2 ? []
-        : this.listUsers.filter(v =>
-          (v.login.toLowerCase().startsWith(term.toLocaleLowerCase()) && !this.usersApplication.some(e => e.login === v.login))
-        ).splice(0, 10))
-    );
 
   formatter = (user) => `${user.firstName} ${user.lastName} (${user.login})`;
 }
