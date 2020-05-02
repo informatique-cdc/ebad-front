@@ -1,7 +1,7 @@
 <app-env-app-head-selector preTitle="Contrôle des accès" [title]="applicationSelected?.name" (applicationChanged)="applicationChanged($event)" [showEnvironment]="false" [isModarable]="true">
 </app-env-app-head-selector>
 <div class="row">
-  <div class="col-md-6 col-lg-6" *ngFor="let user of users">
+  <div class="col-md-6 col-lg-6" *ngFor="let user of users | paginate: pagination">
     <div class="card">
       <div class="card-body">
         <div class="row row-sm align-items-center">

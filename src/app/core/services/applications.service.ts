@@ -55,6 +55,6 @@ export class ApplicationsService {
   }
 
   getUsageFromApplication(applicationId: number, pageable: Pageable = new Pageable(0,20)):  Observable<Page<UsageApplication>> {
-    return this.apiService.get(`${this.apiName}/${applicationId}/usages`);
+    return this.apiService.get(`${this.apiName}/${applicationId}/usages`, pageable);
   }
 }
