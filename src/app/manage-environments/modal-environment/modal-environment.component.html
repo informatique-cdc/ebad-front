@@ -60,7 +60,7 @@
     <div class="form-group">
       <label for="prefix">Préfix</label>
       <div class="input-group">
-        <input required id="prefix" class="form-control" placeholder="Préfix"
+        <input id="prefix" class="form-control" placeholder="Préfix"
                name="prefix"
                #prefix="ngModel"
                [ngClass]="{ 'is-invalid': environmentForm.submitted && prefix.invalid }"
