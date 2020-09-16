@@ -110,10 +110,16 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
 
-  runBatch(batch, param) {
+  runBatch(batch, param? : string) {
     this.toastService.showInfo('Votre batch vient d\'être lancé');
 
-    this.batchsService.run(batch.id, {env: this.environmentSelected.id, param}).subscribe(
+    let apiParams: any = {env: this.environmentSelected.id};
+
+    if(param){
+      apiParams.param = param;
+    }
+
+    this.batchsService.run(batch.id, apiParams).subscribe(
       trace => {
         if (trace.returnCode === 0) {
           this.toastService.showSuccess('Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
