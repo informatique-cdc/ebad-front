@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {Notification, NotificationsService, User, UserService} from '../../core';
 import {Router} from '@angular/router';
@@ -10,7 +10,7 @@ import {interval, Subscription} from "rxjs";
   templateUrl: './header.component.html',
   styleUrls: ['./header.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   notifications: Notification[] = [];
   notificationsGetAll: Subscription;
   timeSub: Subscription;
@@ -37,8 +37,6 @@ export class HeaderComponent implements OnInit {
 
 
   logout() {
-    this.notificationsGetAll.unsubscribe();
-    this.timeSub.unsubscribe();
     this.userService.purgeAuth();
     this.router.navigateByUrl('/login');
 
@@ -60,5 +58,10 @@ export class HeaderComponent implements OnInit {
 
   changeLang(lang: string){
     this.translateService.use(lang);
+  }
+
+  ngOnDestroy(): void {
+    this.notificationsGetAll.unsubscribe();
+    this.timeSub.unsubscribe();
   }
 }
