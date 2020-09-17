@@ -101,7 +101,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   runBatchWithCustomParam(batch: Batch) {
     const modalRef = this.modalService.open(ModalRunWithParametersComponent);
     modalRef.result.then((parameters) => {
-      this.runBatch(batch, parameters);
+      this.runBatch(batch, false, parameters);
     }, (reason) => {
       console.log(`Dismissed ${reason}`);
     });
@@ -110,13 +110,17 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
 
-  runBatch(batch, param? : string) {
+  runBatch(batch: Batch, defaultParams: boolean, param? : string) {
     this.toastService.showInfo('Votre batch vient d\'être lancé');
 
     let apiParams: any = {env: this.environmentSelected.id};
 
     if(param){
       apiParams.param = param;
+    }
+
+    if(defaultParams){
+      apiParams.param = batch.defaultParam;
     }
 
     this.batchsService.run(batch.id, apiParams).subscribe(
