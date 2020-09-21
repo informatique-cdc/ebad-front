@@ -7,6 +7,7 @@ import {Constants} from "../shared/Constants";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 import {ToastService} from "../core/services/toast.service";
+import {ProgressWebsocketService} from "../shared/websocket/progress.websocket.service";
 
 @Component({
   selector: 'app-batchs-page',
@@ -23,13 +24,15 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   environmentSelectedInfo: InfoEnvironment;
+  public progress: any = {};
 
   constructor(
     private batchsService: BatchsService,
     private environmentsService: EnvironmentsService,
     private constants: Constants,
     private toastService: ToastService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private progressWebsocketService: ProgressWebsocketService) {
   }
 
   ngOnInit() {
@@ -85,8 +88,17 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.dtTrigger.next();
     });
   }
-
+  private onNewProgressMsg = receivedMsg => {
+    if (receivedMsg.type === 'SUCCESS') {
+      this.progress = receivedMsg.message;
+    }
+  }
   environmentChanged(env: Environment) {
+    const obs = this.progressWebsocketService.getObservable();
+    obs.subscribe({
+      next: this.onNewProgressMsg,
+      error: (err) => { console.log(err); }
+    });
     this.environmentSelected = env;
     this.environmentSelectedInfo = null;
     this.environmentsService.getInfo(this.environmentSelected.id).subscribe(
