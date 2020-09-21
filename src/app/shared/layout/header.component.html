@@ -32,11 +32,11 @@
           <a *ngFor="let notification of notifications" class="dropdown-item d-flex">
             <div id="notification{{notification.id}}">
               {{notification.content}}
-              <div class="small text-muted">{{notification.createdDate}}</div>
+              <div class="small text-muted">{{notification.createdDate | date}}</div>
             </div>
           </a>
-          <div class="dropdown-divider"></div>
-          <a (click)="markAsRead()" style="cursor: pointer" class="dropdown-item text-center">Marquer comme lue(s)</a>
+          <div *ngIf="notifications.length > 0" class="dropdown-divider"></div>
+          <a *ngIf="notifications.length > 0" (click)="markAsRead()" style="cursor: pointer" class="dropdown-item text-center">Marquer comme lue(s)</a>
         </div>
       </li>
       <li class="nav-item dropdown" ngbDropdown placement="">
