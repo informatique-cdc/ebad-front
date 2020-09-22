@@ -12,6 +12,7 @@ jobs:
         with:
           start: npm run start:coverage
           wait-on: 'http://localhost:4200'
+          wait-on-timeout: 120
           browser: chrome
       - name: SonarCloud Scan
         if: always()
