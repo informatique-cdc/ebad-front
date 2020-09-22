@@ -1,58 +1,51 @@
 import {NgModule} from '@angular/core';
+import {FeatherModule} from "angular-feather";
 import {
-  IconActivity,
-  IconBarChart2,
-  IconBell,
-  IconBellOff,
-  IconCalendar,
-  IconCheckCircle,
-  IconCode,
-  IconEdit,
-  IconFlag,
-  IconFolder,
-  IconGitCommit,
-  IconHome,
-  IconInbox,
-  IconLayers,
-  IconLifeBuoy,
-  IconLink,
-  IconPlus,
-  IconServer,
-  IconTerminal,
-  IconUsers,
-  IconX,
-  IconXCircle
-} from 'angular-feather';
+  Activity,
+  BarChart2, Bell, BellOff, Calendar, CheckCircle, Code, Edit,
+  Flag,
+  Folder, GitCommit,
+  Home,
+  Inbox,
+  Layers, LifeBuoy,
+  Link, Plus,
+  Server,
+  Terminal,
+  Users, X, XCircle
+} from "angular-feather/icons";
 
-const icons = [
-  IconHome,
-  IconBarChart2,
-  IconFolder,
-  IconTerminal,
-  IconLink,
-  IconActivity,
-  IconServer,
-  IconInbox,
-  IconLayers,
-  IconFlag,
-  IconUsers,
-  IconLifeBuoy,
-  IconGitCommit,
-  IconCalendar,
-  IconCode,
-  IconBell,
-  IconBellOff,
-  IconX,
-  IconEdit,
-  IconXCircle,
-  IconCheckCircle,
-  IconPlus
-];
+const icons = {
+  Home,
+  BarChart2,
+  Folder,
+  Terminal,
+  Link,
+  Activity,
+  Server,
+  Inbox,
+  Layers,
+  Flag,
+  Users,
+  LifeBuoy,
+  GitCommit,
+  Calendar,
+  Code,
+  Bell,
+  BellOff,
+  X,
+  Edit,
+  XCircle,
+  CheckCircle,
+  Plus
+};
 
 @NgModule({
-  declarations: [],
-  imports: [],
-  exports: icons
+  imports: [
+    FeatherModule.pick(icons)
+  ],
+  exports: [
+    FeatherModule
+  ]
 })
 export class IconsModule {
 }

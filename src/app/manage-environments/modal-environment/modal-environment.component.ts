@@ -14,24 +14,25 @@ export class ModalEnvironmentComponent implements OnInit {
   title = 'Ajouter un environnement';
   action = 'Ajouter';
   normes: Norme[];
-  environment: Environment = {
-    id: undefined,
-    name: undefined,
-    homePath: undefined,
-    host: undefined,
-    login: undefined,
-    norme: null,
-    application: this.application,
-    prefix: undefined,
-    createdBy: undefined,
-    createdDate: undefined,
-    lastModifiedBy: undefined,
-    lastModifiedDate: undefined
-  };
+  environment: Environment;
 
   constructor(public activeModal: NgbActiveModal,
               private environmentsService: EnvironmentsService,
               private normesService: NormsService) {
+    this.environment = {
+      id: undefined,
+      name: undefined,
+      homePath: undefined,
+      host: undefined,
+      login: undefined,
+      norme: null,
+      application: this.application,
+      prefix: undefined,
+      createdBy: undefined,
+      createdDate: undefined,
+      lastModifiedBy: undefined,
+      lastModifiedDate: undefined
+    };
   }
 
   ngOnInit() {
@@ -40,7 +41,7 @@ export class ModalEnvironmentComponent implements OnInit {
       this.action = `Modifier`;
     }
 
-    this.normesService.getAllName(new Pageable(0,1000)).subscribe(
+    this.normesService.getAllName(new Pageable(0, 1000)).subscribe(
       normes => {
         this.normes = normes.content;
         if (this.isUpdate) {
