@@ -13,20 +13,21 @@ export class ModalDirectoryComponent implements OnInit {
   title = 'Ajouter un répertoire';
   action = 'Ajouter';
 
-  directory: Directory = {
-    id: undefined,
-    name: undefined,
-    canWrite: false,
-    path: undefined,
-    environnement: this.environment,
-    createdBy: undefined,
-    createdDate: undefined,
-    lastModifiedBy: undefined,
-    lastModifiedDate: undefined,
-  };
+  directory: Directory;
 
   constructor(public activeModal: NgbActiveModal,
               private filesService: FilesService) {
+    this.directory = {
+      id: undefined,
+      name: undefined,
+      canWrite: false,
+      path: undefined,
+      environnement: this.environment,
+      createdBy: undefined,
+      createdDate: undefined,
+      lastModifiedBy: undefined,
+      lastModifiedDate: undefined,
+    };
   }
 
   ngOnInit() {

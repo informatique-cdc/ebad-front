@@ -37,3 +37,12 @@ Cypress.Commands.add("logout", () => {
   cy.get('#settingsMenu').click();
   cy.get('#logoutHeader').click();
 });
+
+Cypress.Commands.add("getAttached", selector => {
+  const getElement = typeof selector === "function" ? selector : $d => $d.find(selector);
+  let $el = null;
+  return cy.document().should($d => {
+    $el = getElement(Cypress.$($d));
+    expect(Cypress.dom.isDetached($el)).to.be.false;
+  }).then(() => cy.wrap($el));
+});

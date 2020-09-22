@@ -19,23 +19,24 @@ export class ModalChainComponent implements OnInit {
   batchs: Batch[] = [];
   tempBatchAssociation: Batch[] = [];
   tmpBatch: Batch = null;
-  @ViewChild('selectBatch', { static: true }) private selectBatch: NgModel;
+  @ViewChild('selectBatch', {static: true}) private selectBatch: NgModel;
 
-  chain: Chain = {
-    id: undefined,
-    name: undefined,
-    description: undefined,
-    chaineAssociations: undefined,
-    environnement: this.environment,
-    createdBy: undefined,
-    createdDate: undefined,
-    lastModifiedBy: undefined,
-    lastModifiedDate: undefined,
-  };
+  chain: Chain;
 
   constructor(public activeModal: NgbActiveModal,
               private chainsService: ChainsService,
               private batchsService: BatchsService) {
+    this.chain = {
+      id: undefined,
+      name: undefined,
+      description: undefined,
+      chaineAssociations: undefined,
+      environnement: this.environment,
+      createdBy: undefined,
+      createdDate: undefined,
+      lastModifiedBy: undefined,
+      lastModifiedDate: undefined,
+    };
   }
 
   ngOnInit() {
@@ -60,7 +61,7 @@ export class ModalChainComponent implements OnInit {
       }
     }
 
-    this.batchsService.getAllFromEnvironment(this.environment.id,new Pageable(0,1000)).subscribe(
+    this.batchsService.getAllFromEnvironment(this.environment.id, new Pageable(0, 1000)).subscribe(
       batchs => {
         this.batchs = batchs.content;
       }

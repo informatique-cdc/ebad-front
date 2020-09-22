@@ -77,9 +77,9 @@ context('Gestion Application', () => {
       parmPattern: 'yyyyMMdd',
       filePattern: 'yyyyMMdd'
     });
-    cy.get('.toast-body').should('contains.text', 'L\'application ApplicationTest2 a bien été modifiée');
+    cy.getAttached('.toast-body').should('contains.text', 'L\'application ApplicationTest2 a bien été modifiée');
 
     cy.deleteApplication({codeAppli: 'AT2', name: 'ApplicationTest2'});
-    cy.get('.toast-body').should('contains.text', 'L\'application a été supprimée');
+    cy.getAttached('.toast-body').should('contains.text', 'L\'application a été supprimée');
   });
 });
