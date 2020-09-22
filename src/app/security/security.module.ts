@@ -31,7 +31,7 @@ export function storageFactory(): OAuthStorage {
 })
 
 export class SecurityModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<SecurityModule> {
     return {
       ngModule: SecurityModule,
       providers: [
