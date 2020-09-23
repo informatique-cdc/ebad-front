@@ -46,7 +46,7 @@
     </div>
     <div cdkDropList class="chains-list" (cdkDropListDropped)="drop($event)">
       <div class="chain-box" *ngFor="let batch of tempBatchAssociation" cdkDrag>{{batch.name}}
-        <i-x (click)="removeBatch(batch)"></i-x>
+        <i-feather style="cursor: pointer" name="x" (click)="removeBatch(batch)"></i-feather>
       </div>
     </div>
 
