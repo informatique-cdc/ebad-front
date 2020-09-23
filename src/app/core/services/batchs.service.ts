@@ -37,4 +37,8 @@ export class BatchsService {
     return this.apiService.patch(`/batchs`, batch);
   }
 
+  delete(batch: Batch): Observable<void> {
+    return this.apiService.delete(`/batchs/${batch.id}`);
+  }
+
 }
