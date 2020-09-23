@@ -17,7 +17,7 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   applicationSelected: Application;
   batchs: Batch[];
 
-  @ViewChild(DataTableDirective, { static: true })
+  @ViewChild(DataTableDirective, {static: true})
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
@@ -95,7 +95,7 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de l'ahout du batch : ${reason.message}`);
+        this.toastService.showError(`Une erreur est survenue lors de l'ahout du batch : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -109,7 +109,7 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification du batch : ${reason.message}`);
+        this.toastService.showError(`Une erreur est survenue lors de la modification du batch : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -120,13 +120,13 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   deleteBatch(batch: Batch) {
     const modalRef = this.modalService.open(ModalBatchDeletionComponent);
     modalRef.result.then((result) => {
-      this.batchsService.updateBatch(batch).subscribe(
-        batch => {
+      this.batchsService.delete(batch).subscribe(
+        () => {
           this.toastService.showSuccess(`Le batch ${batch.name} a été supprimé`);
           this.applicationChanged(this.applicationSelected);
         },
         reason => {
-          this.toastService.showError( `Une erreur est survenue lors de la suppression du batch : ${reason}`);
+          this.toastService.showError(`Une erreur est survenue lors de la suppression du batch : ${reason}`);
         }
       );
     }, reason => {
