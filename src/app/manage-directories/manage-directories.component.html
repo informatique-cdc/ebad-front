@@ -26,6 +26,9 @@
         <th id="directoryCanWrite">
           Droit d'écriture
         </th>
+        <th id="directoryCanExplore">
+          Droit d'explorer
+        </th>
         <th id="actions">
         </th>
       </tr>
@@ -43,6 +46,9 @@
         </td>
         <td class="align-middle">
           {{directory.canWrite | yesno}}
+        </td>
+        <td class="align-middle">
+          {{directory.canExplore | yesno}}
         </td>
         <td class="text-center">
           <a (click)="editDirectory(directory)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>

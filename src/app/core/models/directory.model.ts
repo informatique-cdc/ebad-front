@@ -6,5 +6,6 @@ export interface Directory extends Audit {
   name: string;
   path: string;
   canWrite: boolean;
+  canExplore: boolean;
   environnement: Environment;
 }

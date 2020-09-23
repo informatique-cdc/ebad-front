@@ -102,8 +102,9 @@
               {{remotefile.createDate | date : 'dd/MM/yyyy hh:mm:ss'}}
             </td>
             <td class="text-center">
-              <a (click)="downloadRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DOWNLOAD' | translate}}</a>
-              <a (click)="deleteRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DELETE' | translate}}</a>
+              <a *ngIf="!remotefile.folder" (click)="downloadRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DOWNLOAD' | translate}}</a>
+              <a *ngIf="!remotefile.folder" (click)="deleteRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DELETE' | translate}}</a>
+              <a *ngIf="remotefile.folder" (click)="explore(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.EXPLORE' | translate}}</a>
             </td>
           </tr>
           </tbody>

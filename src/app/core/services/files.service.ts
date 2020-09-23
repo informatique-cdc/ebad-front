@@ -29,8 +29,8 @@ export class FilesService {
     return this.apiService.post(`/directories/delete`, directory);
   }
 
-  getAllFilesFromDirectory(slug): Observable<File[]> {
-    return this.apiService.get(`/directories/files/${slug}`);
+  getAllFilesFromDirectory(slug, subDir?: string): Observable<File[]> {
+    return this.apiService.get(`/directories/files/${slug}`, subDir);
   }
 
   deleteFile(file): Observable<void> {

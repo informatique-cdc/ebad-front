@@ -207,4 +207,8 @@ export class FilesComponent implements OnInit {
     }
 
   }
+
+  explore(): void{
+
+  }
 }

@@ -21,6 +21,7 @@ export class ModalDirectoryComponent implements OnInit {
       id: undefined,
       name: undefined,
       canWrite: false,
+      canExplore: false,
       path: undefined,
       environnement: this.environment,
       createdBy: undefined,
