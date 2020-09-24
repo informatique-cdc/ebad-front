@@ -1,4 +1,4 @@
-context('Gestion Application', () => {
+context('Folders', () => {
   before(function () {
     cy.server();
     // cy.route({
