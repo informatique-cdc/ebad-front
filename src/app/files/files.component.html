@@ -93,7 +93,7 @@
           </tr>
           <tr>
             <td colspan="3" class="align-middle">
-              Vous êtes ici {{directorySelected.path}}/{{subDir.join('/')}}
+              {{'FILE.YOU_ARE_HERE' | translate}} {{directorySelected.path}}/{{subDir.join('/')}}
             </td>
             <td class="text-center">
               <a *ngIf="subDir.length > 0" (click)="exploreParentDirectory()" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.EXPLORE_UP' | translate}}</a>

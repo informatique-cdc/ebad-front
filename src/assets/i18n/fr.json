@@ -132,6 +132,7 @@
     "SEND_FILE_TITLE": "Envoie de fichier",
     "BROWSE": "Parcourir",
     "EXPLORE": "Parcourir",
-    "EXPLORE_UP": "Parcourir le dossier parent"
+    "EXPLORE_UP": "Parcourir le dossier parent",
+    "YOU_ARE_HERE": "Vous êtes ici :"
   }
 }
