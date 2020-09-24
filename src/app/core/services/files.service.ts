@@ -29,8 +29,12 @@ export class FilesService {
     return this.apiService.post(`/directories/delete`, directory);
   }
 
-  getAllFilesFromDirectory(slug): Observable<File[]> {
-    return this.apiService.get(`/directories/files/${slug}`);
+  getAllFilesFromDirectory(slug, subDir?: string): Observable<File[]> {
+    let param;
+    if(subDir && subDir != ''){
+      param = {'subDirectory': subDir}
+    }
+    return this.apiService.get(`/directories/files/${slug}`, param);
   }
 
   deleteFile(file): Observable<void> {
@@ -41,10 +45,13 @@ export class FilesService {
     return this.apiService.postFile(`/directories/files/read`, file, {responseType: 'arraybuffer'});
   }
 
-  uploadFile(file, name, idDirectory): Observable<any> {
+  uploadFile(file, name, idDirectory, subDirectory?): Observable<any> {
     const formData = new FormData();
     formData.append('directory', idDirectory);
     formData.append('file', file, name);
+    if(subDirectory) {
+      formData.append('subDirectory', subDirectory);
+    }
     return this.apiService.postFile(`/directories/files/upload`, formData);
   }
 }

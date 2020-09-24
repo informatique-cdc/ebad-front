@@ -60,7 +60,7 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
       },
       columns: [{
         data: 'id'
-      }, {data: 'name'}, {data: 'path'}, {data: 'canWrite'}, {
+      }, {data: 'name'}, {data: 'path'}, {data: 'canWrite'},{data: 'canExplore'}, {
         data: '',
         orderable: false
       }]

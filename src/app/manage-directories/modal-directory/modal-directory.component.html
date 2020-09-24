@@ -1,4 +1,4 @@
-<form (ngSubmit)="directoryForm.form.valid && addDirectory()" #directoryForm="ngForm">
+<form id="addDirectoryForm" (ngSubmit)="directoryForm.form.valid && addDirectory()" #directoryForm="ngForm">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
@@ -34,9 +34,17 @@
     <div class="form-group">
       <label for="canWrite">Droit en écriture?</label>
       <div class="input-group">
-        <input id="canWrite" class="form-control" placeholder="Chemin relatif du répertoire"
+        <input id="canWrite" class="form-control"
                name="canWrite" type="checkbox"
                [(ngModel)]="directory.canWrite">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="canExplore">Droit en d'explorer?</label>
+      <div class="input-group">
+        <input id="canExplore" class="form-control"
+               name="canExplore" type="checkbox"
+               [(ngModel)]="directory.canExplore">
       </div>
     </div>
 
