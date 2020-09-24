@@ -79,8 +79,13 @@ Cypress.Commands.add("addUserToApplication", ({codeAppli, nameAppli,firstname, l
   cy.server();
   cy.route({
     method: 'GET',
-    url: '/ebad/applications/gestion*',
+    url: '/ebad/applications/gestion?page=0&size=10&sort=name,asc&name='+nameAppli,
   }).as('searchApplication');
+
+  cy.route({
+    method: 'GET',
+    url: '/ebad/users?page=0&size=20&login='+firstname,
+  }).as('searchUser');
 
   cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
@@ -90,17 +95,23 @@ Cypress.Commands.add("addUserToApplication", ({codeAppli, nameAppli,firstname, l
 
   cy.get('#actionUser-' + codeAppli).click();
   cy.get('#user').type(firstname);
-  cy.get('button').find('('+login+')').click();
+  cy.wait('@searchUser');
+  cy.get('button').contains(login).click();
   cy.get('#addUserBtn').click();
   cy.get('#closeBtn').click();
 });
 
-Cypress.Commands.add("addManagerToApplication", ({codeAppli, nameAppli,user}) => {
+Cypress.Commands.add("addManagerToApplication", ({codeAppli, nameAppli, firstname, login}) => {
   cy.server();
   cy.route({
     method: 'GET',
-    url: '/ebad/applications/gestion*',
+    url: '/ebad/applications/gestion?page=0&size=10&sort=name,asc&name='+nameAppli,
   }).as('searchApplication');
+
+  cy.route({
+    method: 'GET',
+    url: '/ebad/managers?page=0&size=20&login='+firstname,
+  }).as('searchUser');
 
   cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
@@ -109,8 +120,9 @@ Cypress.Commands.add("addManagerToApplication", ({codeAppli, nameAppli,user}) =>
   cy.wait('@searchApplication');
 
   cy.get('#actionManager-' + codeAppli).click();
-  cy.get('#user').type(user.firstname);
-  cy.get('[ng-reflect-result="'+user.firstname+' '+user.lastname+' ('+user.login+')"]').click();
+  cy.get('#user').type(firstname);
+  cy.wait('@searchUser');
+  cy.get('button').contains(login).click();
   cy.get('#addUserBtn').click();
   cy.get('#closeBtn').click();
 });

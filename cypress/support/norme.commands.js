@@ -11,11 +11,19 @@ Cypress.Commands.add("addNorme", ({name, interpreteur, shellFolder, fileDate}) =
 });
 
 Cypress.Commands.add("deleteNorme", ({name}) => {
+  cy.server();
+  cy.route({
+    method: 'GET',
+    url: '/ebad/norms?page=0&size=10&sort=name,asc&name='+name,
+  }).as('searchNorme');
+
   cy.get('#administrationMenu').click();
   cy.get('#normMenu').click();
-  cy.get('tr').contains('td > span', name).parent('td').parent('tr').within(() => {
-    cy.get('button[name="actionDelete"]').click();
-  });
+  cy.get('input[type="search"]').clear();
+  cy.get('input[type="search"]').type(name);
+  cy.wait('@searchNorme');
+
+  cy.get('#actionDelete-'+name).click();
   cy.get('#deleteBtn').click();
 });
 

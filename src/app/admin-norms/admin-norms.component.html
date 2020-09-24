@@ -59,8 +59,8 @@
           {{norm.ctrlMDate}}
         </td>
         <td class="text-center">
-          <a (click)="editNorm(norm)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
-          <a (click)="deleteNorm(norm)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
+          <a id="actionEdit-{{norm.name}}" (click)="editNorm(norm)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a id="actionDelete-{{norm.name}}" (click)="deleteNorm(norm)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
         </td>
       </tr>
       </tbody>

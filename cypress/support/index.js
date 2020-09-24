@@ -19,6 +19,7 @@ import './application.commands'
 import './norme.commands'
 import './environnement.commands'
 import './batch.commands'
+import './files.commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
