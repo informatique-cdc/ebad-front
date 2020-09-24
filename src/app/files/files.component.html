@@ -111,6 +111,7 @@
             </td>
             <td class="text-center">
               <a *ngIf="!remotefile.folder" (click)="downloadRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DOWNLOAD' | translate}}</a>
+              <a *ngIf="!remotefile.folder && directorySelected.canWrite" (click)="deleteRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DELETE' | translate}}</a>
               <a *ngIf="remotefile.folder" (click)="exploreChildDirectory(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.EXPLORE' | translate}}</a>
             </td>
           </tr>

@@ -48,7 +48,11 @@ export class FilesComponent implements OnInit {
 
 
   refreshRemoteFiles() {
-    this.filesService.getAllFilesFromDirectory(this.directorySelected.id).subscribe((files) => this.remoteFiles=files);
+    let subDirectoryParam = "";
+    this.subDir.forEach(dir => {
+      subDirectoryParam += "/" + dir;
+    });
+    this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam).subscribe((files) => this.remoteFiles = files);
   }
 
   constructSelect() {
@@ -194,9 +198,12 @@ export class FilesComponent implements OnInit {
   }
 
   upload() {
-
+    let subDirectoryParam = "";
+    this.subDir.forEach(dir => {
+      subDirectoryParam += "/" + dir;
+    });
     for (const file of this.localFiles) {
-      this.filesService.uploadFile(file, file.customName, this.directorySelected.id).subscribe(
+      this.filesService.uploadFile(file, file.customName, this.directorySelected.id, subDirectoryParam).subscribe(
         () => {
           this.localFiles.splice(this.localFiles.indexOf(file), 1);
           this.refreshRemoteFiles();
@@ -209,21 +216,21 @@ export class FilesComponent implements OnInit {
 
   }
 
-  exploreParentDirectory(): void{
+  exploreParentDirectory(): void {
     this.subDir.pop();
     this.explore()
   }
 
-  exploreChildDirectory(remoteDir: File): void{
+  exploreChildDirectory(remoteDir: File): void {
     this.subDir.push(remoteDir.name)
     this.explore()
   }
 
-  explore(): void{
+  explore(): void {
     let subDirectoryParam = "";
     this.subDir.forEach(dir => {
       subDirectoryParam += "/" + dir;
     });
-    this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam).subscribe((files) => this.remoteFiles=files);
+    this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam).subscribe((files) => this.remoteFiles = files);
   }
 }
