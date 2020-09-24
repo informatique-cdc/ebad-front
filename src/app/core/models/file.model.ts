@@ -7,4 +7,5 @@ export interface File {
   updateDate: Date;
   createDate: Date;
   folder: boolean;
+  subDirectory: string;
 }

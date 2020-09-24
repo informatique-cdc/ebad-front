@@ -131,6 +131,7 @@
     "RENAME_FILE": "Renommer le fichier {{name}}",
     "SEND_FILE_TITLE": "Envoie de fichier",
     "BROWSE": "Parcourir",
-    "EXPLORE": "Parcourir"
+    "EXPLORE": "Parcourir",
+    "EXPLORE_UP": "Parcourir le dossier parent"
   }
 }

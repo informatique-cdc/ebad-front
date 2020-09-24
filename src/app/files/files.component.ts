@@ -24,6 +24,7 @@ export class FilesComponent implements OnInit {
   title = 'Fichiers';
   localFiles: any[] = [];
   remoteFiles: File[];
+  subDir: string[] = [];
 
 
   directorySelected: Directory = null;
@@ -208,7 +209,21 @@ export class FilesComponent implements OnInit {
 
   }
 
-  explore(): void{
+  exploreParentDirectory(): void{
+    this.subDir.pop();
+    this.explore()
+  }
 
+  exploreChildDirectory(remoteDir: File): void{
+    this.subDir.push(remoteDir.name)
+    this.explore()
+  }
+
+  explore(): void{
+    let subDirectoryParam = "";
+    this.subDir.forEach(dir => {
+      subDirectoryParam += "/" + dir;
+    });
+    this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam).subscribe((files) => this.remoteFiles=files);
   }
 }

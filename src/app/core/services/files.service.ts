@@ -30,7 +30,11 @@ export class FilesService {
   }
 
   getAllFilesFromDirectory(slug, subDir?: string): Observable<File[]> {
-    return this.apiService.get(`/directories/files/${slug}`, subDir);
+    let param;
+    if(subDir){
+      param = {'subDirectory': subDir}
+    }
+    return this.apiService.get(`/directories/files/${slug}`, param);
   }
 
   deleteFile(file): Observable<void> {

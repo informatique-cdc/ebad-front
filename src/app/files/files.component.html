@@ -91,6 +91,14 @@
           <tr *ngIf="remoteFiles.length == 0">
             <td colspan="100%">{{'FILE.NO_REMOTE_FILE' | translate}}</td>
           </tr>
+          <tr>
+            <td colspan="3" class="align-middle">
+              Vous êtes ici {{directorySelected.path}}/{{subDir.join('/')}}
+            </td>
+            <td class="text-center">
+              <a *ngIf="subDir.length > 0" (click)="exploreParentDirectory()" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.EXPLORE_UP' | translate}}</a>
+            </td>
+          </tr>
           <tr *ngFor="let remotefile of remoteFiles">
             <td class="align-middle">
               {{remotefile.name}}
@@ -103,8 +111,7 @@
             </td>
             <td class="text-center">
               <a *ngIf="!remotefile.folder" (click)="downloadRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DOWNLOAD' | translate}}</a>
-              <a *ngIf="!remotefile.folder" (click)="deleteRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DELETE' | translate}}</a>
-              <a *ngIf="remotefile.folder" (click)="explore(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.EXPLORE' | translate}}</a>
+              <a *ngIf="remotefile.folder" (click)="exploreChildDirectory(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.EXPLORE' | translate}}</a>
             </td>
           </tr>
           </tbody>
