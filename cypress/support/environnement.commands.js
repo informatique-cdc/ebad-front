@@ -14,15 +14,36 @@ Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, login, h
 });
 
 Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName}) => {
+  cy.server();
+  cy.route({
+    method: 'GET',
+    url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name=',
+  }).as('getEnvironments');
+
+  cy.route({
+    method: 'GET',
+    url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name='+environnementName,
+  }).as('searchEnvironment');
+
+  cy.route({
+      method: 'DELETE',
+    url: '/ebad/environments?idEnv=**',
+  }).as('deleteEnvironment');
+
+
   cy.get('#managementMenu').click();
   cy.get('#environmentMenu').click();
   cy.get("#selectApplication").select(applicationName);
+  cy.wait('@getEnvironments');
 
-  cy.wait(1500);
-  cy.get('tr').contains('td > span', environnementName).parent('td').parent('tr').within(() => {
-    cy.get('button[name="actionDelete"]').click();
-  });
+  cy.get('input[type="search"]').clear();
+  cy.get('input[type="search"]').type(environnementName);
+  cy.wait('@searchEnvironment');
+
+  cy.get('#actionDelete-'+environnementName).click();
+
   cy.get('#deleteBtn').click();
+  cy.wait('@deleteEnvironment');
 });
 
 
