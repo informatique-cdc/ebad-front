@@ -1,10 +1,6 @@
 context('Folders', () => {
   before(function () {
     cy.server();
-    // cy.route({
-    //   method: 'GET',
-    //   url: '/ebad/applications/gestion*',
-    // }).as('searchApplication');
   });
 
   beforeEach(function () {
