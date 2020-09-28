@@ -83,51 +83,47 @@ context('Gestion Environnement', () => {
     cy.deleteEnvironnement({applicationName: 'ApplicationCyEnv1', environnementName: 'QACy'});
   });
 
-  //
-  // it('Modifier un environnement', function () {
-  //   cy.login({login: this.login.admin.login, password: this.login.admin.password})
-  //     .addEnvironnement({applicationName: 'ApplicationEnv1', name: 'Production', host: 'myhost.com', login: 'batch', homePath: '/home/batch', prefix: 'P', norme: 'Linux'});
-  //
-  //   cy.updateEnvironnement({
-  //     applicationName: 'ApplicationEnv1',
-  //     environnementNameToUpdate: 'Production',
-  //     name: 'QA',
-  //     host: 'mynewhost.com',
-  //     login: 'batch2',
-  //     homePath: '/home/batch2',
-  //     prefix: 'Q'
-  //   });
-  //
-  //   cy.get('#listEnvironnements table > tbody > tr').as('lines');
-  //   cy.get('@lines').should('have.length', 1);
-  //
-  //   cy.get('@lines').eq(0).children('td').as('line1');
-  //   cy.get('@line1').eq(1).children('span').should('have.text', 'QA');
-  //   cy.get('@line1').eq(2).children('span').should('have.text', 'mynewhost.com');
-  //   cy.get('@line1').eq(3).children('span').should('have.text', 'batch2');
-  //   cy.get('@line1').eq(4).children('span').should('have.text', '/home/batch2');
-  //   cy.get('@line1').eq(5).children('span').should('have.text', 'Q');
-  //
-  //   //On teste aussi après un changement d'écran
-  //   cy.get('#applicationMenu').click();
-  //   cy.get('#environnementMenu').click();
-  //   cy.get("#selectApplication").select('ApplicationEnv1');
-  //
-  //   cy.get('#listEnvironnements table > tbody > tr').as('lines');
-  //   cy.get('@lines').should('have.length', 1);
-  //
-  //   cy.get('@lines').eq(0).children('td').as('line1');
-  //   cy.get('@line1').eq(1).children('span').should('have.text', 'QA');
-  //   cy.get('@line1').eq(2).children('span').should('have.text', 'mynewhost.com');
-  //   cy.get('@line1').eq(3).children('span').should('have.text', 'batch2');
-  //   cy.get('@line1').eq(4).children('span').should('have.text', '/home/batch2');
-  //   cy.get('@line1').eq(5).children('span').should('have.text', 'Q');
-  //
-  //   cy.deleteEnvironnement({applicationName: 'ApplicationEnv1', environnementName: 'QA'});
-  //
-  //   cy.get('p.notifier__notification-message').should(($p) => {
-  //     expect($p[1]).to.have.text('L\'environnement a bien été modifiée');
-  //     expect($p[2]).to.have.text('L\'environnement a été supprimée');
-  //   });
-  // });
+
+  it('Modifier un environnement', function () {
+    cy.server();
+    cy.route({
+      method: 'GET',
+      url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name=',
+    }).as('getEnvironments');
+
+    cy.login({login: this.login.admin.login, password: this.login.admin.password})
+      .addEnvironnement({applicationName: 'ApplicationCyEnv1', name: 'Production', host: 'myhost.com', login: 'batch', homePath: '/home/batch', prefix: 'P', norme: 'Linux'});
+
+    cy.updateEnvironnement({
+      applicationName: 'ApplicationCyEnv1',
+      environnementNameToUpdate: 'Production',
+      name: 'QA',
+      host: 'mynewhost.com',
+      login: 'batch2',
+      homePath: '/home/batch2',
+      prefix: 'Q'
+    });
+
+    cy.get('.toast-body').should('contains.text', 'L\'environnement QA a bien été modifié');
+
+
+    cy.visit('http://localhost:4200');
+    cy.get('#managementMenu').click();
+    cy.get('#environmentMenu').click();
+    cy.get("#selectApplication").select('ApplicationCyEnv1');
+
+    cy.wait('@getEnvironments');
+
+    cy.contains('QA').parent('tr').within(() => {
+      cy.get('td').eq(2).contains('mynewhost.com')
+      cy.get('td').eq(3).contains('batch2')
+      cy.get('td').eq(4).contains('/home/batch2')
+      cy.get('td').eq(5).contains('Q')
+    });
+
+    cy.deleteEnvironnement({applicationName: 'ApplicationCyEnv1', environnementName: 'QA'});
+    cy.get('.toast-body').should('contains.text', 'L\'environnement a été supprimé');
+
+    cy.deleteApplication({codeAppli: 'EN1', name: 'ApplicationCyEnv1'});
+  });
 });

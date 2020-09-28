@@ -62,7 +62,7 @@
           {{env.prefix}}
         </td>
         <td class="text-center">
-          <a name="actionEdit" (click)="editEnvironment(env)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
+          <a name="actionEdit" id="actionEdit-{{env.name}}" (click)="editEnvironment(env)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
           <a name="actionDelete" id="actionDelete-{{env.name}}" (click)="deleteEnvironment(env)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
         </td>
       </tr>
