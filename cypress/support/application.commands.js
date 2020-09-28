@@ -110,7 +110,7 @@ Cypress.Commands.add("addManagerToApplication", ({codeAppli, nameAppli, firstnam
 
   cy.route({
     method: 'GET',
-    url: '/ebad/managers?page=0&size=20&login='+firstname,
+    url: '/ebad/users?page=0&size=20&login='+firstname,
   }).as('searchUser');
 
   cy.get('#administrationMenu').click();

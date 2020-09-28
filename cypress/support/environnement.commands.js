@@ -1,5 +1,11 @@
 /////////// ENVIRONNEMENT ///////////////
 Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, login, homePath, prefix, norme}) => {
+  cy.server();
+  cy.route({
+    method: 'PUT',
+    url: '/ebad/environments',
+  }).as('addEnvironment');
+
   cy.get('#managementMenu').click();
   cy.get('#environmentMenu').click();
   cy.get("#selectApplication").select(applicationName);
@@ -11,32 +17,76 @@ Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, login, h
   cy.get('#prefix').type(prefix);
   cy.get('#norme').select(norme);
   cy.get('#addEnvironmentForm').submit();
+  cy.wait('@addEnvironment');
 });
 
 Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName}) => {
+  cy.server();
+  cy.route({
+    method: 'GET',
+    url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name=',
+  }).as('getEnvironments');
+
+  cy.route({
+    method: 'GET',
+    url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name='+environnementName,
+  }).as('searchEnvironment');
+
+  cy.route({
+      method: 'DELETE',
+    url: '/ebad/environments?idEnv=**',
+  }).as('deleteEnvironment');
+
+
   cy.get('#managementMenu').click();
   cy.get('#environmentMenu').click();
   cy.get("#selectApplication").select(applicationName);
+  cy.wait('@getEnvironments');
 
   cy.wait(1500);
-  cy.get('tr').contains('td > span', environnementName).parent('td').parent('tr').within(() => {
-    cy.get('button[name="actionDelete"]').click();
-  });
+
+  cy.get('input[type="search"]').clear();
+  cy.get('input[type="search"]').type(environnementName);
+  cy.wait('@searchEnvironment');
+
+  cy.get('#actionDelete-'+environnementName).click();
+
   cy.get('#deleteBtn').click();
+  cy.wait('@deleteEnvironment');
 });
 
 
 Cypress.Commands.add("updateEnvironnement", ({
                                                applicationName, environnementNameToUpdate, name, host, login, homePath, prefix, norme
                                              }) => {
+  cy.server();
+  cy.route({
+    method: 'GET',
+    url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name=',
+  }).as('getEnvironments');
+
+  cy.route({
+    method: 'GET',
+    url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name='+environnementNameToUpdate,
+  }).as('searchEnvironment');
+
+  cy.route({
+    method: 'PATCH',
+    url: '/ebad/environments',
+  }).as('editEnvironment');
+
   cy.get('#managementMenu').click();
   cy.get('#environmentMenu').click();
   cy.get("#selectApplication").select(applicationName);
 
+  cy.wait('@getEnvironments');
   cy.wait(1500);
-  cy.get('tr').contains('td > span', environnementNameToUpdate).parent('td').parent('tr').within(() => {
-    cy.get('button[name="actionModify"]').click();
-  });
+
+  cy.get('input[type="search"]').clear();
+  cy.get('input[type="search"]').type(environnementNameToUpdate);
+  cy.wait('@searchEnvironment');
+
+  cy.get('#actionEdit-'+environnementNameToUpdate).click();
   if (name) {
     cy.get('#name').clear().type(name);
   }
@@ -56,4 +106,6 @@ Cypress.Commands.add("updateEnvironnement", ({
     cy.get("#norme").clear().select(norme);
   }
   cy.get('#addEnvironmentForm').submit();
+  cy.wait('@editEnvironment');
+
 });
