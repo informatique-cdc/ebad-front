@@ -125,5 +125,7 @@ context('Gestion Environnement', () => {
     cy.get('.toast-body').should('contains.text', 'L\'environnement a été supprimé');
 
     cy.deleteApplication({codeAppli: 'EN1', name: 'ApplicationCyEnv1'});
+    cy.deleteNorme({name: 'LinuxEnvCy'});
+
   });
 });
