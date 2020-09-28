@@ -43,6 +43,8 @@ Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName
   cy.get("#selectApplication").select(applicationName);
   cy.wait('@getEnvironments');
 
+  cy.wait(1500);
+
   cy.get('input[type="search"]').clear();
   cy.get('input[type="search"]').type(environnementName);
   cy.wait('@searchEnvironment');
@@ -78,6 +80,7 @@ Cypress.Commands.add("updateEnvironnement", ({
   cy.get("#selectApplication").select(applicationName);
 
   cy.wait('@getEnvironments');
+  cy.wait(1500);
 
   cy.get('input[type="search"]').clear();
   cy.get('input[type="search"]').type(environnementNameToUpdate);
