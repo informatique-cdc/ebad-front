@@ -17,6 +17,7 @@ export class AuthComponent implements OnInit {
   isSubmitting = false;
   authForm: FormGroup;
   jwt = environment.jwt;
+  referer = '/home';
 
   constructor(
     private route: ActivatedRoute,
@@ -34,8 +35,16 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params['referer']){
+        this.referer = params['referer'];
+        console.log("referer = "+this.referer);
+      }
+    });
     this.apiService.get('/csrf').subscribe((result) => {
       console.log('csrf');
+      console.log("referer = "+this.referer);
+
     }, (error) => {});
 
   }
@@ -43,7 +52,7 @@ export class AuthComponent implements OnInit {
   submitForm() {
     if(!this.jwt) {
       // this.oauthService.runInitialLoginSequence();
-      this.oauthService.login("/home");
+      this.oauthService.login(this.referer);
       //return;
     }else {
 
@@ -54,7 +63,7 @@ export class AuthComponent implements OnInit {
       this.userService
         .attemptAuth(credentials)
         .subscribe(
-          data => this.router.navigateByUrl('/home'),
+          data => this.router.navigateByUrl(this.referer),
           err => {
             this.error = true;
             this.isSubmitting = false;
