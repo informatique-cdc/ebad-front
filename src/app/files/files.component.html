@@ -107,7 +107,7 @@
               {{remotefile.size}}
             </td>
             <td class="align-middle">
-              {{remotefile.createDate | date : 'dd/MM/yyyy hh:mm:ss'}}
+              {{remotefile.createDate | date : 'dd/MM/yyyy HH:mm:ss'}}
             </td>
             <td class="text-center">
               <a *ngIf="!remotefile.folder" (click)="downloadRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DOWNLOAD' | translate}}</a>
