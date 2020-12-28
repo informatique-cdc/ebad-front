@@ -38,22 +38,17 @@ export class AuthComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (params['referer']){
         this.referer = params['referer'];
-        console.log("referer = "+this.referer);
       }
     });
     this.apiService.get('/csrf').subscribe((result) => {
       console.log('csrf');
-      console.log("referer = "+this.referer);
-
     }, (error) => {});
 
   }
 
   submitForm() {
     if(!this.jwt) {
-      // this.oauthService.runInitialLoginSequence();
       this.oauthService.login(this.referer);
-      //return;
     }else {
 
       this.isSubmitting = true;
