@@ -28,17 +28,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     if (!environment.jwt) {
-      this.oauthService.runInitialLoginSequence().then(
-        () => this.userService.populate()
-      ).catch(
+      this.oauthService.runInitialLoginSequence().then(() => {
+
+      }).catch(
         (error) => {
           console.log("error when run initial login sequence "+error);
           this.router.navigateByUrl('/login');
         }
       );
     }
+    console.log("start populate");
     this.userService.populate();
+    console.log("end populate");
     this.userService.isAuthenticated.subscribe((result) => {
+      console.log("isAuthenticated");
       this.isAuthenticated = result;
       if(result){
         this.globalSettingsService.populateGlobalSetting();
