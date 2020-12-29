@@ -38,6 +38,11 @@ export class OauthService {
           this.router.navigate(['/error', {error: event.type}]); // FIXME DTROUILLET DESACTIVER SILENT REFRESH EN MODE NON CONNECTE
         }
       } else {
+        if(event.type === 'user_profile_loaded'){
+          if (this.oauthService.state && this.oauthService.state !== 'undefined' && this.oauthService.state !== 'null') {
+            this.router.navigateByUrl(this.oauthService.state);
+          }
+        }
         console.warn(event);
       }
     });
@@ -122,7 +127,8 @@ export class OauthService {
         this.isDoneLoadingSubject$.next(true);
         if (this.oauthService.state && this.oauthService.state !== 'undefined' && this.oauthService.state !== 'null') {
           console.log('There was state, so we are sending you to: ' + this.oauthService.state);
-          this.router.navigate([this.oauthService.state]);
+          console.log("GO!");
+          this.router.navigateByUrl(this.oauthService.state);
         }
   })
       .catch((error) => {
@@ -131,7 +137,7 @@ export class OauthService {
   }
 
   public login(targetUrl?: string) {
-    this.oauthService.initImplicitFlow(encodeURIComponent(targetUrl || this.router.url));
+    this.oauthService.initImplicitFlow(targetUrl || this.router.url);
   }
 
   public logout() {
@@ -160,6 +166,10 @@ export class OauthService {
 
   public get logoutUrl() {
     return this.oauthService.logoutUrl;
+  }
+
+  public get state(){
+    return this.oauthService.state;
   }
 
 }
