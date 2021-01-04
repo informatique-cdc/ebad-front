@@ -15,22 +15,22 @@
       <li class="sidebar-nav-item" *hasAnyRole="['ROLE_MODO','ROLE_USER']">
         <ebad-menu-item label="Accreditations" badgeText="NEW" icon="check-square" link="/accreditations"></ebad-menu-item>
       </li>
-      <li class="sidebar-nav-item" *hasRole="'ROLE_USER'">
+      <li id="functionMenu" class="sidebar-nav-item" *hasRole="'ROLE_USER'">
         <ebad-menu-item [label]="'MENU.FUNCTION.TITLE' | translate" icon="paperclip"
                         isParent="true" [isOpen]="navbarUsageOpen"
                         (click)="toggleUsage()"></ebad-menu-item>
         <ul class="sidebar-subnav collapse" [ngClass]="{ 'show': navbarUsageOpen }" id="sidebar-menu-error">
-          <li class="sidebar-nav-item">
+          <li id="functionBatchMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.FUNCTION.BATCHS' | translate" icon="terminal"
                             link="/batchs"></ebad-menu-item>
           </li>
-          <li class="sidebar-nav-item">
+          <li id="functionChainMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.FUNCTION.CHAINS' | translate" icon="link" link="/chains"></ebad-menu-item>
           </li>
-          <li class="sidebar-nav-item">
+          <li id="functionFolderMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.FUNCTION.FILES' | translate" icon="folder" link="/files"></ebad-menu-item>
           </li>
-          <li class="sidebar-nav-item">
+          <li id="functionTraceMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.FUNCTION.TRACES' | translate" icon="activity"
                             link="/traces"></ebad-menu-item>
           </li>
@@ -49,7 +49,7 @@
             <ebad-menu-item [label]="'MENU.MANAGEMENT.CHAINS' | translate" icon="link"
                             link="/manage/chains"></ebad-menu-item>
           </li>
-          <li class="sidebar-nav-item">
+          <li id="folderManageMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.MANAGEMENT.FOLDERS' | translate" icon="folder"
                             link="/manage/directories"></ebad-menu-item>
           </li>

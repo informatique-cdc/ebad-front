@@ -22,7 +22,6 @@ import {MenuItemComponent} from "./layout";
 import {AngularSvgIconModule} from "angular-svg-icon";
 import {IconComponent} from "./icon";
 import {NgApexchartsModule} from "ng-apexcharts";
-import {IconHeart} from "angular-feather";
 import {AvatarPipe} from "./avatar.pipe";
 import {DataTablesModule} from "angular-datatables";
 import {YesNoPipe} from "./yesno.pipe";
@@ -45,9 +44,8 @@ import {ProgressWebsocketService} from "./websocket/progress.websocket.service";
     IconsModule,
     NgbModule,
     TranslateModule,
-    AngularSvgIconModule,
+    AngularSvgIconModule.forRoot(),
     NgApexchartsModule,
-    IconHeart,
     DataTablesModule
   ],
   declarations: [

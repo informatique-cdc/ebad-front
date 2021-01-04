@@ -130,6 +130,9 @@
     "FILE_KIND": "File kind",
     "RENAME_FILE": "Rename file {{name}}",
     "SEND_FILE_TITLE": "File to send",
-    "BROWSE": "Browse"
+    "BROWSE": "Browse",
+    "EXPLORE": "Explore",
+    "EXPLORE_UP": "Explore parent folder",
+    "YOU_ARE_HERE": "You are here :"
   }
 }

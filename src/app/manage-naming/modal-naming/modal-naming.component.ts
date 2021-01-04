@@ -13,19 +13,20 @@ export class ModalNamingComponent implements OnInit {
   isUpdate = false;
   title = 'Ajouter un nommage';
   action = 'Ajouter';
-  fileKind: FileKind = {
-    id: undefined,
-    name: undefined,
-    application: this.application,
-    pattern: undefined,
-    createdBy: undefined,
-    createdDate: undefined,
-    lastModifiedBy: undefined,
-    lastModifiedDate: undefined
-  };
+  fileKind: FileKind;
 
   constructor(public activeModal: NgbActiveModal,
               private fileKindsService: FileKindsService) {
+    this.fileKind = {
+      id: undefined,
+      name: undefined,
+      application: this.application,
+      pattern: undefined,
+      createdBy: undefined,
+      createdDate: undefined,
+      lastModifiedBy: undefined,
+      lastModifiedDate: undefined
+    };
   }
 
   ngOnInit() {

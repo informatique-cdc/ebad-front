@@ -1,4 +1,4 @@
-context('Gestion Application', () => {
+context('Applications', () => {
   before(function () {
     cy.server();
     cy.route({
@@ -14,19 +14,19 @@ context('Gestion Application', () => {
     });
   });
 
-  it('Ajouter une application', function () {
+  it('Add application', function () {
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
     cy.get('.toast-body').should('contains.text', 'L\'application ApplicationTest1 a bien été ajoutée');
   });
 
-  it('Supprimer une application', function () {
+  it('Delete application', function () {
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .deleteApplication({codeAppli: 'AT1', name: 'ApplicationTest1'});
     cy.get('.toast-body').should('have.text', '\nL\'application a été supprimée\n');
   });
 
-  it('Lister les applications', function () {
+  it('List applications', function () {
     cy.server();
     cy.route({
       method: 'GET',
@@ -65,7 +65,7 @@ context('Gestion Application', () => {
 
   });
 
-  it('Modifier une application', function () {
+  it('Edit application', function () {
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .addApplication({codeAppli: 'AT1', name: 'ApplicationTest1', parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});
 
@@ -77,9 +77,9 @@ context('Gestion Application', () => {
       parmPattern: 'yyyyMMdd',
       filePattern: 'yyyyMMdd'
     });
-    cy.get('.toast-body').should('contains.text', 'L\'application ApplicationTest2 a bien été modifiée');
+    cy.getAttached('.toast-body').should('contains.text', 'L\'application ApplicationTest2 a bien été modifiée');
 
     cy.deleteApplication({codeAppli: 'AT2', name: 'ApplicationTest2'});
-    cy.get('.toast-body').should('contains.text', 'L\'application a été supprimée');
+    cy.getAttached('.toast-body').should('contains.text', 'L\'application a été supprimée');
   });
 });

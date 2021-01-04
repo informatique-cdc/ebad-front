@@ -2,12 +2,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {
   AuthConfig,
-  JwksValidationHandler,
   OAuthModule,
   OAuthModuleConfig,
   OAuthStorage,
   ValidationHandler
 } from 'angular-oauth2-oidc';
+import {JwksValidationHandler} from 'angular-oauth2-oidc-jwks';
 import {AuthGuard} from "../core/services";
 import {OauthService} from "./oauth.service";
 import {oauthConfig} from "./oauth-config";
@@ -31,7 +31,7 @@ export function storageFactory(): OAuthStorage {
 })
 
 export class SecurityModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<SecurityModule> {
     return {
       ngModule: SecurityModule,
       providers: [

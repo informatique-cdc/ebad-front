@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
           } else {
             console.log('denied');
             canActivate = false;
-            this.router.navigate(['login']);
+            this.router.navigate(['login', {referer: state.url}]);
           }
         }
       );
@@ -42,7 +42,7 @@ export class AuthGuard implements CanActivate {
         .pipe(tap(x => {
           console.log('You tried to go to ' + state.url + ' and this guard said ' + x);
           if(!x){
-            this.router.navigate(['login']);
+            this.router.navigate(['login', {referer: state.url}]);
           }
         }));
     }

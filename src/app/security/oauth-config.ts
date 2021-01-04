@@ -5,7 +5,7 @@ export const oauthConfig: AuthConfig = {
   issuer: environment.issuer,
   clientId: environment.clientId,
   loginUrl: environment.loginUrl,
-  redirectUri: window.location.origin + "/#/oauth",
+  redirectUri: window.location.origin + "/",
   silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
   scope: environment.scope,
   silentRefreshTimeout: 5000,
@@ -19,5 +19,7 @@ export const oauthConfig: AuthConfig = {
   requireHttps: false,
   disableAtHashCheck: true,
   postLogoutRedirectUri: window.location.origin + '/',
-  skipSubjectCheck: true
+  skipSubjectCheck: true,
+  // responseType: "code",
+  // tokenEndpoint: environment.tokenEndpoint
 };

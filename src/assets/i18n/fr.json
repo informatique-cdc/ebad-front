@@ -130,6 +130,9 @@
     "FILE_KIND": "Type de fichier",
     "RENAME_FILE": "Renommer le fichier {{name}}",
     "SEND_FILE_TITLE": "Envoie de fichier",
-    "BROWSE": "Parcourir"
+    "BROWSE": "Parcourir",
+    "EXPLORE": "Parcourir",
+    "EXPLORE_UP": "Parcourir le dossier parent",
+    "YOU_ARE_HERE": "Vous êtes ici :"
   }
 }

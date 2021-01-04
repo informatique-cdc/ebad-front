@@ -11,20 +11,41 @@ Cypress.Commands.add("addNorme", ({name, interpreteur, shellFolder, fileDate}) =
 });
 
 Cypress.Commands.add("deleteNorme", ({name}) => {
+  cy.server();
+  cy.route({
+    method: 'GET',
+    url: '/ebad/norms?page=0&size=10&sort=name,asc&name='+name,
+  }).as('searchNorme');
+
   cy.get('#administrationMenu').click();
   cy.get('#normMenu').click();
-  cy.get('tr').contains('td > span', name).parent('td').parent('tr').within(() => {
-    cy.get('button[name="actionDelete"]').click();
-  });
+  cy.get('input[type="search"]').clear();
+  cy.get('input[type="search"]').type(name);
+  cy.wait('@searchNorme');
+
+  cy.get('#actionDelete-'+name).click();
   cy.get('#deleteBtn').click();
 });
 
 Cypress.Commands.add("updateNorme", ({nameToUpdate, name, interpreteur, shellFolder, fileDate}) => {
+  cy.server();
+  cy.route({
+    method: 'GET',
+    url: '/ebad/norms?page=0&size=10&sort=name,asc&name='+nameToUpdate,
+  }).as('searchNorme');
+  cy.route({
+    method: 'PATCH',
+    url: '/ebad/norms'
+  }).as('updateNorm');
+
   cy.get('#administrationMenu').click();
   cy.get('#normMenu').click();
-  cy.get('tr').contains('td > span', nameToUpdate).parent('td').parent('tr').within(() => {
-    cy.get('button[name="actionModify"]').click();
-  });
+  cy.get('input[type="search"]').clear();
+  cy.get('input[type="search"]').type(nameToUpdate);
+  cy.wait('@searchNorme');
+
+  cy.get('#actionEdit-'+nameToUpdate).click();
+
   if (name) {
     cy.get('#name').clear().type(name);
   }
@@ -38,4 +59,6 @@ Cypress.Commands.add("updateNorme", ({nameToUpdate, name, interpreteur, shellFol
     cy.get("#fileDate").clear().type(fileDate);
   }
   cy.get('form').submit();
+  cy.wait('@updateNorm');
+
 });
