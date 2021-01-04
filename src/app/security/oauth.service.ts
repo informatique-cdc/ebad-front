@@ -127,7 +127,6 @@ export class OauthService {
         this.isDoneLoadingSubject$.next(true);
         if (this.oauthService.state && this.oauthService.state !== 'undefined' && this.oauthService.state !== 'null') {
           console.log('There was state, so we are sending you to: ' + this.oauthService.state);
-          console.log("GO!");
           this.router.navigateByUrl(this.oauthService.state);
         }
   })

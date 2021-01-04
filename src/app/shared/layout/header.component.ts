@@ -2,8 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {Notification, NotificationsService, User, UserService} from '../../core';
 import {Router} from '@angular/router';
-import {TranslateService} from "@ngx-translate/core";
-import {interval, Subscription} from "rxjs";
+import {TranslateService} from '@ngx-translate/core';
+import {interval, Observable, Subscription} from 'rxjs';
+import {RxStompService} from "@stomp/ng2-stompjs";
+import {json} from "express";
 
 @Component({
   selector: '[ebad-header]',
@@ -11,15 +13,16 @@ import {interval, Subscription} from "rxjs";
   styleUrls: ['./header.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  notifications: Notification[] = [];
-  notificationsGetAll: Subscription;
-  timeSub: Subscription;
+  notifications: Set<Notification> = new Set<Notification>();
+  sub: Subscription;
   constructor(
     private userService: UserService,
     private router: Router,
     private notificationsService: NotificationsService,
-    private translateService: TranslateService
-  ) {}
+    private translateService: TranslateService,
+    private rxStompService: RxStompService
+  ) {
+  }
 
   currentUser: User;
 
@@ -29,39 +32,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.currentUser = userData;
       }
     );
-
     this.showNotification();
-    const source = interval(10 * 1000);
-    this.timeSub = source.subscribe(() => this.showNotification())
   }
 
 
   logout() {
     this.userService.purgeAuth();
     this.router.navigateByUrl('/login');
-
-    //this.router.navigate(['']);
   }
 
-  showNotification(){
-    this.notificationsGetAll = this.notificationsService.getAll().subscribe(
-      notifications => {
-        this.notifications = notifications;
-      }
-    )
+  showNotification() {
+    this.sub = this.rxStompService.watch('/user/queue/notifications').subscribe({
+      next: this.addNotification
+    });
   }
 
-  markAsRead(){
+  private addNotification = receivedMsg => {
+    const result: Notification[] = JSON.parse(receivedMsg.body);
+    result.forEach((notif) => {
+      this.notifications.add(notif);
+    });
+  }
+
+  markAsRead() {
     this.notificationsService.markAsRead().subscribe();
-    this.showNotification();
+    this.notifications = new Set<Notification>();
   }
 
-  changeLang(lang: string){
+  changeLang(lang: string) {
     this.translateService.use(lang);
   }
 
   ngOnDestroy(): void {
-    this.notificationsGetAll.unsubscribe();
-    this.timeSub.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

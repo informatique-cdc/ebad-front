@@ -6,8 +6,9 @@ import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models';
 import {distinctUntilChanged, map} from 'rxjs/operators';
-import {environment} from "../../../environments/environment";
-import {OauthService} from "../../security/oauth.service";
+import {environment} from '../../../environments/environment';
+import {OauthService} from '../../security/oauth.service';
+import {RxStompService} from '@stomp/ng2-stompjs';
 
 
 @Injectable()
@@ -22,7 +23,8 @@ export class UserService {
     private apiService: ApiService,
     private http: HttpClient,
     private jwtService: JwtService,
-    private oauthService: OauthService
+    private oauthService: OauthService,
+    private rxStompService: RxStompService,
   ) {
     if (environment.jwt) {
       this.isAuthenticated = this.isAuthenticatedSubject.asObservable();
@@ -50,16 +52,29 @@ export class UserService {
     }
   }
 
+
   setAuth(user: User) {
+
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);
     // Set current user data into observable
     this.currentUserSubject.next(user);
     // Set isAuthenticated to true
     this.isAuthenticatedSubject.next(true);
+
+    const config = {
+      brokerURL: 'ws://localhost:11006/ebad/ws',
+      connectHeaders: {Authorization: this.jwtService.getToken()},
+      heartbeatIncoming: 0,
+      heartbeatOutgoing: 20000,
+      reconnectDelay: 20000
+    };
+    this.rxStompService.configure(config);
+    this.rxStompService.activate();
   }
 
   purgeAuth() {
+    this.rxStompService.deactivate();
     if(!environment.jwt) {
       this.oauthService.logout();
     }

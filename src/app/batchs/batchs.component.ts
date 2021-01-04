@@ -3,11 +3,11 @@ import {BatchsService, EnvironmentsService} from '../core/services';
 import {Batch, Environment, InfoEnvironment} from '../core/models';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
-import {Constants} from "../shared/Constants";
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {ToastService} from "../core/services/toast.service";
-import {RxStompService} from "@stomp/ng2-stompjs";
+import {Constants} from '../shared/Constants';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {ToastService} from '../core/services/toast.service';
+import {RxStompService} from '@stomp/ng2-stompjs';
 
 @Component({
   selector: 'app-batchs-page',
@@ -31,8 +31,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     private environmentsService: EnvironmentsService,
     private constants: Constants,
     private toastService: ToastService,
-    private modalService: NgbModal,
-    private rxStompService: RxStompService) {
+    private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -45,14 +44,14 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         if (!this.environmentSelected) {
           this.batchs = [];
-          return
+          return;
         }
         this.batchsService
           .getAllFromEnvironment(this.environmentSelected.id, {
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'name': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              name: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -89,21 +88,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  private onNewProgressMsg = receivedMsg => {
-    console.log(receivedMsg);
-    if (receivedMsg.type === 'SUCCESS') {
-      this.progress = receivedMsg.message;
-    }
-  }
-
   environmentChanged(env: Environment) {
-
-    this.rxStompService.watch("/user/queue/test").subscribe({
-      next: this.onNewProgressMsg,
-      error: (err) => {
-        console.log(err);
-      }
-    });
     this.environmentSelected = env;
     this.environmentSelectedInfo = null;
     this.environmentsService.getInfo(this.environmentSelected.id).subscribe(
@@ -116,10 +101,6 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
   runBatchWithCustomParam(batch: Batch) {
-    this.rxStompService.publish({
-      destination: '/ebad/chat',
-      body: '{"from":"toto","to":"admin","text":"hello"}'
-    })
     const modalRef = this.modalService.open(ModalRunWithParametersComponent);
     modalRef.result.then((parameters) => {
       this.runBatch(batch, false, parameters);
@@ -134,7 +115,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   runBatch(batch: Batch, defaultParams: boolean, param?: string) {
     this.toastService.showInfo('Votre batch vient d\'être lancé');
 
-    let apiParams: any = {env: this.environmentSelected.id};
+    const apiParams: any = {env: this.environmentSelected.id};
 
     if (param) {
       apiParams.param = param;
