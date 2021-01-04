@@ -7,7 +7,7 @@ import {Constants} from "../shared/Constants";
 import {DataTableDirective} from "angular-datatables";
 import {Subject} from "rxjs";
 import {ToastService} from "../core/services/toast.service";
-import {ProgressWebsocketService} from "../shared/websocket/progress.websocket.service";
+import {RxStompService} from "@stomp/ng2-stompjs";
 
 @Component({
   selector: 'app-batchs-page',
@@ -18,7 +18,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;
   batchs: Batch[];
 
-  @ViewChild(DataTableDirective, { static: true })
+  @ViewChild(DataTableDirective, {static: true})
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
@@ -32,7 +32,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     private constants: Constants,
     private toastService: ToastService,
     private modalService: NgbModal,
-    private progressWebsocketService: ProgressWebsocketService) {
+    private rxStompService: RxStompService) {
   }
 
   ngOnInit() {
@@ -88,16 +88,21 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.dtTrigger.next();
     });
   }
+
   private onNewProgressMsg = receivedMsg => {
+    console.log(receivedMsg);
     if (receivedMsg.type === 'SUCCESS') {
       this.progress = receivedMsg.message;
     }
   }
+
   environmentChanged(env: Environment) {
-    const obs = this.progressWebsocketService.getObservable();
-    obs.subscribe({
+
+    this.rxStompService.watch("/user/queue/test").subscribe({
       next: this.onNewProgressMsg,
-      error: (err) => { console.log(err); }
+      error: (err) => {
+        console.log(err);
+      }
     });
     this.environmentSelected = env;
     this.environmentSelectedInfo = null;
@@ -111,6 +116,10 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
   runBatchWithCustomParam(batch: Batch) {
+    this.rxStompService.publish({
+      destination: '/ebad/chat',
+      body: '{"from":"toto","to":"admin","text":"hello"}'
+    })
     const modalRef = this.modalService.open(ModalRunWithParametersComponent);
     modalRef.result.then((parameters) => {
       this.runBatch(batch, false, parameters);
@@ -122,16 +131,16 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
 
-  runBatch(batch: Batch, defaultParams: boolean, param? : string) {
+  runBatch(batch: Batch, defaultParams: boolean, param?: string) {
     this.toastService.showInfo('Votre batch vient d\'être lancé');
 
     let apiParams: any = {env: this.environmentSelected.id};
 
-    if(param){
+    if (param) {
       apiParams.param = param;
     }
 
-    if(defaultParams){
+    if (defaultParams) {
       apiParams.param = batch.defaultParam;
     }
 
@@ -140,11 +149,11 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
         if (trace.returnCode === 0) {
           this.toastService.showSuccess('Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
         } else {
-          this.toastService.showError( 'Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
+          this.toastService.showError('Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
         }
       },
       err => {
-        this.toastService.showError( err || 'Une erreur est survenue');
+        this.toastService.showError(err || 'Une erreur est survenue');
 
       }
     );

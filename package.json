@@ -29,7 +29,7 @@
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
-    "@stomp/ng2-stompjs": "^7.2.0",
+    "@stomp/ng2-stompjs": "^8.0.0",
     "@types/file-saver": "^2.0.0",
     "@types/sockjs-client": "^1.1.1",
     "angular-datatables": "^9.0.2",

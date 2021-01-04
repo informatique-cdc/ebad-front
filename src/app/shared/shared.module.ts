@@ -27,8 +27,9 @@ import {DataTablesModule} from "angular-datatables";
 import {YesNoPipe} from "./yesno.pipe";
 import {ToastComponent} from "./toast/toast.component";
 import {HasAnyRoleDirective} from "./has-any-role/has-any-role.directive";
-import {RxStompService} from "@stomp/ng2-stompjs";
-import {ProgressWebsocketService} from "./websocket/progress.websocket.service";
+import {InjectableRxStompConfig, RxStompService, rxStompServiceFactory} from "@stomp/ng2-stompjs";
+import {WebsocketConfig} from "./websocket/websocket.config";
+import {JwtService} from "../core";
 
 @NgModule({
   imports: [
@@ -94,8 +95,16 @@ import {ProgressWebsocketService} from "./websocket/progress.websocket.service";
     DatePipe,
     {provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter},
     Constants,
-    RxStompService,
-    ProgressWebsocketService
+    {
+      provide: InjectableRxStompConfig,
+      useClass: WebsocketConfig,
+      deps: [JwtService]
+    },
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+      deps: [InjectableRxStompConfig],
+    }
   ]
 })
 export class SharedModule {
