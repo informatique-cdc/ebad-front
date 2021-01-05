@@ -99,7 +99,6 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.refreshBatchs();
   }
 
-
   runBatchWithCustomParam(batch: Batch) {
     const modalRef = this.modalService.open(ModalRunWithParametersComponent);
     modalRef.result.then((parameters) => {
@@ -110,7 +109,6 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.componentInstance.batchName = batch.name;
     modalRef.componentInstance.parameters = batch.defaultParam;
   }
-
 
   runBatch(batch: Batch, defaultParams: boolean, param?: string) {
     this.toastService.showInfo('Votre batch vient d\'être lancé');

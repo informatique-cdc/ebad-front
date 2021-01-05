@@ -13,8 +13,9 @@ import {json} from "express";
   styleUrls: ['./header.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  notifications: Set<Notification> = new Set<Notification>();
+  notifications: Notification[] = [];
   sub: Subscription;
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -32,7 +33,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.currentUser = userData;
       }
     );
-    this.showNotification();
+    this.notificationsService.getAll().subscribe(
+      (notifications) => {
+        this.notifications = notifications;
+        this.showNotification();
+      }
+    );
   }
 
 
@@ -48,15 +54,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private addNotification = receivedMsg => {
-    const result: Notification[] = JSON.parse(receivedMsg.body);
-    result.forEach((notif) => {
-      this.notifications.add(notif);
-    });
+    const result: Notification = JSON.parse(receivedMsg.body);
+    this.notifications.push(result);
   }
 
   markAsRead() {
     this.notificationsService.markAsRead().subscribe();
-    this.notifications = new Set<Notification>();
+    this.notifications = [];
   }
 
   changeLang(lang: string) {

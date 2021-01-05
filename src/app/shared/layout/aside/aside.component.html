@@ -1,6 +1,6 @@
 <!-- Sidebar logo -->
 <a routerLink="home" class="sidebar-brand" style="font-size: 30px; font-weight: bold; text-decoration: none">
->_&nbsp;&nbsp;EBAD
+  >_&nbsp;&nbsp;EBAD
   <!--    <img src="./assets/img/logo.svg" alt="EBAD" class="sidebar-brand-logo sidebar-brand-logo-lg">-->
   <!--    <img src="./assets/img/logo-small.svg" alt="EBAD" class="sidebar-brand-logo sidebar-brand-logo-sm">-->
 </a>
@@ -13,7 +13,8 @@
         <ebad-menu-item [label]="'MENU.DASHBOARD' | translate" link="home" icon="/home"></ebad-menu-item>
       </li>
       <li class="sidebar-nav-item" *hasAnyRole="['ROLE_MODO','ROLE_USER']">
-        <ebad-menu-item label="Accreditations" badgeText="NEW" icon="check-square" link="/accreditations"></ebad-menu-item>
+        <ebad-menu-item label="Accreditations" badgeText="{{accreditationBadge}}" icon="check-square"
+                        link="/accreditations"></ebad-menu-item>
       </li>
       <li id="functionMenu" class="sidebar-nav-item" *hasRole="'ROLE_USER'">
         <ebad-menu-item [label]="'MENU.FUNCTION.TITLE' | translate" icon="paperclip"
@@ -63,8 +64,7 @@
           </li>
           <li id="accessControlMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.MANAGEMENT.ACCESS-CONTROL' | translate" icon="lock"
-                            link="/manage/access-control"
-                            badgeText="NEW" ></ebad-menu-item>
+                            link="/manage/access-control"></ebad-menu-item>
           </li>
         </ul>
       </li>

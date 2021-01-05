@@ -20,13 +20,13 @@
            class="nav-link d-flex align-items-center py-0 px-lg-0 px-2 text-reset ml-2"
            style="cursor: pointer">
           <ebad-icon name="bell"></ebad-icon>
-          <span *ngIf="notifications.size > 0" class="badge bg-red badge-up"></span>
+          <span *ngIf="notifications.length > 0" class="badge bg-red badge-up"></span>
         </a>
         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
              aria-labelledby="notificationMenu">
           <a href="#" class="dropdown-item d-flex">
             <div>
-              Vous avez <strong>{{notifications.size}}</strong> notification(s)
+              Vous avez <strong>{{notifications.length}}</strong> notification(s)
             </div>
           </a>
           <a *ngFor="let notification of notifications" class="dropdown-item d-flex">
@@ -35,8 +35,8 @@
               <div class="small text-muted">{{notification.createdDate | date}}</div>
             </div>
           </a>
-          <div *ngIf="notifications.size > 0" class="dropdown-divider"></div>
-          <a *ngIf="notifications.size > 0" (click)="markAsRead()" style="cursor: pointer" class="dropdown-item text-center">Marquer comme lue(s)</a>
+          <div *ngIf="notifications.length > 0" class="dropdown-divider"></div>
+          <a *ngIf="notifications.length > 0" (click)="markAsRead()" style="cursor: pointer" class="dropdown-item text-center">Marquer comme lue(s)</a>
         </div>
       </li>
       <li class="nav-item dropdown" ngbDropdown placement="">
