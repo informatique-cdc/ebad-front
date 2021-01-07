@@ -63,7 +63,7 @@ export class UserService {
     this.isAuthenticatedSubject.next(true);
 
     const config = {
-      brokerURL: 'ws://localhost:11006/ebad/ws',
+      brokerURL: environment.wsUrl,
       connectHeaders: {Authorization: this.jwtService.getToken()},
       heartbeatIncoming: 0,
       heartbeatOutgoing: 20000,

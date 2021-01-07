@@ -3,7 +3,6 @@ import {AccreditationRequestsService, UserService} from "../../../core/services"
 import {Router} from "@angular/router";
 import {RxStompService} from "@stomp/ng2-stompjs";
 import {Subscription} from "rxjs";
-import {AccreditationRequest, Notification} from "../../../core";
 import {Pageable} from "../../../core/models/pageable.model";
 
 @Component({
@@ -77,6 +76,8 @@ export class AsideComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if(this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
