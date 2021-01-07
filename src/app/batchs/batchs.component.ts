@@ -3,10 +3,11 @@ import {BatchsService, EnvironmentsService} from '../core/services';
 import {Batch, Environment, InfoEnvironment} from '../core/models';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
-import {Constants} from "../shared/Constants";
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {ToastService} from "../core/services/toast.service";
+import {Constants} from '../shared/Constants';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {ToastService} from '../core/services/toast.service';
+import {RxStompService} from '@stomp/ng2-stompjs';
 
 @Component({
   selector: 'app-batchs-page',
@@ -17,12 +18,13 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;
   batchs: Batch[];
 
-  @ViewChild(DataTableDirective, { static: true })
+  @ViewChild(DataTableDirective, {static: true})
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
 
   environmentSelectedInfo: InfoEnvironment;
+  public progress: any = {};
 
   constructor(
     private batchsService: BatchsService,
@@ -42,14 +44,14 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         if (!this.environmentSelected) {
           this.batchs = [];
-          return
+          return;
         }
         this.batchsService
           .getAllFromEnvironment(this.environmentSelected.id, {
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'name': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              name: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -97,11 +99,10 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.refreshBatchs();
   }
 
-
   runBatchWithCustomParam(batch: Batch) {
     const modalRef = this.modalService.open(ModalRunWithParametersComponent);
     modalRef.result.then((parameters) => {
-      this.runBatch(batch, parameters);
+      this.runBatch(batch, false, parameters);
     }, (reason) => {
       console.log(`Dismissed ${reason}`);
     });
@@ -109,14 +110,17 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.componentInstance.parameters = batch.defaultParam;
   }
 
-
-  runBatch(batch, param? : string) {
+  runBatch(batch: Batch, defaultParams: boolean, param?: string) {
     this.toastService.showInfo('Votre batch vient d\'être lancé');
 
-    let apiParams: any = {env: this.environmentSelected.id};
+    const apiParams: any = {env: this.environmentSelected.id};
 
-    if(param){
+    if (param) {
       apiParams.param = param;
+    }
+
+    if (defaultParams) {
+      apiParams.param = batch.defaultParam;
     }
 
     this.batchsService.run(batch.id, apiParams).subscribe(
@@ -124,11 +128,11 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
         if (trace.returnCode === 0) {
           this.toastService.showSuccess('Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
         } else {
-          this.toastService.showError( 'Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
+          this.toastService.showError('Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
         }
       },
       err => {
-        this.toastService.showError( err || 'Une erreur est survenue');
+        this.toastService.showError(err || 'Une erreur est survenue');
 
       }
     );

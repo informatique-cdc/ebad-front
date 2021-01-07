@@ -20,7 +20,7 @@
            class="nav-link d-flex align-items-center py-0 px-lg-0 px-2 text-reset ml-2"
            style="cursor: pointer">
           <ebad-icon name="bell"></ebad-icon>
-          <span *ngIf="notifications.length > 0" class="badge bg-red badge-up"></span>
+          <span *ngIf="notifications.length > 0" class="badge bg-red badge-up">{{notifications.length}}</span>
         </a>
         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
              aria-labelledby="notificationMenu">

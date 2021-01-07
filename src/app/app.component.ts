@@ -37,11 +37,8 @@ export class AppComponent implements OnInit {
         }
       );
     }
-    console.log("start populate");
     this.userService.populate();
-    console.log("end populate");
     this.userService.isAuthenticated.subscribe((result) => {
-      console.log("isAuthenticated");
       this.isAuthenticated = result;
       if(result){
         this.globalSettingsService.populateGlobalSetting();

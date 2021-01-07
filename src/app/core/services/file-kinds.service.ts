@@ -15,7 +15,6 @@ export class FileKindsService {
   }
 
   getAllFromApplication(applicationId, pageable: any = new Pageable(0,20)): Observable<Page<FileKind>> {
-    console.log(pageable);
     return this.apiService.get(`/${this.apiName}/application/${applicationId}`,pageable);
   }
 
