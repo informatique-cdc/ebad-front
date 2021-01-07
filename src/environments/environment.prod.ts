@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://ebad.herokuapp.com/ebad',
-  wsUrl: 'ws://ebad.herokuapp.com/ebad/ws',
+  wsUrl: 'wss://ebad.herokuapp.com/ebad/ws',
   jwt: true,
   atHash: 'at_hash',
   issuer: '',
