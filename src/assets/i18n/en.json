@@ -18,7 +18,13 @@
     }
   },
   "HOME": {
-    "TITLE": "Home"
+    "TITLE": "Home",
+    "STATS": {
+      "USERS": "# Users",
+      "BATCHS_COUNT": "# Batches",
+      "EXECUTION_TIME": "Avg execution time",
+      "BATCHS_RUNNED": "# Runned batches"
+    }
   },
   "ACTUALITY": {
     "TITLE": "Actualities"

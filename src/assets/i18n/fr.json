@@ -18,7 +18,13 @@
     }
   },
   "HOME": {
-    "TITLE": "Accueil"
+    "TITLE": "Accueil",
+    "STATS": {
+      "USERS": "Nbr d'utilisateurs",
+      "BATCHS_COUNT": "Nbr de batchs",
+      "EXECUTION_TIME": "Temps d'éxecution moyen",
+      "BATCHS_RUNNED": "Nbr de batchs lancés"
+    }
   },
   "ACTUALITY": {
     "TITLE": "Actualités"
@@ -28,8 +34,8 @@
     "FUNCTION": {
       "TITLE": "Fonction",
       "BATCHS": "Batchs",
-      "CHAINS": "Chains",
-      "FILES": "Files",
+      "CHAINS": "Chaines",
+      "FILES": "Fichiers",
       "TRACES": "Traces"
     },
     "MANAGEMENT": {

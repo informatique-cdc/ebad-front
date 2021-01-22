@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body">
         <div class="d-flex">
-          <div>Users</div>
+          <div>{{'HOME.STATS.USERS' | translate}}</div>
         </div>
         <div class="h1 mb-3" [countUp]="statistics?.usersNbr" [options]="optionsCountUp">0</div>
         <div class="d-flex mb-2">
@@ -16,7 +16,7 @@
     <div class="card">
       <div class="card-body">
         <div class="d-flex">
-          <div>Batchs count</div>
+          <div>{{'HOME.STATS.BATCHS_COUNT' | translate}}</div>
         </div>
         <div class="d-flex align-items-baseline">
           <div class="h1 mb-0 mr-2" [countUp]="statistics?.batchsNbrs" [options]="optionsCountUp">0</div>
@@ -28,7 +28,7 @@
     <div class="card">
       <div class="card-body">
         <div class="d-flex">
-          <div>Execution time</div>
+          <div>{{'HOME.STATS.EXECUTION_TIME' | translate}}</div>
         </div>
         <div class="d-flex align-items-baseline">
           <div class="h1 mb-3 mr-2" [countUp]="statistics?.avgExecutionTime" [options]="optionsCountUpMs">0</div>
@@ -42,7 +42,7 @@
     <div class="card">
       <div class="card-body">
         <div class="d-flex">
-          <div>Batchs runned</div>
+          <div>{{'HOME.STATS.BATCHS_RUNNED' | translate}}</div>
         </div>
         <div class="d-flex align-items-baseline">
           <div class="h1 mb-3 mr-2" [countUp]="statistics?.batchsRunnedNbrs" [options]="optionsCountUp">0</div>
