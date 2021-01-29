@@ -52,7 +52,11 @@ export class FilesComponent implements OnInit {
     this.subDir.forEach(dir => {
       subDirectoryParam += "/" + dir;
     });
-    this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam).subscribe((files) => this.remoteFiles = files);
+    this.remoteFiles = [];
+    this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam)
+      .subscribe((files) => this.remoteFiles = files, error =>
+        this.toastService.showError(error || 'Une erreur est survenue')
+    );
   }
 
   constructSelect() {
