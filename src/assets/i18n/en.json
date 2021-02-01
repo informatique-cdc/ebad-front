@@ -36,7 +36,8 @@
       "BATCHS": "Batchs",
       "CHAINS": "Chains",
       "FILES": "Files",
-      "TRACES": "Traces"
+      "TRACES": "Traces",
+      "SCHEDULINGS": "Schedulings"
     },
     "MANAGEMENT": {
       "TITLE": "Management",
@@ -140,5 +141,20 @@
     "EXPLORE": "Explore",
     "EXPLORE_UP": "Explore parent folder",
     "YOU_ARE_HERE": "You are here :"
+  },
+  "SCHEDULING": {
+    "TITLE": "Schedulings",
+    "ID": "Id",
+    "BATCH_NAME": "Batch name",
+    "BATCH": "Batch",
+    "PARAMETERS": "Parameters",
+    "CRON": "Cron",
+    "DELETE": "Delete",
+    "MSG": {
+      "DELETION_SUCCESS": "Scheduling is deleted",
+      "DELETION_ERROR": "Error was occured when trying to delete scheduling : {{msg}}"
+    },
+    "ADD": "Add scheduling",
+    "CANCEL": "Cancel"
   }
 }

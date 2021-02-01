@@ -36,7 +36,8 @@
       "BATCHS": "Batchs",
       "CHAINS": "Chaines",
       "FILES": "Fichiers",
-      "TRACES": "Traces"
+      "TRACES": "Traces",
+      "SCHEDULINGS": "Planificateurs"
     },
     "MANAGEMENT": {
       "TITLE": "Gestion",
@@ -140,5 +141,20 @@
     "EXPLORE": "Parcourir",
     "EXPLORE_UP": "Parcourir le dossier parent",
     "YOU_ARE_HERE": "Vous êtes ici :"
+  },
+  "SCHEDULING": {
+    "TITLE": "Tâches planifiées",
+    "ID": "Id",
+    "BATCH_NAME": "Nom du batch",
+    "BATCH": "Batch",
+    "PARAMETERS": "Paramètres",
+    "CRON": "Cron",
+    "DELETE": "Supprimer",
+    "MSG": {
+      "DELETION_SUCCESS": "Le plannificateur est supprimé",
+      "DELETION_ERROR": "Une erreur est survenue en tentant de supprimer le planificateur : {{msg}}"
+    },
+    "ADD": "Ajouter une tâche planifiée",
+    "CANCEL": "Annuler"
   }
 }
