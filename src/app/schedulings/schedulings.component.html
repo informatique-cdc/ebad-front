@@ -1,0 +1,58 @@
+<app-env-app-head-selector preTitle="{{'SCHEDULING.TITLE' | translate}}" [title]="environmentSelected?.name"
+                           (environmentChanged)="environmentChanged($event)">
+    <span header>
+    <a id="addBatchAction" href="javascript:void(0)" style="cursor: pointer"
+       *ngIf="environmentSelected"
+       class="btn btn-primary mr-3" (click)="onClickAddScheduling()">
+      <ebad-icon name="plus"></ebad-icon>
+      {{'SCHEDULING.ADD' | translate}}
+    </a>
+  </span>
+</app-env-app-head-selector>
+
+<div class="card">
+  <div class="table-responsive">
+    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
+           class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="schedulingId">
+          {{'SCHEDULING.ID' | translate}}
+        </th>
+        <th id="schedulingBatchName">
+          {{'SCHEDULING.BATCH_NAME' | translate}}
+        </th>
+        <th id="schedulingBatchParameters">
+          {{'SCHEDULING.PARAMETERS' | translate}}
+        </th>
+        <th id="schedulingCron">
+          {{'SCHEDULING.CRON' | translate}}
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let scheduling of schedulings">
+        <td class="align-middle">
+          {{scheduling.id}}
+        </td>
+        <td class="align-middle">
+          {{scheduling.batch.name}}
+        </td>
+        <td class="align-middle">
+          {{scheduling.parameters}}
+        </td>
+        <td class="align-middle">
+          {{scheduling.cron}}
+        </td>
+        <td class="text-center">
+          <a (click)="deleteScheduling(scheduling)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'SCHEDULING.DELETE' | translate}}</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

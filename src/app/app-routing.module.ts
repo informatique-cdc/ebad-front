@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('./batchs/batchs.module').then(m => m.BatchsModule)
   },
   {
+    path: 'schedulings',
+    loadChildren: () => import('./schedulings/schedulings.module').then(m => m.SchedulingsModule)
+  },
+  {
     path: 'traces',
     loadChildren: () => import('./traces/traces.module').then(m => m.TracesModule)
   },

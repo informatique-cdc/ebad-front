@@ -27,6 +27,7 @@ import {
 import {TracesService} from './services/traces.service';
 import {FileKindsService} from './services/file-kinds.service';
 import {RoleService} from "./services/role.service";
+import {SchedulingsService} from "./services/schedulings.service";
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import {RoleService} from "./services/role.service";
     GlobalSettingsService,
     AccreditationRequestsService,
     SelectChoicesService,
-    RoleService
+    RoleService,
+    SchedulingsService
   ],
   declarations: []
 })

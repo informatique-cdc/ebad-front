@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{'SCHEDULING.ADD' | translate }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="batch">{{'SCHEDULING.BATCH' | translate}}</label>
+      <div class="input-group">
+        <div class="input-group">
+          <select name="batchs" [(ngModel)]="batch" id="batch"
+                  #selectBatch="ngModel"
+                  class="form-control">
+            <option *ngFor="let batch of batchs" [ngValue]="batch">{{batch.name}}</option>
+          </select>
+        </div>      </div>
+    </div>
+    <div class="form-group">
+      <label for="parameters">{{'SCHEDULING.PARAMETERS' | translate}}</label>
+      <div class="input-group">
+        <input id="parameters" class="form-control" placeholder="{{'SCHEDULING.PARAMETERS' | translate}}" name="parameters" [(ngModel)]="scheduling.parameters">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cron">{{'SCHEDULING.CRON' | translate}}</label>
+      <div class="input-group">
+        <input id="cron" class="form-control" placeholder="ex: 10 * * * * ?" name="parameters" [(ngModel)]="scheduling.cron">
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">{{'SCHEDULING.CANCEL' | translate}}</button>
+  <button type="button" class="btn btn-outline-dark" (click)="onSave()">{{'SCHEDULING.ADD' | translate}}</button>
+</div>
