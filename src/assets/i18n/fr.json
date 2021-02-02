@@ -151,8 +151,10 @@
     "CRON": "Cron",
     "DELETE": "Supprimer",
     "MSG": {
-      "DELETION_SUCCESS": "Le plannificateur est supprimé",
-      "DELETION_ERROR": "Une erreur est survenue en tentant de supprimer le planificateur : {{msg}}"
+      "DELETION_SUCCESS": "Le planificateur est supprimé",
+      "DELETION_ERROR": "Une erreur est survenue en tentant de supprimer le planificateur : {{msg}}",
+      "ADD_SUCCESS": "Le planificateur a été ajouté avec succès",
+      "ADD_ERREUR": "Une erreur est survenue en tentant d'ajouter le planificateur : {{msg}}"
     },
     "ADD": "Ajouter une tâche planifiée",
     "CANCEL": "Annuler"

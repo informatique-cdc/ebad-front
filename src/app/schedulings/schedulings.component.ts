@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {BatchsService, EnvironmentsService} from '../core/services';
-import {Batch, Environment, InfoEnvironment} from '../core/models';
+import {EnvironmentsService} from '../core';
+import {Environment} from '../core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
@@ -9,8 +9,7 @@ import {ToastService} from '../core/services/toast.service';
 import {ModalAddSchedulingComponent} from "./modal-add-scheduling/modal-add-scheduling.component";
 import {Scheduling} from "../core/models/scheduling.model";
 import {SchedulingsService} from "../core/services/schedulings.service";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
-import {ModalBatchComponent} from "../manage-batchs/modal-batch/modal-batch.component";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-schedulings-page',
@@ -109,11 +108,11 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
   onClickAddScheduling() {
     const modalRef = this.modalService.open(ModalAddSchedulingComponent);
     modalRef.result.then((result) => {
-      this.toastService.showSuccess(`Le batch ${result.name} a bien été ajouté`);
+      this.translateService.get('SCHEDULING.MSG.ADD_SUCCESS').subscribe((msg) => this.toastService.showSuccess(msg));
       this.refreshSchedulings();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.toastService.showError(`Une erreur est survenue lors de l'ahout du batch : ${reason.message}`);
+        this.translateService.get('SCHEDULING.MSG.ADD_ERROR', {msg: reason.message}).subscribe((msg) => this.toastService.showError(msg));
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;

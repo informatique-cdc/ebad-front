@@ -152,7 +152,9 @@
     "DELETE": "Delete",
     "MSG": {
       "DELETION_SUCCESS": "Scheduling is deleted",
-      "DELETION_ERROR": "Error was occured when trying to delete scheduling : {{msg}}"
+      "DELETION_ERROR": "An error was occured when trying to delete scheduling : {{msg}}",
+      "ADD_SUCCESS": "Scheduling is added with success",
+      "ADD_ERREUR": "An error was occured when trying to add scheduling : {{msg}}"
     },
     "ADD": "Add scheduling",
     "CANCEL": "Cancel"
