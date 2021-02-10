@@ -32,7 +32,7 @@
           <a *ngFor="let notification of notifications" class="dropdown-item d-flex">
             <div id="notification{{notification.id}}">
               {{notification.content}}
-              <div class="small text-muted">{{notification.createdDate | date}}</div>
+              <div class="small text-muted">{{notification.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</div>
             </div>
           </a>
           <div *ngIf="notifications.length > 0" class="dropdown-divider"></div>

@@ -111,7 +111,6 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   runBatch(batch: Batch, defaultParams: boolean, param?: string) {
-    this.toastService.showInfo('Votre batch vient d\'être lancé');
 
     const apiParams: any = {env: this.environmentSelected.id};
 
@@ -124,16 +123,12 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     this.batchsService.run(batch.id, apiParams).subscribe(
-      trace => {
-        if (trace.returnCode === 0) {
-          this.toastService.showSuccess('Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
-        } else {
-          this.toastService.showError('Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
-        }
+      id => {
+          this.toastService.showSuccess('Le batch ' + batch.name + ' vient d\'être lancé');
       },
       err => {
+        console.log(err);
         this.toastService.showError(err || 'Une erreur est survenue');
-
       }
     );
   }

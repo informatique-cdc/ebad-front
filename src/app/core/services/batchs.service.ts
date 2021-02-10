@@ -5,6 +5,7 @@ import {ApiService} from './api.service';
 import {Batch, Trace} from '../models';
 import {Page} from "../models/page.model";
 import {Pageable} from "../models/pageable.model";
+import {Job} from "../models/job.model";
 
 @Injectable()
 export class BatchsService {
@@ -25,7 +26,7 @@ export class BatchsService {
     return this.apiService.get('/batchs/' + slug);
   }
 
-  run(slug, params): Observable<Trace> {
+  run(slug, params): Observable<Job> {
     return this.apiService.get('/batchs/run/' + slug, params);
   }
 

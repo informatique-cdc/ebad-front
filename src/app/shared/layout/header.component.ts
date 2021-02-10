@@ -6,6 +6,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {interval, Observable, Subscription} from 'rxjs';
 import {RxStompService} from "@stomp/ng2-stompjs";
 import {json} from "express";
+import {ToastService} from "../../core/services/toast.service";
 
 @Component({
   selector: '[ebad-header]',
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private notificationsService: NotificationsService,
     private translateService: TranslateService,
-    private rxStompService: RxStompService
+    private rxStompService: RxStompService,
+    private toastService: ToastService
   ) {
   }
 
@@ -55,6 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private addNotification = receivedMsg => {
     const result: Notification = JSON.parse(receivedMsg.body);
+    this.toastService.showSuccess(result.content);
     this.notifications.push(result);
   }
 

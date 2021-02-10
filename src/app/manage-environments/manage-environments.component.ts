@@ -123,7 +123,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
   onClickImportEnvironments() {
     this.environmentsService.importEnvironmentToApp(this.applicationSelected.id).subscribe(
       (result) => {
-        this.toastService.showSuccess(`Les environnements ont bien étaient importés`);
+        this.toastService.showSuccess(`Les environnements ont bien été importés`);
         this.refreshEnvironments();
       },
       (error) => this.toastService.showError(`Une erreur est survenue lors de l'import des environnments : ${error.message}`)
