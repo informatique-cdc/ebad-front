@@ -97,11 +97,7 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.chainsService.run(chain.id).subscribe(
       trace => {
-        if (trace.returnCode === 0) {
-          this.toastService.showSuccess('La chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);
-        } else {
-          this.toastService.showError( 'Le chaine ' + chain.name + ' s\'est terminée avec le code ' + trace.returnCode);
-        }
+          this.toastService.showSuccess('La chaine ' + chain.name + ' vient d\'être lancée');
       },
       err => {
         this.toastService.showError( err || 'Une erreur est survenue');

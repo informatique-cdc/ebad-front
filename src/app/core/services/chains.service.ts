@@ -5,6 +5,7 @@ import {ApiService} from './api.service';
 import {Chain, Trace} from '../models';
 import {Pageable} from "../models/pageable.model";
 import {Page} from "../models/page.model";
+import {Job} from "../models/job.model";
 
 @Injectable()
 export class ChainsService {
@@ -22,7 +23,7 @@ export class ChainsService {
     return this.apiService.get(`/${this.apiName}/` + chainId);
   }
 
-  run(chainId): Observable<Trace> {
+  run(chainId): Observable<Job> {
     return this.apiService.post(`/${this.apiName}/${chainId}/run`);
   }
 
