@@ -104,7 +104,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.result.then((parameters) => {
       this.runBatch(batch, false, parameters);
     }, (reason) => {
-      console.log(`Dismissed ${reason}`);
+      console.debug(`Dismissed ${reason}`);
     });
     modalRef.componentInstance.batchName = batch.name;
     modalRef.componentInstance.parameters = batch.defaultParam;
@@ -127,7 +127,6 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
           this.toastService.showSuccess('Le batch ' + batch.name + ' vient d\'être lancé');
       },
       err => {
-        console.log(err);
         this.toastService.showError(err || 'Une erreur est survenue');
       }
     );

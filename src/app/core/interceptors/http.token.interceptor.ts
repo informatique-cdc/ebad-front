@@ -24,9 +24,12 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       headersConfig['Authorization'] = `Bearer ${token}`;
     }
 
-    if (!(req.body instanceof FormData)) {
-      headersConfig['Content-Type'] = 'application/json';
-    }
+    // if (!(req.body instanceof FormData) && !headersConfig['Content-Type']) {
+    //   console.log("add content type json to "+req.url);
+    //   headersConfig['Content-Type'] = 'application/json';
+    // }else{
+    //   console.log("NOT add content type json to "+req.url);
+    // }
 
     const request = req.clone({setHeaders: headersConfig});
     return next.handle(request).pipe(catchError(err => {

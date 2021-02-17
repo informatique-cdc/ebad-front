@@ -42,7 +42,7 @@ export class FilesService {
   }
 
   downloadFile(file): Observable<ArrayBuffer> {
-    return this.apiService.postFile(`/directories/files/read`, file, {responseType: 'arraybuffer'});
+    return this.apiService.postFile(`/directories/files/read`, file, {responseType: 'arraybuffer', headers: {'Content-Type':'application/json'}});
   }
 
   uploadFile(file, name, idDirectory, subDirectory?): Observable<any> {
@@ -52,6 +52,8 @@ export class FilesService {
     if(subDirectory) {
       formData.append('subDirectory', subDirectory);
     }
-    return this.apiService.postFile(`/directories/files/upload`, formData);
+    return this.apiService.postFile(`/directories/files/upload`, formData, {
+      headers: {'Content-Type':'application/json'}
+    });
   }
 }

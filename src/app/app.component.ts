@@ -32,15 +32,16 @@ export class AppComponent implements OnInit {
 
       }).catch(
         (error) => {
-          console.log("error when run initial login sequence "+error);
+          console.error("error when run initial login sequence "+error);
           this.router.navigateByUrl('/login');
         }
       );
     }
-    this.userService.populate();
+
     this.userService.isAuthenticated.subscribe((result) => {
       this.isAuthenticated = result;
       if(result){
+        this.userService.populate();
         this.globalSettingsService.populateGlobalSetting();
       }
     }, (error) => {

@@ -136,7 +136,6 @@ export class FilesComponent implements OnInit {
 
   //FIXME UPLOAD EVENT
   public dropped(event: any) {
-    console.log(event);
     for (const droppedFile of event) {
 
       // Is it a file?

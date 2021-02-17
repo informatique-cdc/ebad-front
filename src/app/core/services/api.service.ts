@@ -15,27 +15,35 @@ export class ApiService {
 
 
   get(path: string, params: any = new HttpParams()): Observable<any> {
-    return this.http.get(`${environment.apiUrl}${path}`, {params});
+    return this.http.get(`${environment.apiUrl}${path}`, {params, headers: {'Content-Type':'application/json'}});
   }
 
   put(path: string, body: object = {}): Observable<any> {
     return this.http.put(
       `${environment.apiUrl}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),{
+          headers: {'Content-Type':'application/json'}
+        }
     );
   }
 
   patch(path: string, body: object = {}): Observable<any> {
     return this.http.patch(
       `${environment.apiUrl}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+        {
+          headers: {'Content-Type':'application/json'}
+        }
     );
   }
 
   post(path: string, body: object = {}): Observable<any> {
     return this.http.post(
       `${environment.apiUrl}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+        {
+          headers: {'Content-Type':'application/json'}
+        }
     );
   }
 
@@ -47,7 +55,10 @@ export class ApiService {
 
   delete(path): Observable<any> {
     return this.http.delete(
-      `${environment.apiUrl}${path}`
+      `${environment.apiUrl}${path}`,
+        {
+          headers: {'Content-Type':'application/json'}
+        }
     );
   }
 }

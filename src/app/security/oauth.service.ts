@@ -28,7 +28,7 @@ export class OauthService {
 
   constructor(
     private oauthService: OAuthService,
-    private router: Router,
+    private router: Router
   ) {
     // Useful for debugging:
     this.oauthService.events.subscribe(event => {
@@ -40,10 +40,9 @@ export class OauthService {
       } else {
         if(event.type === 'user_profile_loaded'){
           if (this.oauthService.state && this.oauthService.state !== 'undefined' && this.oauthService.state !== 'null') {
-            this.router.navigateByUrl(this.oauthService.state);
+            this.router.navigateByUrl(decodeURIComponent(this.oauthService.state));
           }
         }
-        console.warn(event);
       }
     });
 
@@ -83,7 +82,7 @@ export class OauthService {
   public runInitialLoginSequence(): Promise<void> {
     this.oauthService.tokenValidationHandler = new CustomValidationHandler();
     if (location.hash) {
-      console.log('Encountered hash fragment, plotting as table...');
+      console.debug('Encountered hash fragment, plotting as table...');
       console.table(location.hash.substr(1).split('&').map(kvp => kvp.split('=')));
     }
 
@@ -126,8 +125,7 @@ export class OauthService {
       .then(() => {
         this.isDoneLoadingSubject$.next(true);
         if (this.oauthService.state && this.oauthService.state !== 'undefined' && this.oauthService.state !== 'null') {
-          console.log('There was state, so we are sending you to: ' + this.oauthService.state);
-          this.router.navigateByUrl(this.oauthService.state);
+          this.router.navigateByUrl(decodeURIComponent(this.oauthService.state));
         }
   })
       .catch((error) => {

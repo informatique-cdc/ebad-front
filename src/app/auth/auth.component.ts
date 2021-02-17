@@ -41,7 +41,7 @@ export class AuthComponent implements OnInit {
       }
     });
     this.apiService.get('/csrf').subscribe((result) => {
-      console.log('csrf');
+      console.debug('csrf');
     }, (error) => {});
 
   }

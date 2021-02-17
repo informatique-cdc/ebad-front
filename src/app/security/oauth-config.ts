@@ -20,6 +20,6 @@ export const oauthConfig: AuthConfig = {
   disableAtHashCheck: true,
   postLogoutRedirectUri: window.location.origin + '/',
   skipSubjectCheck: true,
-  // responseType: "code",
-  // tokenEndpoint: environment.tokenEndpoint
+  responseType: "code",
+  tokenEndpoint: environment.tokenEndpoint
 };

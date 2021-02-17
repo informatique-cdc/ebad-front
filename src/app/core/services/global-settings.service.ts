@@ -24,7 +24,7 @@ export class GlobalSettingsService {
           this.mapSettings.set(globalSetting.key, globalSetting.value);
         }
       },
-      (error) => console.log(error)
+      (error) => console.error(error)
     );
   }
 

@@ -34,7 +34,7 @@ export class DateTraitementComponent implements OnInit {
         }
       );
     }, (reason) => {
-      console.log(`Dismissed ${reason}`);
+      console.debug(`Dismissed ${reason}`);
     });
     const dateTraitement = new Date(this.infoEnvironment.dateTraitement);
     modalRef.componentInstance.dateTraitement = this.ngbDateParserFormatter.parse(this.datePipe.transform(dateTraitement, 'dd/MM/yyyy'));

@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean | Observable<boolean>{
     if(environment.jwt) {
-      console.log('can activate ' + state.url);
+      console.debug('can activate ' + state.url);
       let canActivate = false;
       this.userService.isAuthenticated.pipe(take(1)).subscribe(
         (isAuthenticated: boolean) => {
@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
       );
       return canActivate;
     }else {
-      console.log("canActivate oauth");
+      console.debug("canActivate oauth");
       return this.oauthService.canActivateProtectedRoutes$
         .pipe(tap(x => {
           console.log('You tried to go to ' + state.url + ' and this guard said ' + x);
