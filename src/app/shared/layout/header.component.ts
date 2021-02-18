@@ -3,12 +3,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Notification, NotificationsService, User, UserService} from '../../core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {interval, Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {RxStompService} from "@stomp/ng2-stompjs";
-import {json} from "express";
 import {ToastService} from "../../core/services/toast.service";
-import {environment} from "../../../environments/environment";
-import {OauthService} from "../../security/oauth.service";
 
 @Component({
     selector: '[ebad-header]',
@@ -17,6 +14,7 @@ import {OauthService} from "../../security/oauth.service";
 })
 export class HeaderComponent implements OnInit, OnDestroy {
     notifications: Notification[] = [];
+    notificationsWsReceived: Set<number> = new Set<number>();
     sub: Subscription;
     currentUser: User;
 
@@ -26,8 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         private notificationsService: NotificationsService,
         private translateService: TranslateService,
         private rxStompService: RxStompService,
-        private toastService: ToastService,
-        private oauthService: OauthService
+        private toastService: ToastService
     ) {
     }
 
@@ -56,6 +53,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     private addNotification = receivedMsg => {
         const result: Notification = JSON.parse(receivedMsg.body);
+        if(this.notificationsWsReceived.has(result.id)){
+            return;
+        }
+        this.notificationsWsReceived.add(result.id);
         this.toastService.showSuccess(result.content);
         this.notifications.push(result);
     }
