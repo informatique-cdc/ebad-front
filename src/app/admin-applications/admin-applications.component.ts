@@ -118,7 +118,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
         this.toastService.showError( `Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
       }
     });
-    modalRef.componentInstance.application = app;
+    modalRef.componentInstance.application = {...app};
     modalRef.componentInstance.isUpdate = true;
   }
 

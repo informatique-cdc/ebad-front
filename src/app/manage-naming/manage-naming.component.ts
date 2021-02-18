@@ -116,7 +116,7 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
-    modalRef.componentInstance.fileKind = naming;
+    modalRef.componentInstance.fileKind = {...naming};
     modalRef.componentInstance.isUpdate = true;
   }
 

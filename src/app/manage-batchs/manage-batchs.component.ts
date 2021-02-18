@@ -113,7 +113,7 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
-    modalRef.componentInstance.batch = batch;
+    modalRef.componentInstance.batch = {...batch};
     modalRef.componentInstance.isUpdate = true;
   }
 

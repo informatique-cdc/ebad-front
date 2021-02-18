@@ -100,7 +100,7 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
         this.toastService.showError( `Une erreur est survenue lors de la modification de la norme : ${reason.message}`);
       }
     });
-    modalRef.componentInstance.norm = norm;
+    modalRef.componentInstance.norm = {...norm};
     modalRef.componentInstance.isUpdate = true;
   }
 

@@ -78,8 +78,6 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onClickAddNew() {
-
-
     const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
     modalRef.result.then(() => {
       this.toastService.showSuccess(`L'actualité a bien été ajoutée`);
@@ -102,7 +100,7 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
         this.toastService.showError( `Une erreur est survenue lors de la modification de l'actualité : ${reason.message}`);
       }
     });
-    modalRef.componentInstance.oneNew = oneNew;
+    modalRef.componentInstance.oneNew = {...oneNew};
     modalRef.componentInstance.isUpdate = true;
   }
 

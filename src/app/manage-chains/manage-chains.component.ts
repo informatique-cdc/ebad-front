@@ -113,7 +113,7 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
-    modalRef.componentInstance.chain = chain;
+    modalRef.componentInstance.chain = {...chain};
     modalRef.componentInstance.isUpdate = true;
   }
 

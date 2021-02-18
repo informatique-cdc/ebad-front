@@ -113,7 +113,7 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
-    modalRef.componentInstance.directory = directory;
+    modalRef.componentInstance.directory = {...directory};
     modalRef.componentInstance.isUpdate = true;
   }
 

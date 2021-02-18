@@ -141,7 +141,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
-    modalRef.componentInstance.environment = env;
+    modalRef.componentInstance.environment = {...env};
     modalRef.componentInstance.isUpdate = true;
   }
 

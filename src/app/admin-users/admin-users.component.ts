@@ -126,7 +126,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
         this.toastService.showError( `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
       }
     });
-    modalRef.componentInstance.user = user;
+    modalRef.componentInstance.user = {...user};
     modalRef.componentInstance.isUpdate = true;
   }
 
