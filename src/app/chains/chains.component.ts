@@ -93,8 +93,6 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   runChain(chain) {
-    this.toastService.showInfo('Votre chaine vient d\'être lancée');
-
     this.chainsService.run(chain.id).subscribe(
       trace => {
           this.toastService.showSuccess('La chaine ' + chain.name + ' vient d\'être lancée');
