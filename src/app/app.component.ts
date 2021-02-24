@@ -36,12 +36,16 @@ export class AppComponent implements OnInit {
           this.router.navigateByUrl('/login');
         }
       );
+    }else {
+      this.userService.populate();
     }
 
     this.userService.isAuthenticated.subscribe((result) => {
       this.isAuthenticated = result;
       if(result){
-        this.userService.populate();
+        if(!environment.jwt) {
+          this.userService.populate();
+        }
         this.globalSettingsService.populateGlobalSetting();
       }
     }, (error) => {
