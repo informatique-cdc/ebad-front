@@ -52,8 +52,6 @@ export class FilesService {
     if(subDirectory) {
       formData.append('subDirectory', subDirectory);
     }
-    return this.apiService.postFile(`/directories/files/upload`, formData, {
-      headers: {'Content-Type':'application/json'}
-    });
+    return this.apiService.postFile(`/directories/files/upload`, formData, {});
   }
 }
