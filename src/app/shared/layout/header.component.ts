@@ -30,11 +30,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
+        this.showNotification();
         this.userService.currentUser.subscribe((us) => this.currentUser = us);
         this.notificationsService.getAll().subscribe(
             (notifications) => {
                 this.notifications = notifications;
-                this.showNotification();
             }
         );
     }

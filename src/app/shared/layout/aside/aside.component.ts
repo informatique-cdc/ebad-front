@@ -21,10 +21,10 @@ export class AsideComponent implements OnInit, OnDestroy{
               private accreditationService: AccreditationRequestsService){}
 
   ngOnInit() {
+    this.showBadgeAccreditations();
     this.accreditationService.getAllNeedAnswer(new Pageable(0,1)).subscribe(
       (request) => {
         this.accreditationBadge = request.totalElements;
-        this.showBadgeAccreditations();
       }
     );
   }
