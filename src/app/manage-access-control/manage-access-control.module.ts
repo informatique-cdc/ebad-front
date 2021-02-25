@@ -3,7 +3,7 @@ import {ManageAccessControlRoutingModule} from './manage-access-control-routing.
 import {SharedModule} from '../shared';
 import {ManageAccessControlComponent} from './manage-access-control.component';
 import {IconsModule} from '../icons';
-import {NgxPaginationModule} from "ngx-pagination";
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [ManageAccessControlComponent],

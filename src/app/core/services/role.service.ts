@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
-import {User} from "../models";
+import {User} from '../models';
 
 
 @Injectable()
 export class RoleService {
-  constructor() {
-  }
 
   isModo(user: User): boolean {
     if (user.usageApplications === undefined) {
@@ -21,7 +19,7 @@ export class RoleService {
 
   hasThisRole(role: string, user: User): boolean {
     const roles = user.authorities;
-    if (role === "ROLE_MODO") {
+    if (role === 'ROLE_MODO') {
       return this.isModo(user);
     }
 
@@ -29,7 +27,7 @@ export class RoleService {
       return false;
     }
 
-    const result = roles.find(function (obj: any) {
+    const result = roles.find((obj: any) => {
       return obj.name === role;
     });
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {New} from '../../core/models';
+import {New} from '../../core';
 
 @Component({
   selector: 'app-modal-new-deletion',

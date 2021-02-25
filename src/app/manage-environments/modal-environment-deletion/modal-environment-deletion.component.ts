@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Environment} from '../../core/models';
+import {Environment} from '../../core';
 
 @Component({
   selector: 'app-modal-environment-deletion',

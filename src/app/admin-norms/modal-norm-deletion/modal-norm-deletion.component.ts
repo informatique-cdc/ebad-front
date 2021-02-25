@@ -1,17 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Norme} from '../../core/models';
+import {Norme} from '../../core';
 
 @Component({
   selector: 'app-modal-norm-deletion',
   templateUrl: './modal-norm-deletion.component.html'
 })
-export class ModalNormDeletionComponent implements OnInit {
+export class ModalNormDeletionComponent {
   norm: Norme;
 
   constructor(public activeModal: NgbActiveModal) {
-  }
-
-  ngOnInit() {
   }
 }

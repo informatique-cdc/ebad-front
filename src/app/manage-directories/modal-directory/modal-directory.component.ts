@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Directory, Environment} from '../../core/models';
-import {FilesService} from '../../core/services';
+import {Directory, Environment, FilesService} from '../../core';
 
 @Component({
   selector: 'app-modal-directory',

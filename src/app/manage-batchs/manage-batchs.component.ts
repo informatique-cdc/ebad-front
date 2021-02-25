@@ -1,13 +1,12 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Application, Batch} from '../core/models';
-import {BatchsService} from '../core/services';
+import {Application, Batch, BatchsService} from '../core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalBatchComponent} from './modal-batch/modal-batch.component';
 import {ModalBatchDeletionComponent} from './modal-batch-deletion/modal-batch-deletion.component';
-import {Constants} from "../shared/Constants";
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {ToastService} from "../core/services/toast.service";
+import {Constants} from '../shared/Constants';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-manage-batchs',
@@ -25,12 +24,12 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(private batchsService: BatchsService,
               private modalService: NgbModal,
               private toastService: ToastService,
-              private constants: Constants,) {
+              private constants: Constants, ) {
   }
 
   applicationChanged(application: Application) {
     this.applicationSelected = application;
-    this.refreshBatchs()
+    this.refreshBatchs();
   }
 
   ngOnInit() {
@@ -43,14 +42,14 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         if (!this.applicationSelected) {
           this.batchs = [];
-          return
+          return;
         }
         this.batchsService
           .getAllFromApplication(this.applicationSelected.id, {
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'name': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              name: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -119,7 +118,7 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   deleteBatch(batch: Batch) {
     const modalRef = this.modalService.open(ModalBatchDeletionComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.batchsService.delete(batch).subscribe(
         () => {
           this.toastService.showSuccess(`Le batch ${batch.name} a été supprimé`);
@@ -129,7 +128,6 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
           this.toastService.showError(`Une erreur est survenue lors de la suppression du batch : ${reason}`);
         }
       );
-    }, reason => {
     });
     modalRef.componentInstance.application = this.applicationSelected;
     modalRef.componentInstance.batch = batch;

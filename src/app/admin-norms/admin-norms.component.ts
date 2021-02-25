@@ -1,13 +1,12 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {NormsService} from '../core/services';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalNormComponent} from './modal-norm/modal-norm.component';
 import {ModalNormDeletionComponent} from './modal-norm-deletion/modal-norm-deletion.component';
-import {Constants} from "../shared/Constants";
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {Norme} from "../core/models";
-import {ToastService} from "../core/services/toast.service";
+import {Constants} from '../shared/Constants';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {Norme, NormsService} from '../core';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-admin-norms',
@@ -37,10 +36,10 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         this.normsService
           .getAll({
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'name': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              name: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -116,7 +115,6 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
           this.toastService.showError( `Une erreur est survenue lors de la suppression de la norme : ${reason.detail}`);
         }
       );
-    }, reason => {
     });
     modalRef.componentInstance.norm = norm;
   }

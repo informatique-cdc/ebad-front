@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 
 import {GlobalSettingsService, UserService} from './core';
-import {TranslateService} from "@ngx-translate/core";
-import {OauthService} from "./security/oauth.service";
-import {environment} from "../environments/environment";
-import {Router} from "@angular/router";
+import {TranslateService} from '@ngx-translate/core';
+import {OauthService} from './security/oauth.service';
+import {environment} from '../environments/environment';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -28,11 +28,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     if (!environment.jwt) {
-      this.oauthService.runInitialLoginSequence().then(() => {
-
-      }).catch(
+      this.oauthService.runInitialLoginSequence().then().catch(
         (error) => {
-          console.error("error when run initial login sequence "+error);
+          console.error('error when run initial login sequence ' + error);
           this.router.navigateByUrl('/login');
         }
       );
@@ -42,8 +40,8 @@ export class AppComponent implements OnInit {
 
     this.userService.isAuthenticated.subscribe((result) => {
       this.isAuthenticated = result;
-      if(result){
-        if(!environment.jwt) {
+      if (result){
+        if (!environment.jwt) {
           this.userService.populate();
         }
         this.globalSettingsService.populateGlobalSetting();

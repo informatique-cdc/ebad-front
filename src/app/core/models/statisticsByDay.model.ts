@@ -1,5 +1,5 @@
 export interface StatisticsByDay {
-  date: string,
-  nbr: number,
-  executionTime: number
+  date: string;
+  nbr: number;
+  executionTime: number;
 }

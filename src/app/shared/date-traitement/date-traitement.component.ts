@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {InfoEnvironment} from '../../core/models';
+import {InfoEnvironment, EnvironmentsService} from '../../core';
 import {ModalDateTraitementComponent} from './modal-date-traitement';
-import {EnvironmentsService} from '../../core/services';
 import {DatePipe} from '@angular/common';
 import {NgbDateParserFormatter, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 

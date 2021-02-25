@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {New} from '../../core/models';
-import {NewsService} from '../../core/services';
+import {NewsService, New} from '../../core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({

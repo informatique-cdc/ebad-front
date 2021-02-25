@@ -3,8 +3,8 @@ import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
 import {AccreditationRequest, CreationAccreditationRequest, ResponseAccreditationRequest} from '../models';
-import {Page} from "../models/page.model";
-import {Pageable} from "../models/pageable.model";
+import {Page} from '../models/page.model';
+import {Pageable} from '../models/pageable.model';
 
 @Injectable()
 export class AccreditationRequestsService {
@@ -14,11 +14,11 @@ export class AccreditationRequestsService {
   ) {
   }
 
-  getAllNeedAnswer(pageable: any = new Pageable(0,20)): Observable<Page<AccreditationRequest>> {
+  getAllNeedAnswer(pageable: any = new Pageable(0, 20)): Observable<Page<AccreditationRequest>> {
     return this.apiService.get(`${this.apiName}/need-answer`,  pageable);
   }
 
-  getAllMyRequests(pageable: any = new Pageable(0,20)): Observable<Page<AccreditationRequest>> {
+  getAllMyRequests(pageable: any = new Pageable(0, 20)): Observable<Page<AccreditationRequest>> {
     return this.apiService.get(`${this.apiName}`, pageable);
   }
 

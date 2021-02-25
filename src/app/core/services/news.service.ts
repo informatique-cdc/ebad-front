@@ -3,8 +3,8 @@ import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
 import {New} from '../models';
-import {Page} from "../models/page.model";
-import {Pageable} from "../models/pageable.model";
+import {Page} from '../models/page.model';
+import {Pageable} from '../models/pageable.model';
 
 @Injectable()
 export class NewsService {
@@ -14,12 +14,12 @@ export class NewsService {
   ) {
   }
 
-  getAllPublic(pageable: Pageable = new Pageable(0,20)): Observable<Page<New>> {
-    return this.apiService.get(`${this.apiName}/public`,pageable);
+  getAllPublic(pageable: Pageable = new Pageable(0, 20)): Observable<Page<New>> {
+    return this.apiService.get(`${this.apiName}/public`, pageable);
   }
 
-  getAll(pageable: any = new Pageable(0,20)): Observable<Page<New>> {
-    return this.apiService.get(`${this.apiName}`,pageable);
+  getAll(pageable: any = new Pageable(0, 20)): Observable<Page<New>> {
+    return this.apiService.get(`${this.apiName}`, pageable);
   }
 
   addNew(oneNew: New): Observable<void> {

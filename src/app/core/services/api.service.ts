@@ -1,10 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-
-import {JwtService} from './jwt.service';
-import {catchError} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class ApiService {
@@ -15,14 +12,14 @@ export class ApiService {
 
 
   get(path: string, params: any = new HttpParams()): Observable<any> {
-    return this.http.get(`${environment.apiUrl}${path}`, {params, headers: {'Content-Type':'application/json'}});
+    return this.http.get(`${environment.apiUrl}${path}`, {params, headers: {'Content-Type': 'application/json'}});
   }
 
   put(path: string, body: object = {}): Observable<any> {
     return this.http.put(
       `${environment.apiUrl}${path}`,
-      JSON.stringify(body),{
-          headers: {'Content-Type':'application/json'}
+      JSON.stringify(body), {
+          headers: {'Content-Type': 'application/json'}
         }
     );
   }
@@ -32,7 +29,7 @@ export class ApiService {
       `${environment.apiUrl}${path}`,
       JSON.stringify(body),
         {
-          headers: {'Content-Type':'application/json'}
+          headers: {'Content-Type': 'application/json'}
         }
     );
   }
@@ -42,7 +39,7 @@ export class ApiService {
       `${environment.apiUrl}${path}`,
       JSON.stringify(body),
         {
-          headers: {'Content-Type':'application/json'}
+          headers: {'Content-Type': 'application/json'}
         }
     );
   }
@@ -57,7 +54,7 @@ export class ApiService {
     return this.http.delete(
       `${environment.apiUrl}${path}`,
         {
-          headers: {'Content-Type':'application/json'}
+          headers: {'Content-Type': 'application/json'}
         }
     );
   }

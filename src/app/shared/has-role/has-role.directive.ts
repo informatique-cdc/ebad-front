@@ -1,8 +1,6 @@
-import {Directive, Input, OnInit, TemplateRef, ViewContainerRef} from "@angular/core";
-import {UserService} from "../../core/services";
-import {RoleService} from "../../core/services/role.service";
-import {environment} from "../../../environments/environment";
-import {OauthService} from "../../security/oauth.service";
+import {Directive, Input, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
+import {UserService} from '../../core/services';
+import {RoleService} from '../../core/services/role.service';
 
 @Directive({
     selector: '[hasRole]'

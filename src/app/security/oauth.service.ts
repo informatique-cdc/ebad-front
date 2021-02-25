@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {OAuthErrorEvent, OAuthService} from 'angular-oauth2-oidc';
 import {BehaviorSubject, combineLatest, Observable, ReplaySubject} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
-import {CustomValidationHandler} from "./CustomValidationHandler";
+import {CustomValidationHandler} from './CustomValidationHandler';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class OauthService {
           this.router.navigate(['/error', {error: event.type}]); // FIXME DTROUILLET DESACTIVER SILENT REFRESH EN MODE NON CONNECTE
         }
       } else {
-        if(event.type === 'user_profile_loaded'){
+        if (event.type === 'user_profile_loaded'){
           if (this.oauthService.state && this.oauthService.state !== 'undefined' && this.oauthService.state !== 'null') {
             this.router.navigateByUrl(decodeURIComponent(this.oauthService.state));
           }
@@ -70,7 +70,7 @@ export class OauthService {
 
     this.oauthService.events
       .pipe(filter(e => ['token_received'].includes(e.type)))
-      .subscribe(e => this.oauthService.loadUserProfile());
+      .subscribe(() => this.oauthService.loadUserProfile());
 
     this.oauthService.events
       .pipe(filter(e => ['session_terminated', 'session_error'].includes(e.type)))
@@ -118,7 +118,7 @@ export class OauthService {
             return Promise.reject(result);
           });
 
-      }).catch((e) => {
+      }).catch(() => {
         this.router.navigate(['login']);
       })
 
@@ -128,7 +128,7 @@ export class OauthService {
           this.router.navigateByUrl(decodeURIComponent(this.oauthService.state));
         }
   })
-      .catch((error) => {
+      .catch(() => {
         this.isDoneLoadingSubject$.next(true);
       });
   }

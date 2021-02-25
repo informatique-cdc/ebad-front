@@ -21,17 +21,17 @@ export class AdminSettingsComponent implements OnInit {
   ngOnInit() {
     this.globalSettingService.getAllSettings().subscribe(
       (data) => this.settings = data
-    )
+    );
   }
 
   disableSetting(globalSetting: GlobalSetting){
-    this.globalSettingService.changeValue(globalSetting.key,'false').subscribe(
+    this.globalSettingService.changeValue(globalSetting.key, 'false').subscribe(
       (result) => this.settings[this.settings.indexOf(globalSetting)] = result
     );
   }
 
   enableSetting(globalSetting: GlobalSetting){
-    this.globalSettingService.changeValue(globalSetting.key,'true').subscribe(
+    this.globalSettingService.changeValue(globalSetting.key, 'true').subscribe(
       (result) => this.settings[this.settings.indexOf(globalSetting)] = result
     );
   }

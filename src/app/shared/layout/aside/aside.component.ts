@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AccreditationRequestsService, UserService} from "../../../core/services";
-import {Router} from "@angular/router";
-import {RxStompService} from "@stomp/ng2-stompjs";
-import {Subscription} from "rxjs";
-import {Pageable} from "../../../core/models/pageable.model";
+import {AccreditationRequestsService, UserService} from '../../../core/services';
+import {Router} from '@angular/router';
+import {RxStompService} from '@stomp/ng2-stompjs';
+import {Subscription} from 'rxjs';
+import {Pageable} from '../../../core/models/pageable.model';
 
 @Component({
   selector: '[ebad-aside]',
@@ -22,7 +22,7 @@ export class AsideComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.showBadgeAccreditations();
-    this.accreditationService.getAllNeedAnswer(new Pageable(0,1)).subscribe(
+    this.accreditationService.getAllNeedAnswer(new Pageable(0, 1)).subscribe(
       (request) => {
         this.accreditationBadge = request.totalElements;
       }
@@ -38,17 +38,17 @@ export class AsideComponent implements OnInit, OnDestroy{
     });
   }
 
-  addAccreditation = receivedMsg => {
+  addAccreditation = () => {
     this.accreditationBadge += 1;
   }
 
-  removeAccreditation = receivedMsg => {
+  removeAccreditation = () => {
     this.accreditationBadge -= 1;
   }
 
   toggleUsage() {
     this.navbarUsageOpen = !this.navbarUsageOpen;
-    if(this.navbarUsageOpen){
+    if (this.navbarUsageOpen){
       this.navbarManageOpen = false;
       this.navbarAdministrateOpen = false;
     }
@@ -56,7 +56,7 @@ export class AsideComponent implements OnInit, OnDestroy{
 
   toggleManage() {
     this.navbarManageOpen = !this.navbarManageOpen;
-    if(this.navbarManageOpen){
+    if (this.navbarManageOpen){
       this.navbarUsageOpen = false;
       this.navbarAdministrateOpen = false;
     }
@@ -64,7 +64,7 @@ export class AsideComponent implements OnInit, OnDestroy{
 
   toggleAdministrate() {
     this.navbarAdministrateOpen = !this.navbarAdministrateOpen;
-    if(this.navbarAdministrateOpen) {
+    if (this.navbarAdministrateOpen) {
       this.navbarUsageOpen = false;
       this.navbarManageOpen = false;
     }
@@ -76,7 +76,7 @@ export class AsideComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    if(this.sub) {
+    if (this.sub) {
       this.sub.unsubscribe();
     }
   }

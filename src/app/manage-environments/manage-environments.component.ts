@@ -1,13 +1,12 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Application, Environment} from '../core/models';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ApplicationsService, EnvironmentsService, GlobalSettingsService} from '../core/services';
+import {Application, Environment, ApplicationsService, EnvironmentsService, GlobalSettingsService} from '../core';
 import {ModalEnvironmentComponent} from './modal-environment/modal-environment.component';
 import {ModalEnvironmentDeletionComponent} from './modal-environment-deletion/modal-environment-deletion.component';
-import {Constants} from "../shared/Constants";
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {ToastService} from "../core/services/toast.service";
+import {Constants} from '../shared/Constants';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-manage-environments',
@@ -53,22 +52,22 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     this.importEnvironmentEnabled = this.globalSettingsService.importEnvironmentIsEnable();
 
     this.dtOptions = {
-      order: [[0,'asc']],
+      order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
       serverSide: true,
       processing: false,
       ajax: (dataTablesParameters: any, callback) => {
-        if(!this.applicationSelected){
+        if (!this.applicationSelected){
           this.environments = [];
-          return
+          return;
         }
         this.environmentsService
           .getEnvironmentFromApp(this.applicationSelected.id, {
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'name': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              name: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -122,12 +121,12 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
 
   onClickImportEnvironments() {
     this.environmentsService.importEnvironmentToApp(this.applicationSelected.id).subscribe(
-      (result) => {
+      () => {
         this.toastService.showSuccess(`Les environnements ont bien été importés`);
         this.refreshEnvironments();
       },
       (error) => this.toastService.showError(`Une erreur est survenue lors de l'import des environnments : ${error.message}`)
-    )
+    );
   }
 
   editEnvironment(env: Environment) {
@@ -147,9 +146,9 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
 
   deleteEnvironment(env: Environment) {
     const modalRef = this.modalService.open(ModalEnvironmentDeletionComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.environmentsService.deleteEnvironemnt(env.id).subscribe(
-        fileKind => {
+        () => {
           this.toastService.showSuccess(`L'environnement a été supprimé`);
           this.applicationChanged(this.applicationSelected);
         },
@@ -157,7 +156,6 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
           this.toastService.showError( `Une erreur est survenue lors de la suppression de l'environnement : ${reason}`);
         }
       );
-    }, reason => {
     });
     modalRef.componentInstance.application = this.applicationSelected;
     modalRef.componentInstance.environment = env;

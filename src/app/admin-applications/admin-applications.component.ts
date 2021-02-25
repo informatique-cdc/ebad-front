@@ -1,14 +1,13 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ApplicationsService, GlobalSettingsService} from '../core/services';
+import {ApplicationsService, Application, GlobalSettingsService} from '../core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalApplicationComponent} from './modal-application/modal-application.component';
 import {ModalUsersComponent} from './modal-users/modal-users.component';
 import {ModalApplicationDeletionComponent} from './modal-application-deletion/modal-application-deletion.component';
-import {Constants} from "../shared/Constants";
-import {Application} from "../core/models";
-import {DataTableDirective} from "angular-datatables";
+import {Constants} from '../shared/Constants';
+import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
-import {ToastService} from "../core/services/toast.service";
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-admin-applications',
@@ -38,7 +37,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     this.importApplicationEnabled = this.globalSettingsService.importApplicationIsEnable();
 
     this.dtOptions = {
-      order: [[1,'asc']],
+      order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
       serverSide: true,
@@ -46,10 +45,10 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       ajax: (dataTablesParameters: any, callback) => {
         this.applicationsService
           .getAllManage({
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'name': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              name: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -88,7 +87,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     const modalRef = this.modalService.open(ModalApplicationComponent);
     modalRef.result.then((result) => {
       this.toastService.showSuccess(`L'application ${result.name} a bien été ajoutée`);
-      this.refreshApplication()
+      this.refreshApplication();
     }, (reason) => {
       if (reason.message !== undefined) {
         this.toastService.showError( `Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
@@ -101,18 +100,18 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     this.applicationsService.importApplications().subscribe(
       (result) => {
         this.toastService.showSuccess(`Les applications ont bien étaient importées`);
-        this.refreshApplication()
+        this.refreshApplication();
       }
       ,
       (error) => this.toastService.showError(`Une erreur est survenue lors de l'import des applications : ${error.message}`)
-    )
+    );
   }
 
   editApplication(app: Application) {
     const modalRef = this.modalService.open(ModalApplicationComponent);
     modalRef.result.then((result) => {
       this.toastService.showSuccess(`L'application ${result.name} a bien été modifiée`);
-      this.refreshApplication()
+      this.refreshApplication();
     }, (reason) => {
       if (reason.message !== undefined) {
         this.toastService.showError( `Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
@@ -128,13 +127,12 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       this.applicationsService.deleteApplication(app.id).subscribe(
         () => {
           this.toastService.showSuccess(`L'application a été supprimée`);
-          this.refreshApplication()
+          this.refreshApplication();
         },
         reason => {
           this.toastService.showError( `Une erreur est survenue lors de la suppression de l'application : ${reason}`);
         }
       );
-    }, reason => {
     });
     modalRef.componentInstance.application = app;
   }

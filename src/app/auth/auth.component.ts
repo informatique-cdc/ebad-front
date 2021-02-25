@@ -3,8 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {ApiService, UserService} from '../core';
-import {OauthService} from "../security/oauth.service";
-import {environment} from "../../environments/environment";
+import {OauthService} from '../security/oauth.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-auth-page',
@@ -36,18 +36,18 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      if (params['referer']){
-        this.referer = params['referer'];
+      if (params.referer){
+        this.referer = params.referer;
       }
     });
-    this.apiService.get('/csrf').subscribe((result) => {
+    this.apiService.get('/csrf').subscribe(() => {
       console.debug('csrf');
-    }, (error) => {});
+    });
 
   }
 
   submitForm() {
-    if(!this.jwt) {
+    if (!this.jwt) {
       this.oauthService.login(this.referer);
     }else {
 

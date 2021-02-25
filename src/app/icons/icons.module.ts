@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {FeatherModule} from "angular-feather";
+import {FeatherModule} from 'angular-feather';
 import {
   Activity,
   BarChart2, Bell, BellOff, Calendar, CheckCircle, Code, Edit,
@@ -12,7 +12,7 @@ import {
   Server,
   Terminal,
   Users, X, XCircle
-} from "angular-feather/icons";
+} from 'angular-feather/icons';
 
 const icons = {
   Home,

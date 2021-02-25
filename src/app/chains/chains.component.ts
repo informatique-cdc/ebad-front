@@ -1,10 +1,9 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Chain, Environment, InfoEnvironment} from '../core/models';
-import {ChainsService, EnvironmentsService} from '../core/services';
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {Constants} from "../shared/Constants";
-import {ToastService} from "../core/services/toast.service";
+import {ChainsService, EnvironmentsService, Chain, Environment, InfoEnvironment} from '../core';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {Constants} from '../shared/Constants';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-chains',
@@ -37,14 +36,14 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         if (!this.environmentSelected) {
           this.chains = [];
-          return
+          return;
         }
         this.chainsService
           .getAllFromEnvironment(this.environmentSelected.id, {
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'name': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              name: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -94,7 +93,7 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   runChain(chain) {
     this.chainsService.run(chain.id).subscribe(
-      trace => {
+      () => {
           this.toastService.showSuccess('La chaine ' + chain.name + ' vient d\'être lancée');
       },
       err => {

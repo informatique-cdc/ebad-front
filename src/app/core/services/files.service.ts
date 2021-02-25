@@ -3,8 +3,8 @@ import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
 import {Directory, File} from '../models';
-import {Page} from "../models/page.model";
-import {Pageable} from "../models/pageable.model";
+import {Page} from '../models/page.model';
+import {Pageable} from '../models/pageable.model';
 
 @Injectable()
 export class FilesService {
@@ -13,7 +13,7 @@ export class FilesService {
   ) {
   }
 
-  getAllFromEnvironment(envId, pageable: any = new Pageable(0,20)): Observable<Page<Directory>> {
+  getAllFromEnvironment(envId, pageable: any = new Pageable(0, 20)): Observable<Page<Directory>> {
     return this.apiService.get(`/directories/env/${envId}`, pageable);
   }
 
@@ -31,8 +31,8 @@ export class FilesService {
 
   getAllFilesFromDirectory(slug, subDir?: string): Observable<File[]> {
     let param;
-    if(subDir && subDir != ''){
-      param = {'subDirectory': subDir}
+    if (subDir && subDir !== ''){
+      param = {subDirectory: subDir};
     }
     return this.apiService.get(`/directories/files/${slug}`, param);
   }
@@ -42,14 +42,14 @@ export class FilesService {
   }
 
   downloadFile(file): Observable<ArrayBuffer> {
-    return this.apiService.postFile(`/directories/files/read`, file, {responseType: 'arraybuffer', headers: {'Content-Type':'application/json'}});
+    return this.apiService.postFile(`/directories/files/read`, file, {responseType: 'arraybuffer', headers: {'Content-Type': 'application/json'}});
   }
 
   uploadFile(file, name, idDirectory, subDirectory?): Observable<any> {
     const formData = new FormData();
     formData.append('directory', idDirectory);
     formData.append('file', file, name);
-    if(subDirectory) {
+    if (subDirectory) {
       formData.append('subDirectory', subDirectory);
     }
     return this.apiService.postFile(`/directories/files/upload`, formData, {});

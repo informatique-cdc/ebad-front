@@ -12,16 +12,15 @@ import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HomeModule} from './home/home.module';
-import {SecurityModule} from "./security/security.module";
-import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {HttpClient} from "@angular/common/http";
-import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {AccreditationRequestModule} from "./accreditation-requests/accreditation-request.module";
-import {AngularSvgIconModule} from "angular-svg-icon";
-import {LogOut} from "angular-feather/icons";
+import {SecurityModule} from './security/security.module';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {HttpClient} from '@angular/common/http';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {AccreditationRequestModule} from './accreditation-requests/accreditation-request.module';
+import {AngularSvgIconModule} from 'angular-svg-icon';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 registerLocaleData(localeFr);

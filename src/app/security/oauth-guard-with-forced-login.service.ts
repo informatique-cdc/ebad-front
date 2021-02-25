@@ -3,7 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular
 import {Observable} from 'rxjs';
 import {filter, map, tap} from 'rxjs/operators';
 
-import {OauthService} from "./oauth.service";
+import {OauthService} from './oauth.service';
 
 @Injectable()
 export class OauthGuardWithForcedLogin implements CanActivate {

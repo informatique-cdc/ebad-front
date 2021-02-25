@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Batch, BatchsService, Environment} from "../../core";
-import {Pageable} from "../../core/models/pageable.model";
-import {SchedulingsService} from "../../core/services/schedulings.service";
-import {CreationScheduling} from "../../core/models/creation-scheduling.model";
+import {Batch, BatchsService, Environment} from '../../core';
+import {Pageable} from '../../core/models/pageable.model';
+import {SchedulingsService} from '../../core/services/schedulings.service';
+import {CreationScheduling} from '../../core/models/creation-scheduling.model';
 
 @Component({
   selector: 'app-modal-run-with-parameters',
@@ -21,7 +21,7 @@ export class ModalAddSchedulingComponent  implements OnInit {
     cron: string;
     environmentId: number;
     parameters: string;
-  };
+  }();
 
   constructor(public activeModal: NgbActiveModal, private batchsService: BatchsService, private schedulignsService: SchedulingsService) { }
 

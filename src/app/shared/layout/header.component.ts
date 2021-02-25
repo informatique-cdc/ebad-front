@@ -4,8 +4,8 @@ import {Notification, NotificationsService, User, UserService} from '../../core'
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
-import {RxStompService} from "@stomp/ng2-stompjs";
-import {ToastService} from "../../core/services/toast.service";
+import {RxStompService} from '@stomp/ng2-stompjs';
+import {ToastService} from '../../core/services/toast.service';
 
 @Component({
     selector: '[ebad-header]',
@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     private addNotification = receivedMsg => {
         const result: Notification = JSON.parse(receivedMsg.body);
-        if(this.notificationsWsReceived.has(result.id)){
+        if (this.notificationsWsReceived.has(result.id)){
             return;
         }
         this.notificationsWsReceived.add(result.id);

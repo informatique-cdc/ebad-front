@@ -7,7 +7,7 @@ import {ModalUsersComponent} from './modal-users/modal-users.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {IconsModule} from '../icons';
 import {ModalApplicationDeletionComponent} from './modal-application-deletion/modal-application-deletion.component';
-import {DataTablesModule} from "angular-datatables";
+import {DataTablesModule} from 'angular-datatables';
 
 @NgModule({
   declarations: [AdminApplicationsComponent, ModalApplicationComponent, ModalUsersComponent, ModalApplicationDeletionComponent],

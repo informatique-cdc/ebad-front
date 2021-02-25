@@ -1,13 +1,11 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {BatchsService, EnvironmentsService} from '../core/services';
-import {Batch, Environment, InfoEnvironment} from '../core/models';
+import {Batch, Environment, InfoEnvironment, BatchsService, EnvironmentsService} from '../core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
 import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
-import {RxStompService} from '@stomp/ng2-stompjs';
 
 @Component({
   selector: 'app-batchs-page',

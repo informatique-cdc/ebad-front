@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,} from '@angular/common/http';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 
 import {JwtService, UserService} from '../services';
-import {catchError} from "rxjs/operators";
-import {Router} from "@angular/router";
+import {catchError} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
@@ -15,13 +15,13 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const headersConfig = {
-      'Accept': 'application/json'
-    };
+      Accept: 'application/json'
+    } as any;
 
     const token = this.jwtService.getToken();
 
     if (token) {
-      headersConfig['Authorization'] = `Bearer ${token}`;
+      headersConfig.Authorization = `Bearer ${token}`;
     }
 
     const request = req.clone({setHeaders: headersConfig});

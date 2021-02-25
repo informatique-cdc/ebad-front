@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
-import {Batch, Trace} from '../models';
-import {Page} from "../models/page.model";
-import {Pageable} from "../models/pageable.model";
-import {Job} from "../models/job.model";
+import {Batch} from '../models';
+import {Page} from '../models/page.model';
+import {Pageable} from '../models/pageable.model';
+import {Job} from '../models/job.model';
 
 @Injectable()
 export class BatchsService {
@@ -14,11 +14,11 @@ export class BatchsService {
   ) {
   }
 
-  getAllFromEnvironment(idEnvironment: number, pageable: any = new Pageable(0,20)): Observable<Page<Batch>> {
+  getAllFromEnvironment(idEnvironment: number, pageable: any = new Pageable(0, 20)): Observable<Page<Batch>> {
     return this.apiService.get(`/batchs?environnements.id=${idEnvironment}`, pageable);
   }
 
-  getAllFromApplication(idApplication: number, pageable: any = new Pageable(0,20)): Observable<Page<Batch>> {
+  getAllFromApplication(idApplication: number, pageable: any = new Pageable(0, 20)): Observable<Page<Batch>> {
     return this.apiService.get(`/batchs?environnements.application.id=${idApplication}`, pageable);
 }
 

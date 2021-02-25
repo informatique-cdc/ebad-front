@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
-import {Chain, Trace} from '../models';
-import {Pageable} from "../models/pageable.model";
-import {Page} from "../models/page.model";
-import {Job} from "../models/job.model";
+import {Chain} from '../models';
+import {Pageable} from '../models/pageable.model';
+import {Page} from '../models/page.model';
+import {Job} from '../models/job.model';
 
 @Injectable()
 export class ChainsService {
@@ -15,7 +15,7 @@ export class ChainsService {
   ) {
   }
 
-  getAllFromEnvironment(environmentId, pageable: any = new Pageable(0,20)): Observable<Page<Chain>> {
+  getAllFromEnvironment(environmentId, pageable: any = new Pageable(0, 20)): Observable<Page<Chain>> {
     return this.apiService.get(`/${this.apiName}/env/${environmentId}`, pageable);
   }
 

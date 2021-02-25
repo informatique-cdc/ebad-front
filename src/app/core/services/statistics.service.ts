@@ -7,7 +7,7 @@ import {Statistics} from '../models';
 
 @Injectable()
 export class StatisticsService {
-  constructor (
+  constructor(
     private apiService: ApiService
   ) {}
 
