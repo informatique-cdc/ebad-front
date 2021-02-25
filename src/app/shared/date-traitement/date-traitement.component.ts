@@ -9,7 +9,7 @@ import {NgbDateParserFormatter, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './date-traitement.component.html',
   styleUrls: ['./date-traitement.component.scss']
 })
-export class DateTraitementComponent implements OnInit {
+export class DateTraitementComponent {
   @Input() infoEnvironment: InfoEnvironment;
 
   constructor(
@@ -18,9 +18,6 @@ export class DateTraitementComponent implements OnInit {
     private ngbDateParserFormatter: NgbDateParserFormatter,
     private datePipe: DatePipe
   ) {
-  }
-
-  ngOnInit() {
   }
 
   showModalCalendar() {

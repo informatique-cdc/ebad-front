@@ -98,7 +98,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
 
   onClickImportApplications() {
     this.applicationsService.importApplications().subscribe(
-      (result) => {
+      () => {
         this.toastService.showSuccess(`Les applications ont bien étaient importées`);
         this.refreshApplication();
       }
@@ -123,7 +123,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
 
   deleteApplication(app: Application) {
     const modalRef = this.modalService.open(ModalApplicationDeletionComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.applicationsService.deleteApplication(app.id).subscribe(
         () => {
           this.toastService.showSuccess(`L'application a été supprimée`);

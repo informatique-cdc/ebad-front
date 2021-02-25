@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {EnvironmentsService} from '../core';
-import {Environment} from '../core';
+import {EnvironmentsService, Environment} from '../core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
