@@ -7,6 +7,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {Constants} from '../shared/Constants';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-directories',
@@ -24,12 +25,16 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
   constructor(private filesService: FilesService,
               private modalService: NgbModal,
               private toastService: ToastService,
-              private constants: Constants) {
+              private constants: Constants,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
 
     this.dtOptions = {
+      language: {
+        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
+      },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

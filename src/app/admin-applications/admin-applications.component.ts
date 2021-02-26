@@ -8,6 +8,7 @@ import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-admin-applications',
@@ -29,7 +30,8 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
               private applicationsService: ApplicationsService,
               private constants: Constants,
               private toastService: ToastService,
-              private globalSettingsService: GlobalSettingsService) {
+              private globalSettingsService: GlobalSettingsService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
@@ -37,6 +39,9 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     this.importApplicationEnabled = this.globalSettingsService.importApplicationIsEnable();
 
     this.dtOptions = {
+      language: {
+        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
+      },
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

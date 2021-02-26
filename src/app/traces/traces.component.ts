@@ -4,6 +4,7 @@ import {TracesService} from '../core/services/traces.service';
 import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-traces',
@@ -19,11 +20,15 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
   constructor(private tracesService: TracesService,
-              private constants: Constants) {
+              private constants: Constants,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
     this.dtOptions = {
+      language: {
+        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
+      },
       order: [[0, 'desc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

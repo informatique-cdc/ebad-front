@@ -32,11 +32,14 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
     private constants: Constants,
     private toastService: ToastService,
     private translateService: TranslateService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,) {
   }
 
   ngOnInit() {
     this.dtOptions = {
+      language: {
+        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
+      },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

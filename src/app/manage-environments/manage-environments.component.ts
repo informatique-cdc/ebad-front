@@ -7,6 +7,7 @@ import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-environments',
@@ -29,7 +30,8 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
               private applicationsService: ApplicationsService,
               private constants: Constants,
               private toastService: ToastService,
-              private globalSettingsService: GlobalSettingsService) {
+              private globalSettingsService: GlobalSettingsService,
+              private translateService: TranslateService) {
   }
 
 
@@ -52,6 +54,9 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     this.importEnvironmentEnabled = this.globalSettingsService.importEnvironmentIsEnable();
 
     this.dtOptions = {
+      language: {
+        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
+      },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

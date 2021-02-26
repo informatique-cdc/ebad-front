@@ -5,6 +5,7 @@ import {Observable, Subject} from 'rxjs';
 import {Page} from '../core/models/page.model';
 import {ToastService} from '../core/services/toast.service';
 import {DataTableDirective} from 'angular-datatables';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-list-accreditation-request',
@@ -23,7 +24,8 @@ export class ListAccreditationRequestComponent implements OnInit, AfterViewInit,
 
   constructor(private accreditationRequestsService: AccreditationRequestsService,
               private toastService: ToastService,
-              private constants: Constants) {
+              private constants: Constants,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -40,6 +42,9 @@ export class ListAccreditationRequestComponent implements OnInit, AfterViewInit,
 
 
     this.dtOptions = {
+      language: {
+        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
+      },
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

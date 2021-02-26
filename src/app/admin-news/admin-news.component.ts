@@ -8,6 +8,7 @@ import {New} from '../core/models';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-admin-news',
@@ -24,11 +25,15 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(private modalService: NgbModal,
               private constants: Constants,
               private newsService: NewsService,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
     this.dtOptions = {
+      language: {
+        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
+      },
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

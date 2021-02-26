@@ -12,7 +12,11 @@ export class TableComponent implements OnInit {
   @Input() title: string;
   @Input() table: Table;
   valueAscOrder;
-  dtOptions: DataTables.Settings = {};
+  dtOptions: DataTables.Settings = {
+    language: {
+      url: 'assets/i18n/datatable-fr.json'
+    }
+  };
 
   @Output() actionClicked = new EventEmitter<ActionClickEvent>();
 

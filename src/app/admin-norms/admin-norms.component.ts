@@ -7,6 +7,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {Norme, NormsService} from '../core';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-admin-norms',
@@ -23,11 +24,15 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(private modalService: NgbModal,
               private constants: Constants,
               private toastService: ToastService,
-              private normsService: NormsService) {
+              private normsService: NormsService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
     this.dtOptions = {
+      language: {
+        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
+      },
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

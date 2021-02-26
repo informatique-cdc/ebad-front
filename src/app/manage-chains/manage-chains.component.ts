@@ -7,6 +7,7 @@ import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-chains',
@@ -25,11 +26,15 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(private chainsService: ChainsService,
               private modalService: NgbModal,
               private toastService: ToastService,
-              private constants: Constants) {
+              private constants: Constants,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
     this.dtOptions = {
+      language: {
+        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
+      },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

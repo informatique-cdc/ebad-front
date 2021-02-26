@@ -6,6 +6,7 @@ import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-batchs-page',
@@ -29,11 +30,16 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     private environmentsService: EnvironmentsService,
     private constants: Constants,
     private toastService: ToastService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private translateService: TranslateService) {
   }
 
   ngOnInit() {
+
     this.dtOptions = {
+      language: {
+        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
+      },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
@@ -122,7 +128,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.batchsService.run(batch.id, apiParams).subscribe(
       id => {
-          this.toastService.showSuccess('Le batch ' + batch.name + ' vient d\'être lancé');
+        this.toastService.showSuccess('Le batch ' + batch.name + ' vient d\'être lancé');
       },
       err => {
         this.toastService.showError(err || 'Une erreur est survenue');
