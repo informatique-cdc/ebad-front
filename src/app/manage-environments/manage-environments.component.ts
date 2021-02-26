@@ -25,6 +25,8 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
 
   environments: Environment[] = [];
 
+  columns = [];
+
   constructor(private environmentsService: EnvironmentsService,
               private modalService: NgbModal,
               private applicationsService: ApplicationsService,
@@ -32,6 +34,13 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
               private toastService: ToastService,
               private globalSettingsService: GlobalSettingsService,
               private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'Nom', visible: true});
+    this.columns.push({data: 'host', name: 'Serveur', visible: true});
+    this.columns.push({data: 'login', name: 'Login', visible: true});
+    this.columns.push({data: 'homePath', name: 'Home', visible: true});
+    this.columns.push({data: 'prefix', name: 'Préfix', visible: true});
+    this.columns.push({ data: '', name: 'Action', orderable: false, visible: true});
   }
 
 
@@ -84,12 +93,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'host'}, {data: 'login'}, {data: 'homePath'}, {data: 'prefix'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }
@@ -165,6 +169,13 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     modalRef.componentInstance.application = this.applicationSelected;
     modalRef.componentInstance.environment = env;
     modalRef.componentInstance.isUpdate = true;
+  }
+
+  toggleVisibility(index) {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.column(index).visible(!this.columns[index].visible);
+      this.columns[index].visible = !this.columns[index].visible
+    });
   }
 
 }
