@@ -46,7 +46,7 @@ export class UserService {
           },
           err => this.purgeAuth()
         );
-    } else if(environment.jwt) {
+    } else if (environment.jwt) {
       // Remove any potential remnants of previous auth states
       this.purgeAuth();
     }
@@ -75,7 +75,7 @@ export class UserService {
 
   purgeAuth() {
     this.rxStompService.deactivate();
-    if(!environment.jwt) {
+    if (!environment.jwt) {
       this.oauthService.logout();
     }
     // Remove JWT from localstorage

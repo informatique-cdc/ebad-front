@@ -9,5 +9,6 @@ export const environment = {
   loginUrl: '',
   scope: 'openid profile',
   logoutUrl: '',
-  userinfoEndpoint: ''
+  userinfoEndpoint: '',
+  tokenEndpoint: ''
 };

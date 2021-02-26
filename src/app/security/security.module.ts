@@ -8,11 +8,11 @@ import {
   ValidationHandler
 } from 'angular-oauth2-oidc';
 import {JwksValidationHandler} from 'angular-oauth2-oidc-jwks';
-import {AuthGuard} from "../core/services";
-import {OauthService} from "./oauth.service";
-import {oauthConfig} from "./oauth-config";
-import {oauthModuleConfig} from "./oauth-module-config";
-import {OauthGuardWithForcedLogin} from "./oauth-guard-with-forced-login.service";
+import {AuthGuard} from '../core/services';
+import {OauthService} from './oauth.service';
+import {oauthConfig} from './oauth-config';
+import {oauthModuleConfig} from './oauth-module-config';
+import {OauthGuardWithForcedLogin} from './oauth-guard-with-forced-login.service';
 
 export function storageFactory(): OAuthStorage {
   return localStorage;

@@ -1,16 +1,15 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Table} from '../shared/table/table.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {UsersService} from '../core/services';
+import {UsersService, User} from '../core';
 import {ModalUserComponent} from './modal-user/modal-user.component';
-import {User} from '../core/models';
-import {ModalRolesComponent} from "./modal-roles/modal-roles.component";
-import {environment} from "../../environments/environment";
-import {Pageable} from "../core/models/pageable.model";
-import {Constants} from "../shared/Constants";
-import {fromEvent} from "rxjs";
-import {debounceTime, distinctUntilChanged, filter, tap} from "rxjs/operators";
-import {ToastService} from "../core/services/toast.service";
+import {ModalRolesComponent} from './modal-roles/modal-roles.component';
+import {environment} from '../../environments/environment';
+import {Pageable} from '../core/models/pageable.model';
+import {Constants} from '../shared/Constants';
+import {fromEvent} from 'rxjs';
+import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-admin-users',
@@ -49,13 +48,13 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // server-side search
-    fromEvent(this.input.nativeElement,'keyup')
+    fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
         filter(Boolean),
         debounceTime(500),
         distinctUntilChanged(),
         tap((text) => {
-          let pageable : any = new Pageable(0, this.pageSize);
+          const pageable: any = new Pageable(0, this.pageSize);
           pageable.login = this.input.nativeElement.value;
           this.refreshUsers(pageable);
         })
@@ -64,7 +63,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   }
 
   changePage(event){
-    this.refreshUsers(new Pageable(event-1,this.pageSize));
+    this.refreshUsers(new Pageable(event - 1, this.pageSize));
   }
 
   refreshUsers(pageable: any = new Pageable(0, this.pageSize)) {
@@ -77,7 +76,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
         this.peoplesPage.from = (this.pagination.currentPage - 1) * this.pagination.itemsPerPage + 1;
         this.peoplesPage.to = (this.pagination.currentPage - 1) * this.pagination.itemsPerPage + this.pagination.itemsPerPage;
         this.peoplesPage.of = this.pagination.totalItems;
-        if(this.peoplesPage.to > this.peoplesPage.of){
+        if (this.peoplesPage.to > this.peoplesPage.of){
           this.peoplesPage.to = this.peoplesPage.of;
         }
       }
@@ -104,16 +103,16 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
       this.refreshUsers();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de la modification des rôles de l'utilisateur : ${reason.message}`);
       }
     });
     modalRef.componentInstance.roles.loginUser = user.login;
-    modalRef.componentInstance.roles.roleAdmin = user.authorities.find(function (obj: any) {
-      return obj.name === "ROLE_ADMIN";
-    }) != undefined;
-    modalRef.componentInstance.roles.roleUser = user.authorities.find(function (obj: any) {
-      return obj.name === "ROLE_USER";
-    }) != undefined;
+    modalRef.componentInstance.roles.roleAdmin = user.authorities.find((obj: any) => {
+      return obj.name === 'ROLE_ADMIN';
+    }) !== undefined;
+    modalRef.componentInstance.roles.roleUser = user.authorities.find((obj: any) => {
+      return obj.name === 'ROLE_USER';
+    }) !== undefined;
   }
 
   onClickModifyUser(user: User) {
@@ -126,7 +125,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
         this.toastService.showError( `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
       }
     });
-    modalRef.componentInstance.user = user;
+    modalRef.componentInstance.user = {...user};
     modalRef.componentInstance.isUpdate = true;
   }
 

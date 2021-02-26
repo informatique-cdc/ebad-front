@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 
 import {ApiService} from './api.service';
-import {File, GlobalSetting} from '../models';
-import {Observable} from "rxjs";
+import {GlobalSetting} from '../models';
+import {Observable} from 'rxjs';
 
 
 @Injectable()
 export class GlobalSettingsService {
   private globalSettings: GlobalSetting[];
-  private mapSettings: Map<string,string>;
+  private mapSettings: Map<string, string>;
   private apiName = '/global-settings';
 
 
@@ -20,11 +20,11 @@ export class GlobalSettingsService {
       (globalSettings) => {
         this.globalSettings = globalSettings;
         this.mapSettings = new Map<string, string>();
-        for(let globalSetting of this.globalSettings){
+        for (const globalSetting of this.globalSettings){
           this.mapSettings.set(globalSetting.key, globalSetting.value);
         }
       },
-      (error) => console.log(error)
+      (error) => console.error(error)
     );
   }
 
@@ -32,23 +32,23 @@ export class GlobalSettingsService {
     return this.apiService.get(`${this.apiName}`);
   }
 
-  changeValue(key: String, value: String): Observable<GlobalSetting> {
-    return this.apiService.post(`${this.apiName}/${key}`,{value: value});
+  changeValue(key: string, value: string): Observable<GlobalSetting> {
+    return this.apiService.post(`${this.apiName}/${key}`, {value});
   }
 
   importEnvironmentIsEnable(): boolean{
-    return JSON.parse(this.mapSettings.get("ENVIRONMENT_IMPORT_ENABLED").toLowerCase());
+    return JSON.parse(this.mapSettings.get('ENVIRONMENT_IMPORT_ENABLED').toLowerCase());
   }
 
   importApplicationIsEnable(): boolean{
-    return JSON.parse(this.mapSettings.get("APPLICATION_IMPORT_ENABLED").toLowerCase());
+    return JSON.parse(this.mapSettings.get('APPLICATION_IMPORT_ENABLED').toLowerCase());
   }
 
   createApplicationIsEnable(): boolean{
-    return JSON.parse(this.mapSettings.get("APPLICATION_CREATE_ENABLED").toLowerCase());
+    return JSON.parse(this.mapSettings.get('APPLICATION_CREATE_ENABLED').toLowerCase());
   }
 
   createEnvironmentIsEnable(): boolean{
-    return JSON.parse(this.mapSettings.get("ENVIRONMENT_CREATE_ENABLED").toLowerCase());
+    return JSON.parse(this.mapSettings.get('ENVIRONMENT_CREATE_ENABLED').toLowerCase());
   }
 }

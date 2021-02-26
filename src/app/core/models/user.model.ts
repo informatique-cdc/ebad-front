@@ -1,6 +1,6 @@
 import {Audit} from './audit.model';
 import {Account} from './account.model';
-import {UsageApplication} from "./usage-application.model";
+import {UsageApplication} from './usage-application.model';
 
 export interface User extends Account, Audit {
   id: number;

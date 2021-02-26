@@ -3,8 +3,8 @@ import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
 import {Application, UsageApplication, User} from '../models';
-import {Page} from "../models/page.model";
-import {Pageable} from "../models/pageable.model";
+import {Page} from '../models/page.model';
+import {Pageable} from '../models/pageable.model';
 
 @Injectable()
 export class ApplicationsService {
@@ -18,19 +18,19 @@ export class ApplicationsService {
     return this.apiService.post(`${this.apiName}/import-all`);
   }
 
-  getAll(pageable: Pageable = new Pageable(0,20)): Observable<Page<Application>> {
+  getAll(pageable: Pageable = new Pageable(0, 20)): Observable<Page<Application>> {
     return this.apiService.get(`${this.apiName}`,  pageable);
   }
 
-  search(pageable: Pageable = new Pageable(0,20), name: string): Observable<Page<Application>> {
+  search(pageable: Pageable = new Pageable(0, 20), name: string): Observable<Page<Application>> {
     return this.apiService.get(`${this.apiName}/search?name=${name}`,  pageable);
   }
 
-  getAllModerable(pageable: Pageable = new Pageable(0,20)): Observable<Page<Application>> {
+  getAllModerable(pageable: Pageable = new Pageable(0, 20)): Observable<Page<Application>> {
     return this.apiService.get(`${this.apiName}/write`, pageable);
   }
 
-  getAllManage(pageable: any = new Pageable(0,20)): Observable<Page<Application>> {
+  getAllManage(pageable: any = new Pageable(0, 20)): Observable<Page<Application>> {
     return this.apiService.get(`${this.apiName}/gestion`, pageable);
   }
 
@@ -54,7 +54,7 @@ export class ApplicationsService {
     return this.apiService.get(`${this.apiName}/moderators/${applicationId}`);
   }
 
-  getUsageFromApplication(applicationId: number, pageable: Pageable = new Pageable(0,20)):  Observable<Page<UsageApplication>> {
+  getUsageFromApplication(applicationId: number, pageable: Pageable = new Pageable(0, 20)): Observable<Page<UsageApplication>> {
     return this.apiService.get(`${this.apiName}/${applicationId}/usages`, pageable);
   }
 }

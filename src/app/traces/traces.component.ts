@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Environment, Trace} from '../core/models';
+import {Environment, Trace} from '../core';
 import {TracesService} from '../core/services/traces.service';
 import {Constants} from '../shared/Constants';
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-traces',
@@ -32,13 +32,13 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         if (!this.environmentSelected) {
           this.traces = [];
-          return
+          return;
         }
         this.tracesService
           .getAllFromEnvironment(this.environmentSelected.id, {
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
               'batch.name': dataTablesParameters.search.value
             }
           )
@@ -55,7 +55,7 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
         data: 'id'
       }, {data: 'batch.name'}, {data: 'dateTraitement'}, {data: 'params'}, {
         data: 'login'
-      },{data: 'logDate'},{data: 'executionTime'},{data:'returnCode'}]
+      }, {data: 'logDate'}, {data: 'executionTime'}, {data: 'returnCode'}]
     };
     this.dtTrigger.next();
   }

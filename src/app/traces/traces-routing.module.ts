@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {TracesComponent} from './traces.component';
-import {AuthGuard} from '../core/services';
+import {AuthGuard} from '../core';
 
 const routes: Routes = [
   {

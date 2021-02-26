@@ -1,7 +1,7 @@
 import {ValidationHandler, ValidationParams} from 'angular-oauth2-oidc';
 // import * as rs from 'angular-oauth2-oidc/node_modules/jsrsasign'; Je ne sais pas pourquoi ça a pété du jour au lendemain...
 import * as rs from 'jsrsasign';
-import {environment} from "../../environments/environment";
+import {environment} from '../../environments/environment';
 
 export class CustomValidationHandler implements ValidationHandler {
   static calcHash(valueToHash: string, algorithm: string): string {
@@ -26,8 +26,8 @@ export class CustomValidationHandler implements ValidationHandler {
    *
    * @param jwtHeader the id_token's parsed header
    */
-  protected static inferHashAlgorithm(jwtHeader: object): string {
-    const alg: string = jwtHeader['alg'];
+  protected static inferHashAlgorithm(jwtHeader: any): string {
+    const alg: string = jwtHeader.alg;
 
     if (!alg.match(/^.S[0-9]{3}$/)) {
       throw new Error('Algorithm not supported: ' + alg);
@@ -50,12 +50,12 @@ export class CustomValidationHandler implements ValidationHandler {
     const tokenHash = CustomValidationHandler.calcHash(params.accessToken, hashAlg);
     const leftMostHalf = tokenHash.substr(0, tokenHash.length / 2);
     const tokenHashBase64 = btoa(leftMostHalf);
-    const claimsAtHash = params.idTokenClaims[environment.atHash].replace(/=/g, "");
-    const atHash = tokenHashBase64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+    const claimsAtHash = params.idTokenClaims[environment.atHash].replace(/=/g, '');
+    const atHash = tokenHashBase64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 
     if (atHash !== claimsAtHash) {
-      console.error(">>> exptected at_hash: " + atHash);
-      console.error(">>> actual at_hash: " + claimsAtHash);
+      console.error('>>> exptected at_hash: ' + atHash);
+      console.error('>>> actual at_hash: ' + claimsAtHash);
     }
 
     return Promise.resolve(atHash === claimsAtHash);

@@ -1,13 +1,11 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {BatchsService, EnvironmentsService} from '../core/services';
-import {Batch, Environment, InfoEnvironment} from '../core/models';
+import {Batch, Environment, InfoEnvironment, BatchsService, EnvironmentsService} from '../core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
 import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
-import {RxStompService} from '@stomp/ng2-stompjs';
 
 @Component({
   selector: 'app-batchs-page',
@@ -104,14 +102,13 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.result.then((parameters) => {
       this.runBatch(batch, false, parameters);
     }, (reason) => {
-      console.log(`Dismissed ${reason}`);
+      console.debug(`Dismissed ${reason}`);
     });
     modalRef.componentInstance.batchName = batch.name;
     modalRef.componentInstance.parameters = batch.defaultParam;
   }
 
   runBatch(batch: Batch, defaultParams: boolean, param?: string) {
-    this.toastService.showInfo('Votre batch vient d\'être lancé');
 
     const apiParams: any = {env: this.environmentSelected.id};
 
@@ -124,16 +121,11 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     this.batchsService.run(batch.id, apiParams).subscribe(
-      trace => {
-        if (trace.returnCode === 0) {
-          this.toastService.showSuccess('Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
-        } else {
-          this.toastService.showError('Le batch ' + batch.name + ' s\'est terminé avec le code ' + trace.returnCode);
-        }
+      id => {
+          this.toastService.showSuccess('Le batch ' + batch.name + ' vient d\'être lancé');
       },
       err => {
         this.toastService.showError(err || 'Une erreur est survenue');
-
       }
     );
   }

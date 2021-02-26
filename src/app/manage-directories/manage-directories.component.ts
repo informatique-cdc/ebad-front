@@ -1,13 +1,12 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Directory, Environment} from '../core/models';
-import {FilesService} from '../core/services';
+import {Directory, Environment, FilesService} from '../core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalDirectoryComponent} from './modal-directory/modal-directory.component';
 import {ModalDirectoryDeletionComponent} from './modal-directory-deletion/modal-directory-deletion.component';
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {Constants} from "../shared/Constants";
-import {ToastService} from "../core/services/toast.service";
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {Constants} from '../shared/Constants';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-manage-directories',
@@ -39,14 +38,14 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
       ajax: (dataTablesParameters: any, callback) => {
         if (!this.environmentSelected) {
           this.directories = [];
-          return
+          return;
         }
         this.filesService
           .getAllFromEnvironment(this.environmentSelected.id, {
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'name': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              name: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -60,7 +59,7 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
       },
       columns: [{
         data: 'id'
-      }, {data: 'name'}, {data: 'path'}, {data: 'canWrite'},{data: 'canExplore'}, {
+      }, {data: 'name'}, {data: 'path'}, {data: 'canWrite'}, {data: 'canExplore'}, {
         data: '',
         orderable: false
       }]
@@ -113,13 +112,13 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
-    modalRef.componentInstance.directory = directory;
+    modalRef.componentInstance.directory = {...directory};
     modalRef.componentInstance.isUpdate = true;
   }
 
   deleteDirectory(directory: Directory) {
     const modalRef = this.modalService.open(ModalDirectoryDeletionComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.filesService.deleteDirectory(directory).subscribe(
         () => {
           this.toastService.showSuccess(`Le répertoire a été supprimé`);
@@ -129,7 +128,6 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
           this.toastService.showError( `Une erreur est survenue lors de la suppression du répertoire : ${reason}`);
         }
       );
-    }, reason => {
     });
     modalRef.componentInstance.directory = directory;
   }

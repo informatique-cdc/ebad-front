@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {BatchsService, EnvironmentsService} from '../../core/services';
-import {Application, Batch} from '../../core/models';
-import {Pageable} from "../../core/models/pageable.model";
+import {BatchsService, EnvironmentsService, Application, Batch} from '../../core';
+import {Pageable} from '../../core/models/pageable.model';
 
 @Component({
   selector: 'app-modal-batch',
@@ -33,7 +32,7 @@ export class ModalBatchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.environnementService.getEnvironmentFromApp(this.application.id, new Pageable(0,-1))
+    this.environnementService.getEnvironmentFromApp(this.application.id, new Pageable(0, -1))
       .subscribe((page) => this.dropdownList = page.content);
     this.dropdownSettings = {
       singleSelection: false,

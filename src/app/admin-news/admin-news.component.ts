@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NewsService} from '../core/services';
+import {NewsService} from '../core';
 import {ModalNewComponent} from './modal-new/modal-new.component';
 import {ModalNewDeletionComponent} from './modal-new-deletion/modal-new-deletion.component';
-import {Constants} from "../shared/Constants";
-import {New} from "../core/models";
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {ToastService} from "../core/services/toast.service";
+import {Constants} from '../shared/Constants';
+import {New} from '../core/models';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-admin-news',
@@ -37,10 +37,10 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         this.newsService
           .getAll({
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'title': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              title: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -78,8 +78,6 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onClickAddNew() {
-
-
     const modalRef = this.modalService.open(ModalNewComponent, {size: 'lg'});
     modalRef.result.then(() => {
       this.toastService.showSuccess(`L'actualité a bien été ajoutée`);
@@ -102,13 +100,13 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
         this.toastService.showError( `Une erreur est survenue lors de la modification de l'actualité : ${reason.message}`);
       }
     });
-    modalRef.componentInstance.oneNew = oneNew;
+    modalRef.componentInstance.oneNew = {...oneNew};
     modalRef.componentInstance.isUpdate = true;
   }
 
   deleteNew(oneNew: New) {
     const modalRef = this.modalService.open(ModalNewDeletionComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.newsService.deleteNew(oneNew.id).subscribe(
         () => {
           this.toastService.showSuccess(`L'actualité a été supprimée`);
@@ -118,7 +116,6 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
           this.toastService.showError( `Une erreur est survenue lors de la suppression de l'actualité : ${reason}`);
         }
       );
-    }, reason => {
     });
     modalRef.componentInstance.oneNew = oneNew;
   }

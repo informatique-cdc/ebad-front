@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Application, Environment, Norme} from '../../core/models';
-import {EnvironmentsService, NormsService} from '../../core/services';
-import {Pageable} from "../../core/models/pageable.model";
+import {Application, Environment, Norme, EnvironmentsService, NormsService} from '../../core';
+import {Pageable} from '../../core/models/pageable.model';
 
 @Component({
   selector: 'app-modal-environment',

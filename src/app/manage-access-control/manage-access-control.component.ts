@@ -1,17 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Table} from '../shared/table/table.model';
-import {ApplicationsService, UsersService} from '../core/services';
-import {Application, UsageApplication, User} from '../core/models';
-import {Constants} from "../shared/Constants";
-import {Pageable} from "../core/models/pageable.model";
-import {UserApplication} from "../core/models/user-application.model";
+import {ApplicationsService, UsersService, Application, UsageApplication, User} from '../core';
+import {Constants} from '../shared/Constants';
+import {Pageable} from '../core/models/pageable.model';
+import {UserApplication} from '../core/models/user-application.model';
 
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './manage-access-control.component.html'
 })
-export class ManageAccessControlComponent implements OnInit {
+export class ManageAccessControlComponent {
   applicationSelected: Application;
 
   table: Table;
@@ -33,10 +32,6 @@ export class ManageAccessControlComponent implements OnInit {
   constructor(private applicationsService: ApplicationsService,
               private usersService: UsersService,
               private constants: Constants) {
-
-  }
-
-  ngOnInit() {
 
   }
 

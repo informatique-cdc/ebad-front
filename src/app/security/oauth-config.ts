@@ -1,11 +1,11 @@
 import {AuthConfig} from 'angular-oauth2-oidc';
-import {environment} from "../../environments/environment";
+import {environment} from '../../environments/environment';
 
 export const oauthConfig: AuthConfig = {
   issuer: environment.issuer,
   clientId: environment.clientId,
   loginUrl: environment.loginUrl,
-  redirectUri: window.location.origin + "/",
+  redirectUri: window.location.origin + '/',
   silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
   scope: environment.scope,
   silentRefreshTimeout: 5000,
@@ -20,6 +20,6 @@ export const oauthConfig: AuthConfig = {
   disableAtHashCheck: true,
   postLogoutRedirectUri: window.location.origin + '/',
   skipSubjectCheck: true,
-  // responseType: "code",
-  // tokenEndpoint: environment.tokenEndpoint
+  responseType: 'code',
+  tokenEndpoint: environment.tokenEndpoint
 };

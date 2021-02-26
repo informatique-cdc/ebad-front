@@ -1,14 +1,14 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Application} from '../core/models';
+import {Application} from '../core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FileKindsService} from '../core/services/file-kinds.service';
 import {ModalNamingComponent} from './modal-naming/modal-naming.component';
 import {ModalNamingDeletionComponent} from './modal-naming-deletion/modal-naming-deletion.component';
-import {FileKind} from "../core/models/file-kind.model";
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {Constants} from "../shared/Constants";
-import {ToastService} from "../core/services/toast.service";
+import {FileKind} from '../core/models/file-kind.model';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {Constants} from '../shared/Constants';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-manage-naming',
@@ -41,14 +41,14 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         if (!this.applicationSelected) {
           this.namings = [];
-          return
+          return;
         }
         this.fileKindsService
           .getAllFromApplication(this.applicationSelected.id, {
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'name': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              name: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -62,7 +62,7 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
       },
       columns: [{
         data: 'id'
-      }, {data: 'name'}, {data: 'pattern'},{
+      }, {data: 'name'}, {data: 'pattern'}, {
         data: '',
         orderable: false
       }]
@@ -116,15 +116,15 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
-    modalRef.componentInstance.fileKind = naming;
+    modalRef.componentInstance.fileKind = {...naming};
     modalRef.componentInstance.isUpdate = true;
   }
 
   deleteNaming(naming: FileKind) {
     const modalRef = this.modalService.open(ModalNamingDeletionComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.fileKindsService.deleteNaming(naming).subscribe(
-        fileKind => {
+        () => {
           this.toastService.showSuccess(`Le nommage a été supprimé`);
           this.applicationChanged(this.applicationSelected);
         },
@@ -132,7 +132,6 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
           this.toastService.showError( `Une erreur est survenue lors de la suppression du nommage : ${reason}`);
         }
       );
-    }, reason => {
     });
     modalRef.componentInstance.application = this.applicationSelected;
     modalRef.componentInstance.fileKind = naming;

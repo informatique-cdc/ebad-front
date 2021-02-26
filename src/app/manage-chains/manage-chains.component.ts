@@ -1,13 +1,12 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Chain, Environment} from '../core/models';
-import {ChainsService} from '../core/services';
+import {Chain, Environment, ChainsService} from '../core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalChainComponent} from './modal-chain/modal-chain.component';
 import {ModalChainDeletionComponent} from './modal-chain-deletion/modal-chain-deletion.component';
-import {Constants} from "../shared/Constants";
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {ToastService} from "../core/services/toast.service";
+import {Constants} from '../shared/Constants';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-manage-chains',
@@ -31,22 +30,22 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
     this.dtOptions = {
-      order: [[0,'asc']],
+      order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
       serverSide: true,
       processing: false,
       ajax: (dataTablesParameters: any, callback) => {
-        if(!this.environmentSelected){
+        if (!this.environmentSelected){
           this.chains = [];
-          return
+          return;
         }
         this.chainsService
           .getAllFromEnvironment(this.environmentSelected.id, {
-              'page': dataTablesParameters.start / dataTablesParameters.length,
-              'size': dataTablesParameters.length,
-              'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
-              'name': dataTablesParameters.search.value
+              page: dataTablesParameters.start / dataTablesParameters.length,
+              size: dataTablesParameters.length,
+              sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+              name: dataTablesParameters.search.value
             }
           )
           .subscribe(resp => {
@@ -113,13 +112,13 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
-    modalRef.componentInstance.chain = chain;
+    modalRef.componentInstance.chain = {...chain};
     modalRef.componentInstance.isUpdate = true;
   }
 
   deleteChain(chain: Chain) {
     const modalRef = this.modalService.open(ModalChainDeletionComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.chainsService.deleteChaine(chain).subscribe(
         () => {
           this.toastService.showSuccess(`Le chaine a été supprimée`);
@@ -129,7 +128,6 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
           this.toastService.showError( `Une erreur est survenue lors de la suppression de la chaine : ${reason}`);
         }
       );
-    }, reason => {
     });
     modalRef.componentInstance.chain = chain;
   }

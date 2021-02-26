@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'ebad-menu-item',
@@ -19,7 +19,7 @@ export class MenuItemComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if(!this.href && this.link) {
+    if (!this.href && this.link) {
       this.classActive = 'active';
     }else{
       this.classActive = '';
@@ -27,14 +27,14 @@ export class MenuItemComponent implements OnInit{
   }
 
   click(){
-    if(this.isParent){
+    if (this.isParent){
       return;
     }
-    if(this.link){
+    if (this.link){
       this.router.navigateByUrl(this.link);
     }
 
-    if(this.href){
+    if (this.href){
       window.location.href = this.href;
     }
   }

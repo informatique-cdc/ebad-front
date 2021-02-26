@@ -1,17 +1,16 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {AccreditationRequestsService} from '../core/services';
-import {Constants} from "../shared/Constants";
-import {Observable, Subject} from "rxjs";
-import {AccreditationRequest} from "../core/models";
-import {Page} from "../core/models/page.model";
-import {ToastService} from "../core/services/toast.service";
-import {DataTableDirective} from "angular-datatables";
+import {AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AccreditationRequestsService, AccreditationRequest} from '../core';
+import {Constants} from '../shared/Constants';
+import {Observable, Subject} from 'rxjs';
+import {Page} from '../core/models/page.model';
+import {ToastService} from '../core/services/toast.service';
+import {DataTableDirective} from 'angular-datatables';
 
 @Component({
   selector: 'app-list-accreditation-request',
   templateUrl: './list-accreditation-request.component.html'
 })
-export class ListAccreditationRequestComponent implements OnInit {
+export class ListAccreditationRequestComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() userOnly: boolean;
   title = 'Liste des demandes d\'accréditation à traiter';
 
@@ -28,9 +27,9 @@ export class ListAccreditationRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const columnsForAdminOrModo = [{data: 'id',},{data:'user'}, {data: 'application'}, {data: 'wantUse'}, {data: 'wantManage'}, {data: 'state'}, {data: '',orderable: false}];
-    const columnsForUserOnly = [{data: 'id',}, {data: 'application'}, {data: 'wantUse'}, {data: 'wantManage'}, {data: 'state'}];
-    var columns = columnsForAdminOrModo;
+    const columnsForAdminOrModo = [{data: 'id', }, {data: 'user'}, {data: 'application'}, {data: 'wantUse'}, {data: 'wantManage'}, {data: 'state'}, {data: '', orderable: false}];
+    const columnsForUserOnly = [{data: 'id', }, {data: 'application'}, {data: 'wantUse'}, {data: 'wantManage'}, {data: 'state'}];
+    let columns = columnsForAdminOrModo;
     if (this.userOnly) {
       this.title = 'Liste des demandes d\'accréditation';
       columns = columnsForUserOnly;
@@ -48,9 +47,9 @@ export class ListAccreditationRequestComponent implements OnInit {
       processing: false,
       ajax: (dataTablesParameters: any, callback) => {
         this.listRequest({
-            'page': dataTablesParameters.start / dataTablesParameters.length,
-            'size': dataTablesParameters.length,
-            'sort': dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir
+            page: dataTablesParameters.start / dataTablesParameters.length,
+            size: dataTablesParameters.length,
+            sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir
           }
         )
           .subscribe(resp => {
@@ -62,7 +61,7 @@ export class ListAccreditationRequestComponent implements OnInit {
             });
           });
       },
-      columns: columns
+      columns
     };
     this.dtTrigger.next();
   }
@@ -99,7 +98,7 @@ export class ListAccreditationRequestComponent implements OnInit {
         this.toastService.showError(`Une erreur est survenue lors de l'acceptation : ${error}`);
         this.refreshAccreditationRequests();
       }
-    )
+    );
   }
 
   reject(accreditationRequest: AccreditationRequest) {

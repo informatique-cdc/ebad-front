@@ -19,10 +19,10 @@ export * from './errors.model';
 export * from './profile.model';
 export * from './directory.model';
 export * from './file.model';
-export * from './usage-application.model'
-export * from './notification.model'
-export * from './roles.model'
-export * from './global-setting.model'
-export * from './creation-accreditation-request.model'
-export * from './accreditation-request.model'
-export * from './response-accreditation-request.model'
+export * from './usage-application.model';
+export * from './notification.model';
+export * from './roles.model';
+export * from './global-setting.model';
+export * from './creation-accreditation-request.model';
+export * from './accreditation-request.model';
+export * from './response-accreditation-request.model';

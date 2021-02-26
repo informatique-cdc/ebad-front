@@ -14,6 +14,7 @@ export const environment = {
   scope: 'openid profile',
   logoutUrl: '',
   userinfoEndpoint: '',
+  tokenEndpoint: ''
 };
 
 /*

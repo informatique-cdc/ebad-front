@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {User} from '../../core/models';
-import {UsersService} from '../../core/services';
+import {UsersService, User} from '../../core';
 
 @Component({
   selector: 'app-modal-user',

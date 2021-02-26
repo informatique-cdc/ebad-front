@@ -1,6 +1,6 @@
 import {Audit} from './audit.model';
-import {User} from "./user.model";
-import {Application} from "./application.model";
+import {User} from './user.model';
+import {Application} from './application.model';
 
 export interface AccreditationRequest extends Audit {
   id: number;

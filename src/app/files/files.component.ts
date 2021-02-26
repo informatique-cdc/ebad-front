@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FileSystemDirectoryEntry, FileSystemFileEntry} from 'ngx-file-drop';
-import {EventSelectChangeModel, Option, Select} from '../shared/head-selector';
-import {Application, Directory, Environment, File} from '../core/models';
-import {ApplicationsService, EnvironmentsService, FilesService} from '../core/services';
+import {EventSelectChangeModel, Option, Select} from '../shared';
+import {ApplicationsService, EnvironmentsService, FilesService, Application, Directory, Environment, File} from '../core';
 import * as FileSaver from 'file-saver';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
-import {Pageable} from "../core/models/pageable.model";
-import {ToastService} from "../core/services/toast.service";
+import {Pageable} from '../core/models/pageable.model';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-files',
@@ -48,9 +47,9 @@ export class FilesComponent implements OnInit {
 
 
   refreshRemoteFiles() {
-    let subDirectoryParam = "";
+    let subDirectoryParam = '';
     this.subDir.forEach(dir => {
-      subDirectoryParam += "/" + dir;
+      subDirectoryParam += '/' + dir;
     });
     this.remoteFiles = [];
     this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam)
@@ -134,9 +133,8 @@ export class FilesComponent implements OnInit {
 
   //// UPLOAD ////
 
-  //FIXME UPLOAD EVENT
+  // FIXME UPLOAD EVENT
   public dropped(event: any) {
-    console.log(event);
     for (const droppedFile of event) {
 
       // Is it a file?
@@ -202,9 +200,9 @@ export class FilesComponent implements OnInit {
   }
 
   upload() {
-    let subDirectoryParam = "";
+    let subDirectoryParam = '';
     this.subDir.forEach(dir => {
-      subDirectoryParam += "/" + dir;
+      subDirectoryParam += '/' + dir;
     });
     for (const file of this.localFiles) {
       this.filesService.uploadFile(file, file.customName, this.directorySelected.id, subDirectoryParam).subscribe(
@@ -222,18 +220,18 @@ export class FilesComponent implements OnInit {
 
   exploreParentDirectory(): void {
     this.subDir.pop();
-    this.explore()
+    this.explore();
   }
 
   exploreChildDirectory(remoteDir: File): void {
-    this.subDir.push(remoteDir.name)
-    this.explore()
+    this.subDir.push(remoteDir.name);
+    this.explore();
   }
 
   explore(): void {
-    let subDirectoryParam = "";
+    let subDirectoryParam = '';
     this.subDir.forEach(dir => {
-      subDirectoryParam += "/" + dir;
+      subDirectoryParam += '/' + dir;
     });
     this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam).subscribe((files) => this.remoteFiles = files);
   }

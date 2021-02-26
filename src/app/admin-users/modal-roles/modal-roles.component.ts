@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Roles} from '../../core/models';
-import {UsersService} from '../../core/services';
+import {UsersService, Roles} from '../../core';
 
 @Component({
   selector: 'app-modal-roles',
   templateUrl: './modal-roles.component.html'
 })
-export class ModalRolesComponent implements OnInit {
+export class ModalRolesComponent {
   isUpdate = false;
   title = 'Modifier les rôles d\'un utilisateur';
   action = 'Modifier';
@@ -19,9 +18,6 @@ export class ModalRolesComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
               private usersService: UsersService) {
-  }
-
-  ngOnInit() {
   }
 
   changeRoles() {

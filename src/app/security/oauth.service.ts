@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {OAuthErrorEvent, OAuthService} from 'angular-oauth2-oidc';
 import {BehaviorSubject, combineLatest, Observable, ReplaySubject} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
-import {CustomValidationHandler} from "./CustomValidationHandler";
+import {CustomValidationHandler} from './CustomValidationHandler';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class OauthService {
 
   constructor(
     private oauthService: OAuthService,
-    private router: Router,
+    private router: Router
   ) {
     // Useful for debugging:
     this.oauthService.events.subscribe(event => {
@@ -38,12 +38,11 @@ export class OauthService {
           this.router.navigate(['/error', {error: event.type}]); // FIXME DTROUILLET DESACTIVER SILENT REFRESH EN MODE NON CONNECTE
         }
       } else {
-        if(event.type === 'user_profile_loaded'){
+        if (event.type === 'user_profile_loaded'){
           if (this.oauthService.state && this.oauthService.state !== 'undefined' && this.oauthService.state !== 'null') {
-            this.router.navigateByUrl(this.oauthService.state);
+            this.router.navigateByUrl(decodeURIComponent(this.oauthService.state));
           }
         }
-        console.warn(event);
       }
     });
 
@@ -71,7 +70,7 @@ export class OauthService {
 
     this.oauthService.events
       .pipe(filter(e => ['token_received'].includes(e.type)))
-      .subscribe(e => this.oauthService.loadUserProfile());
+      .subscribe(() => this.oauthService.loadUserProfile());
 
     this.oauthService.events
       .pipe(filter(e => ['session_terminated', 'session_error'].includes(e.type)))
@@ -83,7 +82,7 @@ export class OauthService {
   public runInitialLoginSequence(): Promise<void> {
     this.oauthService.tokenValidationHandler = new CustomValidationHandler();
     if (location.hash) {
-      console.log('Encountered hash fragment, plotting as table...');
+      console.debug('Encountered hash fragment, plotting as table...');
       console.table(location.hash.substr(1).split('&').map(kvp => kvp.split('=')));
     }
 
@@ -119,18 +118,17 @@ export class OauthService {
             return Promise.reject(result);
           });
 
-      }).catch((e) => {
+      }).catch(() => {
         this.router.navigate(['login']);
       })
 
       .then(() => {
         this.isDoneLoadingSubject$.next(true);
         if (this.oauthService.state && this.oauthService.state !== 'undefined' && this.oauthService.state !== 'null') {
-          console.log('There was state, so we are sending you to: ' + this.oauthService.state);
-          this.router.navigateByUrl(this.oauthService.state);
+          this.router.navigateByUrl(decodeURIComponent(this.oauthService.state));
         }
   })
-      .catch((error) => {
+      .catch(() => {
         this.isDoneLoadingSubject$.next(true);
       });
   }

@@ -1,15 +1,14 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {EnvironmentsService} from '../core';
-import {Environment} from '../core';
+import {EnvironmentsService, Environment} from '../core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
-import {ModalAddSchedulingComponent} from "./modal-add-scheduling/modal-add-scheduling.component";
-import {Scheduling} from "../core/models/scheduling.model";
-import {SchedulingsService} from "../core/services/schedulings.service";
-import {TranslateService} from "@ngx-translate/core";
+import {ModalAddSchedulingComponent} from './modal-add-scheduling/modal-add-scheduling.component';
+import {Scheduling} from '../core/models/scheduling.model';
+import {SchedulingsService} from '../core/services/schedulings.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-schedulings-page',
@@ -107,7 +106,7 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   onClickAddScheduling() {
     const modalRef = this.modalService.open(ModalAddSchedulingComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.translateService.get('SCHEDULING.MSG.ADD_SUCCESS').subscribe((msg) => this.toastService.showSuccess(msg));
       this.refreshSchedulings();
     }, (reason) => {

@@ -1,4 +1,4 @@
-import {StatisticsByDay} from "./statisticsByDay.model";
+import {StatisticsByDay} from './statisticsByDay.model';
 
 export interface Statistics {
   usersNbr: number;

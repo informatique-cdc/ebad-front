@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {BatchsService, ChainsService} from '../../core/services';
-import {Batch, Chain, ChainAssociation, Environment} from '../../core/models';
+import {BatchsService, ChainsService, Batch, Chain, ChainAssociation, Environment} from '../../core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {NgModel} from '@angular/forms';
-import {Pageable} from "../../core/models/pageable.model";
+import {Pageable} from '../../core/models/pageable.model';
 
 @Component({
   selector: 'app-modal-chain',
@@ -105,7 +104,7 @@ export class ModalChainComponent implements OnInit {
       );
     } else {
       this.chainsService.updateChain(this.chain).subscribe(
-        batch => {
+        () => {
           this.activeModal.close(this.chain);
         },
         error => {

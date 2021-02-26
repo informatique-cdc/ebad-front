@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EventSelectChangeModel, Option, Select} from '../head-selector';
-import {Application, Environment} from '../../core/models';
-import {ApplicationsService, EnvironmentsService, SelectChoicesService} from '../../core/services';
-import {Pageable} from "../../core/models/pageable.model";
+import {Application, Environment, ApplicationsService, EnvironmentsService, SelectChoicesService} from '../../core';
+import {Pageable} from '../../core/models/pageable.model';
 
 @Component({
   selector: 'app-env-app-head-selector',
@@ -70,7 +69,7 @@ export class EnvAppHeadSelectorComponent implements OnInit {
 
     for (const app of this.applications) {
       let selected = false;
-      if (appIdSelected == app.id + '') {
+      if (appIdSelected === app.id + '') {
         selected = true;
         this.showChanged(new EventSelectChangeModel(this.idSelectApplication, app), true);
       }
@@ -84,14 +83,14 @@ export class EnvAppHeadSelectorComponent implements OnInit {
     const optionsEnvironnement: Option[] = [];
 
     const envIdSelected = this.selectChoicesService.getSelectedEnv();
-    if(envIdSelected){
+    if (envIdSelected){
       optionsEnvironnement.push(new Option('', 'Environnements', false));
     }else {
       optionsEnvironnement.push(new Option('', 'Environnements', true));
     }
     for (const env of environnements) {
       let select = false;
-      if (envIdSelected == env.id + '') {
+      if (envIdSelected === env.id + '') {
         select = true;
         this.showChanged(new EventSelectChangeModel(this.idSelectEnvironnement, env), true);
       }
@@ -102,9 +101,9 @@ export class EnvAppHeadSelectorComponent implements OnInit {
   }
 
   showChanged(event: EventSelectChangeModel, init: boolean = false) {
-    if(!init){
+    if (!init){
       this.selectChoicesService.selectEnv(null);
-      //this.selectChoicesService.selectApp(null);
+      // this.selectChoicesService.selectApp(null);
     }
 
     if (event.idSelect === this.idSelectApplication) {

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Application} from '../../core/models';
+import {Application} from '../../core';
 import {FileKind} from '../../core/models/file-kind.model';
 import {FileKindsService} from '../../core/services/file-kinds.service';
 

@@ -1,17 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Chain} from '../../core/models';
+import {Chain} from '../../core';
 
 @Component({
   selector: 'app-modal-chain-deletion',
   templateUrl: './modal-chain-deletion.component.html'
 })
-export class ModalChainDeletionComponent implements OnInit {
+export class ModalChainDeletionComponent {
   chain: Chain;
 
   constructor(public activeModal: NgbActiveModal) {
   }
 
-  ngOnInit() {
-  }
 }

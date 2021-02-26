@@ -3,8 +3,8 @@ import {Observable} from 'rxjs';
 
 import {ApiService} from './api.service';
 import {Environment, InfoEnvironment} from '../models';
-import {Pageable} from "../models/pageable.model";
-import {Page} from "../models/page.model";
+import {Pageable} from '../models/pageable.model';
+import {Page} from '../models/page.model';
 
 @Injectable()
 export class EnvironmentsService {
@@ -18,8 +18,8 @@ export class EnvironmentsService {
     return this.apiService.get(`${this.apiName}/${slug}`);
   }
 
-  getEnvironmentFromApp(appId: number, pageable: any = new Pageable(0,20)): Observable<Page<Environment>> {
-      return this.apiService.get(`${this.apiName}?applicationId=${appId}`,pageable);
+  getEnvironmentFromApp(appId: number, pageable: any = new Pageable(0, 20)): Observable<Page<Environment>> {
+      return this.apiService.get(`${this.apiName}?applicationId=${appId}`, pageable);
   }
 
   getInfo(slug): Observable<InfoEnvironment> {

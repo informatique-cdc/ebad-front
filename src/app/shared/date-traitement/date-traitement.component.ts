@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {InfoEnvironment} from '../../core/models';
+import {InfoEnvironment, EnvironmentsService} from '../../core';
 import {ModalDateTraitementComponent} from './modal-date-traitement';
-import {EnvironmentsService} from '../../core/services';
 import {DatePipe} from '@angular/common';
 import {NgbDateParserFormatter, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,7 +9,7 @@ import {NgbDateParserFormatter, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './date-traitement.component.html',
   styleUrls: ['./date-traitement.component.scss']
 })
-export class DateTraitementComponent implements OnInit {
+export class DateTraitementComponent {
   @Input() infoEnvironment: InfoEnvironment;
 
   constructor(
@@ -19,9 +18,6 @@ export class DateTraitementComponent implements OnInit {
     private ngbDateParserFormatter: NgbDateParserFormatter,
     private datePipe: DatePipe
   ) {
-  }
-
-  ngOnInit() {
   }
 
   showModalCalendar() {
@@ -34,7 +30,7 @@ export class DateTraitementComponent implements OnInit {
         }
       );
     }, (reason) => {
-      console.log(`Dismissed ${reason}`);
+      console.debug(`Dismissed ${reason}`);
     });
     const dateTraitement = new Date(this.infoEnvironment.dateTraitement);
     modalRef.componentInstance.dateTraitement = this.ngbDateParserFormatter.parse(this.datePipe.transform(dateTraitement, 'dd/MM/yyyy'));
