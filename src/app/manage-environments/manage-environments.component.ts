@@ -171,11 +171,4 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     modalRef.componentInstance.isUpdate = true;
   }
 
-  toggleVisibility(index) {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.column(index).visible(!this.columns[index].visible);
-      this.columns[index].visible = !this.columns[index].visible
-    });
-  }
-
 }

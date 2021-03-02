@@ -21,12 +21,18 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   news: New[] = [];
+  columns = [];
 
   constructor(private modalService: NgbModal,
               private constants: Constants,
               private newsService: NewsService,
               private toastService: ToastService,
               private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'title', name: 'titre', visible: true});
+    this.columns.push({data: 'draft', name: 'brouillon', visible: true});
+    this.columns.push({data: 'createdDate', name: 'date', visible: true});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
   }
 
   ngOnInit() {
@@ -57,12 +63,7 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id',
-      }, {data: 'title'}, {data: 'draft'}, {data: 'createdDate'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

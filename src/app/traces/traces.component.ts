@@ -19,9 +19,19 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
+  columns = []
   constructor(private tracesService: TracesService,
               private constants: Constants,
               private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'batch.name', name: 'batch', visible: true});
+    this.columns.push({data: 'dateTraitement', name: 'date traitement', visible: true});
+    this.columns.push({data: 'params', name: 'paramètres', visible: true});
+    this.columns.push({data: 'login', name: 'utilisateurs', visible: true});
+    this.columns.push({data: 'logDate', name: 'date lancement', visible: true});
+    this.columns.push({data: 'executionTime', name: 'temps exécutions', visible: true});
+    this.columns.push({data: 'returnCode', name: 'code retour', visible: true});
+
   }
 
   ngOnInit() {
@@ -56,11 +66,7 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'batch.name'}, {data: 'dateTraitement'}, {data: 'params'}, {
-        data: 'login'
-      }, {data: 'logDate'}, {data: 'executionTime'}, {data: 'returnCode'}]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

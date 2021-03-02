@@ -25,6 +25,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
 
   addApplicationEnabled = true;
   importApplicationEnabled = true;
+  columns = [];
 
   constructor(private modalService: NgbModal,
               private applicationsService: ApplicationsService,
@@ -32,6 +33,12 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
               private toastService: ToastService,
               private globalSettingsService: GlobalSettingsService,
               private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'code', name: 'code', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'dateParametrePattern', name: 'pattern paramètre', visible: true});
+    this.columns.push({data: 'dateFichierPattern', name: 'pattern fichier', visible: true});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
   }
 
   ngOnInit() {
@@ -65,10 +72,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
             });
           });
       },
-      columns: [{data: 'code'}, {data: 'name'}, {data: 'dateParametrePattern'}, {data: 'dateFichierPattern'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

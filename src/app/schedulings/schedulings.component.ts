@@ -25,6 +25,7 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   public progress: any = {};
+  columns = [];
 
   constructor(
     private environmentsService: EnvironmentsService,
@@ -33,6 +34,11 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
     private toastService: ToastService,
     private translateService: TranslateService,
     private modalService: NgbModal,) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'batch.name', name: 'nom', visible: true});
+    this.columns.push({data: 'parameters', name: 'paramètres', visible: true});
+    this.columns.push({data: 'cron', name: 'cron', visible: true});
+    this.columns.push({data: '', name: 'action', visible: true, orderable: false});
   }
 
   ngOnInit() {
@@ -67,12 +73,7 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'path'}, {data: 'environnements', orderable: false}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

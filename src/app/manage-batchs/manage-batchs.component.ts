@@ -21,12 +21,18 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
+  columns = [];
 
   constructor(private batchsService: BatchsService,
               private modalService: NgbModal,
               private toastService: ToastService,
               private constants: Constants,
               private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'path', name: 'shell', visible: true});
+    this.columns.push({data: 'environnements', name: 'environnements', visible: true, orderable: false});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
   }
 
   applicationChanged(application: Application) {
@@ -66,12 +72,7 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'path'}, {data: 'environnements', orderable: false}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

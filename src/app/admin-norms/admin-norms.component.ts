@@ -20,12 +20,20 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   norms: Norme[];
+  columns = [];
 
   constructor(private modalService: NgbModal,
               private constants: Constants,
               private toastService: ToastService,
               private normsService: NormsService,
               private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'commandLine', name: 'interpréteur', visible: true});
+    this.columns.push({data: 'pathShell', name: 'dossier shell', visible: true});
+    this.columns.push({data: 'ctrlMDate', name: 'fichier date', visible: true});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
+
   }
 
   ngOnInit() {
@@ -56,11 +64,7 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{data: 'id'}, {data: 'name'}, {data: 'commandLine'}, {data: 'pathShell'}, {data: 'ctrlMDate'},
-        {
-          data: '',
-          orderable: false
-        }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

@@ -10,6 +10,7 @@
   </span>
 </app-env-app-head-selector>
 
+<ebad-show-hide-column [datatableInstance]="dtElement.dtInstance" [columns]="columns"></ebad-show-hide-column>
 <div class="card">
   <div class="table-responsive">
     <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
@@ -34,19 +35,19 @@
       </thead>
       <tbody>
       <tr *ngFor="let scheduling of schedulings">
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[0].visible">
           {{scheduling.id}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[1].visible">
           {{scheduling.batch.name}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[2].visible">
           {{scheduling.parameters}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[3].visible">
           {{scheduling.cron}}
         </td>
-        <td class="text-center">
+        <td class="text-center" *ngIf="columns[4].visible">
           <a (click)="deleteScheduling(scheduling)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'SCHEDULING.DELETE' | translate}}</a>
         </td>
       </tr>

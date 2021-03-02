@@ -19,6 +19,7 @@
     </div>
   </div>
 </div>
+<ebad-show-hide-column [datatableInstance]="dtElement.dtInstance" [columns]="columns"></ebad-show-hide-column>
 <div class="card">
   <div class="table-responsive">
     <table  aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
@@ -28,10 +29,10 @@
           ID
         </th>
         <th id="newTitle">
-          Title
+          Titre
         </th>
         <th id="newDraft">
-          Draft
+          Brouillon
         </th>
         <th id="newDate">
           Date
@@ -42,19 +43,19 @@
       </thead>
       <tbody>
       <tr *ngFor="let oneNew of news">
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[0].visible">
           {{oneNew.id}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[1].visible">
           {{oneNew.title}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[2].visible">
           {{oneNew.draft | yesno}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[3].visible">
           {{oneNew.createdDate | date : 'dd-MM-yyyy'}}
         </td>
-        <td class="text-center">
+        <td class="text-center" *ngIf="columns[4].visible">
           <a (click)="editNew(oneNew)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
           <a (click)="deleteNew(oneNew)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
         </td>

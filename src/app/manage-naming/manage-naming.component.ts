@@ -23,12 +23,19 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
+  columns = [];
 
   constructor(private fileKindsService: FileKindsService,
               private modalService: NgbModal,
               private toastService: ToastService,
               private constants: Constants,
               private translateService: TranslateService) {
+
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'pattern', name: 'pattern', visible: true});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
+
   }
 
   ngOnInit() {
@@ -65,12 +72,7 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'pattern'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

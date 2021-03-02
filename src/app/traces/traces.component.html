@@ -1,4 +1,5 @@
 <app-env-app-head-selector preTitle="{{ 'TRACE.TITLE' | translate }}" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)"></app-env-app-head-selector>
+<ebad-show-hide-column [datatableInstance]="dtElement.dtInstance" [columns]="columns"></ebad-show-hide-column>
 <div class="card">
   <div class="table-responsive">
     <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
@@ -33,28 +34,28 @@
       </thead>
       <tbody>
       <tr *ngFor="let trace of traces">
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[0].visible">
           {{trace.id}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[1].visible">
           {{trace.batch.name}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[2].visible">
           {{trace.dateTraitement | date: 'dd/MM/yyyy'}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[3].visible">
           {{trace.params}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[4].visible">
           {{trace.login}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[5].visible">
           {{trace.logDate  | date: 'dd/MM/yyyy HH:mm:ss'}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[6].visible">
           {{trace.executionTime}} ms
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[7].visible">
           {{trace.returnCode}}
         </td>
       </tr>

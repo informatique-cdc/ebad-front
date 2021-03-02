@@ -21,12 +21,19 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
+  columns = [];
 
   constructor(private filesService: FilesService,
               private modalService: NgbModal,
               private toastService: ToastService,
               private constants: Constants,
               private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'path', name: 'chemin relatif', visible: true});
+    this.columns.push({data: 'canWrite', name: 'droit d\'écriture', visible: true});
+    this.columns.push({data: 'canExplore', name: 'droit d\'explorer', visible: true});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
   }
 
   ngOnInit() {
@@ -62,12 +69,7 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'path'}, {data: 'canWrite'}, {data: 'canExplore'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

@@ -23,6 +23,8 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   environmentSelectedInfo: InfoEnvironment;
+  columns = [];
+
   public progress: any = {};
 
   constructor(
@@ -32,6 +34,11 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     private toastService: ToastService,
     private modalService: NgbModal,
     private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'path', name: 'shell', visible: true});
+    this.columns.push({data: 'defaultParam', name: 'parametres par defaut', visible: true, orderable: false});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
   }
 
   ngOnInit() {
@@ -67,12 +74,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'path'}, {data: 'environnements', orderable: false}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

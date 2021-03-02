@@ -20,12 +20,17 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   chains: Chain[];
+  columns = []
 
   constructor(private environmentsService: EnvironmentsService,
               private chainsService: ChainsService,
               private toastService: ToastService,
               private constants: Constants,
               private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'description', name: 'description', visible: true});
+    this.columns.push({data: '', name: 'action', visible: true, orderable: false});
   }
 
   ngOnInit() {
@@ -60,12 +65,7 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'description'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

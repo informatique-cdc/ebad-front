@@ -13,14 +13,15 @@
   </a>
 </span>
 </app-env-app-head-selector>
-<div class="mb-2">
-Afficher / Masquer les colonnes :
-<div class="btn-group btn-group-toggle">
-  <label  *ngFor="let col of columns; index as colNumber" class="btn-sm btn-secondary" ngbButtonLabel>
-    <input type="checkbox" ngbButton (click)="toggleVisibility(colNumber)"> {{col.name}}
-  </label>
-</div>
-</div>
+<!--<div class="mb-2">-->
+<!--Afficher / Masquer les colonnes :-->
+<!--<div class="btn-group btn-group-toggle">-->
+<!--  <label  *ngFor="let col of columns; index as colNumber" class="btn-sm btn-secondary" ngbButtonLabel>-->
+<!--    <input type="checkbox" ngbButton (click)="toggleVisibility(colNumber)"> {{col.name}}-->
+<!--  </label>-->
+<!--</div>-->
+<!--</div>-->
+<ebad-show-hide-column [datatableInstance]="dtElement.dtInstance" [columns]="columns"></ebad-show-hide-column>
 <div class="card">
   <div class="table-responsive">
     <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
