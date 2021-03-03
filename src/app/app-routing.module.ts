@@ -120,8 +120,9 @@ const routes: Routes = [
     // of the modules (PRs welcome 😉)
     preloadingStrategy: PreloadAllModules,
     useHash: true,
-    initialNavigation: true
-  })],
+    initialNavigation: 'enabledNonBlocking',
+    relativeLinkResolution: 'legacy'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
