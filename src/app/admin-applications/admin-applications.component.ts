@@ -8,7 +8,7 @@ import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin-applications',
@@ -49,7 +49,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       language: {
         url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
       },
-      order: [[1, 'asc']],
+      order: [[2, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
       serverSide: true,
@@ -72,7 +72,8 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
             });
           });
       },
-      columns: this.columns
+      columns: this.columns,
+      destroy: false
     };
     this.dtTrigger.next();
   }
