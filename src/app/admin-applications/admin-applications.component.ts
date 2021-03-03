@@ -16,7 +16,7 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./admin-applications.component.scss']
 })
 export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild(DataTableDirective, { static: true })
+  @ViewChild(DataTableDirective, {static: true})
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
@@ -87,9 +87,16 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
   }
 
   refreshApplication() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-      this.dtTrigger.next();
+    const that = this;
+    this.dtElement.dtInstance.then((dtInstance: any) => {
+      if (dtInstance.context[0].nTableWrapper == null) {
+        setTimeout(function () {
+          that.refreshApplication()
+        }, 250);
+      } else {
+        dtInstance.destroy();
+        this.dtTrigger.next();
+      }
     });
   }
 
@@ -100,7 +107,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       this.refreshApplication();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
+        this.toastService.showError(`Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
@@ -124,7 +131,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       this.refreshApplication();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
+        this.toastService.showError(`Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = {...app};
@@ -140,7 +147,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
           this.refreshApplication();
         },
         reason => {
-          this.toastService.showError( `Une erreur est survenue lors de la suppression de l'application : ${reason}`);
+          this.toastService.showError(`Une erreur est survenue lors de la suppression de l'application : ${reason}`);
         }
       );
     });
