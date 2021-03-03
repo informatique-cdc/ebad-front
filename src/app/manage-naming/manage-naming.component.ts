@@ -86,9 +86,14 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   refreshNaming() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-      this.dtTrigger.next();
+    const that = this;
+    this.dtElement.dtInstance.then((dtInstance: any) => {
+      if(dtInstance.context[0].nTableWrapper == null) {
+        setTimeout(function(){ that.refreshNaming() },250);
+      }else {
+        dtInstance.destroy();
+        this.dtTrigger.next();
+      }
     });
   }
 

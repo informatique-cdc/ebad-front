@@ -45,7 +45,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
 
 
   applicationChanged(application: Application) {
-    this.refreshEnvironments();
+    // this.refreshEnvironments();
     this.applicationSelected = application;
     this.applicationsService.getAllModerable().subscribe(
       apps => {
