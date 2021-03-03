@@ -5,7 +5,8 @@ import {Observable, Subject} from 'rxjs';
 import {Page} from '../core/models/page.model';
 import {ToastService} from '../core/services/toast.service';
 import {DataTableDirective} from 'angular-datatables';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-list-accreditation-request',
@@ -42,9 +43,7 @@ export class ListAccreditationRequestComponent implements OnInit, AfterViewInit,
 
 
     this.dtOptions = {
-      language: {
-        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
-      },
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

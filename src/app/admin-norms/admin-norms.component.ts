@@ -8,6 +8,7 @@ import {Norme, NormsService} from '../core';
 import {ToastService} from '../core/services/toast.service';
 import {TranslateService} from '@ngx-translate/core';
 import {DataTableDirective} from 'angular-datatables';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-admin-norms',
@@ -38,9 +39,7 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
     this.dtOptions = {
-      language: {
-        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
-      },
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

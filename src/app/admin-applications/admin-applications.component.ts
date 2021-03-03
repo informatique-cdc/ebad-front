@@ -9,6 +9,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
 import {TranslateService} from '@ngx-translate/core';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-admin-applications',
@@ -46,9 +47,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     this.importApplicationEnabled = this.globalSettingsService.importApplicationIsEnable();
 
     this.dtOptions = {
-      language: {
-        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
-      },
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       order: [[2, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
@@ -72,8 +71,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
             });
           });
       },
-      columns: this.columns,
-      destroy: false
+      columns: this.columns
     };
     this.dtTrigger.next();
   }
@@ -91,7 +89,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     this.dtElement.dtInstance.then((dtInstance: any) => {
       if (dtInstance.context[0].nTableWrapper == null) {
         setTimeout(function () {
-          that.refreshApplication()
+          that.refreshApplication();
         }, 250);
       } else {
         dtInstance.destroy();

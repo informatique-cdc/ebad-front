@@ -9,6 +9,7 @@ import {ModalAddSchedulingComponent} from './modal-add-scheduling/modal-add-sche
 import {Scheduling} from '../core/models/scheduling.model';
 import {SchedulingsService} from '../core/services/schedulings.service';
 import {TranslateService} from '@ngx-translate/core';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-schedulings-page',
@@ -43,9 +44,7 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
     this.dtOptions = {
-      language: {
-        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
-      },
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

@@ -7,6 +7,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
 import {TranslateService} from '@ngx-translate/core';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-batchs-page',
@@ -44,9 +45,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   ngOnInit() {
 
     this.dtOptions = {
-      language: {
-        url: `assets/i18n/datatable-${this.translateService.currentLang}.json`
-      },
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

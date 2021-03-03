@@ -48,16 +48,16 @@ context('Applications', () => {
     cy.get('@lines').should('have.length', 2);
 
     cy.get('@lines').eq(0).children('td').as('line1');
-    cy.get('@line1').eq(0).should('contain.text', 'AT1');
-    cy.get('@line1').eq(1).should('contain.text', 'ApplicationTest1');
-    cy.get('@line1').eq(2).should('contain.text', 'yyyyMMdd');
+    cy.get('@line1').eq(1).should('contain.text', 'AT1');
+    cy.get('@line1').eq(2).should('contain.text', 'ApplicationTest1');
     cy.get('@line1').eq(3).should('contain.text', 'yyyyMMdd');
+    cy.get('@line1').eq(4).should('contain.text', 'yyyyMMdd');
 
     cy.get('@lines').eq(1).children('td').as('line2');
-    cy.get('@line2').eq(0).should('contain.text', 'AT2');
-    cy.get('@line2').eq(1).should('contain.text', 'ApplicationTest2');
-    cy.get('@line2').eq(2).should('contain.text', 'ddMMyyyy');
+    cy.get('@line2').eq(1).should('contain.text', 'AT2');
+    cy.get('@line2').eq(2).should('contain.text', 'ApplicationTest2');
     cy.get('@line2').eq(3).should('contain.text', 'ddMMyyyy');
+    cy.get('@line2').eq(4).should('contain.text', 'ddMMyyyy');
 
 
     cy.deleteApplication({codeAppli: 'AT1', name: 'ApplicationTest1'});
