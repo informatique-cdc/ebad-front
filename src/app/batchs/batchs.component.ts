@@ -6,6 +6,8 @@ import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from '@ngx-translate/core';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-batchs-page',
@@ -22,6 +24,8 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   environmentSelectedInfo: InfoEnvironment;
+  columns = [];
+
   public progress: any = {};
 
   constructor(
@@ -29,11 +33,23 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     private environmentsService: EnvironmentsService,
     private constants: Constants,
     private toastService: ToastService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'path', name: 'shell', visible: true});
+    this.columns.push({data: 'defaultParam', name: 'parametres par defaut', visible: true, orderable: false});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
   }
 
   ngOnInit() {
+
     this.dtOptions = {
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      stateSave: true,
+            stateSaveParams: function (settings, data: any) {
+              data.search.search = "";
+            },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
@@ -61,12 +77,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'path'}, {data: 'environnements', orderable: false}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }
@@ -122,7 +133,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.batchsService.run(batch.id, apiParams).subscribe(
       id => {
-          this.toastService.showSuccess('Le batch ' + batch.name + ' vient d\'être lancé');
+        this.toastService.showSuccess('Le batch ' + batch.name + ' vient d\'être lancé');
       },
       err => {
         this.toastService.showError(err || 'Une erreur est survenue');

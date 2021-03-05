@@ -3,10 +3,12 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalNormComponent} from './modal-norm/modal-norm.component';
 import {ModalNormDeletionComponent} from './modal-norm-deletion/modal-norm-deletion.component';
 import {Constants} from '../shared/Constants';
-import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {Norme, NormsService} from '../core';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from '@ngx-translate/core';
+import {DataTableDirective} from 'angular-datatables';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-admin-norms',
@@ -19,15 +21,29 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   norms: Norme[];
+  columns = [];
 
   constructor(private modalService: NgbModal,
               private constants: Constants,
               private toastService: ToastService,
-              private normsService: NormsService) {
+              private normsService: NormsService,
+              private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'commandLine', name: 'interpréteur', visible: true});
+    this.columns.push({data: 'pathShell', name: 'dossier shell', visible: true});
+    this.columns.push({data: 'ctrlMDate', name: 'fichier date', visible: true});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
+
   }
 
   ngOnInit() {
     this.dtOptions = {
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      stateSave: true,
+            stateSaveParams: function (settings, data: any) {
+              data.search.search = "";
+            },
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
@@ -51,11 +67,7 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{data: 'id'}, {data: 'name'}, {data: 'commandLine'}, {data: 'pathShell'}, {data: 'ctrlMDate'},
-        {
-          data: '',
-          orderable: false
-        }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }
@@ -78,7 +90,7 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   onClickAddNorm() {
     const modalRef = this.modalService.open(ModalNormComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.toastService.showSuccess(`La norme a bien été ajoutée`);
       this.refreshNorms();
     }, (reason) => {
@@ -91,7 +103,7 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   editNorm(norm: Norme) {
     const modalRef = this.modalService.open(ModalNormComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.toastService.showSuccess(`La norme a bien été modifiée`);
       this.refreshNorms();
     }, (reason) => {
@@ -105,7 +117,7 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   deleteNorm(norm: Norme) {
     const modalRef = this.modalService.open(ModalNormDeletionComponent);
-    modalRef.result.then((result) => {
+    modalRef.result.then(() => {
       this.normsService.deleteNorm(norm.id).subscribe(
         () => {
           this.toastService.showSuccess(`La norme a été supprimée`);

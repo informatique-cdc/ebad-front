@@ -1,5 +1,9 @@
 <div class="container">
   <div class="navbar navbar-expand-lg navbar-light">
+    <a *ngIf="!asideVisible" routerLink="home" style="font-size: 15px; font-weight: bold; text-decoration: none; color: black; margin-right: 10px">
+      >_&nbsp;&nbsp;EBAD
+    </a>
+    <ebad-icon name="menu" style="cursor: pointer" (click)="toggleSidebar()"></ebad-icon>
     <div *ngIf="false" class="navbar-search d-none d-xl-block">
       <form action="." method="get">
         <div class="input-icon">

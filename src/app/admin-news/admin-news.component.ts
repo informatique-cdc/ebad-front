@@ -1,13 +1,14 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NewsService} from '../core';
+import {NewsService, New} from '../core';
 import {ModalNewComponent} from './modal-new/modal-new.component';
 import {ModalNewDeletionComponent} from './modal-new-deletion/modal-new-deletion.component';
 import {Constants} from '../shared/Constants';
-import {New} from '../core/models';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from '@ngx-translate/core';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-admin-news',
@@ -20,15 +21,27 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   news: New[] = [];
+  columns = [];
 
   constructor(private modalService: NgbModal,
               private constants: Constants,
               private newsService: NewsService,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'title', name: 'titre', visible: true});
+    this.columns.push({data: 'draft', name: 'brouillon', visible: true});
+    this.columns.push({data: 'createdDate', name: 'date', visible: true});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
   }
 
   ngOnInit() {
     this.dtOptions = {
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      stateSave: true,
+            stateSaveParams: function (settings, data: any) {
+              data.search.search = "";
+            },
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
@@ -52,12 +65,7 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id',
-      }, {data: 'title'}, {data: 'draft'}, {data: 'createdDate'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

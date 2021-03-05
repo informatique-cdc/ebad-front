@@ -7,6 +7,8 @@ import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from "@ngx-translate/core";
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-manage-environments',
@@ -24,17 +26,27 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
 
   environments: Environment[] = [];
 
+  columns = [];
+
   constructor(private environmentsService: EnvironmentsService,
               private modalService: NgbModal,
               private applicationsService: ApplicationsService,
               private constants: Constants,
               private toastService: ToastService,
-              private globalSettingsService: GlobalSettingsService) {
+              private globalSettingsService: GlobalSettingsService,
+              private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'Nom', visible: true});
+    this.columns.push({data: 'host', name: 'Serveur', visible: true});
+    this.columns.push({data: 'login', name: 'Login', visible: true});
+    this.columns.push({data: 'homePath', name: 'Home', visible: true});
+    this.columns.push({data: 'prefix', name: 'Préfix', visible: true});
+    this.columns.push({ data: '', name: 'Action', orderable: false, visible: true});
   }
 
 
   applicationChanged(application: Application) {
-    this.refreshEnvironments();
+    // this.refreshEnvironments();
     this.applicationSelected = application;
     this.applicationsService.getAllModerable().subscribe(
       apps => {
@@ -52,6 +64,11 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     this.importEnvironmentEnabled = this.globalSettingsService.importEnvironmentIsEnable();
 
     this.dtOptions = {
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      stateSave: true,
+            stateSaveParams: function (settings, data: any) {
+              data.search.search = "";
+            },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
@@ -79,12 +96,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'host'}, {data: 'login'}, {data: 'homePath'}, {data: 'prefix'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

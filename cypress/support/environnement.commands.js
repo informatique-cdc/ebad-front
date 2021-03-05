@@ -24,12 +24,12 @@ Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName
   cy.server();
   cy.route({
     method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name=',
+    url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
   }).as('getEnvironments');
 
   cy.route({
     method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name='+environnementName,
+    url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name='+environnementName,
   }).as('searchEnvironment');
 
   cy.route({
@@ -62,12 +62,12 @@ Cypress.Commands.add("updateEnvironnement", ({
   cy.server();
   cy.route({
     method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name=',
+    url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
   }).as('getEnvironments');
 
   cy.route({
     method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name='+environnementNameToUpdate,
+    url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name='+environnementNameToUpdate,
   }).as('searchEnvironment');
 
   cy.route({

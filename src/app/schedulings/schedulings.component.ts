@@ -9,6 +9,7 @@ import {ModalAddSchedulingComponent} from './modal-add-scheduling/modal-add-sche
 import {Scheduling} from '../core/models/scheduling.model';
 import {SchedulingsService} from '../core/services/schedulings.service';
 import {TranslateService} from '@ngx-translate/core';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-schedulings-page',
@@ -25,6 +26,7 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   public progress: any = {};
+  columns = [];
 
   constructor(
     private environmentsService: EnvironmentsService,
@@ -32,11 +34,21 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
     private constants: Constants,
     private toastService: ToastService,
     private translateService: TranslateService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'batch.name', name: 'nom', visible: true});
+    this.columns.push({data: 'parameters', name: 'paramètres', visible: true});
+    this.columns.push({data: 'cron', name: 'cron', visible: true});
+    this.columns.push({data: '', name: 'action', visible: true, orderable: false});
   }
 
   ngOnInit() {
     this.dtOptions = {
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      stateSave: true,
+            stateSaveParams: function (settings, data: any) {
+              data.search.search = "";
+            },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
@@ -64,12 +76,7 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'path'}, {data: 'environnements', orderable: false}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }

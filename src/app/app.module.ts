@@ -18,6 +18,7 @@ import {HttpClient} from '@angular/common/http';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AccreditationRequestModule} from './accreditation-requests/accreditation-request.module';
 import {AngularSvgIconModule} from 'angular-svg-icon';
+import {AngularResizedEventModule} from 'angular-resize-event';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -46,7 +47,8 @@ registerLocaleData(localeFr);
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    AngularResizedEventModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'fr-FR'}],
   bootstrap: [AppComponent]

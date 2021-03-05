@@ -10,9 +10,10 @@
   </span>
 </app-env-app-head-selector>
 
+<ebad-show-hide-column [datatableElement]="dtElement" [columns]="columns"></ebad-show-hide-column>
 <div class="card">
   <div class="table-responsive">
-    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+    <table id="listMNaming" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
         <th id="namingId">
@@ -30,16 +31,16 @@
       </thead>
       <tbody>
       <tr *ngFor="let naming of namings">
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[0].visible">
           {{naming.id}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[1].visible">
           {{naming.name}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[2].visible">
           {{naming.pattern}}
         </td>
-        <td class="text-center">
+        <td class="text-center" *ngIf="columns[3].visible">
           <a (click)="editNaming(naming)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
           <a (click)="deleteNaming(naming)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
         </td>

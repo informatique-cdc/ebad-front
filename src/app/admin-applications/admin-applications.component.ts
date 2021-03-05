@@ -8,6 +8,8 @@ import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from '@ngx-translate/core';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-admin-applications',
@@ -15,7 +17,7 @@ import {ToastService} from '../core/services/toast.service';
   styleUrls: ['./admin-applications.component.scss']
 })
 export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild(DataTableDirective, { static: true })
+  @ViewChild(DataTableDirective, {static: true})
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
@@ -24,12 +26,20 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
 
   addApplicationEnabled = true;
   importApplicationEnabled = true;
+  columns = [];
 
   constructor(private modalService: NgbModal,
               private applicationsService: ApplicationsService,
               private constants: Constants,
               private toastService: ToastService,
-              private globalSettingsService: GlobalSettingsService) {
+              private globalSettingsService: GlobalSettingsService,
+              private translateService: TranslateService) {
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'code', name: 'code', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'dateParametrePattern', name: 'pattern paramètre', visible: true});
+    this.columns.push({data: 'dateFichierPattern', name: 'pattern fichier', visible: true});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
   }
 
   ngOnInit() {
@@ -37,7 +47,12 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     this.importApplicationEnabled = this.globalSettingsService.importApplicationIsEnable();
 
     this.dtOptions = {
-      order: [[1, 'asc']],
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      order: [[2, 'asc']],
+      stateSave: true,
+            stateSaveParams: function (settings, data: any) {
+              data.search.search = "";
+            },
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
       serverSide: true,
@@ -60,10 +75,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
             });
           });
       },
-      columns: [{data: 'code'}, {data: 'name'}, {data: 'dateParametrePattern'}, {data: 'dateFichierPattern'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }
@@ -77,9 +89,16 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
   }
 
   refreshApplication() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-      this.dtTrigger.next();
+    const that = this;
+    this.dtElement.dtInstance.then((dtInstance: any) => {
+      if (dtInstance.context[0].nTableWrapper == null) {
+        setTimeout(function () {
+          that.refreshApplication();
+        }, 250);
+      } else {
+        dtInstance.destroy();
+        this.dtTrigger.next();
+      }
     });
   }
 
@@ -90,7 +109,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       this.refreshApplication();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
+        this.toastService.showError(`Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
@@ -114,7 +133,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       this.refreshApplication();
     }, (reason) => {
       if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
+        this.toastService.showError(`Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
       }
     });
     modalRef.componentInstance.application = {...app};
@@ -130,7 +149,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
           this.refreshApplication();
         },
         reason => {
-          this.toastService.showError( `Une erreur est survenue lors de la suppression de l'application : ${reason}`);
+          this.toastService.showError(`Une erreur est survenue lors de la suppression de l'application : ${reason}`);
         }
       );
     });
@@ -152,5 +171,11 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     modalRef.componentInstance.isModerator = true;
   }
 
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshApplication();
+  }
 
 }

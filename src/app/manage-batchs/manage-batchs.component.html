@@ -9,9 +9,10 @@
   </span>
 </app-env-app-head-selector>
 
+<ebad-show-hide-column [datatableElement]="dtElement" [columns]="columns"></ebad-show-hide-column>
 <div class="card">
   <div class="table-responsive">
-    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+    <table id="listMBatchs" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
         <th id="batchId">
@@ -32,19 +33,19 @@
       </thead>
       <tbody>
       <tr *ngFor="let batch of batchs">
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[0].visible">
           {{batch.id}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[1].visible">
           {{batch.name}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[2].visible">
           {{batch.path}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[3].visible">
           <span *ngFor="let env of batch.environnements" class="badge bg-green-lt mr-1" >{{env.name}}</span>
         </td>
-        <td class="text-center">
+        <td class="text-center" *ngIf="columns[4].visible">
           <a (click)="editBatch(batch)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
           <a (click)="deleteBatch(batch)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
         </td>

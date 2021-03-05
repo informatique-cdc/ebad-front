@@ -9,6 +9,8 @@ import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {Constants} from '../shared/Constants';
 import {ToastService} from '../core/services/toast.service';
+import {TranslateService} from "@ngx-translate/core";
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-manage-naming',
@@ -22,17 +24,30 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   dtOptions: DataTables.Settings = {};
+  columns = [];
 
   constructor(private fileKindsService: FileKindsService,
               private modalService: NgbModal,
               private toastService: ToastService,
-              private constants: Constants) {
+              private constants: Constants,
+              private translateService: TranslateService) {
+
+    this.columns.push({data: 'id', name: 'id', visible: true});
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'pattern', name: 'pattern', visible: true});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
+
   }
 
   ngOnInit() {
 
 
     this.dtOptions = {
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      stateSave: true,
+            stateSaveParams: function (settings, data: any) {
+              data.search.search = "";
+            },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
@@ -60,12 +75,7 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
-      columns: [{
-        data: 'id'
-      }, {data: 'name'}, {data: 'pattern'}, {
-        data: '',
-        orderable: false
-      }]
+      columns: this.columns
     };
     this.dtTrigger.next();
   }
@@ -79,9 +89,14 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   refreshNaming() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-      this.dtTrigger.next();
+    const that = this;
+    this.dtElement.dtInstance.then((dtInstance: any) => {
+      if(dtInstance.context[0].nTableWrapper == null) {
+        setTimeout(function(){ that.refreshNaming() },250);
+      }else {
+        dtInstance.destroy();
+        this.dtTrigger.next();
+      }
     });
   }
 

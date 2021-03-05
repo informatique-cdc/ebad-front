@@ -3,9 +3,10 @@
 <ebad-date-traitement header [infoEnvironment]="environmentSelectedInfo"></ebad-date-traitement>
 </app-env-app-head-selector>
 
+<ebad-show-hide-column [datatableElement]="dtElement" [columns]="columns"></ebad-show-hide-column>
 <div class="card">
   <div class="table-responsive">
-    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
+    <table id="listFBatchs" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
            class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
@@ -27,19 +28,19 @@
       </thead>
       <tbody>
       <tr *ngFor="let batch of batchs">
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[0].visible">
           {{batch.id}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[1].visible">
           {{batch.name}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[2].visible">
           {{batch.path}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[3].visible">
           {{batch.defaultParam}}
         </td>
-        <td class="text-center">
+        <td class="text-center" *ngIf="columns[4].visible">
           <a (click)="runBatch(batch,true)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'BATCH.RUN' | translate}}</a>
           <a (click)="runBatchWithCustomParam(batch)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'BATCH.RUN_WITH_PARAMETERS' | translate}}</a>
         </td>

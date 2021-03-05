@@ -1,10 +1,11 @@
 # EbadFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
-Angular version : 10.1.2
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.2.
+Angular version : 11.2.3
 
 ## User documentation
 [User Guide - English Version](https://github.com/informatique-cdc/ebad-front/wiki/User-Guide---English)
+
 [User Guide - French Version](https://github.com/informatique-cdc/ebad-front/wiki/)
 
 ## Development server

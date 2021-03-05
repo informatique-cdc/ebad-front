@@ -5,6 +5,8 @@ import {Observable, Subject} from 'rxjs';
 import {Page} from '../core/models/page.model';
 import {ToastService} from '../core/services/toast.service';
 import {DataTableDirective} from 'angular-datatables';
+import {TranslateService} from '@ngx-translate/core';
+import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
   selector: 'app-list-accreditation-request',
@@ -23,7 +25,8 @@ export class ListAccreditationRequestComponent implements OnInit, AfterViewInit,
 
   constructor(private accreditationRequestsService: AccreditationRequestsService,
               private toastService: ToastService,
-              private constants: Constants) {
+              private constants: Constants,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -35,11 +38,12 @@ export class ListAccreditationRequestComponent implements OnInit, AfterViewInit,
       columns = columnsForUserOnly;
     }
 
-
-
-
-
     this.dtOptions = {
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      stateSave: true,
+            stateSaveParams: function (settings, data: any) {
+              data.search.search = "";
+            },
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

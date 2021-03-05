@@ -8,10 +8,10 @@
 </span>
 </app-env-app-head-selector>
 
-
+<ebad-show-hide-column [datatableElement]="dtElement" [columns]="columns"></ebad-show-hide-column>
 <div class="card">
   <div class="table-responsive">
-    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+    <table id="listMDirectories" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
         <th id="directoryId">
@@ -35,22 +35,22 @@
       </thead>
       <tbody>
       <tr *ngFor="let directory of directories">
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[0].visible">
           {{directory.id}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[1].visible">
           {{directory.name}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[2].visible">
           {{directory.path}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[3].visible">
           {{directory.canWrite | yesno}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[4].visible">
           {{directory.canExplore | yesno}}
         </td>
-        <td class="text-center">
+        <td class="text-center" *ngIf="columns[5].visible">
           <a id="actionEdit-{{directory.name}}" (click)="editDirectory(directory)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
           <a id="actionDelete-{{directory.name}}" (click)="deleteDirectory(directory)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
         </td>

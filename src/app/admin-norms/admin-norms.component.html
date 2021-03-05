@@ -19,9 +19,10 @@
   </div>
 </div>
 
+<ebad-show-hide-column [datatableElement]="dtElement" [columns]="columns"></ebad-show-hide-column>
 <div class="card">
   <div class="table-responsive">
-    <table aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+    <table id="listNorms" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
         <th id="normId">ID</th>
@@ -43,22 +44,22 @@
       </thead>
       <tbody>
       <tr *ngFor="let norm of norms">
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[0].visible">
           {{norm.id}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[1].visible">
           {{norm.name}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[2].visible">
           {{norm.commandLine}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[3].visible">
           {{norm.pathShell}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[4].visible">
           {{norm.ctrlMDate}}
         </td>
-        <td class="text-center">
+        <td class="text-center" *ngIf="columns[5].visible">
           <a id="actionEdit-{{norm.name}}" (click)="editNorm(norm)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
           <a id="actionDelete-{{norm.name}}" (click)="deleteNorm(norm)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
         </td>

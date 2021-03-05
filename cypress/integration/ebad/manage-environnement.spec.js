@@ -51,12 +51,12 @@ context('Gestion Environnement', () => {
     cy.server();
     cy.route({
       method: 'GET',
-      url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name=',
+      url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
     }).as('searchEnvironments');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
-    .addEnvironnement({applicationName: 'ApplicationCyEnv1', name: 'ProductionCy', host: 'myhost.com', login: 'batch', homePath: '/home/batch', prefix: 'P', norme: 'Linux'})
-    .addEnvironnement({applicationName: 'ApplicationCyEnv1', name: 'QACy', host: 'myhost-qa.com', login: 'batch', homePath: '/home/batch', prefix: 'Q', norme: 'Linux'});
+    .addEnvironnement({applicationName: 'ApplicationCyEnv1', name: 'ProductionCy', host: 'myhost.com', login: 'batch', homePath: '/home/batch', prefix: 'P', norme: 'LinuxEnvCy'})
+    .addEnvironnement({applicationName: 'ApplicationCyEnv1', name: 'QACy', host: 'myhost-qa.com', login: 'batch', homePath: '/home/batch', prefix: 'Q', norme: 'LinuxEnvCy'});
 
 
     cy.visit('http://localhost:4200');
@@ -81,6 +81,7 @@ context('Gestion Environnement', () => {
 
     cy.deleteEnvironnement({applicationName: 'ApplicationCyEnv1', environnementName: 'ProductionCy'});
     cy.deleteEnvironnement({applicationName: 'ApplicationCyEnv1', environnementName: 'QACy'});
+    cy.de
   });
 
 
@@ -88,11 +89,11 @@ context('Gestion Environnement', () => {
     cy.server();
     cy.route({
       method: 'GET',
-      url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name=',
+      url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
     }).as('getEnvironments');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
-      .addEnvironnement({applicationName: 'ApplicationCyEnv1', name: 'Production', host: 'myhost.com', login: 'batch', homePath: '/home/batch', prefix: 'P', norme: 'Linux'});
+      .addEnvironnement({applicationName: 'ApplicationCyEnv1', name: 'Production', host: 'myhost.com', login: 'batch', homePath: '/home/batch', prefix: 'P', norme: 'LinuxEnvCy'});
 
     cy.updateEnvironnement({
       applicationName: 'ApplicationCyEnv1',

@@ -25,11 +25,15 @@
   </div>
 </div>
 
-<div class="card">
+<ebad-show-hide-column [datatableElement]="dtElement" [columns]="columns"></ebad-show-hide-column>
+<div class="card" (resized)="onResizeTable($event)">
   <div class="table-responsive">
     <table id="listApplications" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
+        <th id="appId">
+          Id
+        </th>
         <th id="appCode">
           Code
         </th>
@@ -48,19 +52,22 @@
       </thead>
       <tbody>
       <tr *ngFor="let app of applications">
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[0].visible">
+         {{app.id}}
+        </td>
+        <td class="align-middle" *ngIf="columns[1].visible">
          {{app.code}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[2].visible">
          {{app.name}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[3].visible">
          {{app.dateParametrePattern}}
         </td>
-        <td class="align-middle">
+        <td class="align-middle" *ngIf="columns[4].visible">
          {{app.dateFichierPattern}}
         </td>
-        <td class="text-center">
+        <td class="text-center" *ngIf="columns[5].visible">
           <a (click)="editApplication(app)" id="actionUpdate-{{app.code}}" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
           <a (click)="deleteApplication(app)" id="actionDelete-{{app.code}}" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
           <a (click)="usersApplication(app)" id="actionUser-{{app.code}}" href="javascript:void(0)" class="btn btn-secondary btn-sm">Users</a>
