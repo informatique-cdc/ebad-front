@@ -46,6 +46,9 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       stateSave: true,
+            stateSaveParams: function (settings, data: any) {
+              data.search.search = "";
+            },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

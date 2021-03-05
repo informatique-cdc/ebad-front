@@ -50,6 +50,9 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       order: [[2, 'asc']],
       stateSave: true,
+            stateSaveParams: function (settings, data: any) {
+              data.search.search = "";
+            },
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
       serverSide: true,
