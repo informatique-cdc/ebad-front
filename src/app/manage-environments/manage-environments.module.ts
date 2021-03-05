@@ -6,6 +6,7 @@ import {ModalEnvironmentComponent} from './modal-environment/modal-environment.c
 import {ModalEnvironmentDeletionComponent} from './modal-environment-deletion/modal-environment-deletion.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
+import {AngularResizedEventModule} from "angular-resize-event";
 
 @NgModule({
   declarations: [ManageEnvironmentsComponent, ModalEnvironmentComponent, ModalEnvironmentDeletionComponent],
@@ -13,7 +14,8 @@ import {DataTablesModule} from 'angular-datatables';
     ManageEnvironmentsRoutingModule,
     SharedModule,
     NgbModule,
-    DataTablesModule
+    DataTablesModule,
+    AngularResizedEventModule
   ],
   entryComponents: [
     ModalEnvironmentComponent,

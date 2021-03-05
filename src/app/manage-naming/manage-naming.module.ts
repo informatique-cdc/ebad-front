@@ -5,13 +5,15 @@ import {SharedModule} from '../shared';
 import {ModalNamingComponent} from './modal-naming/modal-naming.component';
 import {ModalNamingDeletionComponent} from './modal-naming-deletion/modal-naming-deletion.component';
 import {DataTablesModule} from 'angular-datatables';
+import {AngularResizedEventModule} from "angular-resize-event";
 
 @NgModule({
   declarations: [ManageNamingComponent, ModalNamingDeletionComponent, ModalNamingComponent],
   imports: [
     ManageNamingRoutingModule,
     SharedModule,
-    DataTablesModule
+    DataTablesModule,
+    AngularResizedEventModule
   ],
   entryComponents: [
     ModalNamingComponent,

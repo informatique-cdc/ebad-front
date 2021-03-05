@@ -6,6 +6,7 @@ import {IconsModule} from '../icons';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
 import {ModalAddSchedulingComponent} from './modal-add-scheduling/modal-add-scheduling.component';
+import {AngularResizedEventModule} from "angular-resize-event";
 
 @NgModule({
   declarations: [SchedulingsComponent, ModalAddSchedulingComponent],
@@ -14,7 +15,8 @@ import {ModalAddSchedulingComponent} from './modal-add-scheduling/modal-add-sche
     SharedModule,
     IconsModule,
     NgbPaginationModule,
-    DataTablesModule
+    DataTablesModule,
+    AngularResizedEventModule
   ],
   entryComponents: [
     ModalAddSchedulingComponent

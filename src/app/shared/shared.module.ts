@@ -28,7 +28,7 @@ import {YesNoPipe} from './yesno.pipe';
 import {ToastComponent} from './toast/toast.component';
 import {HasAnyRoleDirective} from './has-any-role/has-any-role.directive';
 import {RxStompService} from '@stomp/ng2-stompjs';
-import {ShowHideColumnComponent} from "./show-hide-column/show-hide-column.component";
+import {ShowHideColumnComponent} from './show-hide-column/show-hide-column.component';
 
 @NgModule({
   imports: [
