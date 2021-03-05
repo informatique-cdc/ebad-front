@@ -124,5 +124,11 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.componentInstance.environment = this.environmentSelected;
   }
 
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshSchedulings();
+  }
 }
 

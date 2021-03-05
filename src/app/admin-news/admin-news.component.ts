@@ -127,5 +127,10 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
     });
     modalRef.componentInstance.oneNew = oneNew;
   }
-
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshNews();
+  }
 }

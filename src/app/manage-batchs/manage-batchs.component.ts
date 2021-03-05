@@ -142,4 +142,11 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.componentInstance.batch = batch;
     modalRef.componentInstance.isUpdate = true;
   }
+
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshBatchs();
+  }
 }

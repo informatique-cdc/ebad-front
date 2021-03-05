@@ -174,4 +174,10 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     modalRef.componentInstance.isUpdate = true;
   }
 
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshEnvironments();
+  }
 }

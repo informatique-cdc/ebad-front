@@ -130,7 +130,12 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
     });
     modalRef.componentInstance.norm = norm;
   }
-
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshNorms();
+  }
 }
 
 

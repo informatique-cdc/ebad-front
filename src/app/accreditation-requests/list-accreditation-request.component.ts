@@ -117,5 +117,12 @@ export class ListAccreditationRequestComponent implements OnInit, AfterViewInit,
       }
     );
   }
+
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshAccreditationRequests();
+  }
 }
 

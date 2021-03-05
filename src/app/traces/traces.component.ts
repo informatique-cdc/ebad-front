@@ -95,5 +95,11 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
         this.refreshTraces();
     }
 
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshTraces();
+  }
 
 }

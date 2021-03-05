@@ -142,4 +142,10 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
     modalRef.componentInstance.directory = directory;
   }
 
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshDirectories();
+  }
 }

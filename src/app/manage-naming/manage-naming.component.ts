@@ -152,5 +152,12 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.componentInstance.fileKind = naming;
     modalRef.componentInstance.isUpdate = true;
   }
+
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshNaming();
+  }
 }
 

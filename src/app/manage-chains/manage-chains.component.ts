@@ -83,7 +83,7 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-  refreshEnvironments() {
+  refreshChains() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();
@@ -91,7 +91,7 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
   environmentChanged(environment: Environment) {
     this.environmentSelected = environment;
-    this.refreshEnvironments();
+    this.refreshChains();
   }
 
 
@@ -138,6 +138,13 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
       );
     });
     modalRef.componentInstance.chain = chain;
+  }
+
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshChains();
   }
 }
 
