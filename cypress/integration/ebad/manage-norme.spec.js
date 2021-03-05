@@ -26,7 +26,7 @@ context('Norms', () => {
     cy.server();
     cy.route({
       method: 'GET',
-      url: '/ebad/norms?page=0&size=10&sort=name,asc&name=TestCy',
+      url: '/ebad/norms?page=0&size=*&sort=name,asc&name=TestCy',
     }).as('searchNormeTest');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
@@ -59,7 +59,7 @@ context('Norms', () => {
     cy.server();
     cy.route({
       method: 'GET',
-      url: '/ebad/norms?page=0&size=10&sort=name,asc&name=TestUpCyLinuxNew',
+      url: '/ebad/norms?page=0&size=*&sort=name,asc&name=TestUpCyLinuxNew',
     }).as('searchNormeTest');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})

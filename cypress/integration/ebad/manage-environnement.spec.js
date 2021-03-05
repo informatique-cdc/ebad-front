@@ -51,7 +51,7 @@ context('Gestion Environnement', () => {
     cy.server();
     cy.route({
       method: 'GET',
-      url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name=',
+      url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
     }).as('searchEnvironments');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
@@ -89,7 +89,7 @@ context('Gestion Environnement', () => {
     cy.server();
     cy.route({
       method: 'GET',
-      url: '/ebad/environments?applicationId=**&page=0&size=10&sort=id,asc&name=',
+      url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
     }).as('getEnvironments');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})

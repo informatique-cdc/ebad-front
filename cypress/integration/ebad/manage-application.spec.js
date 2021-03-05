@@ -30,7 +30,7 @@ context('Applications', () => {
     cy.server();
     cy.route({
       method: 'GET',
-      url: '/ebad/applications/gestion?page=0&size=10&sort=name,asc&name=ApplicationTest',
+      url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name=ApplicationTest',
     }).as('searchApplicationTest');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password});

@@ -22,7 +22,7 @@ Cypress.Commands.add("deleteApplication", ({codeAppli, name}) => {
   cy.server();
   cy.route({
     method: 'GET',
-    url: '/ebad/applications/gestion?page=0&size=10&sort=name,asc&name='+name,
+    url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+name,
   }).as('searchApplication');
   cy.route({
     method: 'DELETE',
@@ -79,7 +79,7 @@ Cypress.Commands.add("addUserToApplication", ({codeAppli, nameAppli,firstname, l
   cy.server();
   cy.route({
     method: 'GET',
-    url: '/ebad/applications/gestion?page=0&size=10&sort=name,asc&name='+nameAppli,
+    url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameAppli,
   }).as('searchApplication');
 
   cy.route({
@@ -105,12 +105,12 @@ Cypress.Commands.add("addManagerToApplication", ({codeAppli, nameAppli, firstnam
   cy.server();
   cy.route({
     method: 'GET',
-    url: '/ebad/applications/gestion?page=0&size=10&sort=name,asc&name='+nameAppli,
+    url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameAppli,
   }).as('searchApplication');
 
   cy.route({
     method: 'GET',
-    url: '/ebad/users?page=0&size=20&login='+firstname,
+    url: '/ebad/users?page=0&size=*&login='+firstname,
   }).as('searchUser');
 
   cy.get('#administrationMenu').click();

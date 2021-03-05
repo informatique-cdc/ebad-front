@@ -14,7 +14,7 @@ Cypress.Commands.add("deleteNorme", ({name}) => {
   cy.server();
   cy.route({
     method: 'GET',
-    url: '/ebad/norms?page=0&size=10&sort=name,asc&name='+name,
+    url: '/ebad/norms?page=0&size=*&sort=name,asc&name='+name,
   }).as('searchNorme');
 
   cy.get('#administrationMenu').click();
@@ -31,7 +31,7 @@ Cypress.Commands.add("updateNorme", ({nameToUpdate, name, interpreteur, shellFol
   cy.server();
   cy.route({
     method: 'GET',
-    url: '/ebad/norms?page=0&size=10&sort=name,asc&name='+nameToUpdate,
+    url: '/ebad/norms?page=0&size=*&sort=name,asc&name='+nameToUpdate,
   }).as('searchNorme');
   cy.route({
     method: 'PATCH',
