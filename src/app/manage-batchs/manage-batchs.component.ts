@@ -44,6 +44,7 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   ngOnInit() {
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      stateSave: true,
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,

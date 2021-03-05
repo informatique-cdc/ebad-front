@@ -26,7 +26,7 @@
 </div>
 
 <ebad-show-hide-column [datatableElement]="dtElement" [columns]="columns"></ebad-show-hide-column>
-<div class="card">
+<div class="card" (resized)="onResizeTable($event)">
   <div class="table-responsive">
     <table id="listApplications" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>

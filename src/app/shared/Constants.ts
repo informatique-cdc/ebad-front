@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class Constants {
-  numberByPage = 10;
+  numberByPage = 25;
   datatable = { en : {
     emptyTable: 'No data available in table',
     info: 'Showing _START_ to _END_ of _TOTAL_ entries',

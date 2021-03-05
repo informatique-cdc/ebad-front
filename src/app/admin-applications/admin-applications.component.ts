@@ -49,6 +49,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       order: [[2, 'asc']],
+      stateSave: true,
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
       serverSide: true,
@@ -167,5 +168,11 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     modalRef.componentInstance.isModerator = true;
   }
 
+  onResizeTable(event){
+    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+      return;
+    }
+    this.refreshApplication();
+  }
 
 }

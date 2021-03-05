@@ -40,6 +40,7 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
   ngOnInit() {
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      stateSave: true,
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
