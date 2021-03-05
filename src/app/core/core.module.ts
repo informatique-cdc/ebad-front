@@ -28,6 +28,7 @@ import {TracesService} from './services/traces.service';
 import {FileKindsService} from './services/file-kinds.service';
 import {RoleService} from './services/role.service';
 import {SchedulingsService} from './services/schedulings.service';
+import {SidebarService} from "./services/sidebar.service";
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import {SchedulingsService} from './services/schedulings.service';
     AccreditationRequestsService,
     SelectChoicesService,
     RoleService,
-    SchedulingsService
+    SchedulingsService,
+    SidebarService
   ],
   declarations: []
 })

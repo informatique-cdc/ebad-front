@@ -6,6 +6,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 import {RxStompService} from '@stomp/ng2-stompjs';
 import {ToastService} from '../../core/services/toast.service';
+import {SidebarService} from '../../core/services/sidebar.service';
 
 @Component({
     selector: '[ebad-header]',
@@ -17,14 +18,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     notificationsWsReceived: Set<number> = new Set<number>();
     sub: Subscription;
     currentUser: User;
-
+    asideVisible = true;
     constructor(
         private userService: UserService,
         private router: Router,
         private notificationsService: NotificationsService,
         private translateService: TranslateService,
         private rxStompService: RxStompService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private sidebarService: SidebarService
     ) {
     }
 
@@ -37,6 +39,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 this.notifications = notifications;
             }
         );
+      this.sidebarService.sidebarVisibilityChange.subscribe(value => {this.asideVisible = value});
+
     }
 
 
@@ -75,4 +79,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.sub.unsubscribe();
         }
     }
+
+  toggleSidebar() {
+    this.sidebarService.toggleSidebarVisibility()
+  }
 }

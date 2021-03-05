@@ -5,6 +5,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {OauthService} from './security/oauth.service';
 import {environment} from '../environments/environment';
 import {Router} from '@angular/router';
+import {SidebarService} from './core/services/sidebar.service';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +13,15 @@ import {Router} from '@angular/router';
 })
 export class AppComponent implements OnInit {
   isAuthenticated: boolean;
+  asideVisible = true;
 
   constructor(
     private userService: UserService,
     private router: Router,
     private translate: TranslateService,
     private oauthService: OauthService,
-    private globalSettingsService: GlobalSettingsService
+    private globalSettingsService: GlobalSettingsService,
+    private sidebarService: SidebarService
   ) {
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
@@ -49,5 +52,8 @@ export class AppComponent implements OnInit {
     }, (error) => {
       console.error(error);
     });
+
+    this.sidebarService.sidebarVisibilityChange.subscribe(value => {this.asideVisible = value});
+
   }
 }
