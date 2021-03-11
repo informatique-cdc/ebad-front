@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {ApiService, UserService} from '../core';
 import {OauthService} from '../security/oauth.service';
-import {environment} from '../../environments/environment';
+import {ConfigService} from "../core/services/config.service";
 
 @Component({
   selector: 'app-auth-page',
@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit {
   error = false;
   isSubmitting = false;
   authForm: FormGroup;
-  jwt = environment.jwt;
+  jwt: boolean;
   referer = '/home';
 
   constructor(
@@ -25,8 +25,10 @@ export class AuthComponent implements OnInit {
     private userService: UserService,
     private fb: FormBuilder,
     private apiService: ApiService,
-    private oauthService: OauthService
+    private oauthService: OauthService,
+    private configService: ConfigService
   ) {
+    this.jwt = this.configService.jwt;
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
       username: ['', Validators.required],
@@ -58,8 +60,8 @@ export class AuthComponent implements OnInit {
       this.userService
         .attemptAuth(credentials)
         .subscribe(
-          data => this.router.navigateByUrl(this.referer),
-          err => {
+          () => this.router.navigateByUrl(this.referer),
+          () => {
             this.error = true;
             this.isSubmitting = false;
           }

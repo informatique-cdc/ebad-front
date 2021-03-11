@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
+import {ConfigService} from "./config.service";
 
 
 @Injectable()
 export class JwtService {
   private tokenName = 'access_token';
 
-  constructor() {
-    if (environment.jwt) {
+  constructor(private configService: ConfigService) {
+    if (this.configService.jwt) {
       this.tokenName = 'jwtToken';
     }
   }

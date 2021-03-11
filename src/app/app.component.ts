@@ -3,9 +3,10 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalSettingsService, UserService} from './core';
 import {TranslateService} from '@ngx-translate/core';
 import {OauthService} from './security/oauth.service';
-import {environment} from '../environments/environment';
 import {Router} from '@angular/router';
 import {SidebarService} from './core/services/sidebar.service';
+import {ConfigService} from "./core/services/config.service";
+import {InitAuthConfigService} from "./core/services/init-oauth-config.service";
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,9 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     private oauthService: OauthService,
     private globalSettingsService: GlobalSettingsService,
-    private sidebarService: SidebarService
+    private sidebarService: SidebarService,
+    private configService: ConfigService,
+    private initAuthConfigService: InitAuthConfigService
   ) {
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
@@ -30,7 +33,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!environment.jwt) {
+    this.oauthService.configure(this.initAuthConfigService.loadConfig());
+    if (!this.configService.jwt) {
       this.oauthService.runInitialLoginSequence().then().catch(
         (error) => {
           console.error('error when run initial login sequence ' + error);
@@ -44,7 +48,7 @@ export class AppComponent implements OnInit {
     this.userService.isAuthenticated.subscribe((result) => {
       this.isAuthenticated = result;
       if (result){
-        if (!environment.jwt) {
+        if (!this.configService.jwt) {
           this.userService.populate();
         }
         this.globalSettingsService.populateGlobalSetting();

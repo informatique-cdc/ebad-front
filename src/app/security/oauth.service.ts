@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {OAuthErrorEvent, OAuthService} from 'angular-oauth2-oidc';
+import {AuthConfig, OAuthErrorEvent, OAuthService} from 'angular-oauth2-oidc';
 import {BehaviorSubject, combineLatest, Observable, ReplaySubject} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import {CustomValidationHandler} from './CustomValidationHandler';
+import {ConfigService} from "../core/services/config.service";
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,14 @@ export class OauthService {
     this.router.navigate(['login']);
   }
 
+  public configure(authConfig: AuthConfig){
+    this.oauthService.configure(authConfig);
+  }
+
   constructor(
     private oauthService: OAuthService,
-    private router: Router
+    private router: Router,
+    private configService: ConfigService
   ) {
     // Useful for debugging:
     this.oauthService.events.subscribe(event => {
@@ -80,7 +86,7 @@ export class OauthService {
   }
 
   public runInitialLoginSequence(): Promise<void> {
-    this.oauthService.tokenValidationHandler = new CustomValidationHandler();
+    this.oauthService.tokenValidationHandler = new CustomValidationHandler(this.configService);
     if (location.hash) {
       console.debug('Encountered hash fragment, plotting as table...');
       console.table(location.hash.substr(1).split('&').map(kvp => kvp.split('=')));

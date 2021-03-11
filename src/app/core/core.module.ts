@@ -29,6 +29,8 @@ import {FileKindsService} from './services/file-kinds.service';
 import {RoleService} from './services/role.service';
 import {SchedulingsService} from './services/schedulings.service';
 import {SidebarService} from "./services/sidebar.service";
+import {InitConfigService} from "./services/init-config.service";
+import {InitAuthConfigService} from "./services/init-oauth-config.service";
 
 @NgModule({
   imports: [
@@ -59,7 +61,9 @@ import {SidebarService} from "./services/sidebar.service";
     SelectChoicesService,
     RoleService,
     SchedulingsService,
-    SidebarService
+    SidebarService,
+    InitConfigService,
+    InitAuthConfigService
   ],
   declarations: []
 })

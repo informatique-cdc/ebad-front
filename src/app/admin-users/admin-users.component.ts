@@ -4,12 +4,12 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UsersService, User} from '../core';
 import {ModalUserComponent} from './modal-user/modal-user.component';
 import {ModalRolesComponent} from './modal-roles/modal-roles.component';
-import {environment} from '../../environments/environment';
 import {Pageable} from '../core/models/pageable.model';
 import {Constants} from '../shared/Constants';
 import {fromEvent} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
 import {ToastService} from '../core/services/toast.service';
+import {ConfigService} from "../core/services/config.service";
 
 @Component({
   selector: 'app-admin-users',
@@ -19,7 +19,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   @ViewChild('input', { static: true }) input: ElementRef;
 
   table: Table;
-  jwt = environment.jwt;
+  jwt: boolean;
   pageSize = this.constants.numberByPage;
 
   pagination = {
@@ -38,7 +38,9 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   constructor(private usersService: UsersService,
               private modalService: NgbModal,
               private toastService: ToastService,
-              private constants: Constants) {
+              private constants: Constants,
+              private configService: ConfigService) {
+    this.jwt = this.configService.jwt;
 
   }
 

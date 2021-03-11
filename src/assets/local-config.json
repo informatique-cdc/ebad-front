@@ -1,0 +1,6 @@
+{
+  "production": true,
+  "jwt": true,
+  "apiUrl": "/ebad",
+  "wsUrl": "ws://localhost:11006/ebad/ws"
+}
