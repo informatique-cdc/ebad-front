@@ -1,7 +1,7 @@
 {
   "admin": {
-    "login": "admin_ebad",
-    "password": "admin",
+    "login": "admin",
+    "password": "password",
     "firstname": "admin",
     "lastname": "admin"
   }
