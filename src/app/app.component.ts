@@ -33,8 +33,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.oauthService.configure(this.initAuthConfigService.loadConfig());
     if (!this.configService.jwt) {
+      this.oauthService.configure(this.initAuthConfigService.loadConfig());
       this.oauthService.runInitialLoginSequence().then().catch(
         (error) => {
           console.error('error when run initial login sequence ' + error);
