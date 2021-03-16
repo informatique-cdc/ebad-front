@@ -26,7 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 export function load(initConfigService: InitConfigService) {
-  return initConfigService.loadConfig();
+  return () => initConfigService.loadConfig();
 }
 
 registerLocaleData(localeFr);

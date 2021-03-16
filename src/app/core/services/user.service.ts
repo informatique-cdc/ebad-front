@@ -18,15 +18,19 @@ export class UserService {
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated;
-
+  private configService: ConfigService
   constructor(
     private apiService: ApiService,
     private http: HttpClient,
     private jwtService: JwtService,
     private oauthService: OauthService,
     private rxStompService: RxStompService,
-    private configService: ConfigService
+
   ) {
+  }
+
+  initConfiguration(configService: ConfigService){
+    this.configService = configService;
     if (this.configService.jwt) {
       this.isAuthenticated = this.isAuthenticatedSubject.asObservable();
     } else {

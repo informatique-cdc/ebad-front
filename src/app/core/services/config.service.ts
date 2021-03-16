@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {ReplaySubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,8 @@ import {Injectable} from '@angular/core';
   tokenEndpoint: string;
   sessionChecksEnabled: boolean;
 
+  public isReadySubject = new ReplaySubject<boolean>(1);
+  public isReady = this.isReadySubject.asObservable();
   constructor() { }
 
 }

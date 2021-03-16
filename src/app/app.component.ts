@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.initConfiguration(this.configService);
     if (!this.configService.jwt) {
       this.oauthService.configure(this.initAuthConfigService.loadConfig());
       this.oauthService.runInitialLoginSequence().then().catch(

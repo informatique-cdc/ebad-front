@@ -41,7 +41,6 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
               private constants: Constants,
               private configService: ConfigService) {
     this.jwt = this.configService.jwt;
-
   }
 
   ngOnInit() {
