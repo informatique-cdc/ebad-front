@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 
-import {Observable, ObservableInput, of} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 import {ConfigService} from "./config.service";
-import {catchError, map} from "rxjs/operators";
 import {environment} from "../../../environments/environment";
 
 

@@ -21,6 +21,5 @@ import {ReplaySubject} from "rxjs";
 
   public isReadySubject = new ReplaySubject<boolean>(1);
   public isReady = this.isReadySubject.asObservable();
-  constructor() { }
 
 }
