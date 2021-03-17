@@ -6,9 +6,9 @@ import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models';
 import {distinctUntilChanged, map} from 'rxjs/operators';
-import {environment} from '../../../environments/environment';
 import {OauthService} from '../../security/oauth.service';
 import {RxStompService} from '@stomp/ng2-stompjs';
+import {ConfigService} from "./config.service";
 
 
 @Injectable()
@@ -18,15 +18,20 @@ export class UserService {
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated;
-
+  private configService: ConfigService
   constructor(
     private apiService: ApiService,
     private http: HttpClient,
     private jwtService: JwtService,
     private oauthService: OauthService,
     private rxStompService: RxStompService,
+
   ) {
-    if (environment.jwt) {
+  }
+
+  initConfiguration(configService: ConfigService){
+    this.configService = configService;
+    if (this.configService.jwt) {
       this.isAuthenticated = this.isAuthenticatedSubject.asObservable();
     } else {
       this.isAuthenticated = this.oauthService.isAuthenticated$;
@@ -46,7 +51,7 @@ export class UserService {
           },
           err => this.purgeAuth()
         );
-    } else if (environment.jwt) {
+    } else if (this.configService.jwt) {
       // Remove any potential remnants of previous auth states
       this.purgeAuth();
     }
@@ -63,7 +68,7 @@ export class UserService {
     this.isAuthenticatedSubject.next(true);
 
     const config = {
-      brokerURL: environment.wsUrl,
+      brokerURL: this.configService.wsUrl,
       connectHeaders: {Authorization: this.jwtService.getToken()},
       heartbeatIncoming: 0,
       heartbeatOutgoing: 20000,
@@ -75,7 +80,7 @@ export class UserService {
 
   purgeAuth() {
     this.rxStompService.deactivate();
-    if (!environment.jwt) {
+    if (!this.configService.jwt) {
       this.oauthService.logout();
     }
     // Remove JWT from localstorage

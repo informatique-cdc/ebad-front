@@ -1,9 +1,14 @@
 import {ValidationHandler, ValidationParams} from 'angular-oauth2-oidc';
 // import * as rs from 'angular-oauth2-oidc/node_modules/jsrsasign'; Je ne sais pas pourquoi ça a pété du jour au lendemain...
 import * as rs from 'jsrsasign';
-import {environment} from '../../environments/environment';
+import {ConfigService} from "../core/services/config.service";
 
 export class CustomValidationHandler implements ValidationHandler {
+  configService: ConfigService;
+  constructor(configService: ConfigService) {
+    this.configService = configService;
+  }
+
   static calcHash(valueToHash: string, algorithm: string): string {
     const hashAlg = new rs.KJUR.crypto.MessageDigest({alg: algorithm});
     const result = hashAlg.digestString(valueToHash);
@@ -41,7 +46,7 @@ export class CustomValidationHandler implements ValidationHandler {
   }
 
   validateAtHash(params: ValidationParams): Promise<boolean> {
-    if (!params.accessToken || !params.idTokenClaims || !params.idTokenClaims[environment.atHash]) {
+    if (!params.accessToken || !params.idTokenClaims || !params.idTokenClaims[this.configService.atHash]) {
       return Promise.resolve(false);
     }
 
@@ -50,7 +55,7 @@ export class CustomValidationHandler implements ValidationHandler {
     const tokenHash = CustomValidationHandler.calcHash(params.accessToken, hashAlg);
     const leftMostHalf = tokenHash.substr(0, tokenHash.length / 2);
     const tokenHashBase64 = btoa(leftMostHalf);
-    const claimsAtHash = params.idTokenClaims[environment.atHash].replace(/=/g, '');
+    const claimsAtHash = params.idTokenClaims[this.configService.atHash].replace(/=/g, '');
     const atHash = tokenHashBase64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 
     if (atHash !== claimsAtHash) {

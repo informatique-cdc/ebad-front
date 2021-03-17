@@ -1,4 +1,4 @@
-import {LOCALE_ID, NgModule} from '@angular/core';
+import {APP_INITIALIZER, LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
@@ -19,9 +19,14 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AccreditationRequestModule} from './accreditation-requests/accreditation-request.module';
 import {AngularSvgIconModule} from 'angular-svg-icon';
 import {AngularResizedEventModule} from 'angular-resize-event';
+import {InitConfigService} from "./core/services/init-config.service";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export function load(initConfigService: InitConfigService) {
+  return () => initConfigService.loadConfig();
 }
 
 registerLocaleData(localeFr);
@@ -50,7 +55,15 @@ registerLocaleData(localeFr);
     }),
     AngularResizedEventModule
   ],
-  providers: [{provide: LOCALE_ID, useValue: 'fr-FR'}],
+  providers: [{provide: LOCALE_ID, useValue: 'fr-FR'},
+    {
+      provide: APP_INITIALIZER,
+      useFactory: load,
+      deps: [
+        InitConfigService
+      ],
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

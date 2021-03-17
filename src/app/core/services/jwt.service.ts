@@ -1,16 +1,9 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
 
 
 @Injectable()
 export class JwtService {
   private tokenName = 'access_token';
-
-  constructor() {
-    if (environment.jwt) {
-      this.tokenName = 'jwtToken';
-    }
-  }
 
   getToken(): string {
     return window.localStorage.getItem(this.tokenName);

@@ -3,16 +3,17 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 
 import {UserService} from './user.service';
 import {take, tap} from 'rxjs/operators';
-import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs';
 import {OauthService} from '../../security/oauth.service';
+import {ConfigService} from "./config.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private userService: UserService,
-    private oauthService: OauthService
+    private oauthService: OauthService,
+    private configService: ConfigService
   ) {
   }
 
@@ -20,16 +21,16 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | Observable<boolean>{
-    if (environment.jwt) {
+    if (this.configService.jwt) {
       console.debug('can activate ' + state.url);
       let canActivate = false;
       this.userService.isAuthenticated.pipe(take(1)).subscribe(
         (isAuthenticated: boolean) => {
           if (isAuthenticated) {
-            console.log('allow');
+            console.debug('allow');
             canActivate = true;
           } else {
-            console.log('denied');
+            console.debug('denied');
             canActivate = false;
             this.router.navigate(['login', {referer: state.url}]);
           }
