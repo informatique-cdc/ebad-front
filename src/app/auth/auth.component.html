@@ -39,6 +39,7 @@
               <div class="form-footer">
                 <button type="submit" class="btn btn-primary btn-block"
                         [disabled]="!authForm.valid && jwt">{{'LOGIN.TITLE' | translate}}</button>
+                <a href="http://localhost:4200/ebad/oauth2/authorization/keycloak?redirect_uri=http://localhost:8081/login">Keycloak</a>
               </div>
             </div>
           </form>

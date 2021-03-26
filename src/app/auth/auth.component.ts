@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {ApiService, UserService} from '../core';
+import {ApiService, JwtService, UserService} from '../core';
 import {OauthService} from '../security/oauth.service';
 import {ConfigService} from "../core/services/config.service";
 
@@ -24,6 +24,7 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private fb: FormBuilder,
+    private jwtService: JwtService,
     private apiService: ApiService,
     private oauthService: OauthService,
     private configService: ConfigService
@@ -37,6 +38,13 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
+    const token: string = this.route.snapshot.queryParamMap.get('token');
+    const error: string = this.route.snapshot.queryParamMap.get('error');
+
+    console.log(token);
+    console.log(error);
+
+
     this.route.params.subscribe(params => {
       if (params.referer){
         this.referer = params.referer;
@@ -45,6 +53,11 @@ export class AuthComponent implements OnInit {
     this.apiService.get('/csrf').subscribe(() => {
       console.debug('csrf');
     });
+
+    if(token){
+      this.jwtService.saveToken(token);
+      this.userService.populate();
+    }
 
   }
 

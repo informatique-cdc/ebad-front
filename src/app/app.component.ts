@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalSettingsService, UserService} from './core';
 import {TranslateService} from '@ngx-translate/core';
 import {OauthService} from './security/oauth.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SidebarService} from './core/services/sidebar.service';
 import {ConfigService} from "./core/services/config.service";
 import {InitAuthConfigService} from "./core/services/init-oauth-config.service";
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
+    private route: ActivatedRoute,
     private translate: TranslateService,
     private oauthService: OauthService,
     private globalSettingsService: GlobalSettingsService,
@@ -33,6 +34,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    const token: string = this.route.snapshot.queryParamMap.get('token');
+    const error: string = this.route.snapshot.queryParamMap.get('error');
+    console.log("app component");
+    console.log(token);
+    console.log(error);
     this.userService.initConfiguration(this.configService);
     if (!this.configService.jwt) {
       this.oauthService.configure(this.initAuthConfigService.loadConfig());
