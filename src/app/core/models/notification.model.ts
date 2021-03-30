@@ -4,4 +4,5 @@ export interface Notification {
   content: string;
   createdDate: Date;
   read: boolean;
+  danger: boolean;
 }

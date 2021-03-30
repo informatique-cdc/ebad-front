@@ -61,7 +61,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
             return;
         }
         this.notificationsWsReceived.add(result.id);
-        this.toastService.showSuccess(result.content);
+        if(result.danger){
+          this.toastService.showError(result.content);
+        }else {
+          this.toastService.showSuccess(result.content);
+        }
         this.notifications.push(result);
     }
 
