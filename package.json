@@ -46,7 +46,7 @@
     "express": "^4.17.1",
     "file-saver": "^2.0.5",
     "jquery": "^3.6.0",
-    "jsrsasign": "^9.1.9",
+    "jsrsasign": "^10.2.0",
     "jsrsasign-util": "^1.0.4",
     "live-server": "^1.2.1",
     "marked": "^2.0.1",
