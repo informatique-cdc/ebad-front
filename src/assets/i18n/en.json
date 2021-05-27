@@ -87,7 +87,12 @@
     "NEW_REQUEST": "New request",
     "SYNTHESIS": "Synthesis",
     "LOAD_SEARCH": "search in progress...",
-    "SEARCH_TROUBLE": "Sorry, an error occured when search suggestions"
+    "SEARCH_TROUBLE": "Sorry, an error occured when search suggestions",
+    "MESSAGE": {
+      "NO_RIGHT_SELECTED": "Votre demande d'accréditation ne contient aucune demande de droits",
+      "CREATION_OK": "Votre demande d'accréditation a bien été envoyée",
+      "CREATION_KO": "Votre demande d'accréditation n'a pas pu être envoyée : {{error}}"
+    }
   },
   "TRACE": {
     "TITLE": "Traces",

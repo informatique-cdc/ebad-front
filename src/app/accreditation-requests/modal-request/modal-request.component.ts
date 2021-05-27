@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Application, CreationAccreditationRequest} from '../../core/models';
-import {AccreditationRequestsService, ApplicationsService} from "../../core/services";
-import {ToastService} from "../../core/services/toast.service";
-import {Observable, of} from "rxjs";
-import {catchError, debounceTime, distinctUntilChanged, map, switchMap, tap} from "rxjs/operators";
-import {Pageable} from "../../core/models/pageable.model";
+import {Application, CreationAccreditationRequest} from '../../core';
+import {AccreditationRequestsService, ApplicationsService} from '../../core';
+import {ToastService} from '../../core/services/toast.service';
+import {Observable, of} from 'rxjs';
+import {catchError, debounceTime, distinctUntilChanged, map, switchMap, tap} from 'rxjs/operators';
+import {Pageable} from '../../core/models/pageable.model';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'ebad-modal-request',
@@ -20,7 +21,8 @@ export class ModalRequestComponent implements OnInit {
   constructor(private accreditationRequestsService: AccreditationRequestsService,
               private toastService: ToastService,
               public activeModal: NgbActiveModal,
-              private applicationsService: ApplicationsService) {
+              private applicationsService: ApplicationsService,
+              private translateService: TranslateService) {
   }
 
   formatter = (result: Application) => result.name;
@@ -32,7 +34,7 @@ export class ModalRequestComponent implements OnInit {
       distinctUntilChanged(),
       tap(() => this.searching = true),
       switchMap(term =>
-        this.applicationsService.search(new Pageable(0,10, 'name,asc'), term)
+        this.applicationsService.search(new Pageable(0, 10, 'name,asc'), term)
           .pipe(
             map(value => value.content),
             tap(() => this.searchFailed = false),
@@ -49,13 +51,17 @@ export class ModalRequestComponent implements OnInit {
 
   sendRequest(){
     this.request.applicationId = this.model.id;
+    if (!this.request.wantUse && ! this.request.wantManage){
+      this.translateService.get('ACCREDITATION.MESSAGE.NO_RIGHT_SELECTED').subscribe((msg) => this.toastService.showError(msg));
+      return;
+    }
     this.accreditationRequestsService.sendAccreditation(this.request).subscribe(
       () => {
-        this.toastService.showSuccess(`Votre demande d'accréditation a bien été envoyée`);
+        this.translateService.get('ACCREDITATION.MESSAGE.CREATION_OK').subscribe((msg) => this.toastService.showSuccess(msg));
         this.activeModal.close();
       },
       (error) => {
-        this.toastService.showError( `Votre demande d'accréditation n'a pas pu être envoyée : ${error}`)
+        this.translateService.get('ACCREDITATION.MESSAGE.CREATION_KO', {error}).subscribe((msg) => this.toastService.showError(msg));
       }
     );
   }
