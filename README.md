@@ -3,6 +3,9 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.2.
 Angular version : 11.2.3
 
+![home_ebad](./docs_images/ebad_home.png)
+
+
 ## User documentation
 [User Guide - English Version](https://github.com/informatique-cdc/ebad-front/wiki/User-Guide---English)
 
