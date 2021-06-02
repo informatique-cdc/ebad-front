@@ -1,10 +1,12 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Batch, Environment, InfoEnvironment, BatchsService, EnvironmentsService} from '../core';
+import {RxStompService} from '@stomp/ng2-stompjs';
+
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
 import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
 import {TranslateService} from '@ngx-translate/core';
 import LanguageSettings = DataTables.LanguageSettings;
@@ -17,6 +19,7 @@ import LanguageSettings = DataTables.LanguageSettings;
 export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;
   batchs: Batch[];
+  subSse: Subscription;
 
   @ViewChild(DataTableDirective, {static: true})
   dtElement: DataTableDirective;
@@ -34,7 +37,8 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     private constants: Constants,
     private toastService: ToastService,
     private modalService: NgbModal,
-    private translateService: TranslateService) {
+    private translateService: TranslateService,
+    private rxStompService: RxStompService) {
     this.columns.push({data: 'id', name: 'id', visible: true});
     this.columns.push({data: 'name', name: 'nom', visible: true});
     this.columns.push({data: 'path', name: 'shell', visible: true});
@@ -43,13 +47,12 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnInit() {
-
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       stateSave: true,
-            stateSaveParams: function (settings, data: any) {
-              data.search.search = "";
-            },
+      stateSaveParams(settings, data: any) {
+        data.search.search = '';
+      },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
@@ -88,6 +91,9 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+    if (this.subSse) {
+      this.subSse.unsubscribe();
+    }
   }
 
   refreshBatchs() {
@@ -106,6 +112,14 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     );
     this.refreshBatchs();
+    if (this.subSse) {
+      this.subSse.unsubscribe();
+    }
+    this.subSse = this.rxStompService.watch('/topic/env/'+env.id).subscribe({
+      next: (data) => console.log(data),
+      error: (data) => console.log(data)
+    });
+
   }
 
   runBatchWithCustomParam(batch: Batch) {
@@ -141,8 +155,8 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     );
   }
 
-  onResizeTable(event){
-    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+  onResizeTable(event) {
+    if (event.oldWidth == undefined || event.newWidth === event.oldWidth) {
       return;
     }
     this.refreshBatchs();

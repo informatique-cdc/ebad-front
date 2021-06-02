@@ -20,6 +20,7 @@ import {AccreditationRequestModule} from './accreditation-requests/accreditation
 import {AngularSvgIconModule} from 'angular-svg-icon';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {InitConfigService} from "./core/services/init-config.service";
+import {RxStompService} from "@stomp/ng2-stompjs";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -63,7 +64,8 @@ registerLocaleData(localeFr);
         InitConfigService
       ],
       multi: true
-    }],
+    },
+  RxStompService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

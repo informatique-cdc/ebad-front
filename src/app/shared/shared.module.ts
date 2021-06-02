@@ -27,7 +27,6 @@ import {DataTablesModule} from 'angular-datatables';
 import {YesNoPipe} from './yesno.pipe';
 import {ToastComponent} from './toast/toast.component';
 import {HasAnyRoleDirective} from './has-any-role/has-any-role.directive';
-import {RxStompService} from '@stomp/ng2-stompjs';
 import {ShowHideColumnComponent} from './show-hide-column/show-hide-column.component';
 
 @NgModule({
@@ -95,8 +94,7 @@ import {ShowHideColumnComponent} from './show-hide-column/show-hide-column.compo
   providers: [
     DatePipe,
     {provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter},
-    Constants,
-    RxStompService,
+    Constants
   ]
 })
 export class SharedModule {
