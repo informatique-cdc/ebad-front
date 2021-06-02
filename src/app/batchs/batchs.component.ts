@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Batch, Environment, InfoEnvironment, BatchsService, EnvironmentsService} from '../core';
-import {RxStompService} from '@stomp/ng2-stompjs';
+import {Batch, Environment, InfoEnvironment, BatchsService, EnvironmentsService, JwtService} from '../core';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
@@ -10,6 +9,9 @@ import {Subject, Subscription} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
 import {TranslateService} from '@ngx-translate/core';
 import LanguageSettings = DataTables.LanguageSettings;
+import {EventSourcePolyfill} from 'event-source-polyfill';
+import {NgZone} from '@angular/core';
+import {SseService} from "../core/services/sse.service";
 
 @Component({
   selector: 'app-batchs-page',
@@ -19,7 +21,6 @@ import LanguageSettings = DataTables.LanguageSettings;
 export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentSelected: Environment;
   batchs: Batch[];
-  subSse: Subscription;
 
   @ViewChild(DataTableDirective, {static: true})
   dtElement: DataTableDirective;
@@ -30,6 +31,9 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   columns = [];
 
   public progress: any = {};
+  private eventSource: EventSourcePolyfill;
+  private test = 0;
+  private zone = new NgZone({enableLongStackTrace: false});
 
   constructor(
     private batchsService: BatchsService,
@@ -38,7 +42,8 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     private toastService: ToastService,
     private modalService: NgbModal,
     private translateService: TranslateService,
-    private rxStompService: RxStompService) {
+    private sseService: SseService
+    ) {
     this.columns.push({data: 'id', name: 'id', visible: true});
     this.columns.push({data: 'name', name: 'nom', visible: true});
     this.columns.push({data: 'path', name: 'shell', visible: true});
@@ -91,8 +96,8 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
-    if (this.subSse) {
-      this.subSse.unsubscribe();
+    if (this.eventSource) {
+      this.eventSource.close();
     }
   }
 
@@ -112,15 +117,23 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     );
     this.refreshBatchs();
-    if (this.subSse) {
-      this.subSse.unsubscribe();
+
+    if (this.eventSource) {
+      this.eventSource.close();
     }
-    this.subSse = this.rxStompService.watch('/topic/env/'+env.id).subscribe({
-      next: (data) => console.log(data),
-      error: (data) => console.log(data)
-    });
+
+    this.eventSource = this.sseService.getIndicatorsStream('/batchs/state/' + env.id);
+    this.test++;
+    this.eventSource.onmessage = (event) => {
+        this.zone.run(() => {
+          console.log(this.test+'test ' + event.data);
+        });
+      };
+    this.eventSource.onerror = (error) => console.error(error);
 
   }
+
+
 
   runBatchWithCustomParam(batch: Batch) {
     const modalRef = this.modalService.open(ModalRunWithParametersComponent);
@@ -156,7 +169,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onResizeTable(event) {
-    if (event.oldWidth == undefined || event.newWidth === event.oldWidth) {
+    if (event.oldWidth === undefined || event.newWidth === event.oldWidth) {
       return;
     }
     this.refreshBatchs();

@@ -31,6 +31,7 @@ import {SchedulingsService} from './services/schedulings.service';
 import {SidebarService} from './services/sidebar.service';
 import {InitConfigService} from './services/init-config.service';
 import {InitAuthConfigService} from './services/init-oauth-config.service';
+import {SseService} from './services/sse.service';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import {InitAuthConfigService} from './services/init-oauth-config.service';
     SidebarService,
     InitConfigService,
     InitAuthConfigService,
+    SseService
   ],
   declarations: []
 })
