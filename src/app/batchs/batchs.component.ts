@@ -5,13 +5,13 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
 import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
-import {Subject, Subscription} from 'rxjs';
+import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
 import {TranslateService} from '@ngx-translate/core';
 import LanguageSettings = DataTables.LanguageSettings;
 import {EventSourcePolyfill} from 'event-source-polyfill';
 import {NgZone} from '@angular/core';
-import {SseService} from "../core/services/sse.service";
+import {SseService} from '../core/services/sse.service';
 
 @Component({
   selector: 'app-batchs-page',
@@ -32,7 +32,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
 
   public progress: any = {};
   private eventSource: EventSourcePolyfill;
-  private test = 0;
+  currentJob = [];
   private zone = new NgZone({enableLongStackTrace: false});
 
   constructor(
@@ -111,6 +111,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   environmentChanged(env: Environment) {
     this.environmentSelected = env;
     this.environmentSelectedInfo = null;
+    this.currentJob = [];
     this.environmentsService.getInfo(this.environmentSelected.id).subscribe(
       environment => {
         this.environmentSelectedInfo = environment;
@@ -123,10 +124,11 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     this.eventSource = this.sseService.getIndicatorsStream('/batchs/state/' + env.id);
-    this.test++;
     this.eventSource.onmessage = (event) => {
         this.zone.run(() => {
-          console.log(this.test+'test ' + event.data);
+          console.log(event.data);
+          this.currentJob = JSON.parse(event.data).batchs;
+          console.log(this.currentJob);
         });
       };
     this.eventSource.onerror = (error) => console.error(error);
