@@ -33,7 +33,7 @@ export class ModalBatchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.environnementService.getEnvironmentFromApp(this.application.id, new Pageable(0, -1, 'name,asc'))
+    this.environnementService.getEnvironmentFromApp(this.application.id, new Pageable(0, 200, 'name,asc'))
       .subscribe((page) => this.dropdownList = page.content);
     this.dropdownSettings = {
       singleSelection: false,
