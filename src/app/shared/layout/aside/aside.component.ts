@@ -14,6 +14,7 @@ export class AsideComponent implements OnInit, OnDestroy{
   navbarManageOpen = false;
   navbarAdministrateOpen = false;
   sub: Subscription;
+  sub2: Subscription;
   accreditationBadge = 0;
   constructor(private userService: UserService,
               private router: Router,
@@ -33,9 +34,10 @@ export class AsideComponent implements OnInit, OnDestroy{
     this.sub = this.rxStompService.watch('/user/queue/accreditations').subscribe({
       next: this.addAccreditation
     });
-    this.sub = this.rxStompService.watch('/user/queue/accreditationsResponses').subscribe({
+    this.sub2 = this.rxStompService.watch('/user/queue/accreditationsResponses').subscribe({
       next: this.removeAccreditation
     });
+
   }
 
   addAccreditation = () => {
@@ -78,6 +80,9 @@ export class AsideComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     if (this.sub) {
       this.sub.unsubscribe();
+    }
+    if (this.sub2) {
+      this.sub2.unsubscribe();
     }
   }
 }

@@ -110,12 +110,13 @@
     "ID": "ID",
     "BATCH": "Batch",
     "SHELL": "Shell",
-    "DEFAULT_PARAMETERS": "Paramètres par défaut",
-    "RUN": "Lancer",
-    "RUN_WITH_PARAMETERS": "Lancer avec paramètres",
-    "CANCEL": "Annuler",
-    "PARAMETERS": "Paramètre",
-    "RUN_BATCH": "Lancement du batch {{name}}"
+    "DEFAULT_PARAMETERS": "Default parameters",
+    "RUN": "Run",
+    "RUN_WITH_PARAMETERS": "Run with parameters",
+    "CANCEL": "Cancel",
+    "PARAMETERS": "Parameters",
+    "RUN_BATCH": "Run batch {{name}}",
+    "IS_RUNNING": "in progress"
   },
   "CHAIN": {
     "TITLE": "Chains",
