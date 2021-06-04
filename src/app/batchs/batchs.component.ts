@@ -126,9 +126,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.eventSource = this.sseService.getIndicatorsStream('/batchs/state/' + env.id);
     this.eventSource.onmessage = (event) => {
         this.zone.run(() => {
-          console.log(event.data);
           this.currentJob = JSON.parse(event.data).batchs;
-          console.log(this.currentJob);
         });
       };
     this.eventSource.onerror = (error) => console.error(error);

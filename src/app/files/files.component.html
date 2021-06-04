@@ -8,8 +8,8 @@
       <div class="card-body p-0">
         <div class="m-4">
           <ngx-file-drop showBrowseBtn="true"
-                     browseBtnLabel="{{'FILE.BROWSE' | translate}}"
-                     (onFileDrop)="dropped($event)">
+                         browseBtnLabel="{{'FILE.BROWSE' | translate}}"
+                         (onFileDrop)="dropped($event)">
             <span class="mr-2">{{'FILE.DRAG_AND_DROP' | translate}}</span>
           </ngx-file-drop>
         </div>
@@ -56,8 +56,10 @@
             <td class="align-middle">
             </td>
             <td class="text-center">
-              <a (click)="deleteLocalFile(file)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DELETE' | translate}}</a>
-              <a (click)="renameLocalFile(file)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.RENAME' | translate}}</a>
+              <a (click)="deleteLocalFile(file)" href="javascript:void(0)"
+                 class="btn btn-secondary btn-sm">{{'FILE.DELETE' | translate}}</a>
+              <a (click)="renameLocalFile(file)" href="javascript:void(0)"
+                 class="btn btn-secondary btn-sm">{{'FILE.RENAME' | translate}}</a>
             </td>
           </tr>
           </tbody>
@@ -68,10 +70,11 @@
       <i class="glyphicon glyphicon-open-file"></i>&nbsp;{{'FILE.SEND_TO_REMOTE' | translate}}
     </button>
   </div>
-  <div class="col" *ngIf="directorySelected">
+  <div [ngClass]="{'col-12': directorySelected?.canWrite, 'col-6': directorySelected?.canWrite}">
     <div class="card">
       <div class="table-responsive">
-        <table aria-describedby="tableTitle" class="table card-table table-vcenter text-nowrap datatable">
+        <table id="listRemoteFiles"  aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable
+               class="table card-table table-vcenter text-nowrap datatable">
           <thead>
           <tr>
             <th id="remoteFileName">
@@ -86,19 +89,31 @@
             <th id="remoteFileActions">
             </th>
           </tr>
-          </thead>
-          <tbody>
-          <tr *ngIf="remoteFiles?.length == 0">
-            <td colspan="100%">{{'FILE.NO_REMOTE_FILE' | translate}}</td>
-          </tr>
+<!--          <tr *ngIf="remoteFiles?.length == 0">-->
+<!--            <td colspan="100%">{{'FILE.NO_REMOTE_FILE' | translate}}</td>-->
+<!--          </tr>-->
           <tr>
             <td colspan="3" class="align-middle">
-              {{'FILE.YOU_ARE_HERE' | translate}} {{directorySelected.path}}/{{subDir.join('/')}}
+              {{'FILE.YOU_ARE_HERE' | translate}} {{directorySelected?.path}}/{{subDir?.join('/')}}
             </td>
             <td class="text-center">
-              <a *ngIf="subDir.length > 0" (click)="exploreParentDirectory()" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.EXPLORE_UP' | translate}}</a>
+              <a *ngIf="subDir?.length > 0" (click)="exploreParentDirectory()" href="javascript:void(0)"
+                 class="btn btn-secondary btn-sm">{{'FILE.EXPLORE_UP' | translate}}</a>
             </td>
           </tr>
+          </thead>
+          <tbody>
+          <!--          <tr *ngIf="remoteFiles?.length == 0">-->
+          <!--            <td colspan="100%">{{'FILE.NO_REMOTE_FILE' | translate}}</td>-->
+          <!--          </tr>-->
+          <!--          <tr>-->
+          <!--            <td colspan="3" class="align-middle">-->
+          <!--              {{'FILE.YOU_ARE_HERE' | translate}} {{directorySelected.path}}/{{subDir.join('/')}}-->
+          <!--            </td>-->
+          <!--            <td class="text-center">-->
+          <!--              <a *ngIf="subDir.length > 0" (click)="exploreParentDirectory()" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.EXPLORE_UP' | translate}}</a>-->
+          <!--            </td>-->
+          <!--          </tr>-->
           <tr *ngFor="let remotefile of remoteFiles">
             <td class="align-middle">
               {{remotefile.name}}
@@ -110,9 +125,14 @@
               {{remotefile.createDate | date : 'dd/MM/yyyy HH:mm:ss'}}
             </td>
             <td class="text-center">
-              <a *ngIf="!remotefile.folder" (click)="downloadRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DOWNLOAD' | translate}}</a>
-              <a *ngIf="!remotefile.folder && directorySelected.canWrite" (click)="deleteRemoteFile(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DELETE' | translate}}</a>
-              <a *ngIf="remotefile.folder" (click)="exploreChildDirectory(remotefile)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.EXPLORE' | translate}}</a>
+              <a (click)="downloadRemoteFile(remotefile)"
+                 class="btn btn-secondary btn-sm">{{'FILE.DOWNLOAD' | translate}}</a>
+              <a *ngIf="!remotefile.folder" (click)="downloadRemoteFile(remotefile)" href="javascript:void(0)"
+                 class="btn btn-secondary btn-sm">{{'FILE.DOWNLOAD' | translate}}</a>
+              <a *ngIf="!remotefile.folder && directorySelected.canWrite" (click)="deleteRemoteFile(remotefile)"
+                 href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.DELETE' | translate}}</a>
+              <a *ngIf="remotefile.folder" (click)="exploreChildDirectory(remotefile)" href="javascript:void(0)"
+                 class="btn btn-secondary btn-sm">{{'FILE.EXPLORE' | translate}}</a>
             </td>
           </tr>
           </tbody>

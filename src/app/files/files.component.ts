@@ -1,18 +1,37 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FileSystemDirectoryEntry, FileSystemFileEntry} from 'ngx-file-drop';
 import {EventSelectChangeModel, Option, Select} from '../shared';
-import {ApplicationsService, EnvironmentsService, FilesService, Application, Directory, Environment, File} from '../core';
+import {
+  ApplicationsService,
+  EnvironmentsService,
+  FilesService,
+  Application,
+  Directory,
+  Environment,
+  File
+} from '../core';
 import * as FileSaver from 'file-saver';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
 import {Pageable} from '../core/models/pageable.model';
 import {ToastService} from '../core/services/toast.service';
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import LanguageSettings = DataTables.LanguageSettings;
+import {Constants} from '../shared/Constants';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-files',
   templateUrl: './files.component.html'
 })
-export class FilesComponent implements OnInit {
+export class FilesComponent implements AfterViewInit, OnDestroy, OnInit {
+  @ViewChild(DataTableDirective, {static: true})
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+  dtOptions: DataTables.Settings = {};
+  columns = [];
+
   private idSelectApplication = 'selectApplication';
   private idSelectEnvironnement = 'selectEnvironnement';
   private idSelectDirectory = 'selectDirectory';
@@ -33,7 +52,13 @@ export class FilesComponent implements OnInit {
               private filesService: FilesService,
               private toastService: ToastService,
               private environmentsService: EnvironmentsService,
+              private translateService: TranslateService,
+              private constants: Constants,
               private modalService: NgbModal) {
+    this.columns.push({data: 'name', name: 'nom', visible: true});
+    this.columns.push({data: 'size', name: 'size', visible: true});
+    this.columns.push({data: 'createDate', name: 'createDate', visible: true, orderable: true});
+    this.columns.push({data: '', name: 'actions', visible: true, orderable: false});
   }
 
   ngOnInit() {
@@ -43,19 +68,57 @@ export class FilesComponent implements OnInit {
         this.constructSelect();
       }
     );
+
+    this.dtOptions = {
+      language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
+      stateSave: false,
+      order: [[0, 'asc']],
+      pagingType: 'full_numbers',
+      pageLength: this.constants.numberByPage,
+      serverSide: false,
+      processing: true,
+      data: this.remoteFiles,
+      columns: this.columns,
+      ajax: (dataTablesParameters: any, callback) => {
+        let subDirectoryParam = '';
+        this.subDir.forEach(dir => {
+          subDirectoryParam += '/' + dir;
+        });
+        this.remoteFiles = [];
+
+        if (!this.directorySelected) {
+          this.remoteFiles = [];
+          return;
+        }
+        this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam)
+          .subscribe((files) => {
+              this.remoteFiles = files;
+              callback({
+                recordsTotal: files.length,
+                recordsFiltered: files.length,
+                data: []
+              });
+            }, error =>
+              this.toastService.showError(error || 'Une erreur est survenue')
+          );
+      },
+    };
+    this.dtTrigger.next();
   }
 
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
 
   refreshRemoteFiles() {
-    let subDirectoryParam = '';
-    this.subDir.forEach(dir => {
-      subDirectoryParam += '/' + dir;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
     });
-    this.remoteFiles = [];
-    this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam)
-      .subscribe((files) => this.remoteFiles = files, error =>
-        this.toastService.showError(error || 'Une erreur est survenue')
-    );
   }
 
   constructSelect() {
@@ -125,9 +188,9 @@ export class FilesComponent implements OnInit {
     if (event.idSelect === this.idSelectDirectory) {
       this.directorySelected = event.value;
       this.refreshRemoteFiles();
-      if (this.directorySelected.canWrite) {
-        // this.showLocalFile();
-      }
+      // if (this.directorySelected.canWrite) {
+      // this.showLocalFile();
+      // }
     }
   }
 
@@ -183,6 +246,7 @@ export class FilesComponent implements OnInit {
       () => {
         this.remoteFiles.splice(this.remoteFiles.indexOf(file), 1);
         this.toastService.showSuccess('Le fichier ' + file.name + ' a été supprimé du serveur distant');
+        this.dtTrigger.next();
       }, error => {
         this.toastService.showError('Une erreur s\'est produite lors de la suppresion du fichier ' + file.name);
       }
@@ -190,6 +254,7 @@ export class FilesComponent implements OnInit {
   }
 
   downloadRemoteFile(file: File) {
+    console.log("downloadRemoteFile");
     this.filesService.downloadFile(file).subscribe(
       arrayBuffer => {
         const blob = new Blob([arrayBuffer], {type: 'application/octet-stream'});
@@ -234,5 +299,6 @@ export class FilesComponent implements OnInit {
       subDirectoryParam += '/' + dir;
     });
     this.filesService.getAllFilesFromDirectory(this.directorySelected.id, subDirectoryParam).subscribe((files) => this.remoteFiles = files);
+    this.refreshRemoteFiles();
   }
 }
