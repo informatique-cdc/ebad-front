@@ -87,7 +87,12 @@
     "NEW_REQUEST": "Nouvelle demande",
     "SYNTHESIS": "Synthèse",
     "LOAD_SEARCH": "recherche en cours...",
-    "SEARCH_TROUBLE": "Désolé, les suggestions ne peuvent être chargées"
+    "SEARCH_TROUBLE": "Désolé, les suggestions ne peuvent être chargées",
+    "MESSAGE": {
+      "NO_RIGHT_SELECTED": "Votre demande d'accréditation ne contient aucune demande de droits",
+      "CREATION_OK": "Votre demande d'accréditation a bien été envoyée",
+      "CREATION_KO": "Votre demande d'accréditation n'a pas pu être envoyée : {{error}}"
+    }
   },
   "TRACE": {
     "TITLE": "Traces",
@@ -109,8 +114,9 @@
     "RUN": "Lancer",
     "RUN_WITH_PARAMETERS": "Lancer avec paramètres",
     "CANCEL": "Annuler",
-    "PARAMETERS": "Paramètre",
-    "RUN_BATCH": "Lancement du batch {{name}}"
+    "PARAMETERS": "Paramètres",
+    "RUN_BATCH": "Lancement du batch {{name}}",
+    "IS_RUNNING": "en cours"
   },
   "CHAIN": {
     "TITLE": "Chaines",

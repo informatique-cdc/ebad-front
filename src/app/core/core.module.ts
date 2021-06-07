@@ -22,15 +22,16 @@ import {
   StatisticsService,
   TagsService,
   UserService,
-  UsersService,
+  UsersService
 } from './services';
 import {TracesService} from './services/traces.service';
 import {FileKindsService} from './services/file-kinds.service';
 import {RoleService} from './services/role.service';
 import {SchedulingsService} from './services/schedulings.service';
-import {SidebarService} from "./services/sidebar.service";
-import {InitConfigService} from "./services/init-config.service";
-import {InitAuthConfigService} from "./services/init-oauth-config.service";
+import {SidebarService} from './services/sidebar.service';
+import {InitConfigService} from './services/init-config.service';
+import {InitAuthConfigService} from './services/init-oauth-config.service';
+import {SseService} from './services/sse.service';
 
 @NgModule({
   imports: [
@@ -63,7 +64,8 @@ import {InitAuthConfigService} from "./services/init-oauth-config.service";
     SchedulingsService,
     SidebarService,
     InitConfigService,
-    InitAuthConfigService
+    InitAuthConfigService,
+    SseService
   ],
   declarations: []
 })

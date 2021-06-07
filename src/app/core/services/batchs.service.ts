@@ -10,7 +10,7 @@ import {Job} from '../models/job.model';
 @Injectable()
 export class BatchsService {
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
   ) {
   }
 

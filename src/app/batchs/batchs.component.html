@@ -32,6 +32,7 @@
           {{batch.id}}
         </td>
         <td class="align-middle" *ngIf="columns[1].visible">
+          <span *ngIf="currentJob.indexOf(batch.id) != -1" class="badge bg-yellow"><ebad-icon name="refresh-cw"></ebad-icon> {{'BATCH.IS_RUNNING' | translate}}</span>
           {{batch.name}}
         </td>
         <td class="align-middle" *ngIf="columns[2].visible">
