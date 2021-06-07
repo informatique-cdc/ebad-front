@@ -52,7 +52,7 @@
     "live-server": "^1.2.1",
     "marked": "^2.0.1",
     "ng-apexcharts": "^1.5.8",
-    "ng-multiselect-dropdown": "^0.2.14",
+    "ng-multiselect-dropdown": "^0.3.4",
     "ngx-countup": "^7.3.3",
     "ngx-file-drop": "^11.0.2",
     "ngx-pagination": "^5.1.0",
