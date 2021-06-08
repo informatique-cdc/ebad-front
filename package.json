@@ -51,7 +51,7 @@
     "jsrsasign-util": "^1.0.4",
     "live-server": "^1.2.1",
     "marked": "^2.0.1",
-    "ng-apexcharts": "^1.5.8",
+    "ng-apexcharts": "^1.5.12",
     "ng-multiselect-dropdown": "^0.3.4",
     "ngx-countup": "^7.3.3",
     "ngx-file-drop": "^11.0.2",
