@@ -155,11 +155,9 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     if (param) {
       apiParams.param = param;
     }
-
-    if (defaultParams) {
+    if (defaultParams && batch.defaultParam) {
       apiParams.param = batch.defaultParam;
     }
-
     this.batchsService.run(batch.id, apiParams).subscribe(
       id => {
         this.toastService.showSuccess('Le batch ' + batch.name + ' vient d\'être lancé');
