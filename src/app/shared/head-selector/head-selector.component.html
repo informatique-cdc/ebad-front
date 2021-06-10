@@ -8,11 +8,11 @@
         {{title}}
       </h2>
     </div>
-    <div class="col-auto ml-auto d-print-none">
+    <div class="col-auto ms-auto d-print-none">
       <div class="d-flex">
         <form class="form-inline">
           <select [name]="select.id" *ngFor="let select of selects; let indexSelect = index"
-                  (change)="onSelect($event, indexSelect)" id="{{select.id}}" class="form-select  mr-3">
+                  (change)="onSelect($event, indexSelect)" id="{{select.id}}" class="form-select  me-3">
             <option *ngFor="let option of select.options; let indexOption = index"
                     [value]="indexOption" [selected]="option.selected">{{option.label}}</option>
           </select>

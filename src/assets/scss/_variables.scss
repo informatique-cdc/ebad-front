@@ -284,8 +284,8 @@ $steps-border-width: 2px !default;
 $steps-color-inactive: #f3f5f5 !default;
 
 //spinner
-$spinner-width: 1.5rem !default;
-$spinner-height: 1.5rem !default;
+$spinner-width: 1.5em !default;
+$spinner-height: 1.5em !default;
 $spinner-border-width: 2px !default;
 $spinner-border-width-sm: 2px !default;
 
@@ -301,10 +301,10 @@ $yiq-contrasted-threshold: 200 !default;
 
 //progress
 $progress-bg: $gray-200 !default;
-$progress-height: .75rem !default;
+$progress-height: .75em !default;
 
 //ribbons
-$ribbon-margin: .25rem !default;
+$ribbon-margin: .25em !default;
 
 
 $list-group-border-color: $border-color !default;
@@ -323,15 +323,15 @@ $input-border-radius: $border-radius !default;
 
 
 //Forms
-$form-check-input-width: 1rem !default;
-$form-check-padding-left: $form-check-input-width + .5rem !default;
+$form-check-input-width: 1em !default;
+$form-check-padding-left: $form-check-input-width + .5em !default;
 $form-check-input-bg: $white !default;
 $form-check-input-border: 1px solid $border-color !default;
 $form-check-input-border-radius: $border-radius !default;
-$form-check-input-checked-bg-size: .75rem !default;
+$form-check-input-checked-bg-size: .75em !default;
 
-$form-switch-width: 1.75rem !default;
-$form-switch-padding-left: $form-switch-width + .5rem !default;
+$form-switch-width: 1.75em !default;
+$form-switch-padding-left: $form-switch-width + .5em !default;
 
 $form-range-track-height: .25rem !default;
 
@@ -343,14 +343,20 @@ $caret-width: .32em !default;
 //Flags
 $generate-flags: true !default;
 $flag-sizes: (
-  "md": 2rem,
-  "lg": 3rem,
-  "xl": 4rem
+  "md": 2em,
+  "lg": 3em,
+  "xl": 4em
 ) !default;
 
 //Payments
 $payment-sizes: (
-  "md": 2rem,
-  "lg": 3rem,
-  "xl": 4rem
+  "md": 2em,
+  "lg": 3em,
+  "xl": 4em
 ) !default;
+
+$form-check-input-checked-bg-repeat: repeat !default;
+$form-check-input-checked-bg-position: center center !default;
+
+$link-decoration: none;
+$link-hover-decoration: none;

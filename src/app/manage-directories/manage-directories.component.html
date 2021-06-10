@@ -1,7 +1,7 @@
 <app-env-app-head-selector preTitle="Gestion des répertoires" [title]="environmentSelected?.name" (environmentChanged)="environmentChanged($event)" [showEnvironment]="true" [isModarable]="true">
 <span header>
   <a id="addFolder" href="javascript:void(0)" *ngIf="environmentSelected" style="cursor: pointer"
-     class="btn btn-primary mr-3" (click)="onClickAddDirectory()">
+     class="btn btn-primary me-3" (click)="onClickAddDirectory()">
     <ebad-icon name="plus"></ebad-icon>
     Nouveau répertoire
   </a>

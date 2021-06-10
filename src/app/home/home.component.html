@@ -19,7 +19,7 @@
           <div>{{'HOME.STATS.BATCHS_COUNT' | translate}}</div>
         </div>
         <div class="d-flex align-items-baseline">
-          <div class="h1 mb-0 mr-2" [countUp]="statistics?.batchsNbrs" [options]="optionsCountUp">0</div>
+          <div class="h1 mb-0 me-2" [countUp]="statistics?.batchsNbrs" [options]="optionsCountUp">0</div>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
           <div>{{'HOME.STATS.EXECUTION_TIME' | translate}}</div>
         </div>
         <div class="d-flex align-items-baseline">
-          <div class="h1 mb-3 mr-2" [countUp]="statistics?.avgExecutionTime" [options]="optionsCountUpMs">0</div>
+          <div class="h1 mb-3 me-2" [countUp]="statistics?.avgExecutionTime" [options]="optionsCountUpMs">0</div>
         </div>
         <apx-chart #chartComponentAvgTime class="chart-sm" [autoUpdateSeries]="true" [series]="seriesAvgTime" [chart]="chart[1]" [stroke]="stroke" [xaxis]="xaxis" [colors]="colors" [fill]="fill" [labels]="labels" [legend]="legend"></apx-chart>
 
@@ -45,7 +45,7 @@
           <div>{{'HOME.STATS.BATCHS_RUNNED' | translate}}</div>
         </div>
         <div class="d-flex align-items-baseline">
-          <div class="h1 mb-3 mr-2" [countUp]="statistics?.batchsRunnedNbrs" [options]="optionsCountUp">0</div>
+          <div class="h1 mb-3 me-2" [countUp]="statistics?.batchsRunnedNbrs" [options]="optionsCountUp">0</div>
         </div>
         <apx-chart #chartComponentBatchRunnedNbr class="chart-sm"  [series]="seriesBatchsNbr" [chart]="chart[2]" [stroke]="stroke" [xaxis]="xaxis" [colors]="colors" [fill]="fill" [labels]="labels" [legend]="legend"></apx-chart>
       </div>
