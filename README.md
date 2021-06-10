@@ -1,7 +1,6 @@
 # EbadFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.2.
-Angular version : 11.2.3
+This project use Angular version : 12.0.3
 
 ![home_ebad](./docs_images/ebad_home.png)
 
