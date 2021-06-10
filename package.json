@@ -57,7 +57,7 @@
     "ngx-file-drop": "^11.1.0",
     "ngx-pagination": "^5.1.0",
     "rxjs": "^6.6.6",
-    "tslib": "^2.0.0",
+    "tslib": "^2.2.0",
     "web-animations-js": "^2.3.2",
     "zone.js": "~0.11.4"
   },
