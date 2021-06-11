@@ -30,7 +30,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@stomp/ng2-stompjs": "^8.0.0",
-    "@types/file-saver": "^2.0.0",
+    "@types/file-saver": "^2.0.2",
     "@types/sockjs-client": "^1.1.1",
     "angular-datatables": "^12.0.0",
     "angular-feather": "^6.1.0",
