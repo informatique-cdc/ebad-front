@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {DataTableDirective} from "angular-datatables";
+import {DataTableDirective} from 'angular-datatables';
 
 @Component({
   selector: 'ebad-show-hide-column',

@@ -291,6 +291,7 @@ $spinner-border-width-sm: 2px !default;
 
 //tables
 $table-head-border-color: $border-color !default;
+$table-group-separator-color: $border-color !default;
 
 //toasts
 $toast-border-color: $border-color !default;
@@ -358,5 +359,7 @@ $payment-sizes: (
 $form-check-input-checked-bg-repeat: repeat !default;
 $form-check-input-checked-bg-position: center center !default;
 
-$link-decoration: none;
-$link-hover-decoration: none;
+$link-decoration: none !default;
+$link-hover-decoration: none !default;
+$color-contrast-light: $body-color !default;
+//$enable-grid-classes: true
