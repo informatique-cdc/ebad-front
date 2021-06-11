@@ -42,7 +42,7 @@
     "bootstrap": "github:twbs/bootstrap#bd27834",
     "core-js": "^3.9.1",
     "datatables.net": "^1.10.25",
-    "datatables.net-dt": "^1.10.24",
+    "datatables.net-dt": "^1.10.25",
     "event-source-polyfill": "^1.0.24",
     "express": "^4.17.1",
     "file-saver": "^2.0.5",
