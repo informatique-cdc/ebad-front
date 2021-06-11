@@ -6,21 +6,17 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="form-group">
-      <label for="user">ROLE_USER</label>
-      <div class="input-group">
-        <input type="checkbox" id="user" class="form-control"
-               name="user"
-               [(ngModel)]="roles.roleUser">
-      </div>
+    <div class="form-check">
+      <input type="checkbox" id="user" class="form-check-input form-control"
+             name="user"
+             [(ngModel)]="roles.roleUser">
+      <label for="user" class="form-check-label ms-5">Role Utilisateur</label>
     </div>
-    <div class="form-group">
-      <label for="admin">ROLE_ADMIN</label>
-      <div class="input-group">
-        <input type="checkbox" id="admin" class="form-control"
-               name="admin"
-               [(ngModel)]="roles.roleAdmin">
-      </div>
+    <div class="form-check">
+      <input type="checkbox" id="admin" class="form-check-input form-control"
+             name="admin"
+             [(ngModel)]="roles.roleAdmin">
+      <label for="admin" class="form-check-label ms-5">Role Administrateur</label>
     </div>
   </div>
   <div class="modal-footer">
