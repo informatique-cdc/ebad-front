@@ -35,6 +35,8 @@ Cypress.Commands.add("deleteApplication", ({codeAppli, name}) => {
   cy.get('input[type="search"]').type(name);
   cy.wait('@searchApplication');
 
+  cy.get('#actionDelete-' + codeAppli, { timeout: 10000 }).should('be.visible');
+
   cy.get('#actionDelete-' + codeAppli).click();
   cy.get('#deleteBtn').click();
   cy.wait('@deleteApplication');
@@ -93,6 +95,8 @@ Cypress.Commands.add("addUserToApplication", ({codeAppli, nameAppli,firstname, l
   cy.get('input[type="search"]').type(nameAppli);
   cy.wait('@searchApplication');
 
+  cy.get('#actionUser-' + codeAppli, { timeout: 10000 }).should('be.visible');
+
   cy.get('#actionUser-' + codeAppli).click();
   cy.get('#user').type(firstname);
   cy.wait('@searchUser');
@@ -119,6 +123,7 @@ Cypress.Commands.add("addManagerToApplication", ({codeAppli, nameAppli, firstnam
   cy.get('input[type="search"]').type(nameAppli);
   cy.wait('@searchApplication');
 
+  cy.get('#actionManager-' + codeAppli, { timeout: 10000 }).should('be.visible');
   cy.get('#actionManager-' + codeAppli).click();
   cy.get('#user').type(firstname);
   cy.wait('@searchUser');
