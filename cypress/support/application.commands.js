@@ -56,7 +56,7 @@ Cypress.Commands.add("updateApplication", ({codeAppliToUpdate, nameToUpdate, cod
   cy.get('input[type="search"]').clear();
   cy.get('input[type="search"]').type(nameToUpdate);
   cy.wait('@searchApplication');
-
+  cy.get('#actionUpdate-' + codeAppliToUpdate, { timeout: 10000 }).should('be.visible');
   cy.get('#actionUpdate-' + codeAppliToUpdate).click();
 
   if (codeAppli) {
