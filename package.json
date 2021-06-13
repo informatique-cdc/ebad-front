@@ -6,7 +6,7 @@
     "start": "node server.js",
     "start-dev": "ng serve --proxy-config proxy.conf.json",
     "start:coverage": "ng serve --proxy-config proxy-cov.conf.json",
-    "build": "ng build --aot --prod",
+    "build": "ng build --aot --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -46,6 +46,7 @@
     "event-source-polyfill": "^1.0.24",
     "express": "^4.17.1",
     "file-saver": "^2.0.5",
+    "http-proxy-middleware": "^2.0.0",
     "jquery": "^3.6.0",
     "jsrsasign": "^10.2.0",
     "jsrsasign-util": "^1.0.5",
