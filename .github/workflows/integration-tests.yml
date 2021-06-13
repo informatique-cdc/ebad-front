@@ -11,10 +11,20 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           start: npm run start:coverage
-          wait-on: 'http://localhost:4200'
+          wait-on: 'http://localhost:4200, http://ebad.herokuapp.com/ebad/actuator/health'
           wait-on-timeout: 180
           browser: chrome
           command-prefix: npx
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
       - name: SonarCloud Scan
         if: always()
         uses: sonarsource/sonarcloud-github-action@master
