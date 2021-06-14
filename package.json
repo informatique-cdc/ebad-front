@@ -39,7 +39,7 @@
     "angular-resize-event": "^2.1.0",
     "angular-svg-icon": "^12.0.0",
     "apexcharts": "^3.27.1",
-    "bootstrap": "github:twbs/bootstrap#bd27834",
+    "bootstrap": "^5.0.1",
     "core-js": "^3.14.0",
     "datatables.net": "^1.10.25",
     "datatables.net-dt": "^1.10.25",

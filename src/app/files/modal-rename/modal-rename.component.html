@@ -10,7 +10,7 @@
       <label for="kindFile">{{'FILE.FILE_KIND' | translate}}</label>
       <div class="input-group">
         <select name="kindFile" id="kindFile"
-                class="custom-select custom-select-sm ml-sm-2" [(ngModel)]="fileKindSelected">
+                class="custom-select custom-select-sm ms-sm-2" [(ngModel)]="fileKindSelected">
           <option *ngFor="let fileKind of fileKinds" [ngValue]="fileKind">{{fileKind.name}}</option>
         </select>
       </div>

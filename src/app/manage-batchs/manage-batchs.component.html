@@ -2,7 +2,7 @@
   <span header>
     <a id="addBatchAction" href="javascript:void(0)" style="cursor: pointer"
        *ngIf="applicationSelected"
-       class="btn btn-primary mr-3" (click)="onClickAddBatch()">
+       class="btn btn-primary me-3" (click)="onClickAddBatch()">
       <ebad-icon name="plus"></ebad-icon>
       Nouveau batch
     </a>
@@ -43,7 +43,7 @@
           {{batch.path}}
         </td>
         <td class="align-middle" *ngIf="columns[3].visible">
-          <span *ngFor="let env of batch.environnements" class="badge bg-green-lt mr-1" >{{env.name}}</span>
+          <span *ngFor="let env of batch.environnements" class="badge bg-green-lt me-1" >{{env.name}}</span>
         </td>
         <td class="text-center" *ngIf="columns[4].visible">
           <a (click)="editBatch(batch)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>

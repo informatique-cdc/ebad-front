@@ -14,14 +14,14 @@
         </div>
       </form>
     </div>
-    <ul class="nav navbar-menu align-items-center ml-auto">
-      <li class="nav-item d-none d-lg-flex mr-3">
-        <a href="https://github.com/informatique-cdc/ebad" rel="noopener noreferrer" class="btn btn-sm btn-success" target="_blank"><ebad-icon name="github"></ebad-icon> Source code
+    <ul class="nav navbar-menu align-items-center ms-auto">
+      <li class="nav-item d-none d-lg-flex me-3">
+        <a href="https://github.com/informatique-cdc/ebad" rel="noopener noreferrer" class="btn btn-sm btn-primary" target="_blank"><ebad-icon name="github"></ebad-icon> Source code
         </a>
       </li>
-      <li class="nav-item dropdown mr-3" ngbDropdown placement="">
+      <li class="nav-item dropdown me-3" ngbDropdown placement="">
         <a ngbDropdownToggle id="notificationMenu"
-           class="nav-link d-flex align-items-center py-0 px-lg-0 px-2 text-reset ml-2"
+           class="nav-link d-flex align-items-center py-0 px-lg-0 px-2 text-reset ms-2"
            style="cursor: pointer">
           <ebad-icon name="bell"></ebad-icon>
           <span *ngIf="notifications.length > 0" class="badge bg-red badge-up">{{notifications.length}}</span>
@@ -45,11 +45,11 @@
       </li>
       <li class="nav-item dropdown" ngbDropdown placement="">
         <a ngbDropdownToggle  id="settingsMenu"
-           class="nav-link d-flex align-items-center py-0 px-lg-0 px-2 text-reset ml-2"
+           class="nav-link d-flex align-items-center py-0 px-lg-0 px-2 text-reset ms-2"
            style="cursor: pointer">
 <!--          <span class="avatar avatar-sm" style="background-image: url(./assets/img/avatars/004f.jpg)"></span>-->
           <span class="avatar avatar-sm">{{currentUser | avatar}}</span>
-          <span class="ml-2 d-none d-lg-block lh-1">
+          <span class="ms-2 d-none d-lg-block lh-1">
             {{currentUser?.firstName}} {{currentUser?.lastName}}
             <span class="text-muted d-block mt-1 text-h6">Utilisateur</span>
           </span>
@@ -83,7 +83,7 @@
               <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
             Inbox
-            <span class="badge bg-primary ml-auto">6</span>
+            <span class="badge bg-primary ms-auto">6</span>
           </a>
           <a class="dropdown-item" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

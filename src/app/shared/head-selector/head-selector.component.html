@@ -8,17 +8,17 @@
         {{title}}
       </h2>
     </div>
-    <div class="col-auto ml-auto d-print-none">
-      <div class="d-flex">
-        <form class="form-inline">
-          <select [name]="select.id" *ngFor="let select of selects; let indexSelect = index"
-                  (change)="onSelect($event, indexSelect)" id="{{select.id}}" class="form-select  mr-3">
-            <option *ngFor="let option of select.options; let indexOption = index"
-                    [value]="indexOption" [selected]="option.selected">{{option.label}}</option>
-          </select>
+    <div class="d-flex align-items-center col-auto ms-auto d-print-none">
+        <form class="d-flex">
+            <div class="p-2" *ngFor="let select of selects; let indexSelect = index">
+              <select [name]="select.id"
+                      (change)="onSelect($event, indexSelect)" id="{{select.id}}" class="form-select  me-3">
+                <option *ngFor="let option of select.options; let indexOption = index"
+                        [value]="indexOption" [selected]="option.selected">{{option.label}}</option>
+              </select>
+            </div>
         </form>
         <ng-content select="[header]"></ng-content>
-      </div>
     </div>
   </div>
 </div>
