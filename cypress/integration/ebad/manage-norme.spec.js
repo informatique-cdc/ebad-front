@@ -66,7 +66,7 @@ context('Norms', () => {
     cy.server();
     cy.route({
       method: 'GET',
-      url: '/ebad/norms?page=0&size=*&sort=name,asc&name=TestUpCyLinuxNew',
+      url: '/ebad/norms?page=0&size=*&sort=name,asc&name='+this.norm5Name,
     }).as('searchNormeTest');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
@@ -78,7 +78,7 @@ context('Norms', () => {
 
     cy.updateNorme({
       nameToUpdate: this.norm4Name,
-      name: 'TestUpCyLinuxNew',
+      name: this.norm5Name,
       interpreteur: '/bin/zsh',
       shellFolder: 'zsh/',
       fileDate: 'date.bin'
@@ -87,7 +87,9 @@ context('Norms', () => {
     cy.get('.toast-body').should('contains.text', 'La norme a bien été modifiée');
 
 
+    cy.get('input[type="search"]').clear();
     cy.get('input[type="search"]').type(this.norm5Name);
+
     cy.wait('@searchNormeTest');
 
     cy.contains(this.norm5Name).parent('tr').within(() => {
