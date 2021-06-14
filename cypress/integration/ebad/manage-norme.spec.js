@@ -86,6 +86,9 @@ context('Norms', () => {
 
     cy.get('.toast-body').should('contains.text', 'La norme a bien été modifiée');
 
+    cy.visit('http://localhost:4200');
+    cy.get('#administrationMenu').click();
+    cy.get('#normMenu').click();
 
     cy.get('input[type="search"]').clear();
     cy.get('input[type="search"]').type(this.norm5Name);
