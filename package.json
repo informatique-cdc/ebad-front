@@ -56,7 +56,7 @@
     "ng-multiselect-dropdown": "^0.3.4",
     "ngx-countup": "^7.3.3",
     "ngx-file-drop": "^11.1.0",
-    "ngx-pagination": "^5.1.0",
+    "ngx-pagination": "^5.1.1",
     "rxjs": "^6.6.7",
     "tslib": "^2.0.0",
     "web-animations-js": "^2.3.2",
