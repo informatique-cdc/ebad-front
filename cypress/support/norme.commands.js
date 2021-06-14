@@ -28,7 +28,9 @@ Cypress.Commands.add("deleteNorme", ({name}) => {
   cy.get('input[type="search"]').type(name);
   cy.wait('@searchNorme');
 
-  cy.get('#actionDelete-'+name).click();
+  cy.get('#actionDelete-' + name, { timeout: 10000 }).should('be.visible');
+  cy.getSettled('#actionDelete-' + name, { retries: 2, delay: 500 }).click();
+
   cy.get('#deleteBtn').click();
   cy.wait('@deleteNorm');
 });
@@ -49,8 +51,8 @@ Cypress.Commands.add("updateNorme", ({nameToUpdate, name, interpreteur, shellFol
   cy.get('input[type="search"]').clear();
   cy.get('input[type="search"]').type(nameToUpdate);
   cy.wait('@searchNorme');
+  cy.getSettled('#actionEdit-' + nameToUpdate, { retries: 2, delay: 500 }).click();
 
-  cy.get('#actionEdit-'+nameToUpdate).click();
 
   if (name) {
     cy.get('#name').clear().type(name);

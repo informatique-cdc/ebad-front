@@ -1,5 +1,12 @@
 context('Norms', () => {
   before(function () {
+    const currentDate = new Date();
+    const timestamp = currentDate.getTime();
+    this.norm1Name = 'LinuxEnvCy-'+timestamp;
+    this.norm2Name = 'TestCyUnix-'+timestamp;
+    this.norm3Name = 'TestCyWindows-'+timestamp;
+    this.norm4Name = 'TestUpCyLinux-'+timestamp;
+    this.norm5Name = 'TestUpCyLinuxNew-'+timestamp;
     cy.server();
   });
 
@@ -12,13 +19,13 @@ context('Norms', () => {
 
   it('Ajouter une norme', function () {
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
-      .addNorme({name: 'TestUnix', interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.txt'});
+      .addNorme({name: this.norm1Name, interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.txt'});
     cy.get('.toast-body').should('contains.text', 'La norme a bien été ajoutée');
   });
 
   it('Supprimer une norme', function () {
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
-      .deleteNorme({name: 'TestUnix'});
+      .deleteNorme({name: this.norm1Name});
     cy.get('.toast-body').should('contains.text', 'La norme a été supprimée');
   });
 
@@ -30,8 +37,8 @@ context('Norms', () => {
     }).as('searchNormeTest');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
-      .addNorme({name: 'TestCyUnix', interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.txt'})
-      .addNorme({name: 'TestCyWindows', interpreteur: 'PowerShell.exe', shellFolder: 'bat/', fileDate: 'date.data'});
+      .addNorme({name: this.norm2Name, interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.txt'})
+      .addNorme({name: this.norm3Name, interpreteur: 'PowerShell.exe', shellFolder: 'bat/', fileDate: 'date.data'});
 
     cy.visit('http://localhost:4200');
     cy.get('#administrationMenu').click();
@@ -39,20 +46,20 @@ context('Norms', () => {
     cy.get('input[type="search"]').type('TestCy');
     cy.wait('@searchNormeTest');
 
-    cy.contains('TestCyUnix').parent('tr').within(() => {
+    cy.contains(this.norm2Name).parent('tr').within(() => {
       cy.get('td').eq(2).contains('/bin/bash')
       cy.get('td').eq(3).contains('shell/')
       cy.get('td').eq(4).contains('date.txt')
     });
 
-    cy.contains('TestCyWindows').parent('tr').within(() => {
+    cy.contains(this.norm3Name).parent('tr').within(() => {
       cy.get('td').eq(2).contains('PowerShell.exe')
       cy.get('td').eq(3).contains('bat/')
       cy.get('td').eq(4).contains('date.data')
     });
 
-    cy.deleteNorme({name: 'TestCyUnix'});
-    cy.deleteNorme({name: 'TestCyWindows'});
+    cy.deleteNorme({name: this.norm2Name});
+    cy.deleteNorme({name: this.norm3Name});
   });
 
   it('Modifier une norme', function () {
@@ -63,14 +70,14 @@ context('Norms', () => {
     }).as('searchNormeTest');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
-      .addNorme({name: 'TestUpCyLinux', interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.in'});
+      .addNorme({name: this.norm4Name, interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.in'});
 
     cy.visit('http://localhost:4200');
     cy.get('#administrationMenu').click();
     cy.get('#normMenu').click();
 
     cy.updateNorme({
-      nameToUpdate: 'TestUpCyLinux',
+      nameToUpdate: this.norm4Name,
       name: 'TestUpCyLinuxNew',
       interpreteur: '/bin/zsh',
       shellFolder: 'zsh/',
@@ -80,16 +87,16 @@ context('Norms', () => {
     cy.get('.toast-body').should('contains.text', 'La norme a bien été modifiée');
 
 
-    cy.get('input[type="search"]').type('TestUpCyLinuxNew');
+    cy.get('input[type="search"]').type(this.norm5Name);
     cy.wait('@searchNormeTest');
 
-    cy.contains('TestUpCyLinuxNew').parent('tr').within(() => {
+    cy.contains(this.norm5Name).parent('tr').within(() => {
       cy.get('td').eq(2).contains('/bin/zsh')
       cy.get('td').eq(3).contains('zsh/')
       cy.get('td').eq(4).contains('date.bin')
     });
 
-    cy.deleteNorme({name: 'TestUpCyLinuxNew'});
+    cy.deleteNorme({name: this.norm5Name});
     cy.get('.toast-body').should('contains.text', 'La norme a été supprimée');
 
   });
