@@ -46,3 +46,32 @@ Cypress.Commands.add("getAttached", selector => {
     expect(Cypress.dom.isDetached($el)).to.be.false;
   }).then(() => cy.wrap($el));
 });
+
+Cypress.Commands.add('getSettled', (selector, opts = {}) => {
+  const retries = opts.retries || 3;
+  const delay = opts.delay || 100;
+
+  const isAttached = (resolve, count = 0) => {
+    const el = Cypress.$(selector);
+
+    // is element attached to the DOM?
+    count = Cypress.dom.isAttached(el) ? count + 1 : 0;
+
+    // hit our base case, return the element
+    if (count >= retries) {
+      return resolve(el);
+    }
+
+    // retry after a bit of a delay
+    setTimeout(() => isAttached(resolve, count), delay);
+  };
+
+  // wrap, so we can chain cypress commands off the result
+  return cy.wrap(null).then(() => {
+    return new Cypress.Promise((resolve) => {
+      return isAttached(resolve, 0);
+    }).then((el) => {
+      return cy.wrap(el);
+    });
+  });
+});

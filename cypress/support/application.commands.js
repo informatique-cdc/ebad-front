@@ -35,9 +35,9 @@ Cypress.Commands.add("deleteApplication", ({codeAppli, name}) => {
   cy.get('input[type="search"]').type(name);
   cy.wait('@searchApplication');
 
-  cy.get('#actionDelete-' + codeAppli, { timeout: 10000 }).should('be.visible').then((e) => {
-    Cypress.$(e).click();
-  });
+  cy.get('#actionDelete-' + codeAppli, { timeout: 10000 }).should('be.visible');
+  cy.getSettled('#actionDelete-' + codeAppli, { retries: 2, delay: 500 }).click();
+
   cy.get('#deleteBtn').click();
   cy.wait('@deleteApplication');
 });
@@ -58,9 +58,8 @@ Cypress.Commands.add("updateApplication", ({codeAppliToUpdate, nameToUpdate, cod
   cy.get('input[type="search"]').clear();
   cy.get('input[type="search"]').type(nameToUpdate);
   cy.wait('@searchApplication');
-  cy.get('#actionUpdate-' + codeAppliToUpdate, { timeout: 10000 }).should('be.visible').then((e) => {
-    Cypress.$(e).click();
-  });
+  cy.get('#actionUpdate-' + codeAppliToUpdate, { timeout: 10000 }).should('be.visible');
+  cy.getSettled('#actionUpdate-' + codeAppliToUpdate, { retries: 2, delay: 500 }).click();
 
   if (codeAppli) {
     cy.get('#code').clear().type(codeAppli);
@@ -96,9 +95,8 @@ Cypress.Commands.add("addUserToApplication", ({codeAppli, nameAppli,firstname, l
   cy.get('input[type="search"]').type(nameAppli);
   cy.wait('@searchApplication');
 
-  cy.get('#actionUser-' + codeAppli, { timeout: 10000 }).should('be.visible').then((e) => {
-    Cypress.$(e).click();
-  });
+  cy.get('#actionUser-' + codeAppli, { timeout: 10000 }).should('be.visible');
+  cy.getSettled('#actionUser-' + codeAppli, { retries: 2, delay: 500 }).click();
 
   cy.get('#user').type(firstname);
   cy.wait('@searchUser');
@@ -125,9 +123,8 @@ Cypress.Commands.add("addManagerToApplication", ({codeAppli, nameAppli, firstnam
   cy.get('input[type="search"]').type(nameAppli);
   cy.wait('@searchApplication');
 
-  cy.get('#actionManager-' + codeAppli, { timeout: 10000 }).should('be.visible').then((e) => {
-    Cypress.$(e).click();
-  });
+  cy.get('#actionManager-' + codeAppli, { timeout: 10000 }).should('be.visible');
+  cy.getSettled('#actionManager-' + codeAppli, { retries: 2, delay: 500 }).click();
 
   cy.get('#user').type(firstname);
   cy.wait('@searchUser');
