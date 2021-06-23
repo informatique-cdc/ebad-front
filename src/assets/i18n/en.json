@@ -54,7 +54,8 @@
       "APPLICATIONS": "Applications",
       "NORMS": "Norms",
       "NEWS": "News",
-      "SETTINGS": "Settings"
+      "SETTINGS": "Settings",
+      "IDENTITIES": "Identities"
     },
     "OTHERS": {
       "TITLE": "Others",
@@ -164,5 +165,28 @@
     },
     "ADD": "Add scheduling",
     "CANCEL": "Cancel"
+  },
+  "IDENTITY": {
+    "TITLE": "Identities",
+    "DELETION_CONFIRMATION": "Do you really want to delete {{name}} identity ?",
+    "DELETION_CONFIRMATION_TITLE": "Deletion of identity {{name}}",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "CANCEL": "Cancel",
+    "NAME": "Name",
+    "ID": "ID",
+    "LOGIN": "Login",
+    "PASSWORD": "Password",
+    "PASSPHRASE": "Passphrase",
+    "PRIVATEKEY": "Private Key",
+    "PRIVATEKEY_PATH": "Private Key Path",
+    "ADD": "Add Identity",
+    "NEW": "New Identity",
+    "MSG": {
+      "DELETION_SUCCESS": "Identity is deleted",
+      "DELETION_ERROR": "An error was occured when trying to delete identity : {{msg}}",
+      "ADD_SUCCESS": "Identity is added with success",
+      "ADD_ERROR": "An error was occured when trying to add identity : {{msg}}"
+    }
   }
 }

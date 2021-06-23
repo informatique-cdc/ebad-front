@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {NormsService, Norme} from '../../core';
+import {IdentitiesService} from '../../core/services/identities.service';
+import {Identity} from '../../core/models/identity.model';
 
 @Component({
   selector: 'app-modal-identity',
@@ -8,14 +9,16 @@ import {NormsService, Norme} from '../../core';
 })
 export class ModalIdentityComponent implements OnInit {
   isUpdate = false;
-  title = 'Ajouter une norme';
+  title = 'Ajouter une identié';
   action = 'Ajouter';
-  norm: Norme = {
+  identity: Identity = {
     id: undefined,
     name: undefined,
-    commandLine: undefined,
-    ctrlMDate: undefined,
-    pathShell: undefined,
+    login: undefined,
+    passphrase: undefined,
+    password: undefined,
+    privatekey: undefined,
+    privatekey_path: undefined,
     createdBy: undefined,
     createdDate: undefined,
     lastModifiedBy: undefined,
@@ -23,19 +26,19 @@ export class ModalIdentityComponent implements OnInit {
   };
 
   constructor(public activeModal: NgbActiveModal,
-              private normsService: NormsService) {
+              private identitiesService: IdentitiesService) {
   }
 
   ngOnInit() {
     if (this.isUpdate) {
-      this.title = `Modifier la norme ${this.norm.name}`;
+      this.title = `Modifier l'identité ${this.identity.name}`;
       this.action = `Modifier`;
     }
   }
 
-  addNorm() {
+  addIdentity() {
     if (!this.isUpdate) {
-      this.normsService.addNorm(this.norm).subscribe(
+      this.identitiesService.addIdentity(this.identity).subscribe(
         () => {
           this.activeModal.close();
         },
@@ -44,9 +47,9 @@ export class ModalIdentityComponent implements OnInit {
         }
       );
     } else {
-      this.normsService.updateNorm(this.norm).subscribe(
-        norm => {
-          this.activeModal.close(norm);
+      this.identitiesService.updateIdentity(this.identity).subscribe(
+          identity => {
+          this.activeModal.close(identity);
         },
         error => {
           this.activeModal.dismiss(error);

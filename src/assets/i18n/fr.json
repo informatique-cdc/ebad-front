@@ -54,7 +54,8 @@
       "APPLICATIONS": "Applications",
       "NORMS": "Normes",
       "NEWS": "Actualités",
-      "SETTINGS": "Paramètres"
+      "SETTINGS": "Paramètres",
+      "IDENTITIES": "Identités"
     },
     "OTHERS": {
       "TITLE": "Autres",
@@ -164,5 +165,28 @@
     },
     "ADD": "Ajouter une tâche planifiée",
     "CANCEL": "Annuler"
+  },
+  "IDENTITY": {
+    "TITLE": "Identités",
+    "DELETION_CONFIRMATION": "Souhaitez-vous réellement supprimer l'identité {{name}} ?",
+    "DELETION_CONFIRMATION_TITLE": "Suppression de l'identité {{name}}",
+    "DELETE": "Supprimer",
+    "CANCEL": "Annuler",
+    "EDIT": "Éditer",
+    "NAME": "Nom",
+    "ID": "ID",
+    "LOGIN": "Login",
+    "PASSWORD": "Mot de Passe",
+    "PASSPHRASE": "Passe de la clé privée",
+    "PRIVATEKEY": "Clé privée",
+    "PRIVATEKEY_PATH": "Chemin de la clé privée",
+    "ADD": "Ajouter l'identité",
+    "NEW": "Nouvelle identité",
+    "MSG": {
+      "DELETION_SUCCESS": "L'identité a été supprimée",
+      "DELETION_ERROR": "Une erreur est survenue en tentant de supprimer l'identité : {{msg}}",
+      "ADD_SUCCESS": "L'identité a été ajoutée avec succès",
+      "ADD_ERROR": "Une erreur est survenue en tentant d'ajouter l'identité : {{msg}}"
+    }
   }
 }

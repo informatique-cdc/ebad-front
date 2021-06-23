@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Norme} from '../../core';
+import {Identity} from '../../core/models/identity.model';
 
 @Component({
   selector: 'app-modal-identity-deletion',
-  templateUrl: './modal-norm-deletion.component.html'
+  templateUrl: './modal-identity-deletion.component.html'
 })
 export class ModalIdentityDeletionComponent {
-  norm: Norme;
+  identity: Identity;
 
   constructor(public activeModal: NgbActiveModal) {
   }

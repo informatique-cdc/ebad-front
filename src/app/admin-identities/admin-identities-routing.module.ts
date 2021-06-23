@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from '../core';
-import {AdminNormsComponent} from './admin-norms.component';
+import {AdminIdentitiesComponent} from './admin-identities.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdminNormsComponent,
+    component: AdminIdentitiesComponent,
     canActivate: [AuthGuard]
   }
 ];
@@ -15,5 +15,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminNormsRoutingModule {
+export class AdminIdentitiesRoutingModule {
 }

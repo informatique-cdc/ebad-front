@@ -1,13 +1,13 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Suppression de la norme {{norm.name}}</h4>
+  <h4 class="modal-title" id="modal-basic-title">{{'IDENTITY.DELETION_CONFIRMATION_TITLE' | translate : {name: identity.name} }}</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
- Souhaitez-vous réellement supprimer la norme {{norm.name}} ?
+  {{'IDENTITY.DELETION_CONFIRMATION' | translate : {name : identity.name} }}
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark"  id="cancelBtn" (click)="activeModal.dismiss('cancel')">Annuler</button>
-  <button type="button" class="btn btn-outline-dark" id="deleteBtn" (click)="activeModal.close()">Supprimer</button>
+  <button type="button" class="btn btn-outline-dark"  id="cancelBtn" (click)="activeModal.dismiss('cancel')">{{'IDENTITY.CANCEL' | translate }}</button>
+  <button type="button" class="btn btn-outline-dark" id="deleteBtn" (click)="activeModal.close()">{{'IDENTITY.DELETE' | translate }}</button>
 </div>

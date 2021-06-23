@@ -1,4 +1,4 @@
-<form (ngSubmit)="normForm.form.valid && addNorm()" #normForm="ngForm">
+<form (ngSubmit)="identityForm.form.valid && addIdentity()" #identityForm="ngForm">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
@@ -7,54 +7,26 @@
   </div>
   <div class="modal-body">
     <div class="form-group">
-      <label for="name">Nom</label>
+      <label for="name">{{'IDENTITY.NAME' | translate}}</label>
       <div class="input-group">
-        <input required id="name" class="form-control" placeholder="Nom de la norme" #name="ngModel"
+        <input required id="name" class="form-control" placeholder="{{'IDENTITY.NAME' | translate}}" #name="ngModel"
                name="name"
-               id="name"
-               [(ngModel)]="norm.name"
-               [ngClass]="{ 'is-invalid': normForm.submitted && name.invalid }">
-        <div *ngIf="normForm.submitted && name.invalid" class="invalid-feedback">
-          <div *ngIf="name.errors.required">Nom requis</div>
+               [(ngModel)]="identity.name"
+               [ngClass]="{ 'is-invalid': identityForm.submitted && name.invalid }">
+        <div *ngIf="identityForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required">{{'IDENTITY.NAME' | translate}} requis</div>
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label for="commandLine">Interpréteur de commande</label>
+      <label for="login">{{'IDENTITY.LOGIN' | translate}}</label>
       <div class="input-group">
-        <input required id="commandLine" class="form-control" placeholder="Ligne de commande" #commandLine="ngModel"
-               name="commandLine"
-               id="interpreteur"
-               [(ngModel)]="norm.commandLine"
-               [ngClass]="{ 'is-invalid': commandLine.submitted && commandLine.invalid }">
-        <div *ngIf="normForm.submitted && name.invalid" class="invalid-feedback">
-          <div *ngIf="commandLine.errors.required">Interpréteur requis</div>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="pathShell">Dossier shell</label>
-      <div class="input-group">
-        <input required id="pathShell" class="form-control" placeholder="Chemin du dossier contenant les shells" #pathShell="ngModel"
-               name="pathShell"
-               id="shellFolder"
-               [(ngModel)]="norm.pathShell"
-               [ngClass]="{ 'is-invalid': normForm.submitted && pathShell.invalid }">
-        <div *ngIf="normForm.submitted && pathShell.invalid" class="invalid-feedback">
-          <div *ngIf="pathShell.errors.required">Dossier shell requis</div>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="ctrlMDate">Chemin du fichier ctrlM.date</label>
-      <div class="input-group">
-        <input required id="ctrlMDate" class="form-control" placeholder="Chemin du fichier ctrlM.date" #ctrlMDate="ngModel"
-               name="ctrlMDate"
-               id="fileDate"
-               [(ngModel)]="norm.ctrlMDate"
-               [ngClass]="{ 'is-invalid': normForm.submitted && ctrlMDate.invalid }">
-        <div *ngIf="normForm.submitted && ctrlMDate.invalid" class="invalid-feedback">
-          <div *ngIf="ctrlMDate.errors.required">Chemin du fichier ctrlM.date requis</div>
+        <input required id="login" class="form-control" placeholder="{{'IDENTITY.LOGIN' | translate}}" #login="ngModel"
+               name="login"
+               [(ngModel)]="identity.login"
+               [ngClass]="{ 'is-invalid': identityForm.submitted && login.invalid }">
+        <div *ngIf="identityForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="login.errors.required">{{'IDENTITY.LOGIN' | translate}} requis</div>
         </div>
       </div>
     </div>

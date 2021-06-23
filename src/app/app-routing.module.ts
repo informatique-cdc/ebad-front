@@ -79,6 +79,10 @@ const routes: Routes = [
       {
         path: 'settings',
         loadChildren: () => import('./admin-settings/admin-settings.module').then(m => m.AdminSettingsModule)
+      },
+      {
+        path: 'identities',
+        loadChildren: () => import('./admin-identities/admin-identities.module').then(m => m.AdminIdentitiesModule)
       }
     ]
   },
