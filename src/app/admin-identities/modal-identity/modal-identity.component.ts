@@ -18,7 +18,7 @@ export class ModalIdentityComponent implements OnInit {
     passphrase: undefined,
     password: undefined,
     privatekey: undefined,
-    privatekey_path: undefined,
+    privatekeyPath: undefined,
     createdBy: undefined,
     createdDate: undefined,
     lastModifiedBy: undefined,

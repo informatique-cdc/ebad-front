@@ -6,6 +6,6 @@ export interface Identity extends Audit {
   login: string;
   password: string;
   privatekey: string;
-  privatekey_path: string;
+  privatekeyPath: string;
   passphrase: string;
 }

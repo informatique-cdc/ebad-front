@@ -26,7 +26,7 @@
                name="commandLine"
                id="interpreteur"
                [(ngModel)]="norm.commandLine"
-               [ngClass]="{ 'is-invalid': commandLine.submitted && commandLine.invalid }">
+               [ngClass]="{ 'is-invalid': normForm.submitted && commandLine.invalid }">
         <div *ngIf="normForm.submitted && name.invalid" class="invalid-feedback">
           <div *ngIf="commandLine.errors.required">Interpréteur requis</div>
         </div>

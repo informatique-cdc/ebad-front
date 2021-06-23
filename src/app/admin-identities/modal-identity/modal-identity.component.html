@@ -30,6 +30,42 @@
         </div>
       </div>
     </div>
+    <div class="form-group">
+      <label for="password">{{'IDENTITY.PASSWORD' | translate}}</label>
+      <div class="input-group">
+        <input id="password" class="form-control" placeholder="{{'IDENTITY.PASSWORD' | translate}}" #password="ngModel"
+               name="password"
+               [(ngModel)]="identity.password"
+               [ngClass]="{ 'is-invalid': identityForm.submitted && password.invalid }">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="privatekey">{{'IDENTITY.PRIVATEKEY' | translate}}</label>
+      <div class="input-group">
+        <input id="privatekey" class="form-control" placeholder="{{'IDENTITY.PRIVATEKEY' | translate}}" #privatekey="ngModel"
+               name="privatekey"
+               [(ngModel)]="identity.privatekey"
+               [ngClass]="{ 'is-invalid': identityForm.submitted && login.invalid }">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="privatekeyPath">{{'IDENTITY.PRIVATEKEY_PATH' | translate}}</label>
+      <div class="input-group">
+        <input id="privatekeyPath" class="form-control" placeholder="{{'IDENTITY.PRIVATEKEY_PATH' | translate}}" #privatekeyPath="ngModel"
+               name="privatekeyPath"
+               [(ngModel)]="identity.privatekeyPath"
+               [ngClass]="{ 'is-invalid': identityForm.submitted && privatekeyPath.invalid }">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="passphrase">{{'IDENTITY.PASSPHRASE' | translate}}</label>
+      <div class="input-group">
+        <input id="passphrase" class="form-control" placeholder="{{'IDENTITY.PASSPHRASE' | translate}}" #passphrase="ngModel"
+               name="passphrase"
+               [(ngModel)]="identity.passphrase"
+               [ngClass]="{ 'is-invalid': identityForm.submitted && passphrase.invalid }">
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>

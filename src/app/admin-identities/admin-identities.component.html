@@ -2,10 +2,10 @@
   <div class="row align-items-center">
     <div class="col-auto">
       <h2 class="page-pretitle">
-        Administration
+        {{'MENU.ADMINISTRATION.TITLE' | translate}}
       </h2>
       <h2 id="tableTitle" class="page-title">
-        Normes
+        {{'IDENTITY.TITLE' | translate}}
       </h2>
     </div>
     <div class="col-auto ms-auto d-print-none">
@@ -25,12 +25,12 @@
     <table id="listNorms" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
-        <th id="identityId">ID</th>
+        <th id="identityId">{{'IDENTITY.ID' | translate}}</th>
         <th id="identityName">
-          Nom
+          {{'IDENTITY.NAME' | translate}}
         </th>
         <th id="identityLogin">
-          Login
+          {{'IDENTITY.LOGIN' | translate}}
         </th>
         <th id="actions">
         </th>
