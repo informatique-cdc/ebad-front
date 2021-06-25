@@ -46,7 +46,8 @@
       "FOLDERS": "Répertoires",
       "NAMING": "Nommages",
       "ENVIRONMENTS": "Environnements",
-      "ACCESS-CONTROL": "Contrôle d'accès"
+      "ACCESS-CONTROL": "Contrôle d'accès",
+      "IDENTITIES": "Identités"
     },
     "ADMINISTRATION": {
       "TITLE": "Administration",

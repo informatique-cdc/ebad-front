@@ -46,7 +46,8 @@
       "FOLDERS": "Folders",
       "NAMING": "Naming",
       "ENVIRONMENTS": "Manage Environments",
-      "ACCESS-CONTROL": "Access Control"
+      "ACCESS-CONTROL": "Access Control",
+      "IDENTITIES": "Identities"
     },
     "ADMINISTRATION": {
       "TITLE": "Administration",

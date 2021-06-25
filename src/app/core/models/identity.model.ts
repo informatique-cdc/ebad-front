@@ -8,4 +8,5 @@ export interface Identity extends Audit {
   privatekey: string;
   privatekeyPath: string;
   passphrase: string;
+  availableApplication: number;
 }
