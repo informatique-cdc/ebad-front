@@ -1,5 +1,5 @@
 /////////// ENVIRONNEMENT ///////////////
-Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, login, homePath, prefix, norme}) => {
+Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, identity, homePath, prefix, norme}) => {
   cy.server();
   cy.route({
     method: 'PUT',
@@ -12,7 +12,7 @@ Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, login, h
   cy.get('#addEnvAction').click();
   cy.get('#name').type(name);
   cy.get('#host').type(host);
-  cy.get('#login').type(login);
+  cy.get('#identity').select(identity);
   cy.get('#homePath').type(homePath);
   cy.get('#prefix').type(prefix);
   cy.get('#norme').select(norme);
@@ -57,7 +57,7 @@ Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName
 
 
 Cypress.Commands.add("updateEnvironnement", ({
-                                               applicationName, environnementNameToUpdate, name, host, login, homePath, prefix, norme
+                                               applicationName, environnementNameToUpdate, name, host, identity, homePath, prefix, norme
                                              }) => {
   cy.server();
   cy.route({
@@ -93,8 +93,8 @@ Cypress.Commands.add("updateEnvironnement", ({
   if (host) {
     cy.get('#host').clear().type(host);
   }
-  if (login) {
-    cy.get("#login").clear().type(login);
+  if (identity) {
+    cy.get("#identity").clear().select(identity);
   }
   if (homePath) {
     cy.get("#homePath").clear().type(homePath);

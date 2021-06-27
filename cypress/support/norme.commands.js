@@ -1,5 +1,10 @@
 /////////// NORME ///////////////
 Cypress.Commands.add("addNorme", ({name, interpreteur, shellFolder, fileDate}) => {
+  cy.server();
+  cy.route({
+    method: 'PUT',
+    url: '/ebad/norms'
+  }).as('addNorm');
   cy.get('#administrationMenu').click();
   cy.get('#normMenu').click();
   cy.get('#addNormAction').click();
@@ -8,6 +13,7 @@ Cypress.Commands.add("addNorme", ({name, interpreteur, shellFolder, fileDate}) =
   cy.get("#shellFolder").type(shellFolder);
   cy.get("#fileDate").type(fileDate);
   cy.get('form').submit();
+  cy.wait('@addNorm');
 });
 
 Cypress.Commands.add("deleteNorme", ({name}) => {
