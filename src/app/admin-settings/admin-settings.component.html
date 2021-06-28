@@ -19,6 +19,7 @@
             <h3 class="mb-0"><a>{{setting.key}}</a> is
               <strong *ngIf="setting.value === 'true'">ENABLED</strong>
               <strong *ngIf="setting.value === 'false'">DISABLED</strong>
+              <strong (click)="onClickChangeValue(setting)" *ngIf="setting.value !== 'false' && setting.value !== 'true'">{{setting.value}}</strong>
             </h3>
           </div>
           <div class="col-auto lh-1 align-self-start">

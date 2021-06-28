@@ -1,0 +1,26 @@
+<form (ngSubmit)="settingsForm.form.valid && sendValue()" #settingsForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="value">Settings - {{settings.key}}</label>
+      <div class="input-group">
+        <input required id="value" class="form-control" placeholder="Value" #value="ngModel"
+               name="value"
+               [(ngModel)]="settings.value"
+               [ngClass]="{ 'is-invalid': settingsForm.submitted && value.invalid }">
+        <div *ngIf="settingsForm.submitted && value.invalid" class="invalid-feedback">
+          <div *ngIf="value.errors.required">Value is mandatory</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">Annuler</button>
+    <button type="submit" class="btn btn-outline-dark">Send</button>
+  </div>
+</form>

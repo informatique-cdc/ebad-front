@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {AdminSettingsComponent} from './admin-settings.component';
 import {SharedModule} from '../shared';
 import {AdminSettingsRoutingModule} from './admin-settings-routing.module';
+import {ModalSettingsComponent} from './modal-settings/modal-settings.component';
 
 @NgModule({
   imports: [
@@ -10,7 +11,9 @@ import {AdminSettingsRoutingModule} from './admin-settings-routing.module';
     AdminSettingsRoutingModule
   ],
   declarations: [
-    AdminSettingsComponent
-  ]
+    AdminSettingsComponent,
+      ModalSettingsComponent
+  ],
+  entryComponents: [ModalSettingsComponent]
 })
 export class AdminSettingsModule {}
