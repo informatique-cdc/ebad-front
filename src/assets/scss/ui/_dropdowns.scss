@@ -54,6 +54,13 @@
   }
 
   &.dropdown-menu-right {
+    //&::before {
+    right: -12px;
+    left: auto;
+    //}
+  }
+
+  &.dropdown-menu-right {
     &::before {
       right: 12px;
       left: auto;
