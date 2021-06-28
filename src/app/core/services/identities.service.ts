@@ -18,7 +18,7 @@ export class IdentitiesService {
   }
 
   getAllByApplication(applicationId: number, pageable: any = new Pageable(0, 20)): Observable<Page<Identity>> {
-    return this.apiService.get(`/identities`, {applicationId, pageable});
+    return this.apiService.get(`/identities?applicationId=${applicationId}`, pageable);
   }
   addIdentity(identity: Identity): Observable<Identity> {
     return this.apiService.put('/identities', identity);

@@ -1,7 +1,7 @@
 <app-env-app-head-selector [title]="applicationSelected?.name" preTitle="{{'IDENTITY.TITLE' | translate}}" (applicationChanged)="applicationChanged($event)"
                            [showEnvironment]="false" [isModarable]="true">
 <span header>
-  <a id="addEnvAction" href="javascript:void(0)" *ngIf="applicationSelected" style="cursor: pointer"
+  <a id="addIdentityAction" href="javascript:void(0)" *ngIf="applicationSelected" style="cursor: pointer"
      class="btn btn-primary me-3" (click)="onClickAddIdentity()">
     <ebad-icon name="plus"></ebad-icon>
     {{'IDENTITY.NEW' | translate}}
@@ -13,7 +13,7 @@
 <ebad-show-hide-column [datatableElement]="dtElement" [columns]="columns"></ebad-show-hide-column>
 <div class="card" (resized)="onResizeTable($event)">
   <div class="table-responsive">
-    <table id="listNorms" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+    <table id="listIdentities" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
       <thead>
       <tr>
         <th id="identityId">{{'IDENTITY.ID' | translate}}</th>

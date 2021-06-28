@@ -184,10 +184,12 @@
     "ADD": "Ajouter l'identité",
     "NEW": "Nouvelle identité",
     "MSG": {
-      "DELETION_SUCCESS": "L'identité a été supprimée",
+      "DELETION_SUCCESS": "L'identité a été supprimée avec succès",
       "DELETION_ERROR": "Une erreur est survenue en tentant de supprimer l'identité : {{msg}}",
       "ADD_SUCCESS": "L'identité a été ajoutée avec succès",
-      "ADD_ERROR": "Une erreur est survenue en tentant d'ajouter l'identité : {{msg}}"
+      "ADD_ERROR": "Une erreur est survenue en tentant d'ajouter l'identité : {{msg}}",
+      "UPDATE_SUCCESS": "L'identité a été mis à jour avec succès",
+      "UPDATE_ERROR": "ne erreur est survenue en tentant de mettre à jour l'identité : {{msg}}"
     }
   }
 }

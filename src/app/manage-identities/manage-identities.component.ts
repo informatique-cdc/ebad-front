@@ -66,7 +66,7 @@ export class ManageIdentitiesComponent implements AfterViewInit, OnDestroy, OnIn
             serverSide: true,
             processing: false,
             ajax: (dataTablesParameters: any, callback) => {
-                if (!this.applicationSelected){
+                if (!this.applicationSelected) {
                     this.identities = [];
                     return;
                 }
@@ -109,48 +109,51 @@ export class ManageIdentitiesComponent implements AfterViewInit, OnDestroy, OnIn
     }
 
     onClickAddIdentity() {
-      const modalRef = this.modalService.open(ModalIdentityComponent);
-      modalRef.result.then(() => {
-        this.toastService.showSuccess(`La norme a bien été ajoutée`);
-        this.refreshIdentities();
-      }, (reason) => {
-        if (reason.message !== undefined) {
-          this.toastService.showError( `Une erreur est survenue lors de l'ajout de la norme : ${reason.message}`);
-        }
-      });
-      modalRef.componentInstance.isUpdate = false;
-      modalRef.componentInstance.applicationSelected = this.applicationSelected;
+        const modalRef = this.modalService.open(ModalIdentityComponent);
+        modalRef.result.then(() => {
+            this.translateService.get('IDENTITY.MSG.ADD_SUCCESS').subscribe((msg) => this.toastService.showSuccess(msg));
+            this.refreshIdentities();
+        }, (reason) => {
+            if (reason.message !== undefined) {
+                this.translateService.get('IDENTITY.MSG.ADD_ERROR', {msg: reason.message})
+                    .subscribe((msg) => this.toastService.showError(msg));
+            }
+        });
+        modalRef.componentInstance.isUpdate = false;
+        modalRef.componentInstance.applicationSelected = this.applicationSelected;
     }
 
     editIdentity(identity: Identity) {
-      const modalRef = this.modalService.open(ModalIdentityComponent);
-      modalRef.result.then(() => {
-        this.toastService.showSuccess(`La norme a bien été modifiée`);
-        this.refreshIdentities();
-      }, (reason) => {
-        if (reason.message !== undefined) {
-          this.toastService.showError( `Une erreur est survenue lors de la modification de la norme : ${reason.message}`);
-        }
-      });
-      this.identitiesService.getIdentity(identity.id).subscribe(value => modalRef.componentInstance.identity = value);
-      modalRef.componentInstance.isUpdate = true;
-      modalRef.componentInstance.applicationSelected = this.applicationSelected;
+        const modalRef = this.modalService.open(ModalIdentityComponent);
+        modalRef.result.then(() => {
+            this.translateService.get('IDENTITY.MSG.UPDATE_SUCCESS').subscribe((msg) => this.toastService.showSuccess(msg));
+            this.refreshIdentities();
+        }, (reason) => {
+            if (reason.message !== undefined) {
+                this.translateService.get('IDENTITY.MSG.UPDATE_ERROR', {msg: reason.message})
+                    .subscribe((msg) => this.toastService.showError(msg));
+            }
+        });
+        this.identitiesService.getIdentity(identity.id).subscribe(value => modalRef.componentInstance.identity = value);
+        modalRef.componentInstance.isUpdate = true;
+        modalRef.componentInstance.applicationSelected = this.applicationSelected;
     }
 
     deleteIdentity(identity: Identity) {
-      const modalRef = this.modalService.open(ModalIdentityDeletionComponent);
-      modalRef.result.then(() => {
-        this.identitiesService.deleteIdentity(identity.id).subscribe(
-          () => {
-            this.toastService.showSuccess(`La norme a été supprimée`);
-            this.refreshIdentities();
-          },
-          reason => {
-            this.toastService.showError( `Une erreur est survenue lors de la suppression de la norme : ${reason.detail}`);
-          }
-        );
-      });
-      modalRef.componentInstance.identity = identity;
+        const modalRef = this.modalService.open(ModalIdentityDeletionComponent);
+        modalRef.result.then(() => {
+            this.identitiesService.deleteIdentity(identity.id).subscribe(
+                () => {
+                    this.translateService.get('IDENTITY.MSG.DELETION_SUCCESS').subscribe((msg) => this.toastService.showSuccess(msg));
+                    this.refreshIdentities();
+                },
+                reason => {
+                    this.translateService.get('IDENTITY.MSG.DELETION_ERROR', {msg: reason.message})
+                        .subscribe((msg) => this.toastService.showError(msg));
+                }
+            );
+        });
+        modalRef.componentInstance.identity = identity;
     }
 
     onResizeTable(event) {

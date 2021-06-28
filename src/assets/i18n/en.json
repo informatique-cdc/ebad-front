@@ -184,10 +184,12 @@
     "ADD": "Add Identity",
     "NEW": "New Identity",
     "MSG": {
-      "DELETION_SUCCESS": "Identity is deleted",
+      "DELETION_SUCCESS": "Identity is deleted with success",
       "DELETION_ERROR": "An error was occured when trying to delete identity : {{msg}}",
       "ADD_SUCCESS": "Identity is added with success",
-      "ADD_ERROR": "An error was occured when trying to add identity : {{msg}}"
+      "ADD_ERROR": "An error was occured when trying to add identity : {{msg}}",
+      "UPDATE_SUCCESS": "Identity is updated with success",
+      "UPDATE_ERROR": "An error was occured when trying to update identity : {{msg}}"
     }
   }
 }

@@ -1,4 +1,4 @@
-<form (ngSubmit)="identityForm.form.valid && addIdentity()" #identityForm="ngForm">
+<form (ngSubmit)="identityForm.form.valid && addIdentity()" #identityForm="ngForm" id="addIdentityForm">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
