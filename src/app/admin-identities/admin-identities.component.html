@@ -1,0 +1,58 @@
+<div class="page-title-box">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      <h2 class="page-pretitle">
+        {{'MENU.ADMINISTRATION.TITLE' | translate}}
+      </h2>
+      <h2 id="tableTitle" class="page-title">
+        {{'IDENTITY.TITLE' | translate}}
+      </h2>
+    </div>
+    <div class="col-auto ms-auto d-print-none">
+      <div class="d-flex">
+        <a  href="javascript:void(0)"  style="cursor: pointer" class="btn btn-primary me-3" id="addIdentityAction" (click)="onClickAddIdentity()">
+          <ebad-icon name="plus"></ebad-icon>
+          {{'IDENTITY.NEW' | translate}}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ebad-show-hide-column [datatableElement]="dtElement" [columns]="columns"></ebad-show-hide-column>
+<div class="card" (resized)="onResizeTable($event)">
+  <div class="table-responsive">
+    <table id="listNorms" aria-describedby="tableTitle" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable class="table card-table table-vcenter text-nowrap datatable">
+      <thead>
+      <tr>
+        <th id="identityId">{{'IDENTITY.ID' | translate}}</th>
+        <th id="identityName">
+          {{'IDENTITY.NAME' | translate}}
+        </th>
+        <th id="identityLogin">
+          {{'IDENTITY.LOGIN' | translate}}
+        </th>
+        <th id="actions">
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let identity of identities">
+        <td class="align-middle" *ngIf="columns[0].visible">
+          {{identity.id}}
+        </td>
+        <td class="align-middle" *ngIf="columns[1].visible">
+          {{identity.name}}
+        </td>
+        <td class="align-middle" *ngIf="columns[2].visible">
+          {{identity.login}}
+        </td>
+        <td class="text-center" *ngIf="columns[3].visible">
+          <a id="actionEdit-{{identity.name}}" (click)="editIdentity(identity)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'IDENTITY.EDIT' | translate}}</a>
+          <a id="actionDelete-{{identity.name}}" (click)="deleteIdentity(identity)" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'IDENTITY.DELETE' | translate}}</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

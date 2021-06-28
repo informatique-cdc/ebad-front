@@ -32,19 +32,6 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="login">Login</label>
-      <div class="input-group">
-        <input required id="login" class="form-control" placeholder="Login"
-               name="login"
-               #login="ngModel"
-               [ngClass]="{ 'is-invalid': environmentForm.submitted && login.invalid }"
-               [(ngModel)]="environment.login">
-        <div *ngIf="environmentForm.submitted && host.invalid" class="invalid-feedback">
-          <div *ngIf="login.errors.required">Login requis</div>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
       <label for="homePath">Répertoire Home</label>
       <div class="input-group">
         <input required id="homePath" class="form-control" placeholder="Chemin du répertoire Home"
@@ -67,6 +54,18 @@
                [(ngModel)]="environment.prefix">
         <div *ngIf="environmentForm.submitted && prefix.invalid" class="invalid-feedback">
           <div *ngIf="prefix.errors.required">Préfix requis</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="identity">Indentité</label>
+      <div class="input-group">
+        <select #identity="ngModel" name="identity" required id="identity" class="form-control" [(ngModel)]="environment.identity"
+                [ngClass]="{ 'is-invalid': environmentForm.submitted && identity.invalid }">
+          <option *ngFor="let identity of identities" [ngValue]="identity">{{identity.name}}</option>
+        </select>
+        <div *ngIf="environmentForm.submitted && identity.invalid" class="invalid-feedback">
+          <div *ngIf="identity.errors.required">Identité requise</div>
         </div>
       </div>
     </div>

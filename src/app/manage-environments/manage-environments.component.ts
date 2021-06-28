@@ -7,7 +7,7 @@ import {Constants} from '../shared/Constants';
 import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {ToastService} from '../core/services/toast.service';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
 import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
@@ -38,7 +38,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     this.columns.push({data: 'id', name: 'id', visible: true});
     this.columns.push({data: 'name', name: 'Nom', visible: true});
     this.columns.push({data: 'host', name: 'Serveur', visible: true});
-    this.columns.push({data: 'login', name: 'Login', visible: true});
+    this.columns.push({data: 'identity', name: 'Identity', visible: true});
     this.columns.push({data: 'homePath', name: 'Home', visible: true});
     this.columns.push({data: 'prefix', name: 'Préfix', visible: true});
     this.columns.push({ data: '', name: 'Action', orderable: false, visible: true});

@@ -20,6 +20,8 @@ import './norme.commands'
 import './environnement.commands'
 import './batch.commands'
 import './files.commands'
+import './identity-admin.commands'
+import './identity-environment.commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

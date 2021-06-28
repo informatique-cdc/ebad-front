@@ -5,8 +5,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {OauthService} from './security/oauth.service';
 import {Router} from '@angular/router';
 import {SidebarService} from './core/services/sidebar.service';
-import {ConfigService} from "./core/services/config.service";
-import {InitAuthConfigService} from "./core/services/init-oauth-config.service";
+import {ConfigService} from './core/services/config.service';
+import {InitAuthConfigService} from './core/services/init-oauth-config.service';
 
 @Component({
   selector: 'app-root',
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
       console.error(error);
     });
 
-    this.sidebarService.sidebarVisibilityChange.subscribe(value => {this.asideVisible = value});
+    this.sidebarService.sidebarVisibilityChange.subscribe(value => this.asideVisible = value);
 
   }
 }

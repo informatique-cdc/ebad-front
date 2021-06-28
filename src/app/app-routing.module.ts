@@ -54,6 +54,10 @@ const routes: Routes = [
       {
         path: 'access-control',
         loadChildren: () => import('./manage-access-control/manage-access-control.module').then(m => m.ManageAccessControlModule)
+      },
+      {
+        path: 'identities',
+        loadChildren: () => import('./manage-identities/manage-identities.module').then(m => m.ManageIdentitiesModule)
       }
       ]
   },
@@ -79,6 +83,10 @@ const routes: Routes = [
       {
         path: 'settings',
         loadChildren: () => import('./admin-settings/admin-settings.module').then(m => m.AdminSettingsModule)
+      },
+      {
+        path: 'identities',
+        loadChildren: () => import('./admin-identities/admin-identities.module').then(m => m.AdminIdentitiesModule)
       }
     ]
   },

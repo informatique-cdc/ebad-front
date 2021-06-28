@@ -1,4 +1,4 @@
-context('Applications', () => {
+context('Applications Administration', () => {
   before(function () {
     cy.server();
     const currentDate = new Date();

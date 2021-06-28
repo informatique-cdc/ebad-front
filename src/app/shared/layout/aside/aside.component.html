@@ -65,8 +65,12 @@
             <ebad-menu-item [label]="'MENU.MANAGEMENT.ENVIRONMENTS' | translate" icon="server"
                             link="/manage/environments"></ebad-menu-item>
           </li>
+          <li id="identityManageMenu" class="sidebar-nav-item">
+            <ebad-menu-item [label]="'MENU.MANAGEMENT.IDENTITIES' | translate" icon="lock"
+                            link="/manage/identities"></ebad-menu-item>
+          </li>
           <li id="accessControlMenu" class="sidebar-nav-item">
-            <ebad-menu-item [label]="'MENU.MANAGEMENT.ACCESS-CONTROL' | translate" icon="lock"
+            <ebad-menu-item [label]="'MENU.MANAGEMENT.ACCESS-CONTROL' | translate" icon="users"
                             link="/manage/access-control"></ebad-menu-item>
           </li>
         </ul>
@@ -87,6 +91,10 @@
           <li id="normMenu" class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.ADMINISTRATION.NORMS' | translate" icon="flag"
                             link="/admin/norms"></ebad-menu-item>
+          </li>
+          <li id="identityAdminMenu" class="sidebar-nav-item">
+            <ebad-menu-item [label]="'MENU.ADMINISTRATION.IDENTITIES' | translate" icon="lock"
+                            link="/admin/identities"></ebad-menu-item>
           </li>
           <li class="sidebar-nav-item">
             <ebad-menu-item [label]="'MENU.ADMINISTRATION.NEWS' | translate" icon="inbox"

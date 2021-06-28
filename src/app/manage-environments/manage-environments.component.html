@@ -29,8 +29,8 @@
         <th id="envHost">
           Serveur
         </th>
-        <th id="envLogin">
-          Login
+        <th id="envIdentity">
+          Identité
         </th>
         <th id="envHome">
           Home
@@ -54,7 +54,7 @@
           {{env.host}}
         </td>
         <td class="align-middle"  *ngIf="columns[3].visible">
-          {{env.login}}
+          {{env.identity.name}}
         </td>
         <td class="align-middle"  *ngIf="columns[4].visible">
           {{env.homePath}}
