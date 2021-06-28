@@ -1,4 +1,4 @@
-context('Identities', () => {
+context('Identities Administration', () => {
     before(function () {
         const currentDate = new Date();
         const timestamp = currentDate.getTime();
@@ -23,19 +23,19 @@ context('Identities', () => {
         });
     });
 
-    it('Ajouter une identities', function () {
+    it('Add identity', function () {
         cy.login({login: this.login.admin.login, password: this.login.admin.password})
             .addIdentityAdmin({name: this.identity1Name, login: 'testLogin', password: 'myPassword'})
         cy.get('.toast-body').should('contains.text', 'Identity is added with success');
     });
 
-    it('Supprimer une identities', function () {
+    it('Delete identity', function () {
         cy.login({login: this.login.admin.login, password: this.login.admin.password})
             .deleteIdentityAdmin({name: this.identity1Name});
         cy.get('.toast-body').should('contains.text', 'Identity is deleted with success');
     });
 
-    it('Lister les identités', function () {
+    it('List  identities', function () {
         cy.server();
         cy.route({
             method: 'GET',
@@ -78,7 +78,7 @@ context('Identities', () => {
         cy.deleteIdentityAdmin({name: this.identity3Name});
     });
 
-    it('Modifier une identities', function () {
+    it('Edit identity', function () {
         cy.server();
         cy.route({
             method: 'GET',

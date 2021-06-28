@@ -1,4 +1,4 @@
-context('Folders', () => {
+context('Folders Management', () => {
   before(function () {
     cy.server();
     const currentDate = new Date();

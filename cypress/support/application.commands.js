@@ -46,7 +46,7 @@ Cypress.Commands.add("updateApplication", ({codeAppliToUpdate, nameToUpdate, cod
   cy.server();
   cy.route({
     method: 'GET',
-    url: '/ebad/applications/gestion*',
+    url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameToUpdate,
   }).as('searchApplication');
   cy.route({
     method: 'PATCH',

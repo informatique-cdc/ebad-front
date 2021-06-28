@@ -1,4 +1,4 @@
-context('Norms', () => {
+context('Norms Administration', () => {
   before(function () {
     const currentDate = new Date();
     const timestamp = currentDate.getTime();
@@ -17,19 +17,19 @@ context('Norms', () => {
     });
   });
 
-  it('Ajouter une norme', function () {
+  it('Add norm', function () {
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .addNorme({name: this.norm1Name, interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.txt'});
     cy.get('.toast-body').should('contains.text', 'La norme a bien été ajoutée');
   });
 
-  it('Supprimer une norme', function () {
+  it('Delete norm', function () {
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .deleteNorme({name: this.norm1Name});
     cy.get('.toast-body').should('contains.text', 'La norme a été supprimée');
   });
 
-  it('Lister les normes', function () {
+  it('List norms', function () {
     cy.server();
     cy.route({
       method: 'GET',
@@ -62,7 +62,7 @@ context('Norms', () => {
     cy.deleteNorme({name: this.norm3Name});
   });
 
-  it('Modifier une norme', function () {
+  it('Edit norm', function () {
     cy.server();
     cy.route({
       method: 'GET',

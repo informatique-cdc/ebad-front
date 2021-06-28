@@ -24,7 +24,7 @@ context('Identities Management', () => {
         });
     });
 
-    it('Ajouter une identité', function () {
+    it('Add identity', function () {
         cy.login({login: this.login.admin.login, password: this.login.admin.password})
             .addApplication({codeAppli: 'EN1', name: this.app1Name, parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'})
             .addManagerToApplication({codeAppli: 'EN1', nameAppli: this.app1Name, firstname: this.login.admin.firstname, login: this.login.admin.login})
@@ -32,13 +32,13 @@ context('Identities Management', () => {
         cy.get('.toast-body').should('contains.text', 'Identity is added with success');
     });
 
-    it('Supprimer une identities', function () {
+    it('Delete identity', function () {
         cy.login({login: this.login.admin.login, password: this.login.admin.password})
             .deleteIdentityManage({applicationName: this.app1Name, name: this.identity1Name});
         cy.get('.toast-body').should('contains.text', 'Identity is deleted with success');
     });
 
-    it('Lister les identités', function () {
+    it('List identities', function () {
         cy.server();
         cy.route({
             method: 'GET',
@@ -90,7 +90,7 @@ context('Identities Management', () => {
         cy.deleteIdentityManage({applicationName: this.app1Name, name: this.identity3Name});
     });
 
-    it('Modifier une identities', function () {
+    it('Edit identity', function () {
         cy.server();
         cy.route({
             method: 'GET',

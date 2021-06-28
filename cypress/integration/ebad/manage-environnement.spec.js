@@ -1,4 +1,4 @@
-context('Gestion Environnement', () => {
+context('Environment Management', () => {
   before(function () {
     const currentDate = new Date();
     const timestamp = currentDate.getTime();
@@ -92,7 +92,7 @@ context('Gestion Environnement', () => {
   });
 
 
-  it('Modifier un environnement', function () {
+  it('Edit environment', function () {
     cy.server();
     cy.route({
       method: 'GET',
