@@ -74,6 +74,7 @@
   "ACTIONS": "actions",
   "SUBMIT": "Submit",
   "CANCEL": "Cancel",
+  "CLOSE": "Close",
   "ACCREDITATION": {
     "ID": "ID",
     "APPLICATION": "Application",
@@ -190,6 +191,24 @@
       "ADD_ERROR": "An error was occured when trying to add identity : {{msg}}",
       "UPDATE_SUCCESS": "Identity is updated with success",
       "UPDATE_ERROR": "An error was occured when trying to update identity : {{msg}}"
+    }
+  },
+  "PROFILE": {
+    "TITLE": "Profile",
+    "SECURITY": {
+      "API_TOKEN": "API token",
+      "NEW_API_TOKEN": "New token",
+      "NEW_API_TOKEN_ACTION": "Create",
+      "NEW_API_TOKEN_SUCCESS": "Token is added with success",
+      "NEW_API_TOKEN_ERROR": "An error was occured when trying to add token : {{msg}}",
+      "DELETE_API_TOKEN": "Delete",
+      "DELETE_API_TOKEN_MSG": "Are you sure to delete the token {{name}} ?",
+      "DELETE_API_TOKEN_TITLE": "Deletion of token {{name}}",
+      "DELETE_API_TOKEN_SUCCESS": "Token is deleted with success",
+      "DELETE_API_TOKEN_ERROR": "An error was occured when trying to delete token : {{msg}}",
+      "TOKEN_RESULT": "Your token is : {{token}}",
+      "ID": "ID",
+      "NAME": "Name"
     }
   }
 }

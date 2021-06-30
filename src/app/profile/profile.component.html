@@ -3,7 +3,7 @@
   <div class="row align-items-center">
     <div class="col-auto">
       <h2 class="page-title">
-        Profile
+        {{ 'PROFILE.TITLE' | translate }}
       </h2>
     </div>
   </div>
@@ -17,7 +17,7 @@
            style="background-image: url(./assets/img/photos/1194d63fe36a8670.jpg);"></div>
       <div class="card-body text-center">
 <!--        <img alt="avatar" class="card-profile-img" src="img/avatars/000f.jpg">-->
-        <span class="avatar card-profile-img">AB</span>
+        <span class="avatar card-profile-img">{{ user | avatar}}</span>
 
         <h2 class="mb-3">{{user.firstName}} {{user.lastName}}</h2>
 
@@ -25,10 +25,8 @@
           {{user.email}}
         </p>
 
-        <button class="btn btn-outline-primary btn-sm">
-          <ebad-icon name="twitter"></ebad-icon>
-          Follow
-        </button>
+        <span class="badge bg-primary me-2" *ngFor="let authority of user.authorities">{{authority.name}}</span>
+
       </div>
     </div>
 
@@ -126,6 +124,47 @@
 <!--      </div>-->
 <!--    </div>-->
 
+  </div>
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header d-flex flex-row">
+          <span class="p-2 me-auto">{{ 'PROFILE.SECURITY.API_TOKEN' | translate }}</span>
+        <span class="p-2"><a (click)="onClickNewToken()" class="btn btn-primary btn-sm">{{ 'PROFILE.SECURITY.NEW_API_TOKEN' | translate }}</a></span>
+
+      </div>
+      <div class="card-table">
+        <div class="table-responsive">
+          <table id="listApiToken" aria-describedby="tableTitle" class="table card-table table-vcenter text-nowrap">
+            <thead>
+            <tr>
+              <th id="tokenId">
+                {{ 'PROFILE.SECURITY.ID' | translate }}
+              </th>
+              <th id="tokenName">
+                {{ 'PROFILE.SECURITY.NAME' | translate }}
+              </th>
+              <th id="actions">
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let token of tokens">
+              <td class="align-middle">
+                {{token.id}}
+              </td>
+              <td class="align-middle">
+                {{token.name}}
+              </td>
+              <td class="text-center" >
+                <a href="javascript:void(0)" (click)="onClickDelete(token)" class="btn btn-secondary btn-sm">{{ 'PROFILE.SECURITY.DELETE_API_TOKEN' | translate }}</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
   </div>
 <!--  <div class="col-lg-8">-->
 <!--    <div class="card">-->

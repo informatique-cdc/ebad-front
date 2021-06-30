@@ -1,0 +1,26 @@
+<form (ngSubmit)="tokenForm.form.valid && addToken()" #tokenForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ 'PROFILE.SECURITY.NEW_API_TOKEN' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('cross-click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">{{ 'PROFILE.SECURITY.NAME' | translate }}</label>
+      <div class="input-group">
+        <input required id="name" class="form-control" placeholder="{{ 'PROFILE.SECURITY.NAME' | translate }}" #name="ngModel"
+               name="name"
+               [(ngModel)]="token.name"
+               [ngClass]="{ 'is-invalid': tokenForm.submitted && name.invalid }">
+        <div *ngIf="tokenForm.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required">{{ 'PROFILE.SECURITY.NAME' | translate }} requis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cancel')">{{ 'CANCEL' | translate }}</button>
+    <button type="submit" class="btn btn-outline-dark">{{ 'PROFILE.SECURITY.NEW_API_TOKEN_ACTION' | translate }}</button>
+  </div>
+</form>

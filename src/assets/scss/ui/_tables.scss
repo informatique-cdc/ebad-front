@@ -5,6 +5,8 @@
     th {
       background: $min-black;
       border-width: $table-border-width;
+      border-bottom: 1px solid $border-color;
+
       @include subheader;
 
       @media print {
