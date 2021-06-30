@@ -10,7 +10,7 @@
     <ul class="sidebar-nav">
       <li class="sidebar-nav-title">Navigation</li>
       <li class="sidebar-nav-item">
-        <ebad-menu-item [label]="'MENU.DASHBOARD' | translate" link="home" icon="/home"></ebad-menu-item>
+        <ebad-menu-item [label]="'MENU.DASHBOARD' | translate" link="/home" icon="home"></ebad-menu-item>
       </li>
       <li class="sidebar-nav-item" *hasAnyRole="['ROLE_MODO','ROLE_USER']">
         <ebad-menu-item label="Accreditations" badgeText="{{accreditationBadge}}" icon="check-square"
