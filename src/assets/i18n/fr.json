@@ -72,6 +72,7 @@
   "YES": "Oui",
   "NO": "Non",
   "ACTIONS": "actions",
+  "CLOSE": "Fermer",
   "SUBMIT": "Envoyer",
   "CANCEL": "Annuler",
   "ACCREDITATION": {
@@ -189,7 +190,25 @@
       "ADD_SUCCESS": "L'identité a été ajoutée avec succès",
       "ADD_ERROR": "Une erreur est survenue en tentant d'ajouter l'identité : {{msg}}",
       "UPDATE_SUCCESS": "L'identité a été mis à jour avec succès",
-      "UPDATE_ERROR": "ne erreur est survenue en tentant de mettre à jour l'identité : {{msg}}"
+      "UPDATE_ERROR": "Une erreur est survenue en tentant de mettre à jour l'identité : {{msg}}"
+    }
+  },
+  "PROFILE": {
+    "TITLE": "Profil",
+    "SECURITY": {
+      "API_TOKEN": "Jeton API",
+      "NEW_API_TOKEN": "Nouveau jeton",
+      "NEW_API_TOKEN_ACTION": "Créer",
+      "NEW_API_TOKEN_SUCCESS": "Le jeton a été ajouté avec succès",
+      "NEW_API_TOKEN_ERROR": "Une erreur est survenue en tentant d'ajouter le jeton : {{msg}}",
+      "DELETE_API_TOKEN": "Supprimer",
+      "DELETE_API_TOKEN_MSG": "Voulez-vous vraiment supprimer le jeton {{name}}?",
+      "DELETE_API_TOKEN_TITLE": "Suppression du jeton {{name}}",
+      "DELETE_API_TOKEN_SUCCESS": "Le jeton a été supprimé avec succès",
+      "DELETE_API_TOKEN_ERROR": "Une erreur est survenue en tentant de supprimer le jeton : {{msg}}",
+      "TOKEN_RESULT": "Votre jeton est : {{token}}",
+      "ID": "ID",
+      "NAME": "Nom"
     }
   }
 }

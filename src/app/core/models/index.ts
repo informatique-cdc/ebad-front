@@ -26,3 +26,4 @@ export * from './global-setting.model';
 export * from './creation-accreditation-request.model';
 export * from './accreditation-request.model';
 export * from './response-accreditation-request.model';
+export * from './api-token.model';
