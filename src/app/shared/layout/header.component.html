@@ -33,7 +33,7 @@
               Vous avez <strong>{{notifications.length}}</strong> notification(s)
             </div>
           </a>
-          <a *ngFor="let notification of notifications" class="dropdown-item d-flex">
+          <a *ngFor="let notification of notifications" class="dropdown-item d-flex dropdown-item-notification">
             <div id="notification{{notification.id}}">
               {{notification.content}}
               <div class="small text-muted">{{notification.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</div>
@@ -76,9 +76,9 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" aria-labelledby="settingsMenu"
              ngbDropdownMenu>
-          <a class="dropdown-item" routerLink="/user/profile" >
+          <a class="dropdown-item"  routerLink="/user/profile" >
             <ebad-icon name="user"></ebad-icon>
-            Profile
+            {{ 'PROFILE.TITLE' | translate }}
           </a>
 <!--          <a id="userSettingsMenu" class="dropdown-item" href="#">-->
 <!--            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"-->
