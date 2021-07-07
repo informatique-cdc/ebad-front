@@ -71,7 +71,7 @@
     "@cypress/code-coverage": "^3.9.8",
     "@cypress/webpack-preprocessor": "^5.9.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
-    "@types/datatables.net": "^1.10.19",
+    "@types/datatables.net": "^1.10.20",
     "@types/jasmine": "~3.7.7",
     "@types/jasminewd2": "~2.0.9",
     "@types/jquery": "^3.5.5",
