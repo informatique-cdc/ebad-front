@@ -68,7 +68,7 @@
     "@angular/compiler-cli": "^12.1.4",
     "@angular/language-service": "^12.1.4",
     "@briebug/cypress-schematic": "^5.0.1",
-    "@cypress/code-coverage": "^3.9.9",
+    "@cypress/code-coverage": "^3.9.10",
     "@cypress/webpack-preprocessor": "^5.9.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/datatables.net": "^1.10.20",
