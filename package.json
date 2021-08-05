@@ -43,7 +43,7 @@
     "core-js": "^3.16.0",
     "datatables.net": "^1.10.25",
     "datatables.net-dt": "^1.10.25",
-    "event-source-polyfill": "^1.0.24",
+    "event-source-polyfill": "^1.0.25",
     "express": "^4.17.1",
     "file-saver": "^2.0.5",
     "http-proxy-middleware": "^2.0.1",
