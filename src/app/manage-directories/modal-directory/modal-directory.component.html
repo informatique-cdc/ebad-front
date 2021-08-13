@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-1">
       <label for="path">Chemin</label>
       <div class="input-group">
         <input required id="path" class="form-control" placeholder="Chemin relatif du répertoire"
@@ -31,21 +31,18 @@
         </div>
       </div>
     </div>
-    <div class="form-group">
-      <label for="canWrite">Droit en écriture?</label>
-      <div class="input-group">
-        <input id="canWrite" class="form-control"
-               name="canWrite" type="checkbox"
-               [(ngModel)]="directory.canWrite">
-      </div>
+
+    <div class="form-check">
+      <input type="checkbox" id="canWrite" class="form-check-input form-control"
+             name="canWrite"
+             [(ngModel)]="directory.canWrite">
+      <label for="canWrite" class="form-check-label ms-5">Droit en écriture?</label>
     </div>
-    <div class="form-group">
-      <label for="canExplore">Droit d'explorer?</label>
-      <div class="input-group">
-        <input id="canExplore" class="form-control"
-               name="canExplore" type="checkbox"
-               [(ngModel)]="directory.canExplore">
-      </div>
+    <div class="form-check">
+      <input type="checkbox" id="canExplore" class="form-check-input form-control"
+             name="canExplore"
+             [(ngModel)]="directory.canExplore">
+      <label for="canExplore" class="form-check-label ms-5">Droit d'explorer?</label>
     </div>
 
 
