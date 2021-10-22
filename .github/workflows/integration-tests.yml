@@ -26,7 +26,7 @@ jobs:
           name: cypress-videos
           path: cypress/videos
       - name: SonarCloud Scan
-        if: always()
+        if: ${{ github.actor != 'dependabot[bot]' }}
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
