@@ -1,6 +1,6 @@
 {
   "production": true,
   "jwt": true,
-  "apiUrl": "/ebad",
-  "wsUrl": "ws://localhost:4200/ebad/ws"
+  "apiUrl": "https://ebad.herokuapp.com/ebad",
+  "wsUrl": "wss://ebad.herokuapp.com/ebad/ws"
 }
