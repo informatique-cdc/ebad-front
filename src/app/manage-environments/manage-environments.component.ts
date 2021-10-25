@@ -123,8 +123,8 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
       this.toastService.showSuccess(`L'environnement ${result.name} a bien été ajouté`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de l'ahout de l'environnement : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de l'ahout de l'environnement : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -147,8 +147,8 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
       this.toastService.showSuccess(`L'environnement ${result.name} a bien été modifié`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification de l'environnement : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de la modification de l'environnement : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;

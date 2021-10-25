@@ -101,8 +101,8 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.toastService.showSuccess(`La chaine ${result.name} a bien été ajoutée`);
       this.environmentChanged(this.environmentSelected);
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de l'ajout de la chaine : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de l'ajout de la chaine : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
@@ -115,8 +115,8 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.toastService.showSuccess(`La chaine ${result.name} a bien été modifiée`);
       this.environmentChanged(this.environmentSelected);
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification de la chaine : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de la modification de la chaine : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;

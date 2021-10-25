@@ -103,8 +103,8 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
       this.toastService.showSuccess(`Le répertoire ${result.name} a bien été ajouté`);
       this.environmentChanged(this.environmentSelected);
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de l'ajout du répertoire : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de l'ajout du répertoire : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
@@ -117,8 +117,8 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
       this.toastService.showSuccess(`Le répertoire ${result.name} a bien été modifié`);
       this.environmentChanged(this.environmentSelected);
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification du répertoire : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de la modification du répertoire : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;

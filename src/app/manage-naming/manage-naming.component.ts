@@ -112,8 +112,8 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
       this.toastService.showSuccess(`Le nommage ${result.name} a bien été ajouté`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de l'ahout du nommage : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de l'ahout du nommage : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -126,8 +126,8 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
       this.toastService.showSuccess(`Le nommage ${result.name} a bien été modifié`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification du nommage : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de la modification du nommage : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;

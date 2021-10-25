@@ -114,8 +114,8 @@ export class ManageIdentitiesComponent implements AfterViewInit, OnDestroy, OnIn
             this.translateService.get('IDENTITY.MSG.ADD_SUCCESS').subscribe((msg) => this.toastService.showSuccess(msg));
             this.refreshIdentities();
         }, (reason) => {
-            if (reason.message !== undefined) {
-                this.translateService.get('IDENTITY.MSG.ADD_ERROR', {msg: reason.message})
+            if (reason.apierror.message !== undefined) {
+                this.translateService.get('IDENTITY.MSG.ADD_ERROR', {msg: reason.apierror.message})
                     .subscribe((msg) => this.toastService.showError(msg));
             }
         });
@@ -129,8 +129,8 @@ export class ManageIdentitiesComponent implements AfterViewInit, OnDestroy, OnIn
             this.translateService.get('IDENTITY.MSG.UPDATE_SUCCESS').subscribe((msg) => this.toastService.showSuccess(msg));
             this.refreshIdentities();
         }, (reason) => {
-            if (reason.message !== undefined) {
-                this.translateService.get('IDENTITY.MSG.UPDATE_ERROR', {msg: reason.message})
+            if (reason.apierror.message !== undefined) {
+                this.translateService.get('IDENTITY.MSG.UPDATE_ERROR', {msg: reason.apierror.message})
                     .subscribe((msg) => this.toastService.showError(msg));
             }
         });
@@ -148,7 +148,7 @@ export class ManageIdentitiesComponent implements AfterViewInit, OnDestroy, OnIn
                     this.refreshIdentities();
                 },
                 reason => {
-                    this.translateService.get('IDENTITY.MSG.DELETION_ERROR', {msg: reason.message})
+                    this.translateService.get('IDENTITY.MSG.DELETION_ERROR', {msg: reason.apierror.message})
                         .subscribe((msg) => this.toastService.showError(msg));
                 }
             );

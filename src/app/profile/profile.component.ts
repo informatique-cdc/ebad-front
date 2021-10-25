@@ -42,8 +42,8 @@ export class ProfileComponent implements OnInit {
         .subscribe((msg) => this.toastService.showSuccess(msg));
       this.refreshTokensList();
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.translateService.get('PROFILE.SECURITY.DELETE_API_TOKEN_ERROR', {msg: reason.message})
+      if (reason.apierror.message !== undefined) {
+        this.translateService.get('PROFILE.SECURITY.DELETE_API_TOKEN_ERROR', {msg: reason.apierror.message})
           .subscribe((msg) => this.toastService.showError(msg));
       }
     });
@@ -60,8 +60,8 @@ export class ProfileComponent implements OnInit {
       modalRefToken.componentInstance.token = result;
       this.refreshTokensList();
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.translateService.get('PROFILE.SECURITY.NEW_API_TOKEN_ERROR', {msg: reason.message})
+      if (reason.apierror.message !== undefined) {
+        this.translateService.get('PROFILE.SECURITY.NEW_API_TOKEN_ERROR', {msg: reason.apierror.message})
           .subscribe((msg) => this.toastService.showError(msg));
       }
     });
