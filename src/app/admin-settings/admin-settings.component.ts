@@ -38,8 +38,8 @@ export class AdminSettingsComponent implements OnInit {
           (data) => this.settings = data
       );
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `An error occured when trying to save global settings : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `An error occured when trying to save global settings : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.settings = settings;

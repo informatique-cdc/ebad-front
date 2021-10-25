@@ -91,8 +91,8 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.toastService.showSuccess(`L'actualité a bien été ajoutée`);
       this.refreshNews();
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de l'ajout de l'actualité : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de l'ajout de l'actualité : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
@@ -104,8 +104,8 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.toastService.showSuccess(`L'actualité a bien été modifiée`);
       this.refreshNews();
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification de l'actualité : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de la modification de l'actualité : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.oneNew = {...oneNew};

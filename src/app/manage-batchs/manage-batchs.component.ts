@@ -45,7 +45,7 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       stateSave: true,
-            stateSaveParams: function (settings, data: any) {
+            stateSaveParams(settings, data: any) {
               data.search.search = '';
             },
       order: [[0, 'asc']],
@@ -102,8 +102,8 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.toastService.showSuccess(`Le batch ${result.name} a bien été ajouté`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError(`Une erreur est survenue lors de l'ahout du batch : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError(`Une erreur est survenue lors de l'ajout du batch : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -116,8 +116,8 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.toastService.showSuccess(`Le batch ${result.name} a bien été modifié`);
       this.applicationChanged(this.applicationSelected);
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError(`Une erreur est survenue lors de la modification du batch : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError(`Une erreur est survenue lors de la modification du batch : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.application = this.applicationSelected;
@@ -144,7 +144,7 @@ export class ManageBatchsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onResizeTable(event){
-    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+    if (event.oldWidth === undefined || event.newWidth === event.oldWidth){
       return;
     }
     this.refreshBatchs();

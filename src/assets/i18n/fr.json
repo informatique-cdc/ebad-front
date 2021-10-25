@@ -119,7 +119,13 @@
     "CANCEL": "Annuler",
     "PARAMETERS": "Paramètres",
     "RUN_BATCH": "Lancement du batch {{name}}",
-    "IS_RUNNING": "en cours"
+    "IS_RUNNING": "en cours",
+    "MSG": {
+      "DELETION_SUCCESS": "Le batch est supprimé",
+      "DELETION_ERROR": "Une erreur est survenue en tentant de supprimer le batch : {{msg}}",
+      "ADD_SUCCESS": "Le planificateur a été ajouté avec succès",
+      "ADD_ERREUR": "Une erreur est survenue en tentant d'ajouter le batch"
+    }
   },
   "CHAIN": {
     "TITLE": "Chaines",

@@ -90,8 +90,8 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
       this.toastService.showSuccess(`L'utilisateur ${result.login} a bien été ajouté`);
       this.refreshUsers();
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de l'ahout de l'utilisateur : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de l'ahout de l'utilisateur : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
@@ -103,8 +103,8 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
       this.toastService.showSuccess(`L'utilisateur ${result.login} a bien été modifié`);
       this.refreshUsers();
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification des rôles de l'utilisateur : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de la modification des rôles de l'utilisateur : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.roles.loginUser = user.login;
@@ -122,8 +122,8 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
       this.toastService.showSuccess(`L'utilisateur ${result.login} a bien été modifié`);
       this.refreshUsers();
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError( `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError( `Une erreur est survenue lors de la modification de l'utilisateur : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.user = {...user};
@@ -137,7 +137,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
         this.users[this.users.indexOf(user)].activated = true;
       },
       (reason) => {
-        this.toastService.showError( `Une erreur est survenue lors de l'activation de l'utilisateur : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de l'activation de l'utilisateur : ${reason.apierror.message}`);
       }
     );
   }
@@ -149,7 +149,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
         this.users[this.users.indexOf(user)].activated = false;
       },
       (reason) => {
-        this.toastService.showError( `Une erreur est survenue lors de la désactivation de l'utilisateur : ${reason.message}`);
+        this.toastService.showError( `Une erreur est survenue lors de la désactivation de l'utilisateur : ${reason.apierror.message}`);
       }
     );
   }

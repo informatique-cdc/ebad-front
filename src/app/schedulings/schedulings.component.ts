@@ -117,8 +117,8 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.translateService.get('SCHEDULING.MSG.ADD_SUCCESS').subscribe((msg) => this.toastService.showSuccess(msg));
       this.refreshSchedulings();
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.translateService.get('SCHEDULING.MSG.ADD_ERROR', {msg: reason.message}).subscribe((msg) => this.toastService.showError(msg));
+      if (reason.apierror.message !== undefined) {
+        this.translateService.get('SCHEDULING.MSG.ADD_ERROR', {msg: reason.apierror.message}).subscribe((msg) => this.toastService.showError(msg));
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;

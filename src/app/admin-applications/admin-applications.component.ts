@@ -108,8 +108,8 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       this.toastService.showSuccess(`L'application ${result.name} a bien été ajoutée`);
       this.refreshApplication();
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError(`Une erreur est survenue lors de l'ajout de l'application : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError(`Une erreur est survenue lors de l'ajout de l'application : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.isUpdate = false;
@@ -132,8 +132,8 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       this.toastService.showSuccess(`L'application ${result.name} a bien été modifiée`);
       this.refreshApplication();
     }, (reason) => {
-      if (reason.message !== undefined) {
-        this.toastService.showError(`Une erreur est survenue lors de la modification de l'application : ${reason.message}`);
+      if (reason.apierror.message !== undefined) {
+        this.toastService.showError(`Une erreur est survenue lors de la modification de l'application : ${reason.apierror.message}`);
       }
     });
     modalRef.componentInstance.application = {...app};

@@ -119,7 +119,13 @@
     "CANCEL": "Cancel",
     "PARAMETERS": "Parameters",
     "RUN_BATCH": "Run batch {{name}}",
-    "IS_RUNNING": "in progress"
+    "IS_RUNNING": "in progress",
+    "MSG": {
+      "DELETION_SUCCESS": "Batch is deleted",
+      "DELETION_ERROR": "An error was occured when trying to delete Batch : {{msg}}",
+      "ADD_SUCCESS": "Batch is added with success",
+      "ADD_ERROR": "An error was occured when trying to add Batch"
+    }
   },
   "CHAIN": {
     "TITLE": "Chains",
