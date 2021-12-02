@@ -70,7 +70,7 @@
     "@briebug/cypress-schematic": "^5.0.1",
     "@cypress/code-coverage": "^3.9.11",
     "@cypress/webpack-preprocessor": "^5.10.0",
-    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/datatables.net": "^1.10.21",
     "@types/jasmine": "~3.10.2",
     "@types/jasminewd2": "~2.0.10",
