@@ -9,17 +9,14 @@ import {DataTablesModule} from 'angular-datatables';
 import {AngularResizedEventModule} from 'angular-resize-event';
 
 @NgModule({
-  declarations: [BatchsComponent, ModalRunWithParametersComponent],
-  imports: [
-    BatchsRoutingModule,
-    SharedModule,
-    IconsModule,
-    NgbPaginationModule,
-    DataTablesModule,
-    AngularResizedEventModule,
-  ],
-  entryComponents: [
-    ModalRunWithParametersComponent
-  ]
+    declarations: [BatchsComponent, ModalRunWithParametersComponent],
+    imports: [
+        BatchsRoutingModule,
+        SharedModule,
+        IconsModule,
+        NgbPaginationModule,
+        DataTablesModule,
+        AngularResizedEventModule,
+    ]
 })
 export class BatchsModule { }

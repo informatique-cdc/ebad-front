@@ -11,20 +11,16 @@ import {AngularResizedEventModule} from "angular-resize-event";
 
 
 @NgModule({
-  declarations: [AdminNewsComponent, ModalNewComponent, ModalNewDeletionComponent],
-  imports: [
-    AdminNewsRoutingModule,
-    SharedModule,
-    CKEditorModule,
-    NgbPaginationModule,
-    DataTablesModule,
-    NgbToastModule,
-    AngularResizedEventModule
-  ],
-  entryComponents: [
-    ModalNewDeletionComponent,
-    ModalNewComponent
-  ]
+    declarations: [AdminNewsComponent, ModalNewComponent, ModalNewDeletionComponent],
+    imports: [
+        AdminNewsRoutingModule,
+        SharedModule,
+        CKEditorModule,
+        NgbPaginationModule,
+        DataTablesModule,
+        NgbToastModule,
+        AngularResizedEventModule
+    ]
 })
 export class AdminNewsModule {
 }

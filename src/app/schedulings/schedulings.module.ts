@@ -9,17 +9,14 @@ import {ModalAddSchedulingComponent} from './modal-add-scheduling/modal-add-sche
 import {AngularResizedEventModule} from "angular-resize-event";
 
 @NgModule({
-  declarations: [SchedulingsComponent, ModalAddSchedulingComponent],
-  imports: [
-    SchedulingsRoutingModule,
-    SharedModule,
-    IconsModule,
-    NgbPaginationModule,
-    DataTablesModule,
-    AngularResizedEventModule
-  ],
-  entryComponents: [
-    ModalAddSchedulingComponent
-  ]
+    declarations: [SchedulingsComponent, ModalAddSchedulingComponent],
+    imports: [
+        SchedulingsRoutingModule,
+        SharedModule,
+        IconsModule,
+        NgbPaginationModule,
+        DataTablesModule,
+        AngularResizedEventModule
+    ]
 })
 export class SchedulingsModule { }

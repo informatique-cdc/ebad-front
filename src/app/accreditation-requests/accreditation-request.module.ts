@@ -11,27 +11,24 @@ import {AngularResizedEventModule} from "angular-resize-event";
 
 
 @NgModule({
-  declarations: [
-    ListAccreditationRequestComponent,
-    SynthesisAccreditationRequestComponent,
-    ModalRequestComponent
-  ],
-  imports: [
-    AccreditationRequestRoutingModule,
-    SharedModule,
-    IconsModule,
-    NgbPaginationModule,
-    NgbTypeaheadModule,
-    DataTablesModule,
-    AngularResizedEventModule
-  ],
-  exports: [
-    ListAccreditationRequestComponent,
-    SynthesisAccreditationRequestComponent
-  ],
-  entryComponents: [
-    ModalRequestComponent
-  ]
+    declarations: [
+        ListAccreditationRequestComponent,
+        SynthesisAccreditationRequestComponent,
+        ModalRequestComponent
+    ],
+    imports: [
+        AccreditationRequestRoutingModule,
+        SharedModule,
+        IconsModule,
+        NgbPaginationModule,
+        NgbTypeaheadModule,
+        DataTablesModule,
+        AngularResizedEventModule
+    ],
+    exports: [
+        ListAccreditationRequestComponent,
+        SynthesisAccreditationRequestComponent
+    ]
 })
 export class AccreditationRequestModule {
 }

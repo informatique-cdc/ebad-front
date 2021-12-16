@@ -8,16 +8,12 @@ import {ModalRolesComponent} from './modal-roles/modal-roles.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
-  declarations: [AdminUsersComponent, ModalUserComponent, ModalRolesComponent],
-  imports: [
-    AdminUsersRoutingModule,
-    SharedModule,
-    IconsModule,
-    NgxPaginationModule
-  ],
-  entryComponents: [
-    ModalUserComponent,
-    ModalRolesComponent
-  ]
+    declarations: [AdminUsersComponent, ModalUserComponent, ModalRolesComponent],
+    imports: [
+        AdminUsersRoutingModule,
+        SharedModule,
+        IconsModule,
+        NgxPaginationModule
+    ]
 })
 export class AdminUsersModule { }
