@@ -10,18 +10,14 @@ import {DataTablesModule} from 'angular-datatables';
 import {AngularResizedEventModule} from "angular-resize-event";
 
 @NgModule({
-  declarations: [ManageBatchsComponent, ModalBatchComponent, ModalBatchDeletionComponent],
-  imports: [
-    SharedModule,
-    ManageBatchsRoutingModule,
-    NgMultiSelectDropDownModule.forRoot(),
-    NgbPaginationModule,
-    DataTablesModule,
-    AngularResizedEventModule
-  ],
-  entryComponents: [
-    ModalBatchComponent,
-    ModalBatchDeletionComponent
-  ]
+    declarations: [ManageBatchsComponent, ModalBatchComponent, ModalBatchDeletionComponent],
+    imports: [
+        SharedModule,
+        ManageBatchsRoutingModule,
+        NgMultiSelectDropDownModule.forRoot(),
+        NgbPaginationModule,
+        DataTablesModule,
+        AngularResizedEventModule
+    ]
 })
 export class ManageBatchsModule { }

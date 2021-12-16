@@ -9,18 +9,14 @@ import {DataTablesModule} from 'angular-datatables';
 import {AngularResizedEventModule} from 'angular-resize-event';
 
 @NgModule({
-  declarations: [AdminNormsComponent, ModalNormComponent, ModalNormDeletionComponent],
-  imports: [
-    AdminNormsRoutingModule,
-    SharedModule,
-    NgbPaginationModule,
-    DataTablesModule,
-    AngularResizedEventModule
-  ],
-  entryComponents: [
-    ModalNormDeletionComponent,
-    ModalNormComponent
-  ]
+    declarations: [AdminNormsComponent, ModalNormComponent, ModalNormDeletionComponent],
+    imports: [
+        AdminNormsRoutingModule,
+        SharedModule,
+        NgbPaginationModule,
+        DataTablesModule,
+        AngularResizedEventModule
+    ]
 })
 export class AdminNormsModule {
 }

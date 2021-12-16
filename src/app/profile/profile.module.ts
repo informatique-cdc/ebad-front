@@ -7,16 +7,11 @@ import {ModalTokenDeletionComponent} from './modal-token-deletion/modal-token-de
 import {ModalTokenResultComponent} from './modal-token-result/modal-token-result.component';
 
 @NgModule({
-  declarations: [ProfileComponent, ModalTokenComponent, ModalTokenDeletionComponent, ModalTokenResultComponent],
-  imports: [
-    ProfileRoutingModule,
-    SharedModule
-  ],
-  entryComponents: [
-    ModalTokenComponent,
-    ModalTokenDeletionComponent,
-    ModalTokenResultComponent
-  ]
+    declarations: [ProfileComponent, ModalTokenComponent, ModalTokenDeletionComponent, ModalTokenResultComponent],
+    imports: [
+        ProfileRoutingModule,
+        SharedModule
+    ]
 })
 export class ProfileModule {
 }

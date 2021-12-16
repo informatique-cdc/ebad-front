@@ -9,18 +9,14 @@ import {DataTablesModule} from 'angular-datatables';
 import {AngularResizedEventModule} from 'angular-resize-event';
 
 @NgModule({
-  declarations: [AdminIdentitiesComponent, ModalIdentityComponent, ModalIdentityDeletionComponent],
-  imports: [
-    AdminIdentitiesRoutingModule,
-    SharedModule,
-    NgbPaginationModule,
-    DataTablesModule,
-    AngularResizedEventModule
-  ],
-  entryComponents: [
-    ModalIdentityComponent,
-    ModalIdentityDeletionComponent
-  ]
+    declarations: [AdminIdentitiesComponent, ModalIdentityComponent, ModalIdentityDeletionComponent],
+    imports: [
+        AdminIdentitiesRoutingModule,
+        SharedModule,
+        NgbPaginationModule,
+        DataTablesModule,
+        AngularResizedEventModule
+    ]
 })
 export class AdminIdentitiesModule {
 }

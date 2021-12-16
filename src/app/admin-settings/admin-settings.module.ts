@@ -6,14 +6,13 @@ import {AdminSettingsRoutingModule} from './admin-settings-routing.module';
 import {ModalSettingsComponent} from './modal-settings/modal-settings.component';
 
 @NgModule({
-  imports: [
-    SharedModule,
-    AdminSettingsRoutingModule
-  ],
-  declarations: [
-    AdminSettingsComponent,
-      ModalSettingsComponent
-  ],
-  entryComponents: [ModalSettingsComponent]
+    imports: [
+        SharedModule,
+        AdminSettingsRoutingModule
+    ],
+    declarations: [
+        AdminSettingsComponent,
+        ModalSettingsComponent
+    ]
 })
 export class AdminSettingsModule {}

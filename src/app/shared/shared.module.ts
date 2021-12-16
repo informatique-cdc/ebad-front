@@ -30,72 +30,69 @@ import {HasAnyRoleDirective} from './has-any-role/has-any-role.directive';
 import {ShowHideColumnComponent} from './show-hide-column/show-hide-column.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    HttpClientXsrfModule.withOptions({
-      cookieName: 'XSRF-TOKEN',
-      headerName: 'X-XSRF-TOKEN',
-    }),
-    RouterModule,
-    IconsModule,
-    NgbModule,
-    TranslateModule,
-    AngularSvgIconModule.forRoot(),
-    NgApexchartsModule,
-    DataTablesModule
-  ],
-  declarations: [
-    ListErrorsComponent,
-    ShowAuthedDirective,
-    TableComponent,
-    HeadSelectorComponent,
-    ActualityBlockComponent,
-    EnvAppHeadSelectorComponent,
-    DateTraitementComponent,
-    ModalDateTraitementComponent,
-    HasRoleDirective,
-    HasAnyRoleDirective,
-    MenuItemComponent,
-    IconComponent,
-    AvatarPipe,
-    YesNoPipe,
-    ToastComponent,
-    ShowHideColumnComponent
-  ],
-  exports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ListErrorsComponent,
-    RouterModule,
-    ShowAuthedDirective,
-    TableComponent,
-    HeadSelectorComponent,
-    ActualityBlockComponent,
-    EnvAppHeadSelectorComponent,
-    DateTraitementComponent,
-    HasRoleDirective,
-    HasAnyRoleDirective,
-    TranslateModule,
-    MenuItemComponent,
-    IconComponent,
-    AvatarPipe,
-    YesNoPipe,
-    ToastComponent,
-    ShowHideColumnComponent
-  ],
-  entryComponents: [
-    ModalDateTraitementComponent
-  ],
-  providers: [
-    DatePipe,
-    {provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter},
-    Constants
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        HttpClientXsrfModule.withOptions({
+            cookieName: 'XSRF-TOKEN',
+            headerName: 'X-XSRF-TOKEN',
+        }),
+        RouterModule,
+        IconsModule,
+        NgbModule,
+        TranslateModule,
+        AngularSvgIconModule.forRoot(),
+        NgApexchartsModule,
+        DataTablesModule
+    ],
+    declarations: [
+        ListErrorsComponent,
+        ShowAuthedDirective,
+        TableComponent,
+        HeadSelectorComponent,
+        ActualityBlockComponent,
+        EnvAppHeadSelectorComponent,
+        DateTraitementComponent,
+        ModalDateTraitementComponent,
+        HasRoleDirective,
+        HasAnyRoleDirective,
+        MenuItemComponent,
+        IconComponent,
+        AvatarPipe,
+        YesNoPipe,
+        ToastComponent,
+        ShowHideColumnComponent
+    ],
+    exports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ListErrorsComponent,
+        RouterModule,
+        ShowAuthedDirective,
+        TableComponent,
+        HeadSelectorComponent,
+        ActualityBlockComponent,
+        EnvAppHeadSelectorComponent,
+        DateTraitementComponent,
+        HasRoleDirective,
+        HasAnyRoleDirective,
+        TranslateModule,
+        MenuItemComponent,
+        IconComponent,
+        AvatarPipe,
+        YesNoPipe,
+        ToastComponent,
+        ShowHideColumnComponent
+    ],
+    providers: [
+        DatePipe,
+        { provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter },
+        Constants
+    ]
 })
 export class SharedModule {
 }

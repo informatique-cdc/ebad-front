@@ -8,17 +8,13 @@ import {DataTablesModule} from 'angular-datatables';
 import {AngularResizedEventModule} from "angular-resize-event";
 
 @NgModule({
-  declarations: [ManageNamingComponent, ModalNamingDeletionComponent, ModalNamingComponent],
-  imports: [
-    ManageNamingRoutingModule,
-    SharedModule,
-    DataTablesModule,
-    AngularResizedEventModule
-  ],
-  entryComponents: [
-    ModalNamingComponent,
-    ModalNamingDeletionComponent
-  ]
+    declarations: [ManageNamingComponent, ModalNamingDeletionComponent, ModalNamingComponent],
+    imports: [
+        ManageNamingRoutingModule,
+        SharedModule,
+        DataTablesModule,
+        AngularResizedEventModule
+    ]
 })
 export class ManageNamingModule {
 }

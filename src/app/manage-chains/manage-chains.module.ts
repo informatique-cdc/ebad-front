@@ -10,18 +10,14 @@ import {DataTablesModule} from 'angular-datatables';
 import {AngularResizedEventModule} from "angular-resize-event";
 
 @NgModule({
-  declarations: [ManageChainsComponent, ModalChainComponent, ModalChainDeletionComponent],
-  imports: [
-    SharedModule,
-    ManageChainsRoutingModule,
-    DragDropModule,
-    IconsModule,
-    DataTablesModule,
-    AngularResizedEventModule
-  ],
-  entryComponents: [
-    ModalChainComponent,
-    ModalChainDeletionComponent
-  ]
+    declarations: [ManageChainsComponent, ModalChainComponent, ModalChainDeletionComponent],
+    imports: [
+        SharedModule,
+        ManageChainsRoutingModule,
+        DragDropModule,
+        IconsModule,
+        DataTablesModule,
+        AngularResizedEventModule
+    ]
 })
 export class ManageChainsModule { }
