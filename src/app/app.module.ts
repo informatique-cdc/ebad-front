@@ -19,8 +19,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AccreditationRequestModule} from './accreditation-requests/accreditation-request.module';
 import {AngularSvgIconModule} from 'angular-svg-icon';
 import {AngularResizeEventModule} from 'angular-resize-event';
-import {InitConfigService} from "./core/services/init-config.service";
-import {RxStompService} from "@stomp/ng2-stompjs";
+import {InitConfigService} from './core/services/init-config.service';
+import {RxStompService} from '@stomp/ng2-stompjs';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

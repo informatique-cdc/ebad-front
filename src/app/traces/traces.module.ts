@@ -4,7 +4,7 @@ import {TracesRoutingModule} from './traces-routing.module';
 import {SharedModule} from '../shared';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizeEventModule} from "angular-resize-event";
+import {AngularResizeEventModule} from 'angular-resize-event';
 
 @NgModule({
   declarations: [TracesComponent],
