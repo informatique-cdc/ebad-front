@@ -7,7 +7,7 @@ import {ModalNewDeletionComponent} from './modal-new-deletion/modal-new-deletion
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {NgbPaginationModule, NgbToastModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizedEventModule} from "angular-resize-event";
+import {AngularResizeEventModule} from "angular-resize-event";
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import {AngularResizedEventModule} from "angular-resize-event";
         NgbPaginationModule,
         DataTablesModule,
         NgbToastModule,
-        AngularResizedEventModule
+        AngularResizeEventModule
     ]
 })
 export class AdminNewsModule {

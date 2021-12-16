@@ -18,7 +18,7 @@ import {HttpClient} from '@angular/common/http';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AccreditationRequestModule} from './accreditation-requests/accreditation-request.module';
 import {AngularSvgIconModule} from 'angular-svg-icon';
-import {AngularResizedEventModule} from 'angular-resize-event';
+import {AngularResizeEventModule} from 'angular-resize-event';
 import {InitConfigService} from "./core/services/init-config.service";
 import {RxStompService} from "@stomp/ng2-stompjs";
 
@@ -54,7 +54,7 @@ registerLocaleData(localeFr);
         deps: [HttpClient]
       }
     }),
-    AngularResizedEventModule
+    AngularResizeEventModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'fr-FR'},
     {

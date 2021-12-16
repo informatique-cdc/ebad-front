@@ -7,7 +7,7 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {ModalBatchDeletionComponent} from './modal-batch-deletion/modal-batch-deletion.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizedEventModule} from "angular-resize-event";
+import {AngularResizeEventModule} from "angular-resize-event";
 
 @NgModule({
     declarations: [ManageBatchsComponent, ModalBatchComponent, ModalBatchDeletionComponent],
@@ -17,7 +17,7 @@ import {AngularResizedEventModule} from "angular-resize-event";
         NgMultiSelectDropDownModule.forRoot(),
         NgbPaginationModule,
         DataTablesModule,
-        AngularResizedEventModule
+        AngularResizeEventModule
     ]
 })
 export class ManageBatchsModule { }

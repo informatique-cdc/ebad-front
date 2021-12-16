@@ -7,7 +7,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {IconsModule} from '../icons';
 import {ModalChainDeletionComponent} from './modal-chain-deletion/modal-chain-deletion.component';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizedEventModule} from "angular-resize-event";
+import {AngularResizeEventModule} from "angular-resize-event";
 
 @NgModule({
     declarations: [ManageChainsComponent, ModalChainComponent, ModalChainDeletionComponent],
@@ -17,7 +17,7 @@ import {AngularResizedEventModule} from "angular-resize-event";
         DragDropModule,
         IconsModule,
         DataTablesModule,
-        AngularResizedEventModule
+        AngularResizeEventModule
     ]
 })
 export class ManageChainsModule { }
