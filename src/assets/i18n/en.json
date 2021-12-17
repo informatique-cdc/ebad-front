@@ -106,7 +106,12 @@
     "USER": "User",
     "EXECUTION_TIME": "Execution time",
     "RUN_DATE": "Run date",
-    "RETURN_CODE": "Return code"
+    "RETURN_CODE": "Return code",
+    "ACTION": {
+      "TITLE": "Actions",
+      "LOGOUT": "Standard output",
+      "LOGERR": "Error output"
+    }
   },
   "BATCH": {
     "TITLE": "Batchs",

@@ -30,6 +30,9 @@
         <th id="traceReturnCode">
           {{'TRACE.RETURN_CODE' | translate}}
         </th>
+        <th id="action">
+          {{'TRACE.ACTION.TILE' | translate}}
+        </th>
       </tr>
       </thead>
       <tbody>
@@ -57,6 +60,10 @@
         </td>
         <td class="align-middle" *ngIf="columns[7].visible">
           {{trace.returnCode}}
+        </td>
+        <td class="align-middle" *ngIf="columns[8].visible">
+          <a *ngIf="trace.stdout" (click)="showLogout(trace)" href="javascript:void(0)" class="btn btn-secondary btn-sm"> {{'TRACE.ACTION.LOGOUT' | translate}}</a>
+          <a *ngIf="trace.stderr" (click)="showLogerr(trace)" href="javascript:void(0)" class="btn btn-secondary btn-sm"> {{'TRACE.ACTION.LOGERR' | translate}}</a>
         </td>
       </tr>
       </tbody>

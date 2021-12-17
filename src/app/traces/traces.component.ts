@@ -6,6 +6,9 @@ import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import LanguageSettings = DataTables.LanguageSettings;
+import {ModalChainComponent} from "../manage-chains/modal-chain/modal-chain.component";
+import {ModalLogComponent} from "./modal-log/modal-log.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-traces',
@@ -23,6 +26,7 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
     columns = [];
 
     constructor(private tracesService: TracesService,
+                private modalService: NgbModal,
                 private constants: Constants,
                 private translateService: TranslateService) {
         this.columns.push({data: 'id', name: 'id', visible: true});
@@ -33,6 +37,7 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
         this.columns.push({data: 'logDate', name: 'date lancement', visible: true});
         this.columns.push({data: 'executionTime', name: 'temps exécutions', visible: true});
         this.columns.push({data: 'returnCode', name: 'code retour', visible: true});
+        this.columns.push({data: 'action', name: 'Action', visible: true});
 
     }
 
@@ -41,7 +46,7 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
             language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
             stateSave: true,
             stateSaveParams: function (settings, data: any) {
-              data.search.search = "";
+                data.search.search = "";
             },
             order: [[0, 'desc']],
             pagingType: 'full_numbers',
@@ -95,11 +100,25 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
         this.refreshTraces();
     }
 
-  onResizeTable(event){
-    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
-      return;
+    onResizeTable(event) {
+        if (event.oldWidth === undefined || event.newWidth === event.oldWidth) {
+            return;
+        }
+        this.refreshTraces();
     }
-    this.refreshTraces();
-  }
+
+    showLogout(trace: Trace) {
+        const modalRef = this.modalService.open(ModalLogComponent);
+        modalRef.result.then();
+        modalRef.componentInstance.log = trace.stdout;
+        modalRef.componentInstance.isLogerr = false;
+    }
+
+    showLogerr(trace: Trace) {
+        const modalRef = this.modalService.open(ModalLogComponent);
+        modalRef.result.then();
+        modalRef.componentInstance.log = trace.stderr;
+        modalRef.componentInstance.isLogerr = true;
+    }
 
 }
