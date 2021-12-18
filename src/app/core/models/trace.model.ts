@@ -11,4 +11,6 @@ export interface Trace {
   params: string;
   returnCode: number;
   login: string;
+  stderr: string;
+  stdout: string;
 }
