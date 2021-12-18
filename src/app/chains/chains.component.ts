@@ -21,7 +21,7 @@ export class ChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
 
   chains: Chain[];
-  columns = []
+  columns = [];
 
   constructor(private environmentsService: EnvironmentsService,
               private chainsService: ChainsService,

@@ -99,7 +99,7 @@
               <a *ngIf="subDir.length > 0" (click)="exploreParentDirectory()" href="javascript:void(0)" class="btn btn-secondary btn-sm">{{'FILE.EXPLORE_UP' | translate}}</a>
             </td>
           </tr>
-          <tr *ngFor="let remotefile of remoteFiles">
+          <tr *ngFor="let remotefile of remoteFiles | sortBy:'asc':'name'">
             <td class="align-middle">
               {{remotefile.name}}
             </td>

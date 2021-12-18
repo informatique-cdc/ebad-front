@@ -28,6 +28,7 @@ import {YesNoPipe} from './yesno.pipe';
 import {ToastComponent} from './toast/toast.component';
 import {HasAnyRoleDirective} from './has-any-role/has-any-role.directive';
 import {ShowHideColumnComponent} from './show-hide-column/show-hide-column.component';
+import {SortByPipe} from './sort.pipe';
 
 @NgModule({
     imports: [
@@ -63,7 +64,8 @@ import {ShowHideColumnComponent} from './show-hide-column/show-hide-column.compo
         AvatarPipe,
         YesNoPipe,
         ToastComponent,
-        ShowHideColumnComponent
+        ShowHideColumnComponent,
+        SortByPipe
     ],
     exports: [
         CommonModule,
@@ -86,7 +88,8 @@ import {ShowHideColumnComponent} from './show-hide-column/show-hide-column.compo
         AvatarPipe,
         YesNoPipe,
         ToastComponent,
-        ShowHideColumnComponent
+        ShowHideColumnComponent,
+        SortByPipe
     ],
     providers: [
         DatePipe,
