@@ -20,7 +20,7 @@ export class ModalLogComponent implements OnInit {
             this.translateService.get('TRACE.ACTION.LOGOUT')
                 .subscribe((msg) => this.title = msg);
         } else {
-            this.translateService.get('TRACE.ACTION.LOGOUT')
+            this.translateService.get('TRACE.ACTION.LOGERR')
                 .subscribe((msg) => this.title = msg);
         }
     }
