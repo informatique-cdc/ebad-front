@@ -18,19 +18,31 @@ export class ApplicationsService {
     return this.apiService.post(`${this.apiName}/import-all`);
   }
 
-  getAll(pageable: Pageable = new Pageable(0, 20)): Observable<Page<Application>> {
+  getAll(pageable: Pageable = new Pageable(0, 20, 'name,asc')): Observable<Page<Application>> {
+    if (pageable.sort === undefined){
+      pageable.sort = 'name,asc';
+    }
     return this.apiService.get(`${this.apiName}`,  pageable);
   }
 
-  search(pageable: Pageable = new Pageable(0, 20), name: string): Observable<Page<Application>> {
+  search(pageable: Pageable = new Pageable(0, 20, 'name,asc'), name: string): Observable<Page<Application>> {
+    if (pageable.sort === undefined){
+      pageable.sort = 'name,asc';
+    }
     return this.apiService.get(`${this.apiName}/search?name=${name}`,  pageable);
   }
 
-  getAllModerable(pageable: Pageable = new Pageable(0, 20)): Observable<Page<Application>> {
+  getAllModerable(pageable: Pageable = new Pageable(0, 20, 'name,asc')): Observable<Page<Application>> {
+    if (pageable.sort === undefined){
+      pageable.sort = 'name,asc';
+    }
     return this.apiService.get(`${this.apiName}/write`, pageable);
   }
 
-  getAllManage(pageable: any = new Pageable(0, 20)): Observable<Page<Application>> {
+  getAllManage(pageable: any = new Pageable(0, 20, 'name,asc')): Observable<Page<Application>> {
+    if (pageable.sort === undefined){
+      pageable.sort = 'name,asc';
+    }
     return this.apiService.get(`${this.apiName}/gestion`, pageable);
   }
 
