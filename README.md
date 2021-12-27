@@ -1,6 +1,6 @@
 # EbadFront
 
-This project use Angular version : 12.0.3
+This project use Angular version : 13.1.1
 
 ![home_ebad](./docs_images/ebad_home.png)
 
