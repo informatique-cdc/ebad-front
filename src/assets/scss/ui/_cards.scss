@@ -159,7 +159,7 @@
   font-size: $h3-font-size;
   font-weight: $headings-font-weight;
   color: $headings-color;
-  line-height: (24/18);
+  line-height: calc(24/18);
 
   @at-root a#{&}:hover {
     color: inherit;
@@ -172,7 +172,7 @@
 
 .card-subtitle {
   margin-top: -$card-spacer-y;
-  margin-bottom: $card-spacer-y / 2;
+  margin-bottom: calc($card-spacer-y / 2);
   font-size: $small-font-size;
   color: $text-muted;
 }

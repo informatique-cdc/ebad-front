@@ -23,7 +23,7 @@
     height: 0;
     content: "";
     filter: brightness(70%);
-    border: ($ribbon-margin / 2) solid;
+    border: calc($ribbon-margin / 2) solid;
     border-color: inherit;
     border-top-color: transparent;
     border-right-color: transparent;

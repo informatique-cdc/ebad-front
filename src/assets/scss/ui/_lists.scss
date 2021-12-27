@@ -39,11 +39,11 @@
   .list-item {
     flex-direction: row;
     align-items: center;
-    padding: .5rem ($card-spacer-x / 2);
+    padding: .5rem calc($card-spacer-x / 2);
 
     > * {
-      padding-left: ($card-spacer-x / 2);
-      padding-right: ($card-spacer-x / 2);
+      padding-left: calc($card-spacer-x / 2);
+      padding-right: calc($card-spacer-x / 2);
     }
   }
 }
