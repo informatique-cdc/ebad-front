@@ -24,7 +24,8 @@
               "src/silent-refresh.html"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/swagger-ui/dist/swagger-ui.css"
             ],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js",

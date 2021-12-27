@@ -105,6 +105,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'api-docs',
+    loadChildren: () => import('./api-docs/api-docs.module').then(m => m.ApiDocsModule)
+  },
+  {
     path: 'accreditations',
     component: SynthesisAccreditationRequestComponent,
     canActivate: [AuthGuard]

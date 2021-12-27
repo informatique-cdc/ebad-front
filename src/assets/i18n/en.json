@@ -26,6 +26,9 @@
       "BATCHS_RUNNED": "# Runned batches"
     }
   },
+  "APIDOCS": {
+    "TITLE": "Documentation API"
+  },
   "ACTUALITY": {
     "TITLE": "Actualities"
   },
@@ -61,7 +64,8 @@
     "OTHERS": {
       "TITLE": "Others",
       "HELP": "Help",
-      "CHANGELOG": "Changelog"
+      "CHANGELOG": "Changelog",
+      "APIDOCS": "API Documentation"
     }
   },
   "HEADER": {
