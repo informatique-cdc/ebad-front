@@ -15,10 +15,16 @@ export class BatchsService {
   }
 
   getAllFromEnvironment(idEnvironment: number, pageable: any = new Pageable(0, 20)): Observable<Page<Batch>> {
+    if (idEnvironment === undefined){
+      return new Observable<Page<Batch>>();
+    }
     return this.apiService.get(`/batchs?environnements.id=${idEnvironment}`, pageable);
   }
 
   getAllFromApplication(idApplication: number, pageable: any = new Pageable(0, 20)): Observable<Page<Batch>> {
+    if (idApplication === undefined){
+      return new Observable<Page<Batch>>();
+    }
     return this.apiService.get(`/batchs?environnements.application.id=${idApplication}`, pageable);
 }
 

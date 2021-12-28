@@ -6,9 +6,8 @@ import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import LanguageSettings = DataTables.LanguageSettings;
-import {ModalChainComponent} from "../manage-chains/modal-chain/modal-chain.component";
-import {ModalLogComponent} from "./modal-log/modal-log.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ModalLogComponent} from './modal-log/modal-log.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-traces',
@@ -37,7 +36,7 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
         this.columns.push({data: 'logDate', name: 'date lancement', visible: true});
         this.columns.push({data: 'executionTime', name: 'temps exécutions', visible: true});
         this.columns.push({data: 'returnCode', name: 'code retour', visible: true});
-        this.columns.push({data: 'action', name: 'Action', visible: true});
+        this.columns.push({data: '', name: 'Action', visible: true, orderable: false});
 
     }
 
@@ -45,8 +44,8 @@ export class TracesComponent implements AfterViewInit, OnDestroy, OnInit {
         this.dtOptions = {
             language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
             stateSave: true,
-            stateSaveParams: function (settings, data: any) {
-                data.search.search = "";
+            stateSaveParams(settings, data: any) {
+                data.search.search = '';
             },
             order: [[0, 'desc']],
             pagingType: 'full_numbers',

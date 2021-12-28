@@ -35,7 +35,7 @@
   .avatar-#{$avatar-size} {
     width: $size;
     height: $size;
-    font-size: $size / 2;
+    font-size: calc($size / 2);
     line-height: $size;
   }
 }

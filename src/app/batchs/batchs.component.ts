@@ -43,7 +43,7 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     private modalService: NgbModal,
     private translateService: TranslateService,
     private sseService: SseService
-    ) {
+  ) {
     this.columns.push({data: 'id', name: 'id', visible: true});
     this.columns.push({data: 'name', name: 'nom', visible: true});
     this.columns.push({data: 'path', name: 'shell', visible: true});
@@ -122,17 +122,16 @@ export class BatchsComponent implements AfterViewInit, OnDestroy, OnInit {
     if (this.eventSource) {
       this.eventSource.close();
     }
-
-    this.eventSource = this.sseService.getIndicatorsStream('/batchs/state/' + env.id);
-    this.eventSource.onmessage = (event) => {
+    if (env.id !== undefined) {
+      this.eventSource = this.sseService.getIndicatorsStream('/batchs/state/' + env.id);
+      this.eventSource.onmessage = (event) => {
         this.zone.run(() => {
           this.currentJob = JSON.parse(event.data).batchs;
         });
       };
-    this.eventSource.onerror = (error) => console.error(error);
-
+      this.eventSource.onerror = (error) => console.error(error);
+    }
   }
-
 
 
   runBatchWithCustomParam(batch: Batch) {

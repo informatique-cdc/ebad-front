@@ -128,12 +128,12 @@ $headings-font-weight: $font-weight-bold !default;
 
 $small-font-size: 87.5% !default;
 
-$h1-font-size: (26em / 15) !default;
-$h2-font-size: (23em / 15) !default;
-$h3-font-size: (18em / 15) !default;
-$h4-font-size: (15em / 15) !default;
-$h5-font-size: (13em / 15) !default;
-$h6-font-size: (11em / 15) !default;
+$h1-font-size: calc(26em / 15) !default;
+$h2-font-size: calc(23em / 15) !default;
+$h3-font-size: calc(18em / 15) !default;
+$h4-font-size: calc(15em / 15) !default;
+$h5-font-size: calc(13em / 15) !default;
+$h6-font-size: calc(11em / 15) !default;
 
 $blockquote-font-size: $h4-font-size !default;
 
@@ -203,7 +203,7 @@ $badge-font-weight: $font-weight-bold !default;
 $badge-empty-size: .5rem !default;
 
 //buttons
-$input-btn-line-height: (22/15) !default;
+$input-btn-line-height: calc(22/15) !default;
 $input-btn-font-size: $font-size-base !default;
 
 $input-btn-font-size-sm: $h5-font-size !default;

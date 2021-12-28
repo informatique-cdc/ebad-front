@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AccreditationRequestsService, UserService} from '../../../core/services';
+import {AccreditationRequestsService, UserService} from '../../../core';
 import {Router} from '@angular/router';
 import {RxStompService} from '@stomp/ng2-stompjs';
 import {Subscription} from 'rxjs';
