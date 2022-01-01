@@ -63,7 +63,7 @@
           {{env.prefix}}
         </td>
         <td class="text-center"  *ngIf="columns[6].visible">
-          <a id="actionTerminal-{{env.name}}" (click)="onClickShowTerminal(env)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Terminal</a>
+          <a *ngIf="terminalEnabled" id="actionTerminal-{{env.name}}" (click)="onClickShowTerminal(env)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Terminal</a>
           <a id="actionEdit-{{env.name}}" (click)="editEnvironment(env)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Edit</a>
           <a id="actionDelete-{{env.name}}" (click)="deleteEnvironment(env)" href="javascript:void(0)" class="btn btn-secondary btn-sm">Delete</a>
         </td>

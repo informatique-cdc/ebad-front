@@ -51,4 +51,8 @@ export class GlobalSettingsService {
   createEnvironmentIsEnable(): boolean{
     return JSON.parse(this.mapSettings.get('ENVIRONMENT_CREATE_ENABLED').toLowerCase());
   }
+
+  terminalIsEnable(): boolean{
+    return JSON.parse(this.mapSettings.get('TERMINAL_ENABLED').toLowerCase());
+  }
 }

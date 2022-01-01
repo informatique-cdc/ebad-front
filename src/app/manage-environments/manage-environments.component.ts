@@ -19,6 +19,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     applicationSelected: Application;
     addEnvironmentEnabled = true;
     importEnvironmentEnabled = true;
+    terminalEnabled = false;
 
     @ViewChild(DataTableDirective, {static: true})
     dtElement: DataTableDirective;
@@ -63,6 +64,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     ngOnInit() {
         this.addEnvironmentEnabled = this.globalSettingsService.createEnvironmentIsEnable();
         this.importEnvironmentEnabled = this.globalSettingsService.importEnvironmentIsEnable();
+        this.terminalEnabled = this.globalSettingsService.terminalIsEnable();
 
         this.dtOptions = {
             language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
