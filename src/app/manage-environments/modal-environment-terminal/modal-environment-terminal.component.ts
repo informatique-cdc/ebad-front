@@ -1,24 +1,25 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import { NgTerminal} from 'ng-terminal';
-import {Subscription} from 'rxjs';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Environment} from '../../core';
+import {TerminalsService} from '../../core/services/terminals.service';
 import {RxStompService} from '@stomp/ng2-stompjs';
-import {TerminalsService} from '../core/services/terminals.service';
+import {NgTerminal} from 'ng-terminal';
+import {Subscription} from 'rxjs';
 
 @Component({
-    selector: 'terminal-page',
-    templateUrl: './terminal.component.html',
-    styleUrls: ['./terminal.component.css']
+    selector: 'app-modal-environment',
+    templateUrl: './modal-environment-terminal.component.html'
 })
-export class TerminalComponent implements AfterViewInit, OnDestroy, OnInit {
+export class ModalEnvironmentTerminalComponent implements AfterViewInit, OnDestroy, OnInit {
+    environment: Environment;
     @ViewChild('term', {static: true}) child: NgTerminal;
 
     private terminalSubscription: Subscription;
     private terminalId: string;
-    constructor(public translateServier: TranslateService,
+
+    constructor(public activeModal: NgbActiveModal,
                 private terminalsService: TerminalsService,
                 private rxStompService: RxStompService) {
-
     }
 
     ngOnInit() {
@@ -26,7 +27,7 @@ export class TerminalComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     ngAfterViewInit() {
-        this.terminalsService.get(27).subscribe(terminal => {
+        this.terminalsService.get(this.environment.id).subscribe(terminal => {
             this.terminalId = terminal.id;
             this.terminalSubscription = this.rxStompService.watch('/user/queue/terminal-' + this.terminalId).subscribe({
                 next: result => {
@@ -35,7 +36,10 @@ export class TerminalComponent implements AfterViewInit, OnDestroy, OnInit {
             });
 
             this.child.keyEventInput.subscribe(e => {
-                this.rxStompService.publish({destination: '/ebad/terminal', body: JSON.stringify({id: this.terminalId, key: e.key})});
+                this.rxStompService.publish({
+                    destination: '/ebad/terminal',
+                    body: JSON.stringify({id: this.terminalId, key: e.key})
+                });
             });
         }, error => {
             console.log(error);

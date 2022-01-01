@@ -7,15 +7,23 @@ import {ModalEnvironmentDeletionComponent} from './modal-environment-deletion/mo
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
 import {AngularResizeEventModule} from 'angular-resize-event';
+import {ModalEnvironmentTerminalComponent} from './modal-environment-terminal/modal-environment-terminal.component';
+import {NgTerminalModule} from 'ng-terminal';
 
 @NgModule({
-    declarations: [ManageEnvironmentsComponent, ModalEnvironmentComponent, ModalEnvironmentDeletionComponent],
+    declarations: [
+        ManageEnvironmentsComponent,
+        ModalEnvironmentComponent,
+        ModalEnvironmentDeletionComponent,
+        ModalEnvironmentTerminalComponent
+    ],
     imports: [
         ManageEnvironmentsRoutingModule,
         SharedModule,
         NgbModule,
         DataTablesModule,
-        AngularResizeEventModule
+        AngularResizeEventModule,
+        NgTerminalModule
     ]
 })
 export class ManageEnvironmentsModule {
