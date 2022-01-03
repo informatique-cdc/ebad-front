@@ -3,7 +3,7 @@ import SwaggerUI from 'swagger-ui';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'api-docs-page',
   templateUrl: './api-docs.component.html',
   styleUrls: ['./api-docs.component.css']
 })

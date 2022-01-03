@@ -109,6 +109,10 @@ const routes: Routes = [
     loadChildren: () => import('./api-docs/api-docs.module').then(m => m.ApiDocsModule)
   },
   {
+    path: 'terminal',
+    loadChildren: () => import('./terminal/terminal.module').then(m => m.TerminalModule)
+  },
+  {
     path: 'accreditations',
     component: SynthesisAccreditationRequestComponent,
     canActivate: [AuthGuard]
