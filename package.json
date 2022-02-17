@@ -44,7 +44,7 @@
     "datatables.net": "^1.11.4",
     "datatables.net-dt": "^1.11.4",
     "event-source-polyfill": "^1.0.25",
-    "express": "^4.17.2",
+    "express": "^4.17.3",
     "file-saver": "^2.0.5",
     "http-proxy-middleware": "^2.0.3",
     "jquery": "^3.6.0",
