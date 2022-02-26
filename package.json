@@ -22,7 +22,7 @@
     "@angular/localize": "^13.2.2",
     "@angular/material": "^13.2.4",
     "@angular/platform-browser": "^13.2.2",
-    "@angular/platform-browser-dynamic": "^13.2.2",
+    "@angular/platform-browser-dynamic": "^13.2.4",
     "@angular/router": "^13.2.2",
     "@ckeditor/ckeditor5-angular": "^2.0.2",
     "@ckeditor/ckeditor5-build-classic": "^32.0.0",
