@@ -74,11 +74,11 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
       },
       columns: this.columns
     };
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngOnDestroy(): void {
@@ -88,7 +88,7 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
   refreshDirectories() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
-      this.dtTrigger.next();
+      this.dtTrigger.next(undefined);
     });
   }
 

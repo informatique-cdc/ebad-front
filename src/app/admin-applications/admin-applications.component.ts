@@ -77,11 +77,11 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       },
       columns: this.columns
     };
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngOnDestroy(): void {
@@ -92,12 +92,13 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
     const that = this;
     this.dtElement.dtInstance.then((dtInstance: any) => {
       if (dtInstance.context[0].nTableWrapper == null) {
-        setTimeout(function () {
+        // tslint:disable-next-line:only-arrow-functions
+        setTimeout(function() {
           that.refreshApplication();
         }, 250);
       } else {
         dtInstance.destroy();
-        this.dtTrigger.next();
+        this.dtTrigger.next(undefined);
       }
     });
   }
