@@ -89,11 +89,11 @@ export class ManageIdentitiesComponent implements AfterViewInit, OnDestroy, OnIn
             },
             columns: this.columns
         };
-        this.dtTrigger.next();
+        this.dtTrigger.next(undefined);
     }
 
     ngAfterViewInit(): void {
-        this.dtTrigger.next();
+        this.dtTrigger.next(undefined);
     }
 
     ngOnDestroy(): void {
@@ -104,7 +104,7 @@ export class ManageIdentitiesComponent implements AfterViewInit, OnDestroy, OnIn
     refreshIdentities() {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.destroy();
-            this.dtTrigger.next();
+            this.dtTrigger.next(undefined);
         });
     }
 

@@ -78,11 +78,11 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
       },
       columns: this.columns
     };
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngOnDestroy(): void {
@@ -92,7 +92,7 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
   refreshSchedulings() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
-      this.dtTrigger.next();
+      this.dtTrigger.next(undefined);
     });
   }
 

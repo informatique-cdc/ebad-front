@@ -67,11 +67,11 @@ export class ListAccreditationRequestComponent implements OnInit, AfterViewInit,
       },
       columns
     };
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngOnDestroy(): void {
@@ -81,7 +81,7 @@ export class ListAccreditationRequestComponent implements OnInit, AfterViewInit,
   refreshAccreditationRequests() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
-      this.dtTrigger.next();
+      this.dtTrigger.next(undefined);
     });
   }
 

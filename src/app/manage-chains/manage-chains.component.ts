@@ -40,8 +40,8 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       stateSave: true,
-            stateSaveParams: function (settings, data: any) {
-              data.search.search = "";
+            stateSaveParams(settings, data: any) {
+              data.search.search = '';
             },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
@@ -72,11 +72,11 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
       },
       columns: this.columns
     };
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngOnDestroy(): void {
@@ -86,7 +86,7 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   refreshChains() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
-      this.dtTrigger.next();
+      this.dtTrigger.next(undefined);
     });
   }
   environmentChanged(environment: Environment) {
@@ -141,7 +141,7 @@ export class ManageChainsComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onResizeTable(event){
-    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+    if (event.oldWidth === undefined || event.newWidth === event.oldWidth){
       return;
     }
     this.refreshChains();

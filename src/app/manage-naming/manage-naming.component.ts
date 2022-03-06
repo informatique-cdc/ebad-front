@@ -77,11 +77,11 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
       },
       columns: this.columns
     };
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(undefined);
   }
 
   ngOnDestroy(): void {
@@ -95,7 +95,7 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
         setTimeout(function(){ that.refreshNaming() },250);
       }else {
         dtInstance.destroy();
-        this.dtTrigger.next();
+        this.dtTrigger.next(undefined);
       }
     });
   }
