@@ -5,5 +5,5 @@ export interface FileKind extends Audit {
   id: number;
   name: string;
   pattern: string;
-  application: Application
+  application: Application;
 }

@@ -1,7 +1,7 @@
 <div class="wrapper" *appShowAuthed="true">
   <aside class="sidebar sidebar-dark" ebad-aside *ngIf="asideVisible"></aside>
   <div class="content">
-    <header ebad-header class="topnav topbar"></header>
+    <header app-ebad-header class="topnav topbar"></header>
     <div class="content-page">
       <main class="container my-4 flex-fill">
         <ng-container *ngTemplateOutlet="template"></ng-container>

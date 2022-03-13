@@ -39,8 +39,8 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       stateSave: true,
-            stateSaveParams: function (settings, data: any) {
-              data.search.search = "";
+            stateSaveParams(settings, data: any) {
+              data.search.search = '';
             },
       order: [[1, 'asc']],
       pagingType: 'full_numbers',
@@ -128,7 +128,7 @@ export class AdminNewsComponent implements AfterViewInit, OnDestroy, OnInit {
     modalRef.componentInstance.oneNew = oneNew;
   }
   onResizeTable(event){
-    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+    if (event.oldWidth === undefined || event.newWidth === event.oldWidth){
       return;
     }
     this.refreshNews();

@@ -10,7 +10,7 @@ export class SidebarService {
 
   constructor()  {
     this.sidebarVisibilityChange.subscribe((value) => {
-      this.isSidebarVisible = value
+      this.isSidebarVisible = value;
     });
   }
 

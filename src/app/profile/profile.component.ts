@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiToken, User, UserService} from '../core';
-import {ModalNamingComponent} from "../manage-naming/modal-naming/modal-naming.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ToastService} from "../core/services/toast.service";
-import {ModalTokenComponent} from "./modal-token/modal-token.component";
-import {ModalTokenDeletionComponent} from "./modal-token-deletion/modal-token-deletion.component";
-import {TranslateService} from "@ngx-translate/core";
-import {ApiTokensService} from "../core/services/api-tokens.service";
-import {Pageable} from "../core/models/pageable.model";
-import {ModalTokenResultComponent} from "./modal-token-result/modal-token-result.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../core/services/toast.service';
+import {ModalTokenComponent} from './modal-token/modal-token.component';
+import {ModalTokenDeletionComponent} from './modal-token-deletion/modal-token-deletion.component';
+import {TranslateService} from '@ngx-translate/core';
+import {ApiTokensService} from '../core/services/api-tokens.service';
+import {Pageable} from '../core/models/pageable.model';
+import {ModalTokenResultComponent} from './modal-token-result/modal-token-result.component';
 
 @Component({
   selector: 'app-profile',

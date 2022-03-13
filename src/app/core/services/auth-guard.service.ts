@@ -5,7 +5,7 @@ import {UserService} from './user.service';
 import {take, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {OauthService} from '../../security/oauth.service';
-import {ConfigService} from "./config.service";
+import {ConfigService} from './config.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {ApiService, UserService} from '../core';
 import {OauthService} from '../security/oauth.service';
-import {ConfigService} from "../core/services/config.service";
+import {ConfigService} from '../core/services/config.service';
 
 @Component({
   selector: 'app-auth-page',
@@ -52,20 +52,19 @@ export class AuthComponent implements OnInit {
     if (!this.jwt) {
       this.oauthService.login(this.referer);
     }else {
-
       this.isSubmitting = true;
       this.error = false;
 
       const credentials = this.authForm.value;
       this.userService
         .attemptAuth(credentials)
-        .subscribe(
-          () => this.router.navigateByUrl(this.referer),
-          () => {
+        .subscribe({
+          next: () => this.router.navigateByUrl(this.referer),
+          error: () => {
             this.error = true;
             this.isSubmitting = false;
           }
-        );
+        });
     }
   }
 }

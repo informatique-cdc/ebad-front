@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Application, User} from '../../core/models';
-import {UsersService} from '../../core/services';
+import {Application, User} from '../../core';
+import {UsersService} from '../../core';
 import {Observable} from 'rxjs';
 import {UserApplication} from '../../core/models/user-application.model';
-import {Pageable} from "../../core/models/pageable.model";
-import { debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
+import {Pageable} from '../../core/models/pageable.model';
+import { debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-modal-users',
@@ -39,14 +39,14 @@ export class ModalUsersComponent implements OnInit {
       distinctUntilChanged(),
       switchMap(
         (searchText) => {
-          let pageable: any = new Pageable(0, 20);
+          const pageable: any = new Pageable(0, 20);
           pageable.login = searchText;
           return this.usersService.getAll(pageable).pipe(
             map(results => results.content)
-          )
+          );
         }),
     );
-  };
+  }
 
 
 

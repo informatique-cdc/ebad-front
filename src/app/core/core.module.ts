@@ -33,8 +33,8 @@ import {InitConfigService} from './services/init-config.service';
 import {InitAuthConfigService} from './services/init-oauth-config.service';
 import {SseService} from './services/sse.service';
 import {IdentitiesService} from './services/identities.service';
-import {ApiTokensService} from "./services/api-tokens.service";
-import {TerminalsService} from "./services/terminals.service";
+import {ApiTokensService} from './services/api-tokens.service';
+import {TerminalsService} from './services/terminals.service';
 
 @NgModule({
     imports: [

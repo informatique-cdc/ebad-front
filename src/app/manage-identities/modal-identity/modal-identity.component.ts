@@ -41,16 +41,16 @@ export class ModalIdentityComponent implements OnInit {
 
   addIdentity() {
     this.identity.availableApplication = this.applicationSelected.id;
-    if(this.identity.passphrase === '') {
+    if (this.identity.passphrase === '') {
       this.identity.passphrase = undefined;
     }
-    if(this.identity.privatekey === '') {
+    if (this.identity.privatekey === '') {
       this.identity.privatekey = undefined;
     }
-    if(this.identity.privatekeyPath === '') {
+    if (this.identity.privatekeyPath === '') {
       this.identity.privatekeyPath = undefined;
     }
-    if(this.identity.password === '') {
+    if (this.identity.password === '') {
       this.identity.password = undefined;
     }
     if (!this.isUpdate) {

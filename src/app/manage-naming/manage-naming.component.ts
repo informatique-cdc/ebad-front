@@ -9,7 +9,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {Constants} from '../shared/Constants';
 import {ToastService} from '../core/services/toast.service';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
 import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
@@ -45,8 +45,8 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       stateSave: true,
-            stateSaveParams: function (settings, data: any) {
-              data.search.search = "";
+            stateSaveParams(settings, data: any) {
+              data.search.search = '';
             },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
@@ -91,8 +91,8 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   refreshNaming() {
     const that = this;
     this.dtElement.dtInstance.then((dtInstance: any) => {
-      if(dtInstance.context[0].nTableWrapper == null) {
-        setTimeout(function(){ that.refreshNaming() },250);
+      if (dtInstance.context[0].nTableWrapper == null) {
+        setTimeout(() => that.refreshNaming(), 250);
       }else {
         dtInstance.destroy();
         this.dtTrigger.next(undefined);
@@ -154,7 +154,7 @@ export class ManageNamingComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onResizeTable(event){
-    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+    if (event.oldWidth === undefined || event.newWidth === event.oldWidth){
       return;
     }
     this.refreshNaming();

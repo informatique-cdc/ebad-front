@@ -34,7 +34,7 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
     private constants: Constants,
     private toastService: ToastService,
     private translateService: TranslateService,
-    private modalService: NgbModal,) {
+    private modalService: NgbModal, ) {
     this.columns.push({data: 'id', name: 'id', visible: true});
     this.columns.push({data: 'batch.name', name: 'nom', visible: true});
     this.columns.push({data: 'parameters', name: 'paramètres', visible: true});
@@ -46,8 +46,8 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       stateSave: true,
-            stateSaveParams: function (settings, data: any) {
-              data.search.search = "";
+            stateSaveParams(settings, data: any) {
+              data.search.search = '';
             },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
@@ -118,14 +118,16 @@ export class SchedulingsComponent implements AfterViewInit, OnDestroy, OnInit {
       this.refreshSchedulings();
     }, (reason) => {
       if (reason.apierror.message !== undefined) {
-        this.translateService.get('SCHEDULING.MSG.ADD_ERROR', {msg: reason.apierror.message}).subscribe((msg) => this.toastService.showError(msg));
+        this.translateService
+            .get('SCHEDULING.MSG.ADD_ERROR', {msg: reason.apierror.message})
+            .subscribe((msg) => this.toastService.showError(msg));
       }
     });
     modalRef.componentInstance.environment = this.environmentSelected;
   }
 
   onResizeTable(event){
-    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+    if (event.oldWidth === undefined || event.newWidth === event.oldWidth){
       return;
     }
     this.refreshSchedulings();

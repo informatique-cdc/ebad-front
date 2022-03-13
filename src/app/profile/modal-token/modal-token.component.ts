@@ -1,9 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {ApiToken, Application} from '../../core';
-import {FileKind} from '../../core/models/file-kind.model';
-import {FileKindsService} from '../../core/services/file-kinds.service';
-import {ApiTokensService} from "../../core/services/api-tokens.service";
+import {ApiToken} from '../../core';
+import {ApiTokensService} from '../../core/services/api-tokens.service';
 
 @Component({
   selector: 'app-modal-token',
