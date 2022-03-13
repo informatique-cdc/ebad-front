@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+app.disable("x-powered-by");
 require('@cypress/code-coverage/middleware/express')(app)
 
 app.use(express.static(__dirname + '/src'));
