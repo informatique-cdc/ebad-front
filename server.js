@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+app.disable("x-powered-by");
+
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 app.use(express.static(__dirname + '/dist/ebad-front'));
