@@ -1,7 +1,7 @@
 import {ValidationHandler, ValidationParams} from 'angular-oauth2-oidc';
 // import * as rs from 'angular-oauth2-oidc/node_modules/jsrsasign'; Je ne sais pas pourquoi ça a pété du jour au lendemain...
 import * as rs from 'jsrsasign';
-import {ConfigService} from "../core/services/config.service";
+import {ConfigService} from '../core/services/config.service';
 
 export class CustomValidationHandler implements ValidationHandler {
   configService: ConfigService;

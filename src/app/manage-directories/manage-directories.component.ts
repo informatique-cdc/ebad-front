@@ -7,7 +7,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {Subject} from 'rxjs';
 import {Constants} from '../shared/Constants';
 import {ToastService} from '../core/services/toast.service';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
 import LanguageSettings = DataTables.LanguageSettings;
 
 @Component({
@@ -42,8 +42,8 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
     this.dtOptions = {
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       stateSave: true,
-            stateSaveParams: function (settings, data: any) {
-              data.search.search = "";
+            stateSaveParams(settings, data: any) {
+              data.search.search = '';
             },
       order: [[0, 'asc']],
       pagingType: 'full_numbers',
@@ -143,7 +143,7 @@ export class ManageDirectoriesComponent implements AfterViewInit, OnDestroy, OnI
   }
 
   onResizeTable(event){
-    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+    if (event.oldWidth === undefined || event.newWidth === event.oldWidth){
       return;
     }
     this.refreshDirectories();

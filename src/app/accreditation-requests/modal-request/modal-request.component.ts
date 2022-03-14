@@ -9,7 +9,7 @@ import {Pageable} from '../../core/models/pageable.model';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
-  selector: 'ebad-modal-request',
+  selector: 'app-ebad-modal-request',
   templateUrl: './modal-request.component.html'
 })
 export class ModalRequestComponent implements OnInit {
@@ -44,7 +44,7 @@ export class ModalRequestComponent implements OnInit {
             }))
       ),
       tap(() => this.searching = false)
-    );
+    )
 
   ngOnInit(): void {
   }

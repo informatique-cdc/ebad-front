@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 
-import {HttpClient} from "@angular/common/http";
-import {ConfigService} from "./config.service";
-import {environment} from "../../../environments/environment";
+import {HttpClient} from '@angular/common/http';
+import {ConfigService} from './config.service';
+import {environment} from '../../../environments/environment';
 
 
 @Injectable()
@@ -29,12 +29,12 @@ export class InitConfigService {
       this.configService.isReadySubject.next(true);
       return true;
     }).catch((error) => {
-      this.configService.apiUrl = "/api";
+      this.configService.apiUrl = '/api';
       this.configService.jwt = true;
-      this.configService.wsUrl = "/ws";
+      this.configService.wsUrl = '/ws';
       this.configService.isReadySubject.next(true);
       console.warn(error);
-      console.warn("error, default config loaded");
+      console.warn('error, default config loaded');
       return true;
     });
   }

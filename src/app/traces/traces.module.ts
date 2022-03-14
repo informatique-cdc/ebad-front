@@ -5,7 +5,7 @@ import {SharedModule} from '../shared';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
 import {AngularResizeEventModule} from 'angular-resize-event';
-import {ModalLogComponent} from "./modal-log/modal-log.component";
+import {ModalLogComponent} from './modal-log/modal-log.component';
 
 @NgModule({
   declarations: [TracesComponent, ModalLogComponent],

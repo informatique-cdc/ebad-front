@@ -9,7 +9,7 @@ import {ToastService} from '../../core/services/toast.service';
 import {SidebarService} from '../../core/services/sidebar.service';
 
 @Component({
-    selector: '[ebad-header]',
+    selector: '[app-ebad-header]',
     templateUrl: './header.component.html',
     styleUrls: ['./header.scss']
 })
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 this.notifications = notifications;
             }
         );
-      this.sidebarService.sidebarVisibilityChange.subscribe(value => {this.asideVisible = value});
+        this.sidebarService.sidebarVisibilityChange.subscribe(value => {this.asideVisible = value; });
 
     }
 
@@ -61,7 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             return;
         }
         this.notificationsWsReceived.add(result.id);
-        if(result.danger){
+        if (result.danger){
           this.toastService.showError(result.content);
         }else {
           this.toastService.showSuccess(result.content);
@@ -85,6 +85,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
   toggleSidebar() {
-    this.sidebarService.toggleSidebarVisibility()
+    this.sidebarService.toggleSidebarVisibility();
   }
 }

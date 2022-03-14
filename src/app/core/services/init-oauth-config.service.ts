@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 
-import {ConfigService} from "./config.service";
-import {AuthConfig} from "angular-oauth2-oidc";
+import {ConfigService} from './config.service';
+import {AuthConfig} from 'angular-oauth2-oidc';
 
 
 @Injectable()
@@ -11,7 +11,7 @@ export class InitAuthConfigService {
   }
 
   loadConfig(): AuthConfig {
-    let authConfig = new AuthConfig();
+    const authConfig = new AuthConfig();
     authConfig.issuer = this.configService.issuer;
     authConfig.clientId = this.configService.clientId;
     authConfig.loginUrl = this.configService.loginUrl;

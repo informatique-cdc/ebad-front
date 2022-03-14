@@ -9,7 +9,7 @@ import {Constants} from '../shared/Constants';
 import {fromEvent} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
 import {ToastService} from '../core/services/toast.service';
-import {ConfigService} from "../core/services/config.service";
+import {ConfigService} from '../core/services/config.service';
 
 @Component({
   selector: 'app-admin-users',

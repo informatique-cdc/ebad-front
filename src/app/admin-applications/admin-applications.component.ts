@@ -50,8 +50,8 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
       language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
       order: [[2, 'asc']],
       stateSave: true,
-            stateSaveParams: function (settings, data: any) {
-              data.search.search = "";
+            stateSaveParams(settings, data: any) {
+              data.search.search = '';
             },
       pagingType: 'full_numbers',
       pageLength: this.constants.numberByPage,
@@ -173,7 +173,7 @@ export class AdminApplicationsComponent implements AfterViewInit, OnDestroy, OnI
   }
 
   onResizeTable(event){
-    if(event.oldWidth == undefined || event.newWidth === event.oldWidth){
+    if (event.oldWidth === undefined || event.newWidth === event.oldWidth){
       return;
     }
     this.refreshApplication();

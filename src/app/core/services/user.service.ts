@@ -8,7 +8,7 @@ import {User} from '../models';
 import {distinctUntilChanged, map} from 'rxjs/operators';
 import {OauthService} from '../../security/oauth.service';
 import {RxStompService} from '@stomp/ng2-stompjs';
-import {ConfigService} from "./config.service";
+import {ConfigService} from './config.service';
 
 
 @Injectable()
@@ -18,7 +18,7 @@ export class UserService {
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated;
-  private configService: ConfigService
+  private configService: ConfigService;
   constructor(
     private apiService: ApiService,
     private http: HttpClient,

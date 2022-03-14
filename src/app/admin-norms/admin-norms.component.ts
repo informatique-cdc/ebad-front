@@ -41,7 +41,7 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
         this.dtOptions = {
             language: this.constants.datatable[this.translateService.currentLang] as LanguageSettings,
             stateSave: true,
-            stateSaveParams: function(settings, data: any) {
+            stateSaveParams(settings, data: any) {
                 data.search.search = '';
             },
             order: [[1, 'asc']],
@@ -54,7 +54,9 @@ export class AdminNormsComponent implements AfterViewInit, OnDestroy, OnInit {
                     .getAll({
                             page: dataTablesParameters.start / dataTablesParameters.length,
                             size: dataTablesParameters.length,
-                            sort: dataTablesParameters.columns[dataTablesParameters.order[0].column].data + ',' + dataTablesParameters.order[0].dir,
+                            sort: dataTablesParameters
+                                .columns[dataTablesParameters.order[0].column]
+                                .data + ',' + dataTablesParameters.order[0].dir,
                             name: dataTablesParameters.search.value
                         }
                     )
