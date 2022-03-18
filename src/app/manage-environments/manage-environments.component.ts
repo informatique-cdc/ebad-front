@@ -120,7 +120,7 @@ export class ManageEnvironmentsComponent implements AfterViewInit, OnDestroy, On
     }
 
     onClickShowTerminal(env: Environment) {
-        const modalRef = this.modalService.open(ModalEnvironmentTerminalComponent);
+        const modalRef = this.modalService.open(ModalEnvironmentTerminalComponent, {size: 'xl'});
         modalRef.result.then((result) => {
         });
         modalRef.componentInstance.environment = {...env};
