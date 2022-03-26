@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
 
@@ -19,12 +19,13 @@ export class UserService {
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated;
   private configService: ConfigService;
+  private oauthService: OauthService;
   constructor(
     private apiService: ApiService,
     private http: HttpClient,
     private jwtService: JwtService,
-    private oauthService: OauthService,
     private rxStompService: RxStompService,
+    private injector: Injector
 
   ) {
   }
@@ -34,6 +35,7 @@ export class UserService {
     if (this.configService.jwt) {
       this.isAuthenticated = this.isAuthenticatedSubject.asObservable();
     } else {
+      this.oauthService = (this.injector.get(OauthService) as OauthService);
       this.isAuthenticated = this.oauthService.isAuthenticated$;
     }
   }
