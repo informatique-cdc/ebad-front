@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     private configService: ConfigService
   ) {
     if (!configService.jwt) {
-      this.oauthService = (this.injector.get(OauthService) as OauthService);
+      this.oauthService = this.injector.get(OauthService);
     }
   }
 

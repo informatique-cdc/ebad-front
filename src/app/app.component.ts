@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
     if (!configService.jwt) {
-      this.oauthService = (this.injector.get(OauthService) as OauthService);
+      this.oauthService = this.injector.get(OauthService);
     }
   }
 

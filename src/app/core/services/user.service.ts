@@ -35,7 +35,7 @@ export class UserService {
     if (this.configService.jwt) {
       this.isAuthenticated = this.isAuthenticatedSubject.asObservable();
     } else {
-      this.oauthService = (this.injector.get(OauthService) as OauthService);
+      this.oauthService = this.injector.get(OauthService);
       this.isAuthenticated = this.oauthService.isAuthenticated$;
     }
   }
