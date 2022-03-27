@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 
 import {UserService} from './user.service';
@@ -9,12 +9,17 @@ import {ConfigService} from './config.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+  private oauthService: OauthService;
+
   constructor(
     private router: Router,
     private userService: UserService,
-    private oauthService: OauthService,
+    private injector: Injector,
     private configService: ConfigService
   ) {
+    if (!configService.jwt) {
+      this.oauthService = this.injector.get(OauthService);
+    }
   }
 
   canActivate(

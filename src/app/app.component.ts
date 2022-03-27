@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 
 import {GlobalSettingsService, UserService} from './core';
 import {TranslateService} from '@ngx-translate/core';
@@ -15,21 +15,25 @@ import {InitAuthConfigService} from './core/services/init-oauth-config.service';
 export class AppComponent implements OnInit {
   isAuthenticated: boolean;
   asideVisible = true;
+  private oauthService: OauthService;
 
   constructor(
     private userService: UserService,
     private router: Router,
     private translate: TranslateService,
-    private oauthService: OauthService,
     private globalSettingsService: GlobalSettingsService,
     private sidebarService: SidebarService,
     private configService: ConfigService,
-    private initAuthConfigService: InitAuthConfigService
+    private initAuthConfigService: InitAuthConfigService,
+    private injector: Injector
   ) {
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    if (!configService.jwt) {
+      this.oauthService = this.injector.get(OauthService);
+    }
   }
 
   ngOnInit() {
