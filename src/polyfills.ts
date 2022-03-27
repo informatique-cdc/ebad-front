@@ -56,3 +56,9 @@ import 'zone.js'; // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 import 'event-source-polyfill/src/eventsource.min.js';
+
+// For Swagger UI
+(window as any).process = { browser: true };
+(window as any).global = window;
+// @ts-ignore
+window.Buffer = window.Buffer || require('buffer').Buffer;
