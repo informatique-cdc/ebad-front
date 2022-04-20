@@ -46,7 +46,7 @@
     "event-source-polyfill": "^1.0.26",
     "express": "^4.17.3",
     "file-saver": "^2.0.5",
-    "http-proxy-middleware": "^2.0.4",
+    "http-proxy-middleware": "^2.0.5",
     "jquery": "^3.6.0",
     "jsrsasign": "^10.5.17",
     "jsrsasign-util": "^1.0.5",
