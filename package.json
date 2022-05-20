@@ -41,7 +41,7 @@
     "apexcharts": "^3.35.2",
     "bootstrap": "^5.1.3",
     "core-js": "^3.22.5",
-    "datatables.net": "^1.12.0",
+    "datatables.net": "^1.12.1",
     "datatables.net-dt": "^1.12.0",
     "event-source-polyfill": "^1.0.26",
     "express": "^4.18.1",
