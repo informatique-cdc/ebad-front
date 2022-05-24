@@ -48,7 +48,7 @@
     "file-saver": "^2.0.5",
     "http-proxy-middleware": "^2.0.6",
     "jquery": "^3.6.0",
-    "jsrsasign": "^10.5.20",
+    "jsrsasign": "^10.5.22",
     "jsrsasign-util": "^1.0.5",
     "live-server": "^1.2.2",
     "marked": "^4.0.16",
