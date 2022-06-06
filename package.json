@@ -32,7 +32,7 @@
     "@stomp/ng2-stompjs": "^8.0.0",
     "@types/file-saver": "^2.0.5",
     "@types/sockjs-client": "^1.5.1",
-    "angular-datatables": "^13.0.1",
+    "angular-datatables": "^13.1.0",
     "angular-feather": "^6.3.0",
     "angular-oauth2-oidc": "^13.0.1",
     "angular-oauth2-oidc-jwks": "^13.0.1",
