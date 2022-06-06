@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {ApiService, UserService} from '../core';
@@ -15,7 +15,7 @@ export class AuthComponent implements OnInit {
   title = '';
   error = false;
   isSubmitting = false;
-  authForm: FormGroup;
+  authForm: UntypedFormGroup;
   jwt: boolean;
   referer = '/home';
 
@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private apiService: ApiService,
     private oauthService: OauthService,
     private configService: ConfigService
