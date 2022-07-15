@@ -55,7 +55,7 @@
     "ng-apexcharts": "^1.7.1",
     "ng-multiselect-dropdown": "^0.3.8",
     "ng-terminal": "^5.0.0",
-    "ngx-countup": "^13.0.0",
+    "ngx-countup": "^13.1.0",
     "ngx-file-drop": "^13.0.0",
     "ngx-pagination": "^6.0.1",
     "rxjs": "^7.5.5",
