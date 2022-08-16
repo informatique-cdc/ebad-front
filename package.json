@@ -72,7 +72,7 @@
     "@angular/language-service": "^13.3.11",
     "@briebug/cypress-schematic": "^5.0.1",
     "@cypress/code-coverage": "^3.9.12",
-    "@cypress/webpack-preprocessor": "^5.11.1",
+    "@cypress/webpack-preprocessor": "^5.12.2",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/datatables.net": "^1.10.22",
     "@types/jasmine": "~4.0.3",
