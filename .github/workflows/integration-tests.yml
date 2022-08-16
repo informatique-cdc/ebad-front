@@ -8,20 +8,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
           start: npm run start:coverage
           wait-on: 'http://localhost:4200, http://ebad.herokuapp.com/ebad/actuator/health'
           wait-on-timeout: 180
           browser: chrome
           command-prefix: npx
+          install-command: npm ci --legacy-peer-deps
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
       - uses: actions/upload-artifact@v2
-        if: always()
+        if: failure()
         with:
           name: cypress-videos
           path: cypress/videos
