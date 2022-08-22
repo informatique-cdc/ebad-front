@@ -52,7 +52,7 @@
     "jsrsasign": "^10.5.27",
     "jsrsasign-util": "^1.0.5",
     "live-server": "^1.2.2",
-    "marked": "^4.0.16",
+    "marked": "^4.0.19",
     "ng-apexcharts": "^1.7.1",
     "ng-multiselect-dropdown": "^0.3.8",
     "ng-terminal": "^5.0.0",
