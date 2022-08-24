@@ -80,7 +80,7 @@
     "@types/jasmine": "~4.0.3",
     "@types/jasminewd2": "~2.0.10",
     "@types/jquery": "^3.5.14",
-    "@types/node": "^18.7.9",
+    "@types/node": "^18.7.11",
     "codelyzer": "^6.0.2",
     "cypress": "^10.6.0",
     "istanbul-instrumenter-loader": "^3.0.1",
