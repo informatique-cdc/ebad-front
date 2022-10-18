@@ -34,7 +34,7 @@ export class ModalRequestComponent implements OnInit {
       distinctUntilChanged(),
       tap(() => this.searching = true),
       switchMap(term =>
-        this.applicationsService.search(new Pageable(0, 10, 'name,asc'), term)
+        this.applicationsService.search(new Pageable(0, 100, 'name,asc'), term)
           .pipe(
             map(value => value.content),
             tap(() => this.searchFailed = false),
