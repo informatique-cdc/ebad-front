@@ -11,7 +11,7 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           start: npm run start:coverage
-          wait-on: 'http://localhost:4200, http://ebad.herokuapp.com/ebad/actuator/health'
+          wait-on: 'http://localhost:4200, https://ebad-demo.homefaya.fr/ebad/actuator/health'
           wait-on-timeout: 180
           browser: chrome
           command-prefix: npx
