@@ -89,7 +89,7 @@ Cypress.Commands.add("updateIdentityManage", ({applicationName, nameToUpdate, na
 
 
   if (name) {
-    cy.get('#name').clear().type(name);
+    cy.get('#name').invoke('val', '').type(name);
   }
   if (login) {
     cy.get('#login').clear().type(login);
