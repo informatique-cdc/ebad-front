@@ -57,7 +57,7 @@
     "ng-multiselect-dropdown": "^0.3.8",
     "ng-terminal": "^5.2.0",
     "ngx-countup": "^13.0.0",
-    "ngx-file-drop": "^14.0.1",
+    "ngx-file-drop": "^14.0.2",
     "ngx-pagination": "^6.0.1",
     "rxjs": "^7.5.7",
     "stream": "^0.0.2",
