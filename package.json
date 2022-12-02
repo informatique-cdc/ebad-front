@@ -41,7 +41,7 @@
     "angular-svg-icon": "^14.0.0",
     "apexcharts": "^3.36.3",
     "bootstrap": "^5.2.2",
-    "core-js": "^3.26.0",
+    "core-js": "^3.26.1",
     "datatables.net": "^1.13.1",
     "datatables.net-dt": "^1.12.1",
     "event-source-polyfill": "^1.0.26",
