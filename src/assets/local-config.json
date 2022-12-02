@@ -1,6 +1,6 @@
 {
   "production": true,
   "jwt": true,
-  "apiUrl": "https://ebad.herokuapp.com/ebad",
-  "wsUrl": "wss://ebad.herokuapp.com/ebad/ws"
+  "apiUrl": "/ebad",
+  "wsUrl": "wss://ebad-demo.homefaya.fr/ebad/ws"
 }
