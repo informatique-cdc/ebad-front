@@ -71,7 +71,7 @@ Cypress.Commands.add("updateIdentityAdmin", ({nameToUpdate, name, login, passwor
 
 
   if (name) {
-    cy.get('#name').clear()
+    cy.get('#name').clear().clear()
         .then(() => cy.get('#name').should('be.empty'))
         .then(() => cy.get('#name').type(name))
         .then(() => cy.get('#name').should('have.value', name))
