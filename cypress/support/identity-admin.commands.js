@@ -48,6 +48,7 @@ Cypress.Commands.add("updateIdentityAdmin", ({nameToUpdate, name, login, passwor
   cy.get('input[type="search"]').clear();
   cy.get('input[type="search"]').type(nameToUpdate);
   cy.wait('@searchIdentities');
+  cy.get('#actionEdit-' + nameToUpdate, { timeout: 10000 }).should('be.visible');
   cy.getSettled('#actionEdit-' + nameToUpdate, { retries: 2, delay: 500 }).click();
 
 
