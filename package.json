@@ -62,7 +62,7 @@
     "rxjs": "^7.8.0",
     "stream": "^0.0.2",
     "stream-browserify": "^3.0.0",
-    "swagger-ui": "^4.15.5",
+    "swagger-ui": "^4.17.0",
     "tslib": "^2.4.1",
     "zone.js": "~0.11.5"
   },
