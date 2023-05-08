@@ -14,11 +14,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Spring profile
-        run: echo "SPRING_PROFILES_ACTIVE=local,jwt,demo\nSPRING_DATASOURCE_URL=jdbc:h2:~/ebad;MODE=PostgreSQL;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE" > springprofil.env
+        run: echo $'SPRING_PROFILES_ACTIVE=local,jwt,demo\nSPRING_DATASOURCE_URL=jdbc:h2:~/ebad;MODE=PostgreSQL;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE' > springprofil.env
       - name: Cypress run
         uses: cypress-io/github-action@v4
-        env:
-          SPRING_PROFILES_ACTIVE: "local,jwt,demo"
         with:
           start: |
             npm run start:coverage
