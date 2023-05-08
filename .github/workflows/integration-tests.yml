@@ -7,11 +7,19 @@ jobs:
       - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Run Backend
+        uses: addnab/docker-run-action@v3
+        with:
+          username: ${{ secrets.PAT }}
+          password: ${{ secrets.PAT }}
+          registry: ghcr.io
+          image: informatique-cdc/ebad/ebad:2.10.0
+          options: -p 11006:11006
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
           start: npm run start:coverage
-          wait-on: 'http://localhost:4200, https://ebad-demo.homefaya.fr/ebad/actuator/health'
+          wait-on: 'http://localhost:4200, http://localhost:11006/ebad/actuator/health'
           wait-on-timeout: 180
           browser: chrome
           command-prefix: npx
