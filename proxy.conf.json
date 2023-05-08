@@ -1,7 +1,7 @@
 {
   "/ebad":
   {
-    "target": "https://ebad-demo.homefaya.fr",
+    "target": "http://localhost:11006",
     "secure": false,
     "changeOrigin": true
   }
