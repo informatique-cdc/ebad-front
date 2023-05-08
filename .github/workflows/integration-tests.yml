@@ -7,15 +7,27 @@ jobs:
       - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Login to Docker Github
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Spring profile
+        run: echo $'SPRING_PROFILES_ACTIVE=local,jwt,demo\nSPRING_DATASOURCE_URL=jdbc:h2:~/ebad;MODE=PostgreSQL;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE' > springprofil.env
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          start: npm run start:coverage
-          wait-on: 'http://localhost:4200, https://ebad-demo.homefaya.fr/ebad/actuator/health'
+          start: |
+            npm run start:coverage
+            docker run -p 11006:11006 --env-file springprofil.env ghcr.io/informatique-cdc/ebad/ebad:2.11.0
+          wait-on: 'http://localhost:11006/ebad/actuator/health, http://[::1]:4200'
+#          wait-on: 'npx wait-on --timeout 60000 http://localhost:4200'
           wait-on-timeout: 180
           browser: chrome
           command-prefix: npx
           install-command: npm ci --legacy-peer-deps
+          auto-cancel-after-failures: 1
       - uses: actions/upload-artifact@v2
         if: failure()
         with:

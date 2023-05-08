@@ -1,8 +1,8 @@
 {
   "admin": {
-    "login": "admin",
+    "login": "demo",
     "password": "password",
-    "firstname": "admin",
-    "lastname": "admin"
+    "firstname": "demo",
+    "lastname": "demo"
   }
 }
