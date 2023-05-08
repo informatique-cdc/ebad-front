@@ -25,6 +25,7 @@ jobs:
           browser: chrome
           command-prefix: npx
           install-command: npm ci --legacy-peer-deps
+          auto-cancel-after-failures: 1
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
