@@ -35,7 +35,7 @@
     "@types/sockjs-client": "^1.5.1",
     "angular-datatables": "^14.0.0",
     "angular-feather": "^6.5.0",
-    "angular-oauth2-oidc": "^13.0.1",
+    "angular-oauth2-oidc": "^15.0.1",
     "angular-oauth2-oidc-jwks": "^15.0.1",
     "angular-resize-event": "^3.2.0",
     "angular-svg-icon": "^14.0.0",
