@@ -13,7 +13,7 @@ jobs:
           username: ${{ secrets.PAT }}
           password: ${{ secrets.PAT }}
           registry: ghcr.io
-          image: informatique-cdc/ebad/ebad:2.10.0
+          image: ghcr.io/informatique-cdc/ebad/ebad:2.10.0
           options: -p 11006:11006
       - name: Cypress run
         uses: cypress-io/github-action@v4
