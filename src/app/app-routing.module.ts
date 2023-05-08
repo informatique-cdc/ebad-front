@@ -136,8 +136,7 @@ const routes: Routes = [
     // of the modules (PRs welcome 😉)
     preloadingStrategy: PreloadAllModules,
     useHash: true,
-    initialNavigation: 'enabledNonBlocking',
-    relativeLinkResolution: 'legacy'
+    initialNavigation: 'enabledNonBlocking'
 })],
   exports: [RouterModule]
 })
