@@ -15,9 +15,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Cypress run
         uses: cypress-io/github-action@v4
+        env:
+          SPRING_PROFILES_ACTIVE: "local,jwt"
         with:
-          env:
-            SPRING_PROFILES_ACTIVE: "local,jwt"
           start: |
             npm run start:coverage
             docker run -p 11006:11006 -e SPRING_PROFILES_ACTIVE=$SPRING_PROFILES_ACTIVE ghcr.io/informatique-cdc/ebad/ebad:2.10.0
