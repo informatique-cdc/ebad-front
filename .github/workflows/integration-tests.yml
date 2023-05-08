@@ -19,9 +19,9 @@ jobs:
           start: |
             npm run start:coverage
             docker run -p 11006:11006 ghcr.io/informatique-cdc/ebad/ebad:2.10.0
-#          wait-on: 'http://localhost:11006/ebad/actuator/health, http://localhost:4200'
-          wait-on: 'npx wait-on --timeout 60000 http://localhost:4200'
-#          wait-on-timeout: 180
+          wait-on: 'http://localhost:11006/ebad/actuator/health, http://[::1]:4200'
+#          wait-on: 'npx wait-on --timeout 60000 http://localhost:4200'
+          wait-on-timeout: 180
           browser: chrome
           command-prefix: npx
           install-command: npm ci --legacy-peer-deps
