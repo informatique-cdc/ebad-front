@@ -29,7 +29,7 @@
     "@ng-bootstrap/ng-bootstrap": "^13.1.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
-    "@popperjs/core": "^2.11.6",
+    "@popperjs/core": "^2.11.7",
     "@stomp/ng2-stompjs": "^8.0.0",
     "@types/file-saver": "^2.0.5",
     "@types/sockjs-client": "^1.5.1",
