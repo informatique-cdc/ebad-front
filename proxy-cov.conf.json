@@ -1,7 +1,7 @@
 {
   "/ebad":
   {
-    "target": "http://localhost:11006",
+    "target": "http://127.0.0.1:11006",
     "secure": false,
     "changeOrigin": true
   }
