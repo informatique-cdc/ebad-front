@@ -13,6 +13,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Spring profile
+        run: echo "SPRING_PROFILES_ACTIVE=local,jwt,demo" > springprofil.env
       - name: Cypress run
         uses: cypress-io/github-action@v4
         env:
@@ -20,7 +22,7 @@ jobs:
         with:
           start: |
             npm run start:coverage
-            docker run -p 11006:11006 -e SPRING_PROFILES_ACTIVE="local jwt demo" ghcr.io/informatique-cdc/ebad/ebad:2.11.0
+            docker run -p 11006:11006 --env-file springprofil.env ghcr.io/informatique-cdc/ebad/ebad:2.11.0
           wait-on: 'http://localhost:11006/ebad/actuator/health, http://[::1]:4200'
 #          wait-on: 'npx wait-on --timeout 60000 http://localhost:4200'
           wait-on-timeout: 180
