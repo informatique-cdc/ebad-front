@@ -72,7 +72,7 @@
     "@angular/compiler-cli": "^15.2.9",
     "@angular/language-service": "^16.0.0",
     "@briebug/cypress-schematic": "^5.0.1",
-    "@cypress/code-coverage": "^3.10.5",
+    "@cypress/code-coverage": "^3.10.6",
     "@cypress/webpack-preprocessor": "^5.17.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
