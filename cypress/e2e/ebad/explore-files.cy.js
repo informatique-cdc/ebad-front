@@ -1,6 +1,5 @@
 context('Folders Management', () => {
   before(function () {
-    cy.server();
     const currentDate = new Date();
     const timestamp = currentDate.getTime();
     this.normName = 'myNorme-'+timestamp;

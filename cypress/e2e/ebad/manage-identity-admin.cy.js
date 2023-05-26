@@ -7,7 +7,6 @@ context('Identities Administration', () => {
         this.identity3Name = 'TestCyWindows-' + timestamp;
         this.identity4Name = 'TestUpCyLinux-' + timestamp;
         this.identity5Name = 'TestUpCyLinuxNew-' + timestamp;
-        cy.server();
     });
 
     beforeEach(function () {
@@ -36,11 +35,7 @@ context('Identities Administration', () => {
     });
 
     it('List  identities', function () {
-        cy.server();
-        cy.route({
-            method: 'GET',
-            url: '/ebad/identities?page=0&size=*&sort=name,asc&name=TestCy',
-        }).as('searchIdentitiesTest');
+        cy.intercept('GET', '/ebad/identities?page=0&size=*&sort=name,asc&name=TestCy').as('searchIdentitiesTest');
 
         cy.login({login: this.login.admin.login, password: this.login.admin.password})
             .addIdentityAdmin({
@@ -79,11 +74,7 @@ context('Identities Administration', () => {
     });
 
     it('Edit identity', function () {
-        cy.server();
-        cy.route({
-            method: 'GET',
-            url: '/ebad/identities?page=0&size=*&sort=name,asc&name=' + this.identity5Name,
-        }).as('searchIdentitiesTest');
+        cy.intercept('GET', '/ebad/identities?page=0&size=*&sort=name,asc&name=' + this.identity5Name).as('searchIdentitiesTest');
 
         cy.login({login: this.login.admin.login, password: this.login.admin.password})
             .addIdentityAdmin({

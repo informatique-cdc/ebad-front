@@ -1,20 +1,8 @@
 /////////// FOLDER ///////////////
 Cypress.Commands.add("selectFolder", ({appliName, envName, directoryName}) => {
-  cy.server();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/applications?page=0&size=*0&sort=name,asc',
-  }).as('getApplications');
-
-  cy.route({
-    method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=*0&sort=name,asc',
-  }).as('getEnvironments');
-
-  cy.route({
-    method: 'GET',
-    url: '/ebad/directories/env/**',
-  }).as('getDirectories');
+  cy.intercept('GET', '/ebad/applications?page=0&size=*0&sort=name,asc').as('getApplications');
+  cy.intercept('GET', '/ebad/environments?applicationId=**&page=0&size=*0&sort=name,asc').as('getEnvironments');
+  cy.intercept('GET', '/ebad/directories/env/**').as('getDirectories');
 
   cy.get('#functionMenu').click();
   cy.get('#functionFolderMenu').click();
@@ -31,21 +19,9 @@ Cypress.Commands.add("selectFolder", ({appliName, envName, directoryName}) => {
 });
 
 Cypress.Commands.add("addFolder", ({appliName, envName, directoryName, path}) => {
-  cy.server();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/applications/write?page=0&size=*0&sort=name,asc',
-  }).as('getApplications');
-
-  cy.route({
-    method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=*0&sort=name,asc',
-  }).as('getEnvironments');
-
-  cy.route({
-    method: 'PUT',
-    url: '/ebad/directories',
-  }).as('addFolder');
+  cy.intercept('GET', '/ebad/applications/write?page=0&size=*0&sort=name,asc').as('getApplications');
+  cy.intercept('GET', '/ebad/environments?applicationId=**&page=0&size=*0&sort=name,asc').as('getEnvironments');
+  cy.intercept('PUT', '/ebad/directories').as('addFolder');
 
   cy.get('#managementMenu').click();
   cy.get('#folderManageMenu').click();
@@ -65,31 +41,11 @@ Cypress.Commands.add("addFolder", ({appliName, envName, directoryName, path}) =>
 });
 
 Cypress.Commands.add("deleteFolder", ({appliName, envName, directoryName}) => {
-  cy.server();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/applications/write?page=0&size=*0&sort=name,asc',
-  }).as('getApplications');
-
-  cy.route({
-    method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=*0&sort=name,asc',
-  }).as('getEnvironments');
-
-  cy.route({
-    method: 'GET',
-    url: '/ebad/directories/env/**',
-  }).as('getDirectories');
-
-  cy.route({
-    method: 'POST',
-    url: '/ebad/directories/delete',
-  }).as('deleteFolder');
-
-  cy.route({
-    method: 'GET',
-    url: '/ebad/directories/env/**?page=0&size=*&sort=id,asc&name='+directoryName,
-  }).as('searchFolder');
+  cy.intercept('GET', '/ebad/applications/write?page=0&size=*0&sort=name,asc').as('getApplications');
+  cy.intercept('GET', '/ebad/environments?applicationId=**&page=0&size=*0&sort=name,asc').as('getEnvironments');
+  cy.intercept('GET', '/ebad/directories/env/**').as('getDirectories');
+  cy.intercept('POST', '/ebad/directories/delete').as('deleteFolder');
+  cy.intercept('GET', '/ebad/directories/env/**?page=0&size=*&sort=id,asc&name='+directoryName).as('searchFolder');
 
   cy.get('#managementMenu').click();
   cy.get('#folderManageMenu').click();

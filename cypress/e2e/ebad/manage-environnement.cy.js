@@ -6,7 +6,6 @@ context('Environment Management', () => {
     this.identity1Name = 'Identity-'+timestamp;
     this.app1Name = 'ApplicationTest1-'+timestamp;
     this.app2Name = 'ApplicationTest2-'+timestamp;
-    cy.server();
   });
 
   beforeEach(function () {
@@ -55,11 +54,7 @@ context('Environment Management', () => {
   });
 
   it('List environments', function () {
-    cy.server();
-    cy.route({
-      method: 'GET',
-      url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
-    }).as('searchEnvironments');
+    cy.intercept('GET', '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=').as('searchEnvironments');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
     .addEnvironnement({applicationName: this.app1Name, name: 'ProductionCy', host: 'myhost.com', identity: this.identity1Name, homePath: '/home/batch', prefix: 'P', norme: this.norm1Name})
@@ -93,11 +88,7 @@ context('Environment Management', () => {
 
 
   it('Edit environment', function () {
-    cy.server();
-    cy.route({
-      method: 'GET',
-      url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
-    }).as('getEnvironments');
+    cy.intercept('GET', '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=').as('getEnvironments');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .addEnvironnement({applicationName: this.app1Name, name: 'Production', host: 'myhost.com', identity: this.identity1Name, homePath: '/home/batch', prefix: 'P', norme: this.norm1Name});

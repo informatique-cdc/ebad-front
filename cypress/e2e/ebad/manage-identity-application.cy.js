@@ -8,7 +8,6 @@ context('Identities Management', () => {
         this.identity4Name = 'TestUpCyLinux-' + timestamp;
         this.identity5Name = 'TestUpCyLinuxNew-' + timestamp;
         this.app1Name = 'myApp-'+timestamp;
-        cy.server();
     });
 
     beforeEach(function () {
@@ -39,11 +38,7 @@ context('Identities Management', () => {
     });
 
     it('List identities', function () {
-        cy.server();
-        cy.route({
-            method: 'GET',
-            url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name=TestCy',
-        }).as('searchIdentitiesTest');
+        cy.intercept('GET', '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name=TestCy').as('searchIdentitiesTest');
 
         cy.login({login: this.login.admin.login, password: this.login.admin.password})
             .addIdentityManage({
@@ -67,10 +62,7 @@ context('Identities Management', () => {
         cy.get('#managementMenu').click();
         cy.get('#identityManageMenu').click();
 
-        cy.route({
-            method: 'GET',
-            url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='
-        }).as('selectApplication1');
+        cy.intercept('GET', '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name=').as('selectApplication1');
         cy.get("#selectApplication").select(this.app1Name);
         cy.wait('@selectApplication1');
         cy.getSettled('input[type="search"]', { retries: 2, delay: 500 }).type('TestCy');
@@ -91,11 +83,7 @@ context('Identities Management', () => {
     });
 
     it('Edit identity', function () {
-        cy.server();
-        cy.route({
-            method: 'GET',
-            url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name=' + this.identity5Name,
-        }).as('searchIdentitiesTest');
+        cy.intercept('GET', '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name=' + this.identity5Name).as('searchIdentitiesTest');
 
         cy.login({login: this.login.admin.login, password: this.login.admin.password})
             .addIdentityManage({
@@ -134,10 +122,7 @@ context('Identities Management', () => {
         cy.get('#managementMenu').click();
         cy.get('#identityManageMenu').click();
 
-        cy.route({
-            method: 'GET',
-            url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='
-        }).as('selectApplication2');
+        cy.intercept('GET', '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name=').as('selectApplication2');
         cy.get("#selectApplication").select(this.app1Name);
         cy.wait('@selectApplication2');
 

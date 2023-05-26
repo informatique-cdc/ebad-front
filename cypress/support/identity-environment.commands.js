@@ -1,14 +1,8 @@
 /////////// IDENTITY ADMIN///////////////
 Cypress.Commands.add("addIdentityManage", ({applicationName, name, login, password, privatekey, privatekeyPath, passphrase}) => {
-  cy.server();
-  cy.route({
-    method: 'PUT',
-    url: '/ebad/identities'
-  }).as('saveIdentity');
-  cy.route({
-    method: 'GET',
-    url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='
-  }).as('selectApplication');
+  cy.intercept('PUT', '/ebad/identities').as('saveIdentity');
+  cy.intercept('GET', '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name=').as('selectApplication');
+
   cy.get('#managementMenu').click();
   cy.get('#identityManageMenu').click();
   cy.get("#selectApplication").select(applicationName);
@@ -33,19 +27,9 @@ Cypress.Commands.add("addIdentityManage", ({applicationName, name, login, passwo
 });
 
 Cypress.Commands.add("deleteIdentityManage", ({applicationName, name}) => {
-  cy.server();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='+name,
-  }).as('searchIdentity');
-  cy.route({
-    method: 'GET',
-    url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='
-  }).as('selectApplication');
-  cy.route({
-    method: 'DELETE',
-    url: '/ebad/identities/**'
-  }).as('deleteIdentity');
+  cy.intercept('GET', '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='+name).as('searchIdentity');
+  cy.intercept('GET', '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name=').as('selectApplication');
+  cy.intercept('DELETE', '/ebad/identities/**').as('deleteIdentity');
 
   cy.get('#managementMenu').click();
   cy.get('#identityManageMenu').click();
@@ -64,19 +48,10 @@ Cypress.Commands.add("deleteIdentityManage", ({applicationName, name}) => {
 });
 
 Cypress.Commands.add("updateIdentityManage", ({applicationName, nameToUpdate, name, login, password, privatekey, privatekeyPath, passphrase}) => {
-  cy.server();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='+nameToUpdate,
-  }).as('searchIdentities');
-  cy.route({
-    method: 'PATCH',
-    url: '/ebad/identities'
-  }).as('updateIdentities');
-  cy.route({
-    method: 'GET',
-    url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='
-  }).as('selectApplication');
+  cy.intercept('GET', '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='+nameToUpdate).as('searchIdentities');
+  cy.intercept('PATCH', '/ebad/identities').as('updateIdentities');
+  cy.intercept('GET', '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name=').as('selectApplication');
+
   cy.get('#managementMenu').click();
   cy.get('#identityManageMenu').click();
   cy.get("#selectApplication").select(applicationName);
