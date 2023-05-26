@@ -6,9 +6,9 @@ import {ModalEnvironmentComponent} from './modal-environment/modal-environment.c
 import {ModalEnvironmentDeletionComponent} from './modal-environment-deletion/modal-environment-deletion.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizeEventModule} from 'angular-resize-event';
 import {ModalEnvironmentTerminalComponent} from './modal-environment-terminal/modal-environment-terminal.component';
 import {NgTerminalModule} from 'ng-terminal';
+import {NgxResize} from 'ngx-resize';
 
 @NgModule({
     declarations: [
@@ -22,8 +22,8 @@ import {NgTerminalModule} from 'ng-terminal';
         SharedModule,
         NgbModule,
         DataTablesModule,
-        AngularResizeEventModule,
-        NgTerminalModule
+        NgTerminalModule,
+        NgxResize,
     ]
 })
 export class ManageEnvironmentsModule {

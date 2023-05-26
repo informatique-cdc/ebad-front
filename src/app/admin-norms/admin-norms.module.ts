@@ -6,7 +6,8 @@ import {ModalNormComponent} from './modal-norm/modal-norm.component';
 import {ModalNormDeletionComponent} from './modal-norm-deletion/modal-norm-deletion.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizeEventModule} from 'angular-resize-event';
+import {NgxResize} from 'ngx-resize';
+
 
 @NgModule({
     declarations: [AdminNormsComponent, ModalNormComponent, ModalNormDeletionComponent],
@@ -15,7 +16,7 @@ import {AngularResizeEventModule} from 'angular-resize-event';
         SharedModule,
         NgbPaginationModule,
         DataTablesModule,
-        AngularResizeEventModule
+        NgxResize,
     ]
 })
 export class AdminNormsModule {

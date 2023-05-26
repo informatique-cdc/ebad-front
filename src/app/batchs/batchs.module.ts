@@ -6,7 +6,8 @@ import {IconsModule} from '../icons';
 import {ModalRunWithParametersComponent} from './modal-run-with-parameters/modal-run-with-parameters.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizeEventModule} from 'angular-resize-event';
+import {NgxResize} from 'ngx-resize';
+
 
 @NgModule({
     declarations: [BatchsComponent, ModalRunWithParametersComponent],
@@ -16,7 +17,7 @@ import {AngularResizeEventModule} from 'angular-resize-event';
         IconsModule,
         NgbPaginationModule,
         DataTablesModule,
-        AngularResizeEventModule,
+        NgxResize,
     ]
 })
 export class BatchsModule { }

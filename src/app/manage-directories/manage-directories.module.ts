@@ -5,7 +5,8 @@ import {ManageDirectoriesRoutingModule} from './manage-directories-routing.modul
 import {ModalDirectoryComponent} from './modal-directory/modal-directory.component';
 import {ModalDirectoryDeletionComponent} from './modal-directory-deletion/modal-directory-deletion.component';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizeEventModule} from 'angular-resize-event';
+import {NgxResize} from 'ngx-resize';
+
 
 @NgModule({
     declarations: [ManageDirectoriesComponent, ModalDirectoryComponent, ModalDirectoryDeletionComponent],
@@ -13,7 +14,7 @@ import {AngularResizeEventModule} from 'angular-resize-event';
         SharedModule,
         ManageDirectoriesRoutingModule,
         DataTablesModule,
-        AngularResizeEventModule
+        NgxResize,
     ]
 })
 export class ManageDirectoriesModule {

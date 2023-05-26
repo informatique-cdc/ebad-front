@@ -6,7 +6,8 @@ import {ModalIdentityComponent} from './modal-identity/modal-identity.component'
 import {ModalIdentityDeletionComponent} from './modal-identity-deletion/modal-identity-deletion.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizeEventModule} from 'angular-resize-event';
+import {NgxResize} from 'ngx-resize';
+
 
 @NgModule({
     declarations: [AdminIdentitiesComponent, ModalIdentityComponent, ModalIdentityDeletionComponent],
@@ -15,7 +16,7 @@ import {AngularResizeEventModule} from 'angular-resize-event';
         SharedModule,
         NgbPaginationModule,
         DataTablesModule,
-        AngularResizeEventModule
+        NgxResize,
     ]
 })
 export class AdminIdentitiesModule {

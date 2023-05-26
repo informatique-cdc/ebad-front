@@ -5,7 +5,7 @@ import {SharedModule} from '../shared';
 import {ModalRenameComponent} from './modal-rename/modal-rename.component';
 import {NgxFileDropModule} from 'ngx-file-drop';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizeEventModule} from 'angular-resize-event';
+import {NgxResize} from 'ngx-resize';
 
 @NgModule({
     declarations: [FilesComponent, ModalRenameComponent],
@@ -14,7 +14,7 @@ import {AngularResizeEventModule} from 'angular-resize-event';
         SharedModule,
         NgxFileDropModule,
         DataTablesModule,
-        AngularResizeEventModule
+        NgxResize,
     ]
 })
 export class FilesModule { }
