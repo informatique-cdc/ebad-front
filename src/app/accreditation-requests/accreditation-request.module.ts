@@ -7,7 +7,8 @@ import {ListAccreditationRequestComponent} from './list-accreditation-request.co
 import {SynthesisAccreditationRequestComponent} from './synthesis-accreditation-request.component';
 import {ModalRequestComponent} from './modal-request/modal-request.component';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizeEventModule} from 'angular-resize-event';
+import {NgxResize} from 'ngx-resize';
+
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import {AngularResizeEventModule} from 'angular-resize-event';
         NgbPaginationModule,
         NgbTypeaheadModule,
         DataTablesModule,
-        AngularResizeEventModule
+        NgxResize,
     ],
     exports: [
         ListAccreditationRequestComponent,

@@ -8,7 +8,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {IconsModule} from '../icons';
 import {ModalApplicationDeletionComponent} from './modal-application-deletion/modal-application-deletion.component';
 import {DataTablesModule} from 'angular-datatables';
-import {AngularResizeEventModule} from 'angular-resize-event';
+import {NgxResize} from 'ngx-resize';
+
 
 @NgModule({
     declarations: [AdminApplicationsComponent, ModalApplicationComponent, ModalUsersComponent, ModalApplicationDeletionComponent],
@@ -17,8 +18,8 @@ import {AngularResizeEventModule} from 'angular-resize-event';
         SharedModule,
         NgbModule,
         IconsModule,
-        AngularResizeEventModule,
-        DataTablesModule
+        DataTablesModule,
+        NgxResize,
     ]
 })
 export class AdminApplicationsModule {
