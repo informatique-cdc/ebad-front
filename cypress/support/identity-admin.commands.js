@@ -1,10 +1,6 @@
 /////////// IDENTITY ADMIN///////////////
 Cypress.Commands.add("addIdentityAdmin", ({name, login, password, privatekey, privatekeyPath, passphrase}) => {
-  cy.intercept();
-  cy.route({
-    method: 'PUT',
-    url: '/ebad/identities'
-  }).as('saveIdentity');
+  cy.intercept('PUT', '/ebad/identities').as('saveIdentity');
   cy.get('#administrationMenu').click();
   cy.get('#identityAdminMenu').click();
   cy.get('#addIdentityAction').click();
@@ -27,16 +23,8 @@ Cypress.Commands.add("addIdentityAdmin", ({name, login, password, privatekey, pr
 });
 
 Cypress.Commands.add("deleteIdentityAdmin", ({name}) => {
-  cy.intercept();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/identities?page=0&size=*&sort=name,asc&name='+name,
-  }).as('searchIdentity');
-
-  cy.route({
-    method: 'DELETE',
-    url: '/ebad/identities/**'
-  }).as('deleteIdentity');
+  cy.intercept('GET', '/ebad/identities?page=0&size=*&sort=name,asc&name='+name).as('searchIdentity');
+  cy.intercept('DELETE', '/ebad/identities/**').as('deleteIdentity');
 
   cy.get('#administrationMenu').click();
   cy.get('#identityAdminMenu').click();
@@ -52,15 +40,8 @@ Cypress.Commands.add("deleteIdentityAdmin", ({name}) => {
 });
 
 Cypress.Commands.add("updateIdentityAdmin", ({nameToUpdate, name, login, password, privatekey, privatekeyPath, passphrase}) => {
-  cy.intercept();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/identities?page=0&size=*&sort=name,asc&name='+nameToUpdate,
-  }).as('searchIdentities');
-  cy.route({
-    method: 'PATCH',
-    url: '/ebad/identities'
-  }).as('updateIdentities');
+  cy.intercept('GET', '/ebad/identities?page=0&size=*&sort=name,asc&name='+nameToUpdate).as('searchIdentities');
+  cy.intercept('PATCH', '/ebad/identities').as('updateIdentities');
 
   cy.get('#administrationMenu').click();
   cy.get('#identityAdminMenu').click();

@@ -1,10 +1,7 @@
 /////////// NORME ///////////////
 Cypress.Commands.add("addNorme", ({name, interpreteur, shellFolder, fileDate}) => {
-  cy.intercept();
-  cy.route({
-    method: 'PUT',
-    url: '/ebad/norms'
-  }).as('addNorm');
+  cy.intercept('PUT', '/ebad/norms').as('addNorm');
+
   cy.get('#administrationMenu').click();
   cy.get('#normMenu').click();
   cy.get('#addNormAction').click();
@@ -17,16 +14,8 @@ Cypress.Commands.add("addNorme", ({name, interpreteur, shellFolder, fileDate}) =
 });
 
 Cypress.Commands.add("deleteNorme", ({name}) => {
-  cy.intercept();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/norms?page=0&size=*&sort=name,asc&name='+name,
-  }).as('searchNorme');
-
-  cy.route({
-    method: 'DELETE',
-    url: '/ebad/norms/**'
-  }).as('deleteNorm');
+  cy.intercept('GET', '/ebad/norms?page=0&size=*&sort=name,asc&name='+name).as('searchNorme');
+  cy.intercept('DELETE', '/ebad/norms/**').as('deleteNorm');
 
   cy.get('#administrationMenu').click();
   cy.get('#normMenu').click();
@@ -42,15 +31,8 @@ Cypress.Commands.add("deleteNorme", ({name}) => {
 });
 
 Cypress.Commands.add("updateNorme", ({nameToUpdate, name, interpreteur, shellFolder, fileDate}) => {
-  cy.intercept();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/norms?page=0&size=*&sort=name,asc&name='+nameToUpdate,
-  }).as('searchNorme');
-  cy.route({
-    method: 'PATCH',
-    url: '/ebad/norms'
-  }).as('updateNorm');
+  cy.intercept('GET', '/ebad/norms?page=0&size=*&sort=name,asc&name='+nameToUpdate).as('searchNorme');
+  cy.intercept('PATCH', '/ebad/norms').as('updateNorm');
 
   cy.get('#administrationMenu').click();
   cy.get('#normMenu').click();

@@ -1,14 +1,10 @@
 context('Applications Administration', () => {
   before(function () {
-    cy.intercept();
     const currentDate = new Date();
     this.timestamp = currentDate.getTime();
     this.app1Name = 'ApplicationTest1-'+this.timestamp;
     this.app2Name = 'ApplicationTest2-'+this.timestamp;
-    cy.route({
-      method: 'GET',
-      url: '/ebad/applications/gestion*',
-    }).as('searchApplication');
+    cy.intercept('GET', '/ebad/applications/gestion*').as('searchApplication');
   });
 
   beforeEach(function () {
@@ -31,11 +27,7 @@ context('Applications Administration', () => {
   });
 
   it('List applications', function () {
-    cy.intercept();
-    cy.route({
-      method: 'GET',
-      url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+this.timestamp,
-    }).as('searchApplicationTest');
+    cy.intercept('GET','/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+this.timestamp).as('searchApplicationTest');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password});
     cy.addApplication({codeAppli: 'AT1', name: this.app1Name, parmPattern: 'yyyyMMdd', filePattern: 'yyyyMMdd'});

@@ -1,10 +1,6 @@
 /////////// APPLICATION ///////////////
 Cypress.Commands.add("addApplication", ({codeAppli, name, parmPattern, filePattern}) => {
-  cy.intercept();
-  cy.route({
-    method: 'PUT',
-    url: '/ebad/applications/gestion',
-  }).as('addApplication');
+  cy.intercept('PUT', '/ebad/applications/gestion').as('addApplication');
 
   cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
@@ -19,15 +15,9 @@ Cypress.Commands.add("addApplication", ({codeAppli, name, parmPattern, filePatte
 });
 
 Cypress.Commands.add("deleteApplication", ({codeAppli, name}) => {
-  cy.intercept();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+name,
-  }).as('searchApplication');
-  cy.route({
-    method: 'DELETE',
-    url: '/ebad/applications/gestion*',
-  }).as('deleteApplication');
+  cy.intercept('GET', '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+name).as('searchApplication');
+  cy.intercept('DELETE', '/ebad/applications/gestion*').as('deleteApplication');
+
 
   cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
@@ -43,15 +33,8 @@ Cypress.Commands.add("deleteApplication", ({codeAppli, name}) => {
 });
 
 Cypress.Commands.add("updateApplication", ({codeAppliToUpdate, nameToUpdate, codeAppli, name, parmPattern, filePattern}) => {
-  cy.intercept();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameToUpdate,
-  }).as('searchApplication');
-  cy.route({
-    method: 'PATCH',
-    url: '/ebad/applications/gestion',
-  }).as('updateApplication');
+  cy.intercept('GET', '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameToUpdate).as('searchApplication');
+  cy.intercept('PATCH', '/ebad/applications/gestion').as('updateApplication');
 
   cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
@@ -78,21 +61,9 @@ Cypress.Commands.add("updateApplication", ({codeAppliToUpdate, nameToUpdate, cod
 });
 
 Cypress.Commands.add("addUserToApplication", ({codeAppli, nameAppli,firstname, login}) => {
-  cy.intercept();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameAppli,
-  }).as('searchApplication');
-
-  cy.route({
-    method: 'GET',
-    url: '/ebad/users?page=0&size=20&login='+firstname,
-  }).as('searchUser');
-
-  cy.route({
-    method: 'PATCH',
-    url: '/ebad/users/application'
-  }).as('userApplication');
+  cy.intercept('GET', '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameAppli).as('searchApplication');
+  cy.intercept('GET', '/ebad/users?page=0&size=20&login='+firstname).as('searchUser');
+  cy.intercept('PATCH', '/ebad/users/application').as('userApplication');
 
   cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();
@@ -112,21 +83,9 @@ Cypress.Commands.add("addUserToApplication", ({codeAppli, nameAppli,firstname, l
 });
 
 Cypress.Commands.add("addManagerToApplication", ({codeAppli, nameAppli, firstname, login}) => {
-  cy.intercept();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameAppli,
-  }).as('searchApplication');
-
-  cy.route({
-    method: 'GET',
-    url: '/ebad/users?page=0&size=*&login='+firstname,
-  }).as('searchUser');
-
-  cy.route({
-    method: 'PATCH',
-    url: '/ebad/users/application'
-  }).as('userApplication');
+  cy.intercept('GET', '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameAppli).as('searchApplication');
+  cy.intercept('GET', '/ebad/users?page=0&size=*&login='+firstname).as('searchUser');
+  cy.intercept('PATCH', '/ebad/users/application').as('userApplication');
 
   cy.get('#administrationMenu').click();
   cy.get('#applicationMenu').click();

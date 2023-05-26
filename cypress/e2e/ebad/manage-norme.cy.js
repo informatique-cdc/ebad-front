@@ -7,7 +7,6 @@ context('Norms Administration', () => {
     this.norm3Name = 'TestCyWindows-'+timestamp;
     this.norm4Name = 'TestUpCyLinux-'+timestamp;
     this.norm5Name = 'TestUpCyLinuxNew-'+timestamp;
-    cy.intercept();
   });
 
   beforeEach(function () {
@@ -30,11 +29,7 @@ context('Norms Administration', () => {
   });
 
   it('List norms', function () {
-    cy.intercept();
-    cy.route({
-      method: 'GET',
-      url: '/ebad/norms?page=0&size=*&sort=name,asc&name=TestCy',
-    }).as('searchNormeTest');
+    cy.intercept('GET', '/ebad/norms?page=0&size=*&sort=name,asc&name=TestCy').as('searchNormeTest');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .addNorme({name: this.norm2Name, interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.txt'})
@@ -63,11 +58,7 @@ context('Norms Administration', () => {
   });
 
   it('Edit norm', function () {
-    cy.intercept();
-    cy.route({
-      method: 'GET',
-      url: '/ebad/norms?page=0&size=*&sort=name,asc&name='+this.norm5Name,
-    }).as('searchNormeTest');
+    cy.intercept('GET', '/ebad/norms?page=0&size=*&sort=name,asc&name='+this.norm5Name).as('searchNormeTest');
 
     cy.login({login: this.login.admin.login, password: this.login.admin.password})
       .addNorme({name: this.norm4Name, interpreteur: '/bin/bash', shellFolder: 'shell/', fileDate: 'date.in'});

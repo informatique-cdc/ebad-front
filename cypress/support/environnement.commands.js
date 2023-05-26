@@ -1,10 +1,6 @@
 /////////// ENVIRONNEMENT ///////////////
 Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, identity, homePath, prefix, norme}) => {
-  cy.intercept();
-  cy.route({
-    method: 'PUT',
-    url: '/ebad/environments',
-  }).as('addEnvironment');
+  cy.intercept('PUT', '/ebad/environments').as('addEnvironment');
 
   cy.get('#managementMenu').click();
   cy.get('#environmentMenu').click();
@@ -21,22 +17,9 @@ Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, identity
 });
 
 Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName}) => {
-  cy.intercept();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
-  }).as('getEnvironments');
-
-  cy.route({
-    method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name='+environnementName,
-  }).as('searchEnvironment');
-
-  cy.route({
-      method: 'DELETE',
-    url: '/ebad/environments?idEnv=**',
-  }).as('deleteEnvironment');
-
+  cy.intercept('GET', '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=').as('getEnvironments');
+  cy.intercept('GET', '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name='+environnementName).as('searchEnvironment');
+  cy.intercept('DELETE', '/ebad/environments?idEnv=**').as('deleteEnvironment');
 
   cy.get('#managementMenu').click();
   cy.get('#environmentMenu').click();
@@ -59,21 +42,9 @@ Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName
 Cypress.Commands.add("updateEnvironnement", ({
                                                applicationName, environnementNameToUpdate, name, host, identity, homePath, prefix, norme
                                              }) => {
-  cy.intercept();
-  cy.route({
-    method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
-  }).as('getEnvironments');
-
-  cy.route({
-    method: 'GET',
-    url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name='+environnementNameToUpdate,
-  }).as('searchEnvironment');
-
-  cy.route({
-    method: 'PATCH',
-    url: '/ebad/environments',
-  }).as('editEnvironment');
+  cy.intercept('GET', '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=').as('getEnvironments');
+  cy.intercept('GET', '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name='+environnementNameToUpdate).as('searchEnvironment');
+  cy.intercept('PATCH', '/ebad/environments').as('editEnvironment');
 
   cy.get('#managementMenu').click();
   cy.get('#environmentMenu').click();
