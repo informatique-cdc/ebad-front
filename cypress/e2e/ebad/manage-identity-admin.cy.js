@@ -7,7 +7,7 @@ context('Identities Administration', () => {
         this.identity3Name = 'TestCyWindows-' + timestamp;
         this.identity4Name = 'TestUpCyLinux-' + timestamp;
         this.identity5Name = 'TestUpCyLinuxNew-' + timestamp;
-        cy.server();
+        cy.intercept();
     });
 
     beforeEach(function () {
@@ -36,7 +36,7 @@ context('Identities Administration', () => {
     });
 
     it('List  identities', function () {
-        cy.server();
+        cy.intercept();
         cy.route({
             method: 'GET',
             url: '/ebad/identities?page=0&size=*&sort=name,asc&name=TestCy',
@@ -79,7 +79,7 @@ context('Identities Administration', () => {
     });
 
     it('Edit identity', function () {
-        cy.server();
+        cy.intercept();
         cy.route({
             method: 'GET',
             url: '/ebad/identities?page=0&size=*&sort=name,asc&name=' + this.identity5Name,

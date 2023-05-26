@@ -7,7 +7,7 @@ context('Norms Administration', () => {
     this.norm3Name = 'TestCyWindows-'+timestamp;
     this.norm4Name = 'TestUpCyLinux-'+timestamp;
     this.norm5Name = 'TestUpCyLinuxNew-'+timestamp;
-    cy.server();
+    cy.intercept();
   });
 
   beforeEach(function () {
@@ -30,7 +30,7 @@ context('Norms Administration', () => {
   });
 
   it('List norms', function () {
-    cy.server();
+    cy.intercept();
     cy.route({
       method: 'GET',
       url: '/ebad/norms?page=0&size=*&sort=name,asc&name=TestCy',
@@ -63,7 +63,7 @@ context('Norms Administration', () => {
   });
 
   it('Edit norm', function () {
-    cy.server();
+    cy.intercept();
     cy.route({
       method: 'GET',
       url: '/ebad/norms?page=0&size=*&sort=name,asc&name='+this.norm5Name,

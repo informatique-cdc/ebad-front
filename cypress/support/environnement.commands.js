@@ -1,6 +1,6 @@
 /////////// ENVIRONNEMENT ///////////////
 Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, identity, homePath, prefix, norme}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'PUT',
     url: '/ebad/environments',
@@ -21,7 +21,7 @@ Cypress.Commands.add("addEnvironnement", ({applicationName, name, host, identity
 });
 
 Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
@@ -59,7 +59,7 @@ Cypress.Commands.add("deleteEnvironnement", ({applicationName, environnementName
 Cypress.Commands.add("updateEnvironnement", ({
                                                applicationName, environnementNameToUpdate, name, host, identity, homePath, prefix, norme
                                              }) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',

@@ -1,6 +1,6 @@
 /////////// NORME ///////////////
 Cypress.Commands.add("addNorme", ({name, interpreteur, shellFolder, fileDate}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'PUT',
     url: '/ebad/norms'
@@ -17,7 +17,7 @@ Cypress.Commands.add("addNorme", ({name, interpreteur, shellFolder, fileDate}) =
 });
 
 Cypress.Commands.add("deleteNorme", ({name}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/norms?page=0&size=*&sort=name,asc&name='+name,
@@ -42,7 +42,7 @@ Cypress.Commands.add("deleteNorme", ({name}) => {
 });
 
 Cypress.Commands.add("updateNorme", ({nameToUpdate, name, interpreteur, shellFolder, fileDate}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/norms?page=0&size=*&sort=name,asc&name='+nameToUpdate,

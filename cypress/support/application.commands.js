@@ -1,6 +1,6 @@
 /////////// APPLICATION ///////////////
 Cypress.Commands.add("addApplication", ({codeAppli, name, parmPattern, filePattern}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'PUT',
     url: '/ebad/applications/gestion',
@@ -19,7 +19,7 @@ Cypress.Commands.add("addApplication", ({codeAppli, name, parmPattern, filePatte
 });
 
 Cypress.Commands.add("deleteApplication", ({codeAppli, name}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+name,
@@ -43,7 +43,7 @@ Cypress.Commands.add("deleteApplication", ({codeAppli, name}) => {
 });
 
 Cypress.Commands.add("updateApplication", ({codeAppliToUpdate, nameToUpdate, codeAppli, name, parmPattern, filePattern}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameToUpdate,
@@ -78,7 +78,7 @@ Cypress.Commands.add("updateApplication", ({codeAppliToUpdate, nameToUpdate, cod
 });
 
 Cypress.Commands.add("addUserToApplication", ({codeAppli, nameAppli,firstname, login}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameAppli,
@@ -112,7 +112,7 @@ Cypress.Commands.add("addUserToApplication", ({codeAppli, nameAppli,firstname, l
 });
 
 Cypress.Commands.add("addManagerToApplication", ({codeAppli, nameAppli, firstname, login}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+nameAppli,

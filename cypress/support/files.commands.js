@@ -1,6 +1,6 @@
 /////////// FOLDER ///////////////
 Cypress.Commands.add("selectFolder", ({appliName, envName, directoryName}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/applications?page=0&size=*0&sort=name,asc',
@@ -31,7 +31,7 @@ Cypress.Commands.add("selectFolder", ({appliName, envName, directoryName}) => {
 });
 
 Cypress.Commands.add("addFolder", ({appliName, envName, directoryName, path}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/applications/write?page=0&size=*0&sort=name,asc',
@@ -65,7 +65,7 @@ Cypress.Commands.add("addFolder", ({appliName, envName, directoryName, path}) =>
 });
 
 Cypress.Commands.add("deleteFolder", ({appliName, envName, directoryName}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/applications/write?page=0&size=*0&sort=name,asc',

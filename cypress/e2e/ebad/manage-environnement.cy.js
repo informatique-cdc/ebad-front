@@ -6,7 +6,7 @@ context('Environment Management', () => {
     this.identity1Name = 'Identity-'+timestamp;
     this.app1Name = 'ApplicationTest1-'+timestamp;
     this.app2Name = 'ApplicationTest2-'+timestamp;
-    cy.server();
+    cy.intercept();
   });
 
   beforeEach(function () {
@@ -55,7 +55,7 @@ context('Environment Management', () => {
   });
 
   it('List environments', function () {
-    cy.server();
+    cy.intercept();
     cy.route({
       method: 'GET',
       url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',
@@ -93,7 +93,7 @@ context('Environment Management', () => {
 
 
   it('Edit environment', function () {
-    cy.server();
+    cy.intercept();
     cy.route({
       method: 'GET',
       url: '/ebad/environments?applicationId=**&page=0&size=*&sort=id,asc&name=',

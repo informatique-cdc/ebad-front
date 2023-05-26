@@ -1,6 +1,6 @@
 context('Applications Administration', () => {
   before(function () {
-    cy.server();
+    cy.intercept();
     const currentDate = new Date();
     this.timestamp = currentDate.getTime();
     this.app1Name = 'ApplicationTest1-'+this.timestamp;
@@ -31,7 +31,7 @@ context('Applications Administration', () => {
   });
 
   it('List applications', function () {
-    cy.server();
+    cy.intercept();
     cy.route({
       method: 'GET',
       url: '/ebad/applications/gestion?page=0&size=*&sort=name,asc&name='+this.timestamp,

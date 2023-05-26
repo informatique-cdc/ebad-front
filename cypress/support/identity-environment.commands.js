@@ -1,6 +1,6 @@
 /////////// IDENTITY ADMIN///////////////
 Cypress.Commands.add("addIdentityManage", ({applicationName, name, login, password, privatekey, privatekeyPath, passphrase}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'PUT',
     url: '/ebad/identities'
@@ -33,7 +33,7 @@ Cypress.Commands.add("addIdentityManage", ({applicationName, name, login, passwo
 });
 
 Cypress.Commands.add("deleteIdentityManage", ({applicationName, name}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='+name,
@@ -64,7 +64,7 @@ Cypress.Commands.add("deleteIdentityManage", ({applicationName, name}) => {
 });
 
 Cypress.Commands.add("updateIdentityManage", ({applicationName, nameToUpdate, name, login, password, privatekey, privatekeyPath, passphrase}) => {
-  cy.server();
+  cy.intercept();
   cy.route({
     method: 'GET',
     url: '/ebad/identities?applicationId=*&page=0&size=*&sort=name,asc&name='+nameToUpdate,
