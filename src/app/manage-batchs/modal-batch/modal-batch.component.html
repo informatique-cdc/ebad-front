@@ -43,7 +43,7 @@
     <div class="form-group">
       <label for="environments">Environnements</label>
       <div class="input-group">
-        <ng-multiselect-dropdown
+        <ng-multiselect-dropdown3
           required
           [placeholder]="'Environnments'"
           [data]="dropdownList"
@@ -54,7 +54,7 @@
           id="environments"
           [ngClass]="{ 'is-invalid': batchForm.submitted && batch.environnements.length === 0 }"
         >
-        </ng-multiselect-dropdown>
+        </ng-multiselect-dropdown3>
         <div *ngIf="batchForm.submitted && batch.environnements.length === 0" class="invalid-feedback">
           <div>Environnements requis</div>
         </div>
