@@ -14,7 +14,7 @@ import {AngularResizeEventModule} from 'angular-resize-event';
     imports: [
         SharedModule,
         ManageBatchsRoutingModule,
-      NgMultiselectDropdown3Module,
+        NgMultiselectDropdown3Module,
         NgbPaginationModule,
         DataTablesModule,
         AngularResizeEventModule
