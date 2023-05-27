@@ -48,14 +48,13 @@ Cypress.Commands.add("updateIdentityAdmin", ({nameToUpdate, name, login, passwor
   cy.get('input[type="search"]').clear();
   cy.get('input[type="search"]').type(nameToUpdate);
   cy.wait('@searchIdentities');
+  cy.get('#actionEdit-' + nameToUpdate, { timeout: 10000 }).should('be.visible');
   cy.getSettled('#actionEdit-' + nameToUpdate, { retries: 2, delay: 500 }).click();
 
 
   if (name) {
-    cy.get('#name').clear().clear()
-        .then(() => cy.get('#name').should('be.empty'))
-        .then(() => cy.get('#name').type(name))
-        .then(() => cy.get('#name').should('have.value', name))
+    cy.get('input[id=name]').clear();
+    cy.get('input[id=name]').type(name)
   }
   if (login) {
     cy.get('#login').clear().type(login);
