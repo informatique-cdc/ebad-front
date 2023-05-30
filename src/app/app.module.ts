@@ -66,7 +66,7 @@ registerLocaleData(localeFr);
       ],
       multi: true
     },
-  RxStompService],
+    RxStompService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

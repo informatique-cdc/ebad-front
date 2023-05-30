@@ -6,7 +6,7 @@ import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {User} from '../models';
 import {distinctUntilChanged, map} from 'rxjs/operators';
-import {OauthService} from '../../security/oauth.service';
+import {AuthService} from '../../security/oauth.service';
 import {RxStompService} from '@stomp/ng2-stompjs';
 import {ConfigService} from './config.service';
 
@@ -19,7 +19,7 @@ export class UserService {
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated;
   private configService: ConfigService;
-  private oauthService: OauthService;
+  private authService: AuthService;
   constructor(
     private apiService: ApiService,
     private http: HttpClient,
@@ -35,8 +35,8 @@ export class UserService {
     if (this.configService.jwt) {
       this.isAuthenticated = this.isAuthenticatedSubject.asObservable();
     } else {
-      this.oauthService = this.injector.get(OauthService);
-      this.isAuthenticated = this.oauthService.isAuthenticated$;
+      this.authService = this.injector.get(AuthService);
+      this.isAuthenticated = this.authService.isAuthenticated$;
     }
   }
 
@@ -83,7 +83,7 @@ export class UserService {
   purgeAuth() {
     this.rxStompService.deactivate();
     if (!this.configService.jwt) {
-      this.oauthService.logout();
+      this.authService.logout();
     }
     // Remove JWT from localstorage
     this.jwtService.destroyToken();

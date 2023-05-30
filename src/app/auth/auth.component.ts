@@ -3,7 +3,7 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {ApiService, UserService} from '../core';
-import {OauthService} from '../security/oauth.service';
+import {AuthService} from '../security/oauth.service';
 import {ConfigService} from '../core/services/config.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class AuthComponent implements OnInit {
     private userService: UserService,
     private fb: UntypedFormBuilder,
     private apiService: ApiService,
-    private oauthService: OauthService,
+    private authService: AuthService,
     private configService: ConfigService
   ) {
     this.jwt = this.configService.jwt;
@@ -50,7 +50,8 @@ export class AuthComponent implements OnInit {
 
   submitForm() {
     if (!this.jwt) {
-      this.oauthService.login(this.referer);
+      console.log('login');
+      this.authService.login();
     }else {
       this.isSubmitting = true;
       this.error = false;

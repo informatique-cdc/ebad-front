@@ -1,6 +1,7 @@
 import {HttpClientModule} from '@angular/common/http';
-import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
+import {APP_INITIALIZER, ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {
+  AuthConfig,
   OAuthModule,
   OAuthModuleConfig,
   OAuthStorage,
@@ -8,9 +9,12 @@ import {
 } from 'angular-oauth2-oidc';
 import {JwksValidationHandler} from 'angular-oauth2-oidc-jwks';
 import {AuthGuard} from '../core';
-import {OauthService} from './oauth.service';
+import {AuthService} from './oauth.service';
 import {oauthModuleConfig} from './oauth-module-config';
 import {OauthGuardWithForcedLogin} from './oauth-guard-with-forced-login.service';
+import {authAppInitializerFactory} from './auth-app-initializer.factory';
+import {InitAuthConfigService} from '../core/services/init-oauth-config.service';
+import {InitConfigService} from '../core/services/init-config.service';
 
 export function storageFactory(): OAuthStorage {
   return localStorage;
@@ -22,7 +26,7 @@ export function storageFactory(): OAuthStorage {
     OAuthModule.forRoot()
   ],
   providers: [
-    OauthService,
+    AuthService,
     AuthGuard,
     OauthGuardWithForcedLogin,
   ],
@@ -33,6 +37,7 @@ export class SecurityModule {
     return {
       ngModule: SecurityModule,
       providers: [
+        { provide: APP_INITIALIZER, useFactory: authAppInitializerFactory, deps: [AuthService, InitAuthConfigService, InitConfigService], multi: true },
         { provide: OAuthModuleConfig, useValue: oauthModuleConfig },
         { provide: ValidationHandler, useClass: JwksValidationHandler },
         { provide: OAuthStorage, useFactory: storageFactory },

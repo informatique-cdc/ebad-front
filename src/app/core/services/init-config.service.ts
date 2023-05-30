@@ -13,13 +13,16 @@ export class InitConfigService {
 
   loadConfig(): Promise<boolean> {
     return this.httpClient.get(environment.configLocation).toPromise().then((x: ConfigService) => {
+      console.log('loadConfig http');
+      console.log('jwt ' + x.jwt);
+      console.log('environment.configLocation ' + environment.configLocation);
       this.configService.baseUrl = x.baseUrl;
       this.configService.apiUrl = x.apiUrl;
       this.configService.clientId = x.clientId;
       this.configService.issuer = x.issuer;
       this.configService.jwt = x.jwt;
-      this.configService.loginUrl = x.loginUrl;
-      this.configService.logoutUrl = x.logoutUrl;
+      // this.configService.loginUrl = x.loginUrl;
+      // this.configService.logoutUrl = x.logoutUrl;
       this.configService.production = x.production;
       this.configService.scope = x.scope;
       this.configService.tokenEndpoint = x.tokenEndpoint;

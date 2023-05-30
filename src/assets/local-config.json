@@ -1,6 +1,9 @@
 {
   "production": true,
-  "jwt": true,
+  "jwt": false,
   "apiUrl": "/ebad",
-  "wsUrl": "wss://ebad-demo.homefaya.fr/ebad/ws"
+  "wsUrl": "wss://ebad-demo.homefaya.fr/ebad/ws",
+  "issuer": "http://idp.local/realms/Test",
+  "clientId": "ebad",
+  "scope": "openid profile email offline_access"
 }

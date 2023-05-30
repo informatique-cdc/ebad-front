@@ -4,12 +4,12 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import {UserService} from './user.service';
 import {take, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {OauthService} from '../../security/oauth.service';
+import {AuthService} from '../../security/oauth.service';
 import {ConfigService} from './config.service';
 
 @Injectable()
 export class AuthGuard  {
-  private oauthService: OauthService;
+  private authService: AuthService;
 
   constructor(
     private router: Router,
@@ -18,7 +18,7 @@ export class AuthGuard  {
     private configService: ConfigService
   ) {
     if (!configService.jwt) {
-      this.oauthService = this.injector.get(OauthService);
+      this.authService = this.injector.get(AuthService);
     }
   }
 
@@ -44,7 +44,7 @@ export class AuthGuard  {
       return canActivate;
     }else {
       console.debug('canActivate oauth');
-      return this.oauthService.canActivateProtectedRoutes$
+      return this.authService.canActivateProtectedRoutes$
         .pipe(tap(x => {
           console.log('You tried to go to ' + state.url + ' and this guard said ' + x);
           if (!x){
