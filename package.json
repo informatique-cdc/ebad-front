@@ -28,7 +28,7 @@
     "@ckeditor/ckeditor5-build-classic": "^38.0.1",
     "@ng-bootstrap/ng-bootstrap": "^15.0.0",
     "@ngx-translate/core": "^15.0.0",
-    "@ngx-translate/http-loader": "^7.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "@popperjs/core": "^2.11.8",
     "@stomp/ng2-stompjs": "^8.0.0",
     "@types/file-saver": "^2.0.5",
