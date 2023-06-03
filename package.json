@@ -69,7 +69,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.4",
     "@angular/cli": "^16.0.3",
-    "@angular/compiler-cli": "^16.0.3",
+    "@angular/compiler-cli": "^16.0.4",
     "@angular/language-service": "^16.0.3",
     "@cypress/code-coverage": "^3.10.7",
     "@cypress/schematic": "^2.5.0",
