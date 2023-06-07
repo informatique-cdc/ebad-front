@@ -10,7 +10,6 @@ import {
 import {JwksValidationHandler} from 'angular-oauth2-oidc-jwks';
 import {AuthGuard} from '../core';
 import {AuthService} from './oauth.service';
-import {oauthModuleConfig} from './oauth-module-config';
 import {OauthGuardWithForcedLogin} from './oauth-guard-with-forced-login.service';
 import {authAppInitializerFactory} from './auth-app-initializer.factory';
 import {InitAuthConfigService} from '../core/services/init-oauth-config.service';
@@ -38,7 +37,6 @@ export class SecurityModule {
       ngModule: SecurityModule,
       providers: [
         { provide: APP_INITIALIZER, useFactory: authAppInitializerFactory, deps: [AuthService, InitAuthConfigService, InitConfigService], multi: true },
-        { provide: OAuthModuleConfig, useValue: oauthModuleConfig },
         { provide: ValidationHandler, useClass: JwksValidationHandler },
         { provide: OAuthStorage, useFactory: storageFactory },
       ]
