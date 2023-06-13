@@ -64,7 +64,7 @@
     "stream-browserify": "^3.0.0",
     "swagger-ui": "^4.19.0",
     "tslib": "^2.5.3",
-    "zone.js": "~0.13.0"
+    "zone.js": "~0.13.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.5",
