@@ -73,7 +73,7 @@
     "@angular/language-service": "^16.0.5",
     "@cypress/code-coverage": "^3.11.0",
     "@cypress/schematic": "^2.5.0",
-    "@cypress/webpack-preprocessor": "^5.17.1",
+    "@cypress/webpack-preprocessor": "^6.0.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
     "@types/datatables.net": "^1.10.24",
