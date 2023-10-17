@@ -77,7 +77,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
     "@types/datatables.net": "^1.10.24",
-    "@types/jasmine": "~4.3.5",
+    "@types/jasmine": "~5.1.0",
     "@types/jasminewd2": "~2.0.11",
     "@types/jquery": "^3.5.17",
     "@types/node": "^20.5.7",
