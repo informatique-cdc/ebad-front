@@ -31,7 +31,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "@popperjs/core": "^2.11.8",
     "@stomp/ng2-stompjs": "^8.0.0",
-    "@types/file-saver": "^2.0.5",
+    "@types/file-saver": "^2.0.7",
     "@types/sockjs-client": "^1.5.1",
     "angular-datatables": "^16.0.0",
     "angular-feather": "^6.5.0",
