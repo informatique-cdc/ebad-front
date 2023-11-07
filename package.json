@@ -84,7 +84,7 @@
     "codelyzer": "^6.0.2",
     "cypress": "^12.17.3",
     "istanbul-instrumenter-loader": "^3.0.1",
-    "istanbul-lib-coverage": "^3.2.0",
+    "istanbul-lib-coverage": "^3.2.1",
     "jasmine-core": "~5.1.1",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "~6.4.2",
