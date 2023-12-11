@@ -95,7 +95,7 @@
     "ngx-build-plus": "^16.0.0",
     "nyc": "^15.1.0",
     "source-map-support": "^0.5.21",
-    "ts-node": "^10.8.0",
+    "ts-node": "^10.9.2",
     "tslint": "~6.1.0",
     "typescript": "5.0.4"
   },
