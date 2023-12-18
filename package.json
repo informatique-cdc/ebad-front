@@ -38,7 +38,7 @@
     "angular-oauth2-oidc": "^15.0.1",
     "angular-oauth2-oidc-jwks": "^15.0.1",
     "angular-svg-icon": "^16.1.0",
-    "apexcharts": "^3.41.1",
+    "apexcharts": "^3.45.0",
     "bootstrap": "^5.2.3",
     "core-js": "^3.32.0",
     "datatables.net": "^1.13.6",
