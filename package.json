@@ -40,7 +40,7 @@
     "angular-svg-icon": "^16.1.0",
     "apexcharts": "^3.41.1",
     "bootstrap": "^5.2.3",
-    "core-js": "^3.32.0",
+    "core-js": "^3.35.0",
     "datatables.net": "^1.13.6",
     "datatables.net-dt": "^1.13.6",
     "event-source-polyfill": "^1.0.26",
