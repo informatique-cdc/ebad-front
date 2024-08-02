@@ -39,7 +39,7 @@
     "angular-oauth2-oidc-jwks": "^15.0.1",
     "angular-svg-icon": "^16.1.0",
     "apexcharts": "^3.41.1",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^5.3.3",
     "core-js": "^3.32.0",
     "datatables.net": "^1.13.6",
     "datatables.net-dt": "^1.13.8",
