@@ -35,7 +35,7 @@
     "@types/sockjs-client": "^1.5.1",
     "angular-datatables": "^16.0.0",
     "angular-feather": "^6.5.0",
-    "angular-oauth2-oidc": "^15.0.1",
+    "angular-oauth2-oidc": "^17.0.2",
     "angular-oauth2-oidc-jwks": "^15.0.1",
     "angular-svg-icon": "^16.1.0",
     "apexcharts": "^3.41.1",
