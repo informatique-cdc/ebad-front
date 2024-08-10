@@ -2,5 +2,5 @@
   "production": true,
   "jwt": true,
   "apiUrl": "/ebad",
-  "wsUrl": "wss://ebad-demo.homefaya.fr/ebad/ws"
+  "wsUrl": "ws://localhost:11006/ebad/ws"
 }
